@@ -88,8 +88,12 @@
         <java.version>1.8</java.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <jbcrypt.version>0.4.3</jbcrypt.version>
+        <jdbc.group>com.h2database</jdbc.group>
+        <jdbc.artifact>h2</jdbc.artifact>
+        <jdbc.version>2.1.212</jdbc.version>
         <jgrapht.version>1.4.0</jgrapht.version>
         <jool.version>0.9.15</jool.version>
+        <jooq.group>org.jooq</jooq.group>
         <jooq.version>3.13.2</jooq.version> <!--If this changes see issue #4553 -->
         <junit.version>5.10.0</junit.version>
         <jwt.version>4.3.0</jwt.version>
@@ -592,7 +596,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M2</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>default-cli</id>
@@ -640,6 +644,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -674,7 +679,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0-M9</version>
                 <reportSets>
                     <reportSet>
                         <!-- defines aggregate unit test report -->
