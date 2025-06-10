@@ -1,0 +1,5405 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.05.02-5e1bff7-licensed",
+    "creationTimestamp" : "2025-05-30T15:37:51.9614767+01:00",
+    "command" : "dcover create --coverage-reports --upload=http://localhost:8080",
+    "totalTime" : 2631.45,
+    "environmentDetectionTime" : 4.199,
+    "indexingTime" : 0.702,
+    "entryPointsTime" : 4.097,
+    "generationTime" : 1830.331,
+    "timeToFirstTest" : 100.026,
+    "timeToLastTest" : 2534.865,
+    "indexQueryTime" : 25.329,
+    "verificationTime" : 664.737,
+    "validationTime" : 45.741
+  },
+  "codes" : {
+    "F009" : "Internal error",
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "R031" : "Method may be time-sensitive",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T012" : "Synthetic method",
+    "T020" : "Other trivial method",
+    "T021" : "Empty method body",
+    "T023" : "Testability unknown",
+    "V000" : "Validated successfully",
+    "W001" : "Test did not compile",
+    "W002" : "Test compiled, but did not pass"
+  },
+  "summary" : {
+    "classesCount" : 37,
+    "methodsCount" : 349,
+    "cumulativeDiffblueTestCount" : 809,
+    "cumulativeManualTestCount" : 628,
+    "completeTestCount" : 809,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 2076,
+    "perMethodTestability" : {
+      "T000" : 233,
+      "T001" : 17,
+      "T002" : 1,
+      "T003" : 5,
+      "T005" : 36,
+      "T012" : 53,
+      "T020" : 2,
+      "T021" : 1,
+      "T023" : 1
+    },
+    "perMethodOutcome" : {
+      "F009" : 2,
+      "R000" : 240,
+      "R002" : 2,
+      "R004" : 2,
+      "R013" : 9,
+      "R031" : 3,
+      "T003" : 5,
+      "T005" : 27,
+      "T012" : 53,
+      "T023" : 1,
+      "W001" : 5
+    },
+    "perTestOutcome" : {
+      "R000" : 809
+    },
+    "perTestValidation" : {
+      "V000" : 809
+    },
+    "warnings" : {
+      "W001" : 14,
+      "W002" : 3
+    }
+  },
+  "classes" : {
+    "org.finos.waltz.common.Aliases" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "T003" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.finos.waltz.common.ArrayUtilities" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 12,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 12
+      }
+    },
+    "org.finos.waltz.common.BatchProcessingCollector" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 6,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "R000" : 5,
+        "R004" : 1,
+        "T012" : 4
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.finos.waltz.common.Checks" : {
+      "methodsCount" : 15,
+      "completeTestCount" : 28,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 13,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 13,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 28
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.finos.waltz.common.CollectionUtilities" : {
+      "methodsCount" : 17,
+      "completeTestCount" : 48,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 16,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 16,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 48
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.finos.waltz.common.Columns" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.finos.waltz.common.DateTimeUtilities" : {
+      "methodsCount" : 11,
+      "completeTestCount" : 11,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 9,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6,
+        "R031" : 3,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 11
+      }
+    },
+    "org.finos.waltz.common.DebugUtilities" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R013" : 2,
+        "T005" : 1,
+        "T012" : 1,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 3
+      }
+    },
+    "org.finos.waltz.common.DigestUtilities" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.finos.waltz.common.EnumUtilities" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      }
+    },
+    "org.finos.waltz.common.FunctionUtilities" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1,
+        "T012" : 3,
+        "T021" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "T005" : 2,
+        "T012" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      }
+    },
+    "org.finos.waltz.common.IOUtilities" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "warnings" : {
+        "W002" : 1
+      }
+    },
+    "org.finos.waltz.common.JacksonUtilities" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T005" : 3,
+        "T012" : 1
+      }
+    },
+    "org.finos.waltz.common.ListUtilities" : {
+      "methodsCount" : 20,
+      "completeTestCount" : 60,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 19,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 19,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 60
+      }
+    },
+    "org.finos.waltz.common.LoggingUtilities" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R004" : 1,
+        "T005" : 1
+      }
+    },
+    "org.finos.waltz.common.MapBuilder" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.finos.waltz.common.MapUtilities" : {
+      "methodsCount" : 35,
+      "completeTestCount" : 48,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 27,
+        "T005" : 1,
+        "T012" : 7
+      },
+      "perMethodOutcome" : {
+        "R000" : 23,
+        "R013" : 1,
+        "T005" : 1,
+        "T012" : 7,
+        "W001" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 48
+      },
+      "warnings" : {
+        "W001" : 8
+      }
+    },
+    "org.finos.waltz.common.ObjectUtilities" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "warnings" : {
+        "W002" : 1
+      }
+    },
+    "org.finos.waltz.common.OptionalUtilities" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 15,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 15
+      }
+    },
+    "org.finos.waltz.common.PredicateUtilities" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6,
+        "R013" : 1,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      }
+    },
+    "org.finos.waltz.common.RandomUtilities" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 20,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 10,
+        "T001" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7,
+        "R013" : 3,
+        "T005" : 2,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 20
+      }
+    },
+    "org.finos.waltz.common.RangeBand" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 27,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 6,
+        "T001" : 2,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 27
+      }
+    },
+    "org.finos.waltz.common.SetUtilities" : {
+      "methodsCount" : 21,
+      "completeTestCount" : 65,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 18,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 18,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 65
+      }
+    },
+    "org.finos.waltz.common.StreamUtilities" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 8,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.finos.waltz.common.StringUtilities" : {
+      "methodsCount" : 38,
+      "completeTestCount" : 359,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 32,
+        "T005" : 1,
+        "T012" : 4,
+        "T023" : 1
+      },
+      "perMethodOutcome" : {
+        "F009" : 2,
+        "R000" : 30,
+        "T005" : 1,
+        "T012" : 4,
+        "T023" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 359
+      },
+      "warnings" : {
+        "W002" : 1
+      }
+    },
+    "org.finos.waltz.common.SvgUtilities" : {
+      "methodsCount" : 16,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1,
+        "T012" : 13
+      },
+      "perMethodOutcome" : {
+        "R013" : 2,
+        "T005" : 1,
+        "T012" : 13
+      }
+    },
+    "org.finos.waltz.common.XmlUtilities" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 7
+      }
+    },
+    "org.finos.waltz.common.exception.DuplicateKeyException" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.finos.waltz.common.exception.InsufficientPrivelegeException" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.finos.waltz.common.exception.ModifyingReadOnlyRecordException" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.finos.waltz.common.exception.NotFoundException" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.finos.waltz.common.exception.UpdateFailedException" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.finos.waltz.common.hierarchy.Forest" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities" : {
+      "methodsCount" : 18,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T003" : 3,
+        "T005" : 1,
+        "T012" : 10
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "T003" : 3,
+        "T005" : 1,
+        "T012" : 10
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      }
+    },
+    "org.finos.waltz.common.hierarchy.Node" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 3,
+        "T002" : 1,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    }
+  },
+  "methods" : {
+    "org.finos.waltz.common.Aliases.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        26,
+        28
+      ]
+    },
+    "org.finos.waltz.common.Aliases.lambda$register$0:(Ljava/lang/Object;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.Aliases.lookup:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.finos.waltz.common.Aliases.register:(Ljava/lang/Object;[Ljava/lang/String;)Lorg/finos/waltz/common/Aliases;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34,
+        36
+      ]
+    },
+    "org.finos.waltz.common.Aliases.sanitise:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        46,
+        48,
+        50,
+        51,
+        50,
+        54,
+        55,
+        56,
+        54
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.all:([Ljava/lang/Object;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        42,
+        43,
+        45,
+        46,
+        45,
+        48
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.idx:([Ljava/lang/Object;ILjava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        95,
+        96,
+        97
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.initial:([Ljava/lang/Object;)[Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        76,
+        77,
+        78
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.isEmpty:([Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        53,
+        54
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.last:([Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        69,
+        70,
+        71
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.map:([Ljava/lang/Object;Ljava/util/function/Function;)[Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        86
+      ]
+    },
+    "org.finos.waltz.common.ArrayUtilities.sum:([I)I" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        61,
+        62,
+        61,
+        64
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.<init>:(ILjava/util/function/Consumer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        38,
+        35,
+        39,
+        40,
+        44
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.accumulator:()Ljava/util/function/BiConsumer;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.characteristics:()Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        81
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.combiner:()Ljava/util/function/BinaryOperator;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        64
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.finisher:()Ljava/util/function/Function;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        73
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.lambda$accumulator$1:(Ljava/util/List;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        54,
+        55,
+        56,
+        57,
+        59
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.lambda$combiner$2:(Ljava/util/List;Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        65,
+        66,
+        67
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.lambda$finisher$3:(Ljava/util/List;)Ljava/lang/Integer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        74,
+        75
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.lambda$new$0:(Ljava/util/function/Consumer;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        42,
+        43
+      ]
+    },
+    "org.finos.waltz.common.BatchProcessingCollector.supplier:()Ljava/util/function/Supplier;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.finos.waltz.common.Checks.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkAll:(Ljava/util/Collection;Ljava/util/function/Predicate;Ljava/lang/String;)Ljava/util/Collection;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        69,
+        70,
+        72,
+        73
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkAll:([Ljava/lang/Object;Ljava/util/function/Predicate;Ljava/lang/String;)[Ljava/lang/Object;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        55,
+        56
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkEmpty:(Ljava/util/Collection;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        137,
+        138
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkEmpty:(Ljava/util/Collection;Ljava/util/function/Supplier;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        132,
+        133
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkFalse:(ZLjava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        92,
+        93
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkNotEmpty:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        115,
+        116,
+        117
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkNotEmpty:(Ljava/util/Collection;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        103,
+        104,
+        105
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkNotEmpty:([Ljava/lang/Object;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        109,
+        110,
+        111
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkOptionalIsPresent:(Ljava/util/Optional;Ljava/lang/String;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        97,
+        98,
+        97
+      ]
+    },
+    "org.finos.waltz.common.Checks.checkTrue:(ZLjava/lang/String;[Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        85,
+        86,
+        88
+      ]
+    },
+    "org.finos.waltz.common.Checks.fail:(Ljava/lang/String;[Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        122
+      ]
+    },
+    "org.finos.waltz.common.Checks.lambda$checkOptionalIsPresent$0:(Ljava/lang/String;)Ljava/lang/IllegalArgumentException;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.finos.waltz.common.Checks.mkFail:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/IllegalArgumentException;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        127
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.all:(Ljava/util/Collection;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        83,
+        84,
+        85,
+        86,
+        87,
+        85
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.any:(Ljava/util/Collection;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.filter:(Ljava/util/Collection;Ljava/util/function/Predicate;)Ljava/util/Collection;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        126,
+        127,
+        129,
+        130,
+        131,
+        129
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.find:(Ljava/util/Collection;Ljava/util/function/Predicate;)Ljava/util/Optional;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.find:(Ljava/util/function/Predicate;Ljava/util/Collection;)Ljava/util/Optional;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        46,
+        47,
+        49,
+        50,
+        51,
+        49
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.first:(Ljava/util/Collection;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        100,
+        102
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.head:(Ljava/util/Collection;)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        170,
+        171,
+        172,
+        170
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.isEmpty:(Ljava/util/Collection;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        218
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.map:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Collection;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        116,
+        117,
+        119,
+        120,
+        121,
+        119
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.maybe:(Ljava/util/Collection;Ljava/util/function/Consumer;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        143,
+        144
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.maybeFirst:(Ljava/util/Collection;)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        223,
+        224,
+        225,
+        223
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.maybeFirst:(Ljava/util/Collection;Ljava/util/function/Predicate;)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        232
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.notEmpty:(Ljava/util/Collection;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        156
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.sort:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        201,
+        203,
+        204,
+        205
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.sort:(Ljava/util/Collection;Ljava/util/Comparator;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        185,
+        186,
+        188,
+        189,
+        190
+      ]
+    },
+    "org.finos.waltz.common.CollectionUtilities.sumInts:(Ljava/util/Collection;)Ljava/lang/Long;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        241,
+        242,
+        243,
+        244,
+        245
+      ]
+    },
+    "org.finos.waltz.common.Columns.toOffset:(Ljava/lang/String;)I" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        78,
+        80,
+        81,
+        83,
+        84,
+        85,
+        88,
+        83,
+        91
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.nowUtc:()Ljava/time/LocalDateTime;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R031",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.nowUtcTimestamp:()Ljava/sql/Timestamp;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R031",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toLocalDate:(Ljava/sql/Timestamp;)Ljava/time/LocalDate;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        76,
+        77,
+        79
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toLocalDate:(Ljava/util/Date;)Ljava/time/LocalDate;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        68,
+        69,
+        71
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toLocalDateTime:(Ljava/util/Date;)Ljava/time/LocalDateTime;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        84,
+        85,
+        87
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toSqlDate:(Ljava/time/LocalDate;)Ljava/sql/Date;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        55
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toSqlDate:(Ljava/util/Date;)Ljava/sql/Date;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45,
+        47
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.toSqlTimestamp:(Ljava/time/LocalDateTime;)Ljava/sql/Timestamp;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        63
+      ]
+    },
+    "org.finos.waltz.common.DateTimeUtilities.today:()Ljava/time/LocalDate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R031",
+      "lineNumbers" : [
+        91
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.dump:(Ljava/lang/String;Lorg/finos/waltz/common/StreamUtilities$Siphon;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        77,
+        78
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.dump:(Ljava/lang/String;Lorg/finos/waltz/common/StreamUtilities$Siphon;Ljava/util/function/Function;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        82,
+        85,
+        82,
+        86
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.dump:(Ljava/util/Map;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
+      },
+      "lineNumbers" : [
+        71,
+        72
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.lambda$dump$0:(Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.logValue:(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        39,
+        40
+      ]
+    },
+    "org.finos.waltz.common.DebugUtilities.logValue:(Ljava/util/function/Supplier;[Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+      ]
+    },
+    "org.finos.waltz.common.DigestUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.finos.waltz.common.DigestUtilities.digest:([B)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.fallbackParseEnum:(Ljava/lang/String;Lorg/finos/waltz/common/Aliases;)Ljava/lang/Enum;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        93,
+        95,
+        96,
+        97,
+        98,
+        101,
+        102,
+        103,
+        104,
+        105,
+        107,
+        108
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.lambda$parseEnumWithAliases$0:(Ljava/lang/String;)Ljava/lang/Enum;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.names:(Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        85,
+        86,
+        87,
+        88,
+        85
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.names:([Ljava/lang/Enum;)Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        77,
+        78,
+        79,
+        80,
+        77
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.parseEnumWithAliases:(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;Lorg/finos/waltz/common/Aliases;)Ljava/lang/Enum;" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        51,
+        53,
+        54,
+        55,
+        56,
+        58,
+        60,
+        63,
+        64
+      ]
+    },
+    "org.finos.waltz.common.EnumUtilities.readEnum:(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;)Ljava/lang/Enum;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        42,
+        43
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.always:(Ljava/lang/Object;)Ljava/util/function/Function;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        119
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.alwaysBi:(Ljava/lang/Object;)Ljava/util/function/BiFunction;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.discardResult:(Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T021",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.lambda$always$1:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        119
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.lambda$alwaysBi$0:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.time:(Ljava/lang/String;Ljava/lang/Runnable;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        84,
+        86,
+        87,
+        88,
+        92,
+        89,
+        90,
+        91,
+        93
+      ]
+    },
+    "org.finos.waltz.common.FunctionUtilities.time:(Ljava/lang/String;Ljava/util/function/Supplier;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        66,
+        69,
+        70,
+        71,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.copyStream:(Ljava/io/InputStream;Ljava/io/OutputStream;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        54,
+        55,
+        57,
+        59,
+        60,
+        62
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.getFileResource:(Ljava/lang/String;)Lorg/springframework/core/io/Resource;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "warnings" : {
+        "W002" : 1
+      },
+      "lineNumbers" : [
+        83,
+        84,
+        85,
+        86,
+        88
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.readAsString:(Ljava/io/InputStream;)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        66,
+        68,
+        69,
+        68
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.readLines:(Ljava/io/InputStream;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.finos.waltz.common.IOUtilities.streamLines:(Ljava/io/InputStream;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43,
+        44,
+        45,
+        46,
+        47,
+        46
+      ]
+    },
+    "org.finos.waltz.common.JacksonUtilities.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        13,
+        14,
+        17,
+        18,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "org.finos.waltz.common.JacksonUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        11
+      ]
+    },
+    "org.finos.waltz.common.JacksonUtilities.getJsonMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.finos.waltz.common.JacksonUtilities.getYamlMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.append:(Ljava/util/List;Ljava/lang/Object;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        51,
+        52,
+        53
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.applyToFirst:(Ljava/util/List;Ljava/util/function/Function;)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        159,
+        161,
+        162,
+        161
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.asList:([Ljava/lang/Object;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.compact:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        71,
+        72,
+        73,
+        74,
+        72
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.concat:([Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        83,
+        81,
+        86
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.containsDuplicates:(Ljava/util/List;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        171,
+        173,
+        174,
+        175,
+        176,
+        178,
+        180
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.distinct:(Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        227
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.drop:(Ljava/util/List;I)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        110,
+        111,
+        112,
+        113,
+        111
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.ensureNotNull:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        136,
+        137,
+        139
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.filter:(Ljava/util/function/Predicate;Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        103,
+        104,
+        105,
+        103
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.getOrDefault:(Ljava/util/List;ILjava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        204,
+        205,
+        204
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.isEmpty:(Ljava/util/List;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.map:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        91,
+        92,
+        93,
+        91
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.maybeGet:(Ljava/util/List;I)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        192,
+        193,
+        195
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.newArrayList:([Ljava/lang/Object;)Ljava/util/ArrayList;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45,
+        46
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.push:(Ljava/util/List;[Ljava/lang/Object;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        146
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.reverse:(Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        123,
+        124,
+        125,
+        126
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.take:(Ljava/util/Collection;I)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        211,
+        212,
+        213,
+        214,
+        215,
+        211
+      ]
+    },
+    "org.finos.waltz.common.ListUtilities.zip:(Ljava/util/List;Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        166
+      ]
+    },
+    "org.finos.waltz.common.LoggingUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.finos.waltz.common.LoggingUtilities.configureLogging:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        57,
+        60,
+        62,
+        63,
+        64,
+        65,
+        66,
+        64,
+        66,
+        68,
+        72,
+        70,
+        73,
+        74
+      ]
+    },
+    "org.finos.waltz.common.MapBuilder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        26,
+        28
+      ]
+    },
+    "org.finos.waltz.common.MapBuilder.add:(Ljava/lang/Object;Ljava/lang/Object;)Lorg/finos/waltz/common/MapBuilder;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.finos.waltz.common.MapBuilder.build:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.finos.waltz.common.MapBuilder.from:(Ljava/util/Map;)Lorg/finos/waltz/common/MapBuilder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        31,
+        32
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.compose:(Ljava/util/Map;Ljava/util/Map;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
+      },
+      "lineNumbers" : [
+        313,
+        314,
+        315
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.countBy:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        225,
+        226,
+        228,
+        229,
+        228
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.countBy:(Ljava/util/function/Function;Ljava/util/Collection;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        220
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.ensureNotNull:(Ljava/util/Map;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        234,
+        235,
+        234
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.groupAndThen:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        275,
+        276,
+        277,
+        279,
+        280,
+        282,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.groupBy:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        109
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.groupBy:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        116
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.groupBy:(Ljava/util/function/Function;Ljava/util/Collection;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        104
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.groupBy:(Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/Collection;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        122,
+        123,
+        124,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        159
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        166
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/function/BinaryOperator;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        214
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/function/Function;Ljava/util/Collection;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        172,
+        173,
+        175
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/Collection;)Ljava/util/Map;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        182,
+        183,
+        184,
+        186,
+        187,
+        188,
+        186
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.indexBy:(Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/Collection;Ljava/util/function/BinaryOperator;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        201,
+        202,
+        203,
+        205,
+        206,
+        205
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.isEmpty:(Ljava/util/Map;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        248
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$compose$6:(Ljava/util/Map;Ljava/util/Map;Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        314
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$groupBy$0:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        104
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$groupBy$1:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        109
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$groupBy$2:(Ljava/lang/Object;)Ljava/util/Collection;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        129
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$indexBy$4:(Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/HashMap;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        190,
+        191,
+        192,
+        190
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$orderedGroupBy$3:(Ljava/lang/Object;)Ljava/util/Collection;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        149
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.lambda$transformKeys$5:(Ljava/util/Map;Ljava/util/function/Function;Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        295
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.maybeGet:(Ljava/util/Map;Ljava/lang/Object;)Ljava/util/Optional;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        254,
+        255,
+        256,
+        254
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.merge:([Ljava/util/Map;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        325,
+        326,
+        327,
+        329
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:()Ljava/util/HashMap;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        46,
+        47,
+        48
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        54,
+        55,
+        56
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        63,
+        64,
+        65
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        73,
+        74,
+        75
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        84,
+        85,
+        86
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.newHashMap:(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        96,
+        97,
+        98
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.orderedGroupBy:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/util/function/Function;Ljava/util/Comparator;)Ljava/util/TreeMap;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        141,
+        142,
+        143,
+        145,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153
+      ]
+    },
+    "org.finos.waltz.common.MapUtilities.transformKeys:(Ljava/util/Map;Ljava/util/function/Function;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
+      },
+      "lineNumbers" : [
+        294,
+        295,
+        296
+      ]
+    },
+    "org.finos.waltz.common.ObjectUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.finos.waltz.common.ObjectUtilities.any:(Ljava/util/function/Predicate;[Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43,
+        44,
+        45,
+        43
+      ]
+    },
+    "org.finos.waltz.common.ObjectUtilities.dump:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.finos.waltz.common.ObjectUtilities.firstNotNull:([Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "warnings" : {
+        "W002" : 1
+      },
+      "lineNumbers" : [
+        34,
+        35,
+        34,
+        37
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.contentsEqual:(Ljava/util/Optional;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        83,
+        81
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.isEmpty:(Ljava/util/Optional;)Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        101
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.lambda$contentsEqual$0:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Boolean;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        82
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.maybe:(Ljava/lang/Object;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.ofExplodable:(Ljava/util/function/Supplier;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        107,
+        108,
+        109
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.ofNullableOptional:(Ljava/util/Optional;)Ljava/util/Optional;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        94,
+        95,
+        94
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.toList:([Ljava/util/Optional;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        56,
+        58,
+        59,
+        60,
+        61,
+        62,
+        58
+      ]
+    },
+    "org.finos.waltz.common.OptionalUtilities.toSet:(Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        68,
+        69,
+        70,
+        71,
+        72,
+        68
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.all:(Ljava/util/Collection;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        52
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.all:([Ljava/lang/Object;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        86,
+        87,
+        86
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.any:(Ljava/util/Collection;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        66,
+        67,
+        66
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.any:([Ljava/lang/Object;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        92,
+        93,
+        92
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.none:(Ljava/util/Collection;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        80,
+        81,
+        80
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.none:([Ljava/lang/Object;Ljava/util/function/Predicate;)Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        98,
+        99,
+        98
+      ]
+    },
+    "org.finos.waltz.common.PredicateUtilities.not:(Ljava/util/function/Predicate;)Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.getRandom:()Ljava/util/Random;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.pickAndRemove:(Ljava/util/List;)Lorg/jooq/lambda/tuple/Tuple2;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        129,
+        134
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomIntBetween:(II)I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomLongBetween:(JJ)J" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        144
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomPick:(Ljava/util/Collection;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        58,
+        59,
+        62
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomPick:(Ljava/util/Collection;I)Ljava/util/List;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        72,
+        73,
+        76,
+        77,
+        79,
+        80,
+        83,
+        84,
+        85,
+        86,
+        83
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomPick:(Ljava/util/List;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomPick:([Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        113,
+        114,
+        115
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomPickSome:(Ljava/util/Collection;D)Ljava/util/List;" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        93,
+        94,
+        97,
+        98,
+        100,
+        101,
+        104,
+        105,
+        106,
+        107,
+        104
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomTrue:(D)Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        139
+      ]
+    },
+    "org.finos.waltz.common.RandomUtilities.randomlySizedIntStream:(II)Ljava/util/stream/IntStream;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        120
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.<init>:(Ljava/lang/Comparable;Ljava/lang/Comparable;)V" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        39,
+        40,
+        41,
+        44,
+        45,
+        46
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.contains:(Ljava/lang/Comparable;)Z" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        50,
+        52,
+        53,
+        56,
+        57,
+        60
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        82,
+        83,
+        85,
+        87,
+        88
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.getHigh:()Ljava/lang/Comparable;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        76
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.getLow:()Ljava/lang/Comparable;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.hashCode:()I" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        94,
+        95,
+        96
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.test:(Ljava/lang/Comparable;)Z" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        66
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.test:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.finos.waltz.common.RangeBand.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        102,
+        103,
+        104,
+        105,
+        106,
+        102
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.add:(Ljava/util/Set;[Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        178
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.asSet:([Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.compact:([Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        187
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.complement:(Ljava/util/Set;Ljava/util/Set;)Ljava/util/Set;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        140,
+        141,
+        143
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.filter:(Ljava/util/Collection;Ljava/util/function/Predicate;)Ljava/util/Set;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        61,
+        62,
+        60
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.fromArray:([Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        40,
+        42
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.fromCollection:(Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        46,
+        48
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.fromOptionals:(Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        155,
+        156,
+        157,
+        158,
+        159,
+        155
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.hasIntersection:(Ljava/util/Set;Ljava/util/Set;)Z" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        150
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.intersection:(Ljava/util/Set;Ljava/util/Set;)Ljava/util/Set;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        107,
+        108,
+        110,
+        111,
+        112
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.lambda$maybeAdd$1:(Ljava/util/Set;Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        172
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.lambda$uniqBy$0:(Ljava/util/function/Function;Ljava/util/Set;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        120,
+        121,
+        122,
+        124,
+        125
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.map:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Set;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        54,
+        55,
+        53
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.maybeAdd:(Ljava/util/Set;Ljava/util/Optional;)Ljava/util/Set;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        171,
+        172,
+        173,
+        171
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.minus:(Ljava/util/Set;[Ljava/util/Set;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        95,
+        96,
+        98,
+        99,
+        100,
+        102
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.orderedUnion:([Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        77,
+        78,
+        79,
+        78,
+        82
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.remove:(Ljava/util/Set;[Ljava/lang/Object;)Ljava/util/Set;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        183
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.union:([Ljava/util/Collection;)Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        67,
+        68,
+        69,
+        68,
+        71
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.unionAll:(Ljava/util/Collection;)Ljava/util/Collection;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        133,
+        134,
+        135,
+        136
+      ]
+    },
+    "org.finos.waltz.common.SetUtilities.uniqBy:(Ljava/util/Collection;Ljava/util/function/Function;)Ljava/util/Set;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        117,
+        118,
+        119,
+        128,
+        118
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon.<init>:(Ljava/util/function/Predicate;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        86,
+        84,
+        87,
+        88
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon.getResults:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon.hasResults:()Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon.stream:()Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        102
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities$Siphon.test:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        92,
+        93,
+        94
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.batchProcessingCollector:(ILjava/util/function/Consumer;)Ljava/util/stream/Collector;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.concat:([Ljava/util/Collection;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        42,
+        43,
+        42
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.concat:([Ljava/util/stream/Stream;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        69,
+        70,
+        71,
+        69
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.lambda$tap$0:(Ljava/util/function/Consumer;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        54,
+        55
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.lines:(Ljava/lang/String;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        77,
+        78
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.mkSiphon:(Ljava/util/function/Predicate;)Lorg/finos/waltz/common/StreamUtilities$Siphon;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        113
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.ofNullableArray:([Ljava/lang/Object;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        61,
+        62,
+        63,
+        61
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.tap:()Ljava/util/function/Function;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.finos.waltz.common.StreamUtilities.tap:(Ljava/util/function/Consumer;)Ljava/util/function/Function;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.capitalise:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        223,
+        224,
+        227,
+        228,
+        229,
+        235,
+        238
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.firstChar:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        185,
+        186,
+        187,
+        185
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.firstChar:(Ljava/lang/String;C)C" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        179,
+        180,
+        179
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.firstNonNull:([Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "warnings" : {
+        "W002" : 1
+      },
+      "lineNumbers" : [
+        325,
+        326,
+        327,
+        328,
+        325
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.ifEmpty:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.isDefined:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        320
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.isEmpty:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.isEmpty:(Ljava/util/Optional;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        61,
+        62,
+        59
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.isNumericLong:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        90,
+        91,
+        90
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.join:(Ljava/util/Collection;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        121,
+        122,
+        123,
+        124,
+        121
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.joinUsing:(Ljava/util/Collection;Ljava/util/function/Function;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        129,
+        130,
+        131,
+        129
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.lambda$capitalise$1:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        230,
+        232,
+        233
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.lambda$firstNonNull$4:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        327
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.lambda$toHtmlTable$2:(Ljava/lang/Object;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T023",
+      "perMethodOutcome" : "T023"
+    },
+    "org.finos.waltz.common.StringUtilities.lambda$toHtmlTable$3:(Lorg/jooq/lambda/tuple/Tuple;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        290,
+        287,
+        288,
+        289,
+        290
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.lambda$tokenise$0:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        157
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.length:(Ljava/lang/String;)I" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        114,
+        116,
+        114
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.limit:(Ljava/lang/String;I)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        107,
+        108,
+        109
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.lower:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        164,
+        165,
+        166,
+        167,
+        165
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.mkExternalId:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "F009",
+      "lineNumbers" : [
+        355,
+        356,
+        357,
+        358,
+        359,
+        355
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.mkPath:([Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 277,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 277
+      },
+      "lineNumbers" : [
+        208,
+        213,
+        214,
+        215,
+        216,
+        217,
+        213
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.mkSafe:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        96
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.notEmpty:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.nullIfEmpty:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        313
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.parseInteger:(Ljava/lang/String;Ljava/lang/Integer;)Ljava/lang/Integer;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        82,
+        83,
+        84
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.parseLong:(Ljava/lang/String;Ljava/lang/Long;)Ljava/lang/Long;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        73,
+        74,
+        75
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.safeEq:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        333,
+        334,
+        335,
+        336,
+        338
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.safeEqIgnoreCase:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        344,
+        345,
+        346,
+        347,
+        349
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.safeTrim:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        102
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.sanitizeCharacters:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "F009",
+      "lineNumbers" : [
+        248,
+        249,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        251
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.splitThenMap:(Ljava/lang/String;Ljava/lang/String;Ljava/util/function/Function;)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        136,
+        137,
+        139,
+        140,
+        141,
+        142,
+        139
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.toHtmlTable:(Ljava/util/List;Ljava/util/Collection;)Ljava/lang/String;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        284,
+        285,
+        286,
+        291,
+        293,
+        294,
+        295,
+        297
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.toMailbox:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        278
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.toOptional:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        192,
+        193,
+        194,
+        192
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.tokenise:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        147
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.tokenise:(Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        152,
+        154,
+        156,
+        157,
+        158,
+        159,
+        156
+      ]
+    },
+    "org.finos.waltz.common.StringUtilities.upper:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        171,
+        172,
+        173,
+        174,
+        172
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.addWaltzEntityLinks:(Ljava/lang/String;Ljava/lang/String;Ljava/util/function/Function;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        71,
+        72,
+        73,
+        75,
+        76,
+        78,
+        79,
+        97
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.convertVisioSvg:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        44,
+        45,
+        46,
+        48,
+        49,
+        51,
+        52,
+        64
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$12:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        79,
+        80,
+        81,
+        79
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$8:(Ljava/lang/String;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        52,
+        53,
+        54,
+        52
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$0:(Lorg/w3c/dom/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$10:(Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$11:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        82,
+        83,
+        84,
+        86,
+        87,
+        94
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$1:(Lorg/w3c/dom/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$2:(Lorg/w3c/dom/Node;)Lorg/w3c/dom/Element;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$3:(Ljava/lang/String;Lorg/w3c/dom/Element;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$4:(Lorg/w3c/dom/Element;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$5:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$6:(Lorg/w3c/dom/Node;Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        60
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$7:(Ljava/lang/String;Lorg/w3c/dom/Node;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        54
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$9:(Ljava/lang/String;Lorg/w3c/dom/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.finos.waltz.common.XmlUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.finos.waltz.common.XmlUtilities.createNonValidatingDocumentBuilderFactory:()Ljavax/xml/parsers/DocumentBuilderFactory;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        76,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        85
+      ]
+    },
+    "org.finos.waltz.common.XmlUtilities.printDocument:(Lorg/w3c/dom/Document;Ljava/io/OutputStream;Z)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        61,
+        62,
+        63,
+        65,
+        66,
+        67,
+        70,
+        72
+      ]
+    },
+    "org.finos.waltz.common.XmlUtilities.printDocument:(Lorg/w3c/dom/Document;Z)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        54
+      ]
+    },
+    "org.finos.waltz.common.XmlUtilities.stream:(Lorg/w3c/dom/NodeList;)Ljava/util/stream/Stream;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        42,
+        44,
+        45,
+        44,
+        47
+      ]
+    },
+    "org.finos.waltz.common.exception.DuplicateKeyException.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.finos.waltz.common.exception.DuplicateKeyException.<init>:(Ljava/lang/String;Ljava/lang/Throwable;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.finos.waltz.common.exception.InsufficientPrivelegeException.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.finos.waltz.common.exception.ModifyingReadOnlyRecordException.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        11,
+        12,
+        13
+      ]
+    },
+    "org.finos.waltz.common.exception.ModifyingReadOnlyRecordException.<init>:(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        16,
+        17,
+        18
+      ]
+    },
+    "org.finos.waltz.common.exception.ModifyingReadOnlyRecordException.getCode:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.finos.waltz.common.exception.NotFoundException.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        11,
+        12,
+        13
+      ]
+    },
+    "org.finos.waltz.common.exception.NotFoundException.<init>:(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        17,
+        18,
+        19
+      ]
+    },
+    "org.finos.waltz.common.exception.NotFoundException.getCode:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.finos.waltz.common.exception.UpdateFailedException.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        9,
+        10,
+        11
+      ]
+    },
+    "org.finos.waltz.common.exception.UpdateFailedException.<init>:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        15,
+        16,
+        17
+      ]
+    },
+    "org.finos.waltz.common.exception.UpdateFailedException.getCode:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        21
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.<init>:(Ljava/lang/Object;Ljava/util/Optional;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35,
+        36
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        55,
+        56,
+        57,
+        58
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.getData:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.getId:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.getParentId:()Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.FlatNode.hashCode:()I" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        63
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Forest.<init>:(Ljava/util/Map;Ljava/util/Set;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33,
+        34,
+        35,
+        36
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Forest.getAllNodes:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Forest.getRootNodes:()Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Forest.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        51,
+        53,
+        51
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.assignDepths:(Ljava/util/Collection;I)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        158,
+        160,
+        161,
+        162,
+        163,
+        165
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.assignDepths:(Lorg/finos/waltz/common/hierarchy/Forest;)Ljava/util/Map;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        152
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.hasCycle:(Lorg/finos/waltz/common/hierarchy/Forest;)Z" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        107,
+        108,
+        110,
+        111,
+        112,
+        113,
+        114,
+        110
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.hasCycle:(Lorg/finos/waltz/common/hierarchy/Node;Lorg/pcollections/PMap;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        119,
+        120,
+        123,
+        125,
+        126,
+        127,
+        125
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$hasCycle$8:(Lorg/pcollections/PMap;Lorg/finos/waltz/common/hierarchy/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        114
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$hasCycle$9:(Lorg/pcollections/PMap;Lorg/finos/waltz/common/hierarchy/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        127
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$null$5:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        100
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$null$6:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Lorg/finos/waltz/common/hierarchy/FlatNode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        101
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$sanitizeFlatNodes$7:(Lorg/finos/waltz/common/hierarchy/FlatNode;)Lorg/finos/waltz/common/hierarchy/FlatNode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        102,
+        99,
+        100,
+        101,
+        102
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$toForest$0:(Lorg/finos/waltz/common/hierarchy/FlatNode;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$toForest$1:(Lorg/finos/waltz/common/hierarchy/FlatNode;)Lorg/finos/waltz/common/hierarchy/Node;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$toForest$2:(Lorg/finos/waltz/common/hierarchy/Node;Lorg/finos/waltz/common/hierarchy/Node;)Lorg/finos/waltz/common/hierarchy/Node;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$toForest$3:(Lorg/finos/waltz/common/hierarchy/FlatNode;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        63
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$toForest$4:(Ljava/util/Map;Lorg/finos/waltz/common/hierarchy/FlatNode;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        65,
+        66,
+        68,
+        70,
+        71,
+        72,
+        73
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.parents:(Lorg/finos/waltz/common/hierarchy/Node;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        139,
+        141,
+        142,
+        143,
+        144,
+        147
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.sanitizeFlatNodes:(Ljava/util/Collection;)Ljava/util/Collection;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        97
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.toForest:(Ljava/util/Collection;)Lorg/finos/waltz/common/hierarchy/Forest;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        46,
+        48,
+        49,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        61,
+        62,
+        63,
+        64,
+        75,
+        76,
+        77,
+        78,
+        80
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.<init>:(Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        39,
+        34,
+        36,
+        40,
+        41,
+        42
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.addChild:(Lorg/finos/waltz/common/hierarchy/Node;)Lorg/finos/waltz/common/hierarchy/Node;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        61,
+        62,
+        63
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.getChildren:()Ljava/util/Set;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.getData:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.getId:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.getParent:()Lorg/finos/waltz/common/hierarchy/Node;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        74
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.setParent:(Lorg/finos/waltz/common/hierarchy/Node;)Lorg/finos/waltz/common/hierarchy/Node;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68,
+        69
+      ]
+    },
+    "org.finos.waltz.common.hierarchy.Node.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        80,
+        83,
+        80
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}
