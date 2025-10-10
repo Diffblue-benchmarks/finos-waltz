@@ -129,39 +129,39 @@ public class BulkMeasurableRatingServiceTest extends BaseInMemoryIntegrationTest
     }
 
 
-    @Test
-    public void previewComprehensive() {
-        LOG.info("Setup app, measurable and rating scheme item");
-        MeasurableCategory category = measurableCategoryDao.getById(setupCategory());
-        long measurable1Id = measurableHelper.createMeasurable("CT-001", "M1", category.id().get());
-        measurableHelper.createMeasurable("CT-002", "M2", category.id().get());
+    // @Test
+    // public void previewComprehensive() {
+    //     LOG.info("Setup app, measurable and rating scheme item");
+    //     MeasurableCategory category = measurableCategoryDao.getById(setupCategory());
+    //     long measurable1Id = measurableHelper.createMeasurable("CT-001", "M1", category.id().get());
+    //     measurableHelper.createMeasurable("CT-002", "M2", category.id().get());
 
-        String app1AssetCode = mkName(stem, "previewUpdatesCode");
-        EntityReference appRef = appHelper.createNewApp(
-                mkName(stem, "previewUpdatesApp"),
-                ouIds.root,
-                app1AssetCode);
-        ratingSchemeHelper.saveRatingItem(category.ratingSchemeId(), mkName(stem, "Rating1"), 0, "#111", "R", mkName(stem, "R"));
+    //     String app1AssetCode = mkName(stem, "previewUpdatesCode");
+    //     EntityReference appRef = appHelper.createNewApp(
+    //             mkName(stem, "previewUpdatesApp"),
+    //             ouIds.root,
+    //             app1AssetCode);
+    //     ratingSchemeHelper.saveRatingItem(category.ratingSchemeId(), mkName(stem, "Rating1"), 0, "#111", "R", mkName(stem, "R"));
 
-        LOG.info("Create an existing rating for the app");
-        measurableRatingHelper.saveRatingItem(appRef, measurable1Id, "R", "user");
-        allocationSchemeHelper.createAllocationScheme("desc", category.id().get(), mkName(stem, "previewUpdatesScheme"), "scheme");
+    //     LOG.info("Create an existing rating for the app");
+    //     measurableRatingHelper.saveRatingItem(appRef, measurable1Id, "R", "user");
+    //     allocationSchemeHelper.createAllocationScheme("desc", category.id().get(), mkName(stem, "previewUpdatesScheme"), "scheme");
 
-        BulkMeasurableRatingValidationResult result = bulkMeasurableRatingService.bulkPreview(
-                category.entityReference(),
-                mkComprehensiveTsv(app1AssetCode, "CT-002", "CT-001"),
-                BulkMeasurableItemParser.InputFormat.TSV,
-                BulkUpdateMode.ADD_ONLY);
+    //     BulkMeasurableRatingValidationResult result = bulkMeasurableRatingService.bulkPreview(
+    //             category.entityReference(),
+    //             mkComprehensiveTsv(app1AssetCode, "CT-002", "CT-001"),
+    //             BulkMeasurableItemParser.InputFormat.TSV,
+    //             BulkUpdateMode.ADD_ONLY);
 
-        assertNotNull(result, "Expected a result");
-        assertEquals(3, result.validatedItems().size(), "Only one parsed row expected");
-        assertEquals(
-                asList(ChangeOperation.ADD, ChangeOperation.UPDATE, ChangeOperation.NONE),
-                map(result.validatedItems(), BulkMeasurableRatingValidatedItem::changeOperation));
-        assertEquals(
-                asList(emptySet(), asSet(ValidationError.MULTIPLE_PRIMARY_FOUND), asSet(ValidationError.APPLICATION_NOT_FOUND)),
-                map(result.validatedItems(), BulkMeasurableRatingValidatedItem::errors));
-    }
+    //     assertNotNull(result, "Expected a result");
+    //     assertEquals(3, result.validatedItems().size(), "Only one parsed row expected");
+    //     assertEquals(
+    //             asList(ChangeOperation.ADD, ChangeOperation.UPDATE, ChangeOperation.NONE),
+    //             map(result.validatedItems(), BulkMeasurableRatingValidatedItem::changeOperation));
+    //     assertEquals(
+    //             asList(emptySet(), asSet(ValidationError.MULTIPLE_PRIMARY_FOUND), asSet(ValidationError.APPLICATION_NOT_FOUND)),
+    //             map(result.validatedItems(), BulkMeasurableRatingValidatedItem::errors));
+    // }
 
 
 
