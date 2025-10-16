@@ -5853,6 +5853,7 @@ class MeasurableRatingDaoDiffblueTest {
     assertEquals(4, actualCalculateAmendedAllocationOperationsResult.size());
     assertTrue(actualCalculateAmendedAllocationOperationsResult.contains(Operation.ADD));
     assertTrue(actualCalculateAmendedAllocationOperationsResult.contains(Operation.ATTEST));
+    assertTrue(actualCalculateAmendedAllocationOperationsResult.contains(Operation.REMOVE));
     assertTrue(actualCalculateAmendedAllocationOperationsResult.contains(Operation.UPDATE));
   }
 

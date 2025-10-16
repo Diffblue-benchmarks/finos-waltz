@@ -207,7 +207,7 @@ class PhysicalFlowHelperDiffblueTest {
     // Assert
     verify(physicalFlowService)
         .create(
-            isA(PhysicalFlowCreateCommand.class), eq("Name_2cbe81e1-dd55-446c-81b8-e5a0e8087cab"));
+            isA(PhysicalFlowCreateCommand.class), eq("Name_5cbece44-6f92-41fc-b48a-60c717944b78"));
     verify(physicalSpecificationService).getById(1L);
     EntityReference entityReferenceResult = actualCreatePhysicalFlowResult.entityReference();
     assertTrue(entityReferenceResult instanceof ImmutableEntityReference);
@@ -275,7 +275,7 @@ class PhysicalFlowHelperDiffblueTest {
     verify(physicalFlowService)
         .delete(
             isA(PhysicalFlowDeleteCommand.class),
-            eq("deletingFlow_9f4a1635-cf02-4ef7-9d7c-a36c832f8d64"));
+            eq("deletingFlow_032cf442-1cfb-4259-a49a-c90de90f7077"));
     EntityReference entityReferenceResult = actualDeletePhysicalFlowResult.entityReference();
     assertTrue(entityReferenceResult instanceof ImmutableEntityReference);
     PhysicalFlowDeleteCommand originalCommandResult =

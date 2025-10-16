@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 20679.058,
-    "environmentDetectionTime" : 2.94,
-    "indexingTime" : 0.312,
-    "entryPointsTime" : 2.934,
-    "generationTime" : 60774.505,
-    "timeToFirstTest" : 61376.305,
-    "timeToLastTest" : 61609.282,
-    "indexQueryTime" : 11.039,
-    "verificationTime" : 772.151,
-    "validationTime" : 25.17
+    "totalTime" : 21033.562,
+    "environmentDetectionTime" : 4.513,
+    "indexingTime" : 0.454,
+    "entryPointsTime" : 4.507,
+    "generationTime" : 61596.335,
+    "timeToFirstTest" : 62272.008,
+    "timeToLastTest" : 62481.97,
+    "indexQueryTime" : 12.998000000000001,
+    "verificationTime" : 820.844,
+    "validationTime" : 48.114
   },
   "codes" : {
     "F009" : "Internal error",
@@ -34,13 +34,14 @@
     "T020" : "Other trivial method",
     "T023" : "Testability unknown",
     "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation",
     "W001" : "Test did not compile",
     "W002" : "Test compiled, but did not pass"
   },
   "summary" : {
     "classesCount" : 299,
     "methodsCount" : 3001,
-    "cumulativeDiffblueTestCount" : 4844,
+    "cumulativeDiffblueTestCount" : 4843,
     "cumulativeManualTestCount" : 81,
     "completeTestCount" : 4844,
     "incompleteTestCount" : 0,
@@ -76,12 +77,13 @@
       "R000" : 4844
     },
     "perTestValidation" : {
-      "V000" : 4844
+      "V000" : 4843,
+      "V003" : 1
     },
     "warnings" : {
       "F009" : 1,
       "W001" : 19,
-      "W002" : 6
+      "W002" : 5
     }
   },
   "classes" : {
@@ -544,7 +546,7 @@
     },
     "org.finos.waltz.service.assessment_rating.AssessmentRatingService" : {
       "methodsCount" : 39,
-      "completeTestCount" : 159,
+      "completeTestCount" : 158,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 22,
@@ -558,7 +560,7 @@
         "T012" : 9
       },
       "perTestOutcome" : {
-        "R000" : 159
+        "R000" : 158
       }
     },
     "org.finos.waltz.service.assessment_rating.AssessmentRatingViewService" : {
@@ -1415,7 +1417,7 @@
     },
     "org.finos.waltz.service.cost.CostService" : {
       "methodsCount" : 10,
-      "completeTestCount" : 29,
+      "completeTestCount" : 30,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
@@ -1429,10 +1431,10 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 29
+        "R000" : 30
       },
       "warnings" : {
-        "W002" : 2
+        "W002" : 1
       }
     },
     "org.finos.waltz.service.cost_kind.CostKindService" : {
@@ -8467,12 +8469,12 @@
       ]
     },
     "org.finos.waltz.service.assessment_rating.AssessmentRatingService.bulkStore:([Lorg/finos/waltz/model/assessment_rating/BulkAssessmentRatingCommand;JLjava/lang/String;)Z" : {
-      "completeTestCount" : 14,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 13
       },
       "lineNumbers" : [
         231,
@@ -15335,15 +15337,15 @@
       ]
     },
     "org.finos.waltz.service.cost.CostService.populateAllocatedCosts:()V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "warnings" : {
-        "W002" : 2
+        "W002" : 1
       },
       "lineNumbers" : [
         132,

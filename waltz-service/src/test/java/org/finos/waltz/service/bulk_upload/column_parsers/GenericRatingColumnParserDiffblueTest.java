@@ -513,6 +513,7 @@ class GenericRatingColumnParserDiffblueTest {
     assertEquals(2, actualApplyResult.ratings().size());
     Set<ResolutionStatus> statusesResult = actualApplyResult.statuses();
     assertEquals(2, statusesResult.size());
+    assertTrue(statusesResult.contains(ResolutionStatus.ERROR));
     assertTrue(statusesResult.contains(ResolutionStatus.NEW));
   }
 

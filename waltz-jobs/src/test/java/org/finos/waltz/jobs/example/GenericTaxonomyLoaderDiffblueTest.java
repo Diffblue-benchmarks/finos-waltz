@@ -28,21 +28,14 @@ class GenericTaxonomyLoaderDiffblueTest {
   /**
    * Test {@link GenericTaxonomyLoader#go(GenericTaxonomyLoadConfig)}.
    *
-   * <ul>
-   *   <li>Given {@link DSLContext} {@link DSLContext#transaction(TransactionalRunnable)} does
-   *       nothing.
-   *   <li>Then calls {@link DSLContext#transaction(TransactionalRunnable)}.
-   * </ul>
-   *
    * <p>Method under test: {@link GenericTaxonomyLoader#go(GenericTaxonomyLoadConfig)}
    */
   @Test
-  @DisplayName(
-      "Test go(GenericTaxonomyLoadConfig); given DSLContext transaction(TransactionalRunnable) does nothing; then calls transaction(TransactionalRunnable)")
+  @DisplayName("Test go(GenericTaxonomyLoadConfig)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void GenericTaxonomyLoader.go(GenericTaxonomyLoadConfig)"})
-  void testGo_givenDSLContextTransactionDoesNothing_thenCallsTransaction() throws IOException {
+  void testGo() throws IOException {
     // Arrange
     doNothing().when(dSLContext).transaction(Mockito.<TransactionalRunnable>any());
 

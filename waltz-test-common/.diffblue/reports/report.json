@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 471.722,
+    "totalTime" : 472.122,
     "environmentDetectionTime" : 0.115,
-    "indexingTime" : 0.323,
+    "indexingTime" : 0.468,
     "entryPointsTime" : 0.109,
-    "generationTime" : 98643.575,
-    "timeToFirstTest" : 100122.123,
-    "timeToLastTest" : 99977.049,
-    "indexQueryTime" : 8.461,
-    "verificationTime" : 1214.696,
-    "validationTime" : 203.075
+    "generationTime" : 99651.541,
+    "timeToFirstTest" : 101185.052,
+    "timeToLastTest" : 101044.099,
+    "indexQueryTime" : 8.097,
+    "verificationTime" : 1270.565,
+    "validationTime" : 210.357
   },
   "codes" : {
     "R000" : "Success",
@@ -28,7 +28,8 @@
     "T005" : "Trivial constructor",
     "T012" : "Synthetic method",
     "T023" : "Testability unknown",
-    "V000" : "Validated successfully"
+    "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation"
   },
   "summary" : {
     "classesCount" : 28,
@@ -61,7 +62,8 @@
       "R000" : 266
     },
     "perTestValidation" : {
-      "V000" : 2982
+      "V000" : 2982,
+      "V003" : 1
     }
   },
   "classes" : {

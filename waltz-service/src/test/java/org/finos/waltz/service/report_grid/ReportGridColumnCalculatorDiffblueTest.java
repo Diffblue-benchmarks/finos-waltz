@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.commons.jexl3.JexlException;
-import org.apache.commons.jexl3.parser.ASTAddNode;
+import org.apache.commons.jexl3.JexlException.TryFailed;
 import org.finos.waltz.model.EntityKind;
 import org.finos.waltz.model.EntityLifecycleStatus;
 import org.finos.waltz.model.ImmutableEntityReference;
@@ -60,11 +61,14 @@ class ReportGridColumnCalculatorDiffblueTest {
   void testCalculate() {
     // Arrange
     ReportGridInstance instance = mock(ReportGridInstance.class);
-    when(instance.cellData()).thenThrow(new JexlException(new ASTAddNode(1), "xs cannot be null"));
+    when(instance.cellData())
+        .thenThrow(
+            JexlException.tryFailed(
+                new InvocationTargetException(new Throwable(), "xs cannot be null")));
 
     // Act and Assert
     assertThrows(
-        JexlException.class,
+        TryFailed.class,
         () -> ReportGridColumnCalculator.calculate(instance, mock(ReportGridDefinition.class)));
     verify(instance).cellData();
   }
@@ -83,6 +87,38 @@ class ReportGridColumnCalculatorDiffblueTest {
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
   void testCalculate2() {
+    // Arrange
+    ReportGridInstance instance = mock(ReportGridInstance.class);
+    when(instance.cellData()).thenReturn(new HashSet<>());
+    when(instance.ratingSchemeItems()).thenReturn(new HashSet<>());
+
+    ReportGridDefinition definition = mock(ReportGridDefinition.class);
+    when(definition.derivedColumnDefinitions())
+        .thenThrow(
+            JexlException.tryFailed(
+                new InvocationTargetException(new Throwable(), "xs cannot be null")));
+
+    // Act and Assert
+    assertThrows(TryFailed.class, () -> ReportGridColumnCalculator.calculate(instance, definition));
+    verify(definition).derivedColumnDefinitions();
+    verify(instance).cellData();
+    verify(instance).ratingSchemeItems();
+  }
+
+  /**
+   * Test {@link ReportGridColumnCalculator#calculate(ReportGridInstance, ReportGridDefinition)}.
+   *
+   * <p>Method under test: {@link ReportGridColumnCalculator#calculate(ReportGridInstance,
+   * ReportGridDefinition)}
+   */
+  @Test
+  @DisplayName("Test calculate(ReportGridInstance, ReportGridDefinition)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
+  })
+  void testCalculate3() {
     // Arrange
     HashSet<ReportGridCell> reportGridCellSet = new HashSet<>();
 
@@ -130,7 +166,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate3() {
+  void testCalculate4() {
     // Arrange
     HashSet<RatingSchemeItem> ratingSchemeItemSet = new HashSet<>();
     ratingSchemeItemSet.add(
@@ -178,7 +214,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate4() {
+  void testCalculate5() {
     // Arrange
     HashSet<ReportSubject> reportSubjectSet = new HashSet<>();
 
@@ -204,12 +240,13 @@ class ReportGridColumnCalculatorDiffblueTest {
 
     ReportGridDefinition definition = mock(ReportGridDefinition.class);
     when(definition.fixedColumnDefinitions())
-        .thenThrow(new JexlException(new ASTAddNode(1), "xs cannot be null"));
+        .thenThrow(
+            JexlException.tryFailed(
+                new InvocationTargetException(new Throwable(), "xs cannot be null")));
     when(definition.derivedColumnDefinitions()).thenReturn(null);
 
     // Act and Assert
-    assertThrows(
-        JexlException.class, () -> ReportGridColumnCalculator.calculate(instance, definition));
+    assertThrows(TryFailed.class, () -> ReportGridColumnCalculator.calculate(instance, definition));
     verify(definition).derivedColumnDefinitions();
     verify(definition).fixedColumnDefinitions();
     verify(instance).cellData();
@@ -230,7 +267,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate5() {
+  void testCalculate6() {
     // Arrange
     HashSet<ReportSubject> reportSubjectSet = new HashSet<>();
 
@@ -314,7 +351,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate6() {
+  void testCalculate7() {
     // Arrange
     HashSet<ReportSubject> reportSubjectSet = new HashSet<>();
 
@@ -425,7 +462,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate7() {
+  void testCalculate8() {
     // Arrange
     HashSet<ReportGridCell> reportGridCellSet = new HashSet<>();
 
@@ -522,7 +559,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate8() {
+  void testCalculate9() {
     // Arrange
     HashSet<ReportGridCell> reportGridCellSet = new HashSet<>();
 
@@ -619,7 +656,7 @@ class ReportGridColumnCalculatorDiffblueTest {
   @MethodsUnderTest({
     "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
   })
-  void testCalculate9() {
+  void testCalculate10() {
     // Arrange
     HashSet<ReportGridCell> reportGridCellSet = new HashSet<>();
 
@@ -841,43 +878,6 @@ class ReportGridColumnCalculatorDiffblueTest {
     verify(instance).ratingSchemeItems();
     verify(instance).subjects();
     assertTrue(actualCalculateResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ReportGridColumnCalculator#calculate(ReportGridInstance, ReportGridDefinition)}.
-   *
-   * <ul>
-   *   <li>Given {@link JexlException#JexlException(JexlNode, String)} with node is {@link
-   *       ASTAddNode#ASTAddNode(int)} and {@code Msg}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridColumnCalculator#calculate(ReportGridInstance,
-   * ReportGridDefinition)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculate(ReportGridInstance, ReportGridDefinition); given JexlException(JexlNode, String) with node is ASTAddNode(int) and 'Msg'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Set ReportGridColumnCalculator.calculate(ReportGridInstance, ReportGridDefinition)"
-  })
-  void testCalculate_givenJexlExceptionWithNodeIsASTAddNodeAndMsg() {
-    // Arrange
-    ReportGridInstance instance = mock(ReportGridInstance.class);
-    when(instance.cellData()).thenReturn(new HashSet<>());
-    when(instance.ratingSchemeItems()).thenReturn(new HashSet<>());
-
-    ReportGridDefinition definition = mock(ReportGridDefinition.class);
-    when(definition.derivedColumnDefinitions())
-        .thenThrow(new JexlException(new ASTAddNode(1), "Msg"));
-
-    // Act and Assert
-    assertThrows(
-        JexlException.class, () -> ReportGridColumnCalculator.calculate(instance, definition));
-    verify(definition).derivedColumnDefinitions();
-    verify(instance).cellData();
-    verify(instance).ratingSchemeItems();
   }
 
   /**
@@ -1110,7 +1110,7 @@ class ReportGridColumnCalculatorDiffblueTest {
    * {@code ReportGridDerivedColumnDefinition}.
    *
    * <ul>
-   *   <li>Then throw {@link JexlException}.
+   *   <li>Then throw {@link JexlException.TryFailed}.
    * </ul>
    *
    * <p>Method under test: {@link
@@ -1118,19 +1118,20 @@ class ReportGridColumnCalculatorDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test colToExtId(ReportGridDerivedColumnDefinition) with 'ReportGridDerivedColumnDefinition'; then throw JexlException")
+      "Test colToExtId(ReportGridDerivedColumnDefinition) with 'ReportGridDerivedColumnDefinition'; then throw TryFailed")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "String ReportGridColumnCalculator.colToExtId(ReportGridDerivedColumnDefinition)"
   })
-  void testColToExtIdWithReportGridDerivedColumnDefinition_thenThrowJexlException() {
+  void testColToExtIdWithReportGridDerivedColumnDefinition_thenThrowTryFailed() {
     // Arrange
     ReportGridDerivedColumnDefinition col = mock(ReportGridDerivedColumnDefinition.class);
-    when(col.externalId()).thenThrow(new JexlException(new ASTAddNode(1), "Msg"));
+    when(col.externalId())
+        .thenThrow(JexlException.tryFailed(new InvocationTargetException(new Throwable(), "foo")));
 
     // Act and Assert
-    assertThrows(JexlException.class, () -> ReportGridColumnCalculator.colToExtId(col));
+    assertThrows(TryFailed.class, () -> ReportGridColumnCalculator.colToExtId(col));
     verify(col).externalId();
   }
 
@@ -1333,7 +1334,7 @@ class ReportGridColumnCalculatorDiffblueTest {
    * ReportGridFixedColumnDefinition}.
    *
    * <ul>
-   *   <li>Then throw {@link JexlException}.
+   *   <li>Then throw {@link JexlException.TryFailed}.
    * </ul>
    *
    * <p>Method under test: {@link
@@ -1341,19 +1342,20 @@ class ReportGridColumnCalculatorDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test colToExtId(ReportGridFixedColumnDefinition) with 'ReportGridFixedColumnDefinition'; then throw JexlException")
+      "Test colToExtId(ReportGridFixedColumnDefinition) with 'ReportGridFixedColumnDefinition'; then throw TryFailed")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "String ReportGridColumnCalculator.colToExtId(ReportGridFixedColumnDefinition)"
   })
-  void testColToExtIdWithReportGridFixedColumnDefinition_thenThrowJexlException() {
+  void testColToExtIdWithReportGridFixedColumnDefinition_thenThrowTryFailed() {
     // Arrange
     ReportGridFixedColumnDefinition col = mock(ReportGridFixedColumnDefinition.class);
-    when(col.externalId()).thenThrow(new JexlException(new ASTAddNode(1), "Msg"));
+    when(col.externalId())
+        .thenThrow(JexlException.tryFailed(new InvocationTargetException(new Throwable(), "foo")));
 
     // Act and Assert
-    assertThrows(JexlException.class, () -> ReportGridColumnCalculator.colToExtId(col));
+    assertThrows(TryFailed.class, () -> ReportGridColumnCalculator.colToExtId(col));
     verify(col).externalId();
   }
 }

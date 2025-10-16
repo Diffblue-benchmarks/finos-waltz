@@ -16,26 +16,6 @@ import org.junit.jupiter.api.Test;
 
 class RandomUtilitiesDiffblueTest {
   /**
-   * Test {@link RandomUtilities#randomIntBetween(int, int)}.
-   *
-   * <ul>
-   *   <li>When one.
-   *   <li>Then return two.
-   * </ul>
-   *
-   * <p>Method under test: {@link RandomUtilities#randomIntBetween(int, int)}
-   */
-  @Test
-  @DisplayName("Test randomIntBetween(int, int); when one; then return two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int RandomUtilities.randomIntBetween(int, int)"})
-  void testRandomIntBetween_whenOne_thenReturnTwo() {
-    // Arrange, Act and Assert
-    assertEquals(2, RandomUtilities.randomIntBetween(1, 3));
-  }
-
-  /**
    * Test {@link RandomUtilities#randomPick(Collection, int)} with {@code Collection}, {@code int}.
    *
    * <ul>

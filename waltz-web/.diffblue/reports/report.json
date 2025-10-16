@@ -4,25 +4,25 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 5526.434,
-    "environmentDetectionTime" : 0.979,
-    "indexingTime" : 0.315,
-    "entryPointsTime" : 0.964,
-    "generationTime" : 66159.039,
-    "timeToFirstTest" : 66908.518,
-    "timeToLastTest" : 67065.626,
-    "indexQueryTime" : 11.115,
-    "verificationTime" : 830.662,
-    "validationTime" : 12.191
+    "totalTime" : 5476.162,
+    "environmentDetectionTime" : 1.001,
+    "indexingTime" : 0.458,
+    "entryPointsTime" : 0.985,
+    "generationTime" : 66970.018,
+    "timeToFirstTest" : 67754.175,
+    "timeToLastTest" : 67925.296,
+    "indexQueryTime" : 11.111,
+    "verificationTime" : 877.018,
+    "validationTime" : 12.257
   },
   "codes" : {
     "R000" : "Success",
     "R002" : "Missing observers",
     "R004" : "No meaningful assertions found",
+    "R011" : "Sandboxing policy violation",
     "R013" : "No inputs found that don't throw a trivial exception",
-    "R020" : "Temporary files were created but not deleted",
     "R034" : "Diffblue Cover can't complete test",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
@@ -36,6 +36,7 @@
     "T020" : "Other trivial method",
     "T023" : "Testability unknown",
     "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation",
     "W001" : "Test did not compile",
     "W002" : "Test compiled, but did not pass"
   },
@@ -43,8 +44,8 @@
     "classesCount" : 318,
     "methodsCount" : 2971,
     "cumulativeDiffblueTestCount" : 797,
-    "cumulativeManualTestCount" : 28,
-    "completeTestCount" : 1434,
+    "cumulativeManualTestCount" : 16,
+    "completeTestCount" : 1430,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 15982,
@@ -65,8 +66,8 @@
       "R000" : 742,
       "R002" : 71,
       "R004" : 166,
+      "R011" : 1,
       "R013" : 24,
-      "R020" : 1,
       "R034" : 1,
       "T003" : 579,
       "T004" : 2,
@@ -79,13 +80,14 @@
       "W002" : 1
     },
     "perTestOutcome" : {
-      "R000" : 1434
+      "R000" : 1430
     },
     "perTestValidation" : {
-      "V000" : 1434
+      "V000" : 1430,
+      "V003" : 1
     },
     "warnings" : {
-      "W001" : 70,
+      "W001" : 68,
       "W002" : 2
     }
   },
@@ -3075,7 +3077,7 @@
     },
     "org.finos.waltz.web.endpoints.extracts.CustomDataExtractor" : {
       "methodsCount" : 12,
-      "completeTestCount" : 5,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -3090,10 +3092,10 @@
         "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 1
       },
       "warnings" : {
-        "W001" : 7
+        "W001" : 6
       }
     },
     "org.finos.waltz.web.endpoints.extracts.CustomDataExtractor$1" : {
@@ -3186,7 +3188,7 @@
         "W001" : 2
       },
       "warnings" : {
-        "W001" : 9
+        "W001" : 8
       }
     },
     "org.finos.waltz.web.endpoints.extracts.DirectQueryBasedDataExtractor$1" : {
@@ -3740,7 +3742,7 @@
         "T023" : 1
       },
       "perMethodOutcome" : {
-        "R020" : 1,
+        "R011" : 1,
         "T003" : 5,
         "T005" : 1,
         "T012" : 2,
@@ -25366,15 +25368,15 @@
       ]
     },
     "org.finos.waltz.web.endpoints.extracts.CustomDataExtractor.formatReport:(Lorg/finos/waltz/web/endpoints/extracts/ExtractFormat;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)Lorg/jooq/lambda/tuple/Tuple3;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 1
       },
       "warnings" : {
-        "W001" : 7
+        "W001" : 6
       },
       "lineNumbers" : [
         53,
@@ -25945,7 +25947,7 @@
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "W001",
       "warnings" : {
-        "W001" : 4
+        "W001" : 3
       },
       "lineNumbers" : [
         60,
@@ -30981,7 +30983,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R020",
+      "perMethodOutcome" : "R011",
       "lineNumbers" : [
         73,
         74,

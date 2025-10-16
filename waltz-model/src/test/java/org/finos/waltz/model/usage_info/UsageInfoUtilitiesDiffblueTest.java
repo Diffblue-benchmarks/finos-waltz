@@ -71,7 +71,7 @@ class UsageInfoUtilitiesDiffblueTest {
         ImmutableUsageInfo.builder()
             .description("The characteristics of someone or something")
             .isSelected(true)
-            .kind(UsageKind.MODIFIER)
+            .kind(UsageKind.DISTRIBUTOR)
             .build());
     base.add(
         ImmutableUsageInfo.builder()
@@ -117,7 +117,7 @@ class UsageInfoUtilitiesDiffblueTest {
         ImmutableUsageInfo.builder()
             .description("The characteristics of someone or something")
             .isSelected(true)
-            .kind(UsageKind.MODIFIER)
+            .kind(UsageKind.DISTRIBUTOR)
             .build());
     base.add(
         ImmutableUsageInfo.builder()
@@ -131,7 +131,7 @@ class UsageInfoUtilitiesDiffblueTest {
         ImmutableUsageInfo.builder()
             .description("The characteristics of someone or something")
             .isSelected(true)
-            .kind(UsageKind.MODIFIER)
+            .kind(UsageKind.DISTRIBUTOR)
             .build());
     replacements.add(
         ImmutableUsageInfo.builder()
@@ -438,6 +438,59 @@ class UsageInfoUtilitiesDiffblueTest {
    * Test {@link UsageInfoUtilities#mkChangeSet(Set, Set)}.
    *
    * <ul>
+   *   <li>Then return inserts first kind is {@code DISTRIBUTOR}.
+   * </ul>
+   *
+   * <p>Method under test: {@link UsageInfoUtilities#mkChangeSet(Set, Set)}
+   */
+  @Test
+  @DisplayName("Test mkChangeSet(Set, Set); then return inserts first kind is 'DISTRIBUTOR'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"SystemChangeSet UsageInfoUtilities.mkChangeSet(Set, Set)"})
+  void testMkChangeSet_thenReturnInsertsFirstKindIsDistributor() {
+    // Arrange
+    HashSet<UsageInfo> base = new HashSet<>();
+    base.add(
+        ImmutableUsageInfo.builder()
+            .description("The characteristics of someone or something")
+            .isSelected(true)
+            .kind(UsageKind.CONSUMER)
+            .build());
+
+    HashSet<UsageInfo> replacements = new HashSet<>();
+    replacements.add(
+        ImmutableUsageInfo.builder()
+            .description("The characteristics of someone or something")
+            .isSelected(true)
+            .kind(UsageKind.DISTRIBUTOR)
+            .build());
+    replacements.add(
+        ImmutableUsageInfo.builder()
+            .description("The characteristics of someone or something")
+            .isSelected(true)
+            .kind(UsageKind.CONSUMER)
+            .build());
+
+    // Act
+    SystemChangeSet<UsageInfo, UsageKind> actualMkChangeSetResult =
+        UsageInfoUtilities.mkChangeSet(base, replacements);
+
+    // Assert
+    assertTrue(actualMkChangeSetResult instanceof ImmutableSystemChangeSet);
+    List<UsageInfo> insertsResult = actualMkChangeSetResult.inserts();
+    assertEquals(1, insertsResult.size());
+    UsageInfo getResult = insertsResult.get(0);
+    assertTrue(getResult instanceof ImmutableUsageInfo);
+    assertEquals("The characteristics of someone or something", getResult.description());
+    assertEquals(UsageKind.DISTRIBUTOR, getResult.kind());
+    assertTrue(getResult.isSelected());
+  }
+
+  /**
+   * Test {@link UsageInfoUtilities#mkChangeSet(Set, Set)}.
+   *
+   * <ul>
    *   <li>Then return inserts first kind is {@code MODIFIER}.
    * </ul>
    *
@@ -472,106 +525,6 @@ class UsageInfoUtilitiesDiffblueTest {
     assertTrue(getResult instanceof ImmutableUsageInfo);
     assertEquals("The characteristics of someone or something", getResult.description());
     assertEquals(UsageKind.MODIFIER, getResult.kind());
-    assertTrue(getResult.isSelected());
-  }
-
-  /**
-   * Test {@link UsageInfoUtilities#mkChangeSet(Set, Set)}.
-   *
-   * <ul>
-   *   <li>Then return inserts first kind is {@code MODIFIER}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UsageInfoUtilities#mkChangeSet(Set, Set)}
-   */
-  @Test
-  @DisplayName("Test mkChangeSet(Set, Set); then return inserts first kind is 'MODIFIER'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SystemChangeSet UsageInfoUtilities.mkChangeSet(Set, Set)"})
-  void testMkChangeSet_thenReturnInsertsFirstKindIsModifier2() {
-    // Arrange
-    HashSet<UsageInfo> base = new HashSet<>();
-    base.add(
-        ImmutableUsageInfo.builder()
-            .description("The characteristics of someone or something")
-            .isSelected(true)
-            .kind(UsageKind.CONSUMER)
-            .build());
-
-    HashSet<UsageInfo> replacements = new HashSet<>();
-    replacements.add(
-        ImmutableUsageInfo.builder()
-            .description("The characteristics of someone or something")
-            .isSelected(true)
-            .kind(UsageKind.MODIFIER)
-            .build());
-    replacements.add(
-        ImmutableUsageInfo.builder()
-            .description("The characteristics of someone or something")
-            .isSelected(true)
-            .kind(UsageKind.CONSUMER)
-            .build());
-
-    // Act
-    SystemChangeSet<UsageInfo, UsageKind> actualMkChangeSetResult =
-        UsageInfoUtilities.mkChangeSet(base, replacements);
-
-    // Assert
-    assertTrue(actualMkChangeSetResult instanceof ImmutableSystemChangeSet);
-    List<UsageInfo> insertsResult = actualMkChangeSetResult.inserts();
-    assertEquals(1, insertsResult.size());
-    UsageInfo getResult = insertsResult.get(0);
-    assertTrue(getResult instanceof ImmutableUsageInfo);
-    assertEquals("The characteristics of someone or something", getResult.description());
-    assertEquals(UsageKind.MODIFIER, getResult.kind());
-    assertTrue(getResult.isSelected());
-  }
-
-  /**
-   * Test {@link UsageInfoUtilities#mkChangeSet(Set, Set)}.
-   *
-   * <ul>
-   *   <li>Then return inserts size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link UsageInfoUtilities#mkChangeSet(Set, Set)}
-   */
-  @Test
-  @DisplayName("Test mkChangeSet(Set, Set); then return inserts size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SystemChangeSet UsageInfoUtilities.mkChangeSet(Set, Set)"})
-  void testMkChangeSet_thenReturnInsertsSizeIsTwo() {
-    // Arrange
-    HashSet<UsageInfo> base = new HashSet<>();
-
-    HashSet<UsageInfo> replacements = new HashSet<>();
-    replacements.add(
-        ImmutableUsageInfo.builder()
-            .description("The characteristics of someone or something")
-            .isSelected(true)
-            .kind(UsageKind.DISTRIBUTOR)
-            .build());
-    replacements.add(
-        ImmutableUsageInfo.builder()
-            .description("The characteristics of someone or something")
-            .isSelected(true)
-            .kind(UsageKind.CONSUMER)
-            .build());
-
-    // Act
-    SystemChangeSet<UsageInfo, UsageKind> actualMkChangeSetResult =
-        UsageInfoUtilities.mkChangeSet(base, replacements);
-
-    // Assert
-    assertTrue(actualMkChangeSetResult instanceof ImmutableSystemChangeSet);
-    List<UsageInfo> insertsResult = actualMkChangeSetResult.inserts();
-    assertEquals(2, insertsResult.size());
-    UsageInfo getResult = insertsResult.get(1);
-    assertTrue(getResult instanceof ImmutableUsageInfo);
-    assertEquals("The characteristics of someone or something", getResult.description());
-    assertEquals(UsageKind.DISTRIBUTOR, getResult.kind());
     assertTrue(getResult.isSelected());
   }
 

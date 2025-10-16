@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 27645.746,
-    "environmentDetectionTime" : 2.486,
-    "indexingTime" : 0.321,
-    "entryPointsTime" : 2.481,
-    "generationTime" : 98204.196,
-    "timeToFirstTest" : 99644.442,
-    "timeToLastTest" : 99525.01,
-    "indexQueryTime" : 10.824,
-    "verificationTime" : 1214.678,
-    "validationTime" : 203.075
+    "totalTime" : 27765.347,
+    "environmentDetectionTime" : 3.472,
+    "indexingTime" : 0.464,
+    "entryPointsTime" : 3.465,
+    "generationTime" : 99211.967,
+    "timeToFirstTest" : 100705.211,
+    "timeToLastTest" : 100591.911,
+    "indexQueryTime" : 11.865,
+    "verificationTime" : 1270.546,
+    "validationTime" : 210.357
   },
   "codes" : {
     "F009" : "Internal error",
@@ -33,6 +33,7 @@
     "T020" : "Other trivial method",
     "T023" : "Testability unknown",
     "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation",
     "W001" : "Test did not compile",
     "W002" : "Test compiled, but did not pass"
   },
@@ -74,7 +75,8 @@
       "R000" : 2982
     },
     "perTestValidation" : {
-      "V000" : 2982
+      "V000" : 2982,
+      "V003" : 1
     },
     "warnings" : {
       "F009" : 22,

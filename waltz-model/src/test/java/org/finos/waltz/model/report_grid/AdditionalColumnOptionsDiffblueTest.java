@@ -28,17 +28,17 @@ class AdditionalColumnOptionsDiffblueTest {
 
     // Assert
     assertEquals(86, actualAllowedKindsResult.size());
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.ASSESSMENT_RATING));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.DATABASE_USAGE));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.FLOW_CLASSIFICATION));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.FLOW_DIAGRAM));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.MEASURABLE_RATING));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.ASSET_COST));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.CHANGE_UNIT));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.COMPLEXITY_KIND));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.ENTITY_NAMED_NOTE_TYPE));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.EXTERNAL_IDENTIFIER));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.INVOLVEMENT));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.MEASURABLE_CATEGORY));
     assertTrue(actualAllowedKindsResult.contains(EntityKind.PROCESS_DIAGRAM));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.REPORT_GRID));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.REPORT_GRID_DERIVED_COLUMN_DEFINITION));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.REPORT_GRID_FIXED_COLUMN_DEFINITION));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.SCENARIO));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.SURVEY_INSTANCE));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.RELATIONSHIP_KIND));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.ROLE));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.SERVER_USAGE));
   }
 
   /**

@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 414.75,
-    "environmentDetectionTime" : 0.478,
-    "indexingTime" : 0.305,
-    "entryPointsTime" : 0.45,
-    "generationTime" : 347.151,
-    "timeToFirstTest" : 29.068,
-    "timeToLastTest" : 385.567,
-    "indexQueryTime" : 5.237,
-    "verificationTime" : 26.376,
-    "validationTime" : 12.131
+    "totalTime" : 417.09,
+    "environmentDetectionTime" : 0.513,
+    "indexingTime" : 0.446,
+    "entryPointsTime" : 0.486,
+    "generationTime" : 348.476,
+    "timeToFirstTest" : 30.075,
+    "timeToLastTest" : 387.947,
+    "indexQueryTime" : 5.423,
+    "verificationTime" : 27.033,
+    "validationTime" : 12.177
   },
   "codes" : {
     "F009" : "Internal error",
@@ -40,9 +40,9 @@
   "summary" : {
     "classesCount" : 37,
     "methodsCount" : 349,
-    "cumulativeDiffblueTestCount" : 787,
+    "cumulativeDiffblueTestCount" : 786,
     "cumulativeManualTestCount" : 628,
-    "completeTestCount" : 787,
+    "completeTestCount" : 786,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 2076,
@@ -59,10 +59,10 @@
     },
     "perMethodOutcome" : {
       "F009" : 2,
-      "R000" : 232,
+      "R000" : 231,
       "R002" : 2,
       "R004" : 2,
-      "R013" : 8,
+      "R013" : 9,
       "R031" : 3,
       "T003" : 5,
       "T005" : 27,
@@ -71,10 +71,10 @@
       "W001" : 14
     },
     "perTestOutcome" : {
-      "R000" : 787
+      "R000" : 786
     },
     "perTestValidation" : {
-      "V000" : 787
+      "V000" : 786
     },
     "warnings" : {
       "W001" : 52,
@@ -450,7 +450,7 @@
     },
     "org.finos.waltz.common.RandomUtilities" : {
       "methodsCount" : 13,
-      "completeTestCount" : 21,
+      "completeTestCount" : 20,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -459,13 +459,13 @@
         "T023" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
-        "R013" : 2,
+        "R000" : 7,
+        "R013" : 3,
         "T005" : 2,
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 21
+        "R000" : 20
       }
     },
     "org.finos.waltz.common.RangeBand" : {
@@ -3232,13 +3232,10 @@
       ]
     },
     "org.finos.waltz.common.RandomUtilities.randomIntBetween:(II)I" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         43
       ]

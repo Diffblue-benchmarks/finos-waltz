@@ -363,6 +363,6 @@ class PhysicalSpecHelperDiffblueTest {
     verify(physicalSpecificationService)
         .markRemovedIfUnused(
             isA(PhysicalSpecificationDeleteCommand.class),
-            eq("deletingSpec_9c76aec7-6d4d-4874-b374-b2351759e836"));
+            eq("deletingSpec_3df6c53a-c2ae-429f-afd9-316850e39600"));
   }
 }

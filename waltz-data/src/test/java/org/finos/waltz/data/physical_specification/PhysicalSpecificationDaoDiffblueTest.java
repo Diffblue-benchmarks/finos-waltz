@@ -1717,6 +1717,7 @@ class PhysicalSpecificationDaoDiffblueTest {
     assertEquals(4, actualCalculateAmendedSpecOperationsResult.size());
     assertTrue(actualCalculateAmendedSpecOperationsResult.contains(Operation.ADD));
     assertTrue(actualCalculateAmendedSpecOperationsResult.contains(Operation.ATTEST));
+    assertTrue(actualCalculateAmendedSpecOperationsResult.contains(Operation.REMOVE));
     assertTrue(actualCalculateAmendedSpecOperationsResult.contains(Operation.UPDATE));
   }
 

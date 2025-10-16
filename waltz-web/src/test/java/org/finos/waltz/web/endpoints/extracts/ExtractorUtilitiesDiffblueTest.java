@@ -1,22 +1,18 @@
 package org.finos.waltz.web.endpoints.extracts;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.openxml4j.opc.PackagePart;
-import org.apache.poi.openxml4j.opc.ZipPackage;
-import org.apache.poi.openxml4j.opc.internal.MemoryPackagePart;
-import org.apache.poi.poifs.crypt.temp.SXSSFWorkbookWithCustomZipEntrySource;
+import java.io.OutputStream;
+import org.apache.poi.xssf.streaming.DeferredSXSSFWorkbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -27,33 +23,31 @@ class ExtractorUtilitiesDiffblueTest {
   /**
    * Test {@link ExtractorUtilities#convertExcelToByteArray(SXSSFWorkbook)}.
    *
+   * <ul>
+   *   <li>Then return empty array of {@code byte}.
+   * </ul>
+   *
    * <p>Method under test: {@link ExtractorUtilities#convertExcelToByteArray(SXSSFWorkbook)}
    */
   @Test
-  @DisplayName("Test convertExcelToByteArray(SXSSFWorkbook)")
+  @DisplayName("Test convertExcelToByteArray(SXSSFWorkbook); then return empty array of byte")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"byte[] ExtractorUtilities.convertExcelToByteArray(SXSSFWorkbook)"})
-  void testConvertExcelToByteArray() throws IOException, InvalidFormatException {
+  void testConvertExcelToByteArray_thenReturnEmptyArrayOfByte() throws IOException {
     // Arrange
-    SXSSFWorkbookWithCustomZipEntrySource workbook = new SXSSFWorkbookWithCustomZipEntrySource();
+    DeferredSXSSFWorkbook workbook = mock(DeferredSXSSFWorkbook.class);
+    doNothing().when(workbook).close();
+    doNothing().when(workbook).write(Mockito.<OutputStream>any());
 
     // Act
-    ExtractorUtilities.convertExcelToByteArray(workbook);
+    byte[] actualConvertExcelToByteArrayResult =
+        ExtractorUtilities.convertExcelToByteArray(workbook);
 
     // Assert
-    XSSFWorkbook xSSFWorkbook = workbook.getXSSFWorkbook();
-    PackagePart packagePart = xSSFWorkbook.getPackagePart();
-    OPCPackage resultPackage = packagePart.getPackage();
-    assertTrue(resultPackage instanceof ZipPackage);
-    assertTrue(packagePart instanceof MemoryPackagePart);
-    PackagePart packagePart2 = xSSFWorkbook.getSharedStringSource().getPackagePart();
-    assertTrue(packagePart2 instanceof MemoryPackagePart);
-    PackagePart packagePart3 = xSSFWorkbook.getStylesSource().getPackagePart();
-    assertTrue(packagePart3 instanceof MemoryPackagePart);
-    assertEquals(5, resultPackage.getParts().size());
-    assertSame(resultPackage, packagePart2.getPackage());
-    assertSame(resultPackage, packagePart3.getPackage());
+    verify(workbook).close();
+    verify(workbook).write(isA(OutputStream.class));
+    assertArrayEquals(new byte[] {}, actualConvertExcelToByteArrayResult);
   }
 
   /**

@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 40659.629,
-    "environmentDetectionTime" : 25.371,
-    "indexingTime" : 0.309,
-    "entryPointsTime" : 25.361,
-    "generationTime" : 40374.945,
-    "timeToFirstTest" : 40688.939,
-    "timeToLastTest" : 40983.552,
-    "indexQueryTime" : 36.234,
-    "verificationTime" : 560.357,
-    "validationTime" : 33.427
+    "totalTime" : 41199.717,
+    "environmentDetectionTime" : 25.627,
+    "indexingTime" : 0.45,
+    "entryPointsTime" : 25.617,
+    "generationTime" : 40877.207,
+    "timeToFirstTest" : 41230.092,
+    "timeToLastTest" : 41524.916,
+    "indexQueryTime" : 36.513,
+    "verificationTime" : 598.707,
+    "validationTime" : 34.294
   },
   "codes" : {
     "R000" : "Success",
@@ -37,14 +37,15 @@
     "T020" : "Other trivial method",
     "T023" : "Testability unknown",
     "V000" : "Validated successfully",
-    "W001" : "Test did not compile"
+    "W001" : "Test did not compile",
+    "W002" : "Test compiled, but did not pass"
   },
   "summary" : {
     "classesCount" : 2063,
     "methodsCount" : 25893,
-    "cumulativeDiffblueTestCount" : 20562,
+    "cumulativeDiffblueTestCount" : 20561,
     "cumulativeManualTestCount" : 26,
-    "completeTestCount" : 20562,
+    "completeTestCount" : 20561,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 10442,
@@ -78,13 +79,14 @@
       "W001" : 203
     },
     "perTestOutcome" : {
-      "R000" : 20562
+      "R000" : 20561
     },
     "perTestValidation" : {
-      "V000" : 20562
+      "V000" : 20561
     },
     "warnings" : {
-      "W001" : 502
+      "W001" : 502,
+      "W002" : 1
     }
   },
   "classes" : {
@@ -34913,7 +34915,7 @@
     },
     "org.finos.waltz.model.usage_info.UsageInfoUtilities" : {
       "methodsCount" : 17,
-      "completeTestCount" : 16,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -34926,7 +34928,10 @@
         "T012" : 15
       },
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 15
+      },
+      "warnings" : {
+        "W002" : 1
       }
     },
     "org.finos.waltz.model.usage_info.UsageKind" : {
@@ -360591,12 +360596,15 @@
       ]
     },
     "org.finos.waltz.model.usage_info.UsageInfoUtilities.mkChangeSet:(Ljava/util/Set;Ljava/util/Set;)Lorg/finos/waltz/model/system/SystemChangeSet;" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 15
+      },
+      "warnings" : {
+        "W002" : 1
       },
       "lineNumbers" : [
         38,

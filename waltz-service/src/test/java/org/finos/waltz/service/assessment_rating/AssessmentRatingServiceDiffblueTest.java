@@ -5700,142 +5700,6 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testBulkStore4() {
     // Arrange
-    when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
-
-    ImmutableAssessmentDefinition.Builder provenanceResult =
-        ImmutableAssessmentDefinition.builder()
-            .cardinality(Cardinality.ZERO_ONE)
-            .definitionGroup("Definition Group")
-            .description("The characteristics of someone or something")
-            .entityKind(EntityKind.ALL)
-            .externalId("42")
-            .id(1L)
-            .isReadOnly(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .permittedRole("Permitted Role")
-            .provenance("Provenance");
-    ImmutableEntityReference immutableEntityReference =
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build();
-    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
-    when(assessmentDefinitionDao.getById(anyLong()))
-        .thenReturn(
-            provenanceResult
-                .qualifierReference(qualifierReference)
-                .ratingSchemeId(1L)
-                .visibility(AssessmentVisibility.PRIMARY)
-                .build());
-
-    ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
-    ratingSchemeItemList.add(
-        ImmutableRatingSchemeItem.builder()
-            .color("Color")
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .name("Name")
-            .rating("Rating")
-            .ratingGroup("Rating Group")
-            .ratingSchemeId(1L)
-            .build());
-    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
-        .thenReturn(ratingSchemeItemList);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenThrow(new IllegalArgumentException());
-
-    ImmutableBulkAssessmentRatingCommand.Builder commentResult =
-        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
-    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand =
-        commentResult
-            .entityRef(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .operation(Operation.ADD)
-            .ratingId(1L)
-            .build();
-
-    ImmutableBulkAssessmentRatingCommand.Builder commentResult2 =
-        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
-    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand2 =
-        commentResult2
-            .entityRef(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .operation(Operation.ADD)
-            .ratingId(1L)
-            .build();
-
-    ImmutableBulkAssessmentRatingCommand.Builder commentResult3 =
-        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
-    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand3 =
-        commentResult3
-            .entityRef(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .operation(Operation.ADD)
-            .ratingId(1L)
-            .build();
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.bulkStore(
-                new BulkAssessmentRatingCommand[] {
-                  immutableBulkAssessmentRatingCommand,
-                  immutableBulkAssessmentRatingCommand2,
-                  immutableBulkAssessmentRatingCommand3
-                },
-                1L,
-                "janedoe"));
-    verify(assessmentDefinitionDao, atLeast(1)).getById(1L);
-    verify(assessmentRatingDao).add(isA(Set.class));
-    verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[], long, String)}.
-   *
-   * <p>Method under test: {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[],
-   * long, String)}
-   */
-  @Test
-  @DisplayName("Test bulkStore(BulkAssessmentRatingCommand[], long, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
-  })
-  void testBulkStore5() {
-    // Arrange
     when(assessmentRatingDao.bulkUpdateSingleValuedAssessments(
             Mockito.<Set<AssessmentRating>>any()))
         .thenThrow(new IllegalArgumentException());
@@ -5936,7 +5800,7 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkStore6() {
+  void testBulkStore5() {
     // Arrange
     when(assessmentRatingDao.bulkUpdateMultiValuedAssessments(Mockito.<Set<AssessmentRating>>any()))
         .thenReturn(42);
@@ -6038,7 +5902,7 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkStore7() {
+  void testBulkStore6() {
     // Arrange
     when(assessmentRatingDao.bulkUpdateMultiValuedAssessments(Mockito.<Set<AssessmentRating>>any()))
         .thenThrow(new IllegalArgumentException());
@@ -6139,7 +6003,7 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkStore8() {
+  void testBulkStore7() {
     // Arrange
     AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);

@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-14T09:39:27.192Z",
+    "creationTimestamp" : "2025-10-15T15:32:39.488Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 5082.298,
-    "environmentDetectionTime" : 0.927,
-    "indexingTime" : 0.318,
-    "entryPointsTime" : 0.921,
-    "generationTime" : 71146.122,
-    "timeToFirstTest" : 71995.11,
-    "timeToLastTest" : 72110.392,
-    "indexQueryTime" : 13.394,
-    "verificationTime" : 875.166,
-    "validationTime" : 20.021
+    "totalTime" : 5177.643,
+    "environmentDetectionTime" : 0.901,
+    "indexingTime" : 0.461,
+    "entryPointsTime" : 0.895,
+    "generationTime" : 72051.846,
+    "timeToFirstTest" : 72936.254,
+    "timeToLastTest" : 73064.818,
+    "indexQueryTime" : 13.989,
+    "verificationTime" : 921.78,
+    "validationTime" : 20.623
   },
   "codes" : {
     "R000" : "Success",
@@ -37,6 +37,7 @@
     "T020" : "Other trivial method",
     "T023" : "Testability unknown",
     "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation",
     "W001" : "Test did not compile",
     "W002" : "Test compiled, but did not pass"
   },
@@ -84,11 +85,12 @@
       "R000" : 957
     },
     "perTestValidation" : {
-      "V000" : 957
+      "V000" : 957,
+      "V003" : 1
     },
     "warnings" : {
       "W001" : 3,
-      "W002" : 8
+      "W002" : 3
     }
   },
   "classes" : {
@@ -660,9 +662,6 @@
       },
       "perTestOutcome" : {
         "R000" : 2
-      },
-      "warnings" : {
-        "W002" : 5
       }
     },
     "org.finos.waltz.jobs.example.HigherEducationTaxonomyImport" : {
@@ -747,7 +746,7 @@
     },
     "org.finos.waltz.jobs.generators.AppGroupEntryGenerator" : {
       "methodsCount" : 6,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -760,7 +759,7 @@
         "T012" : 3
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.finos.waltz.jobs.generators.AppGroupGenerator" : {
@@ -898,7 +897,7 @@
     },
     "org.finos.waltz.jobs.generators.ChangeLogGenerator" : {
       "methodsCount" : 6,
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -915,7 +914,7 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       }
     },
     "org.finos.waltz.jobs.generators.ChangeSetGenerator" : {
@@ -9785,9 +9784,6 @@
       "perTestOutcome" : {
         "R000" : 2
       },
-      "warnings" : {
-        "W002" : 5
-      },
       "lineNumbers" : [
         75,
         77,
@@ -10869,12 +10865,12 @@
       ]
     },
     "org.finos.waltz.jobs.generators.AppGroupEntryGenerator.create:(Lorg/springframework/context/ApplicationContext;)Ljava/util/Map;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         39,
@@ -12059,12 +12055,12 @@
       ]
     },
     "org.finos.waltz.jobs.generators.ChangeLogGenerator.create:(Lorg/springframework/context/ApplicationContext;)Ljava/util/Map;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         79,
