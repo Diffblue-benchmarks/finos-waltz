@@ -31,6 +31,10 @@
             <artifactId>junit-jupiter-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
@@ -64,7 +68,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.0.12.RELEASE</version>
+            <version>5.3.30</version>
         </dependency>
 
     </dependencies>
