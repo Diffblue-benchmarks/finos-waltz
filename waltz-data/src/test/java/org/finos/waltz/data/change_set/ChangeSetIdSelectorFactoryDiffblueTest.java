@@ -1,0 +1,349 @@
+package org.finos.waltz.data.change_set;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.Optional;
+import org.finos.waltz.model.EntityKind;
+import org.finos.waltz.model.EntityLifecycleStatus;
+import org.finos.waltz.model.HierarchyQueryScope;
+import org.finos.waltz.model.IdSelectionOptions;
+import org.finos.waltz.model.ImmutableEntityReference;
+import org.finos.waltz.model.ImmutableIdSelectionOptions;
+import org.finos.waltz.model.ImmutableIdSelectionOptions.Builder;
+import org.finos.waltz.model.ImmutableSelectionFilters;
+import org.finos.waltz.model.application.ApplicationKind;
+import org.finos.waltz.model.application.ImmutableApplicationIdSelectionOptions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class ChangeSetIdSelectorFactoryDiffblueTest {
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    assertDoesNotThrow(
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions2() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    ImmutableApplicationIdSelectionOptions.Builder builderResult =
+        ImmutableApplicationIdSelectionOptions.builder();
+
+    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
+        filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    assertDoesNotThrow(
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllApplicationKinds(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions3() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    ImmutableApplicationIdSelectionOptions.Builder builderResult =
+        ImmutableApplicationIdSelectionOptions.builder();
+
+    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ACTOR)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
+        filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllApplicationKinds(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions4() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ACTOR)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions5() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ACTOR)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <ul>
+   *   <li>Given {@code IN_HOUSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given 'IN_HOUSE'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions_givenInHouse() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    ImmutableSelectionFilters.Builder builderResult = ImmutableSelectionFilters.builder();
+    builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
+    ImmutableSelectionFilters filters = builderResult.build();
+
+    ImmutableApplicationIdSelectionOptions.Builder builderResult2 =
+        ImmutableApplicationIdSelectionOptions.builder();
+
+    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
+        builderResult2
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(filters);
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
+        filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    assertDoesNotThrow(
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllApplicationKinds(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+
+  /**
+   * Test {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <ul>
+   *   <li>Given {@code IN_HOUSE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ChangeSetIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given 'IN_HOUSE'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.jooq.Select ChangeSetIdSelectorFactory.apply(IdSelectionOptions)"})
+  void testApplyWithIdSelectionOptions_givenInHouse2() {
+    // Arrange
+    ChangeSetIdSelectorFactory changeSetIdSelectorFactory = new ChangeSetIdSelectorFactory();
+
+    ImmutableSelectionFilters.Builder builderResult = ImmutableSelectionFilters.builder();
+    builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
+    ImmutableSelectionFilters filters = builderResult.build();
+
+    Builder builderResult2 = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult2
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(filters);
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    assertDoesNotThrow(
+        () ->
+            changeSetIdSelectorFactory.apply(
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+  }
+}

@@ -1,0 +1,422 @@
+package org.finos.waltz.common;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Supplier;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class OptionalUtilitiesDiffblueTest {
+  /**
+   * Test {@link OptionalUtilities#maybe(Object)}.
+   *
+   * <p>Method under test: {@link OptionalUtilities#maybe(Object)}
+   */
+  @Test
+  @DisplayName("Test maybe(Object)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Optional OptionalUtilities.maybe(Object)"})
+  void testMaybe() {
+    // Arrange and Act
+    Optional<Object> actualMaybeResult = OptionalUtilities.maybe("Value");
+
+    // Assert
+    assertEquals("Value", actualMaybeResult.get());
+    assertTrue(actualMaybeResult.isPresent());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#toList(Optional[])}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#toList(Optional[])}
+   */
+  @Test
+  @DisplayName("Test toList(Optional[]); when 'null'; then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List OptionalUtilities.toList(Optional[])"})
+  void testToList_whenNull_thenReturnEmpty() {
+    // Arrange and Act
+    List<Object> actualToListResult = OptionalUtilities.toList(null);
+
+    // Assert
+    assertTrue(actualToListResult.isEmpty());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#toList(Optional[])}.
+   *
+   * <ul>
+   *   <li>When {@link Optional} with {@code Value}.
+   *   <li>Then return size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#toList(Optional[])}
+   */
+  @Test
+  @DisplayName("Test toList(Optional[]); when Optional with 'Value'; then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List OptionalUtilities.toList(Optional[])"})
+  void testToList_whenOptionalWithValue_thenReturnSizeIsOne() {
+    // Arrange
+    Optional<Object> ofResult = Optional.of("Value");
+
+    // Act
+    List<Object> actualToListResult = OptionalUtilities.toList(ofResult);
+
+    // Assert
+    assertEquals(1, actualToListResult.size());
+    assertEquals("Value", actualToListResult.get(0));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#toSet(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Then return size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#toSet(Collection)}
+   */
+  @Test
+  @DisplayName("Test toSet(Collection); given Optional with 'Value'; then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set OptionalUtilities.toSet(Collection)"})
+  void testToSet_givenOptionalWithValue_thenReturnSizeIsOne() {
+    // Arrange
+    ArrayList<Optional<Object>> xs = new ArrayList<>();
+    Optional<Object> ofResult = Optional.of("Value");
+    xs.add(ofResult);
+
+    // Act
+    Set<Object> actualToSetResult = OptionalUtilities.toSet(xs);
+
+    // Assert
+    assertEquals(1, actualToSetResult.size());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#toSet(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Then return size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#toSet(Collection)}
+   */
+  @Test
+  @DisplayName("Test toSet(Collection); given Optional with 'Value'; then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set OptionalUtilities.toSet(Collection)"})
+  void testToSet_givenOptionalWithValue_thenReturnSizeIsOne2() {
+    // Arrange
+    ArrayList<Optional<Object>> xs = new ArrayList<>();
+    Optional<Object> ofResult = Optional.of("Value");
+    xs.add(ofResult);
+    Optional<Object> ofResult2 = Optional.of("Value");
+    xs.add(ofResult2);
+
+    // Act
+    Set<Object> actualToSetResult = OptionalUtilities.toSet(xs);
+
+    // Assert
+    assertEquals(1, actualToSetResult.size());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#toSet(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#toSet(Collection)}
+   */
+  @Test
+  @DisplayName("Test toSet(Collection); when ArrayList(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set OptionalUtilities.toSet(Collection)"})
+  void testToSet_whenArrayList_thenReturnEmpty() {
+    // Arrange and Act
+    Set<Object> actualToSetResult = OptionalUtilities.toSet(new ArrayList<>());
+
+    // Assert
+    assertTrue(actualToSetResult.isEmpty());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#contentsEqual(Optional, Object)}.
+   *
+   * <ul>
+   *   <li>When empty.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#contentsEqual(Optional, Object)}
+   */
+  @Test
+  @DisplayName("Test contentsEqual(Optional, Object); when empty; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.contentsEqual(Optional, Object)"})
+  void testContentsEqual_whenEmpty_thenReturnFalse() {
+    // Arrange
+    Optional<Object> opt = Optional.empty();
+
+    // Act and Assert
+    assertFalse(OptionalUtilities.contentsEqual(opt, "Val"));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#contentsEqual(Optional, Object)}.
+   *
+   * <ul>
+   *   <li>When {@link Optional} with {@code Val}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#contentsEqual(Optional, Object)}
+   */
+  @Test
+  @DisplayName("Test contentsEqual(Optional, Object); when Optional with 'Val'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.contentsEqual(Optional, Object)"})
+  void testContentsEqual_whenOptionalWithVal_thenReturnTrue() {
+    // Arrange
+    Optional<Object> opt = Optional.of("Val");
+
+    // Act and Assert
+    assertTrue(OptionalUtilities.contentsEqual(opt, "Val"));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#contentsEqual(Optional, Object)}.
+   *
+   * <ul>
+   *   <li>When {@link Optional} with {@code Value}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#contentsEqual(Optional, Object)}
+   */
+  @Test
+  @DisplayName(
+      "Test contentsEqual(Optional, Object); when Optional with 'Value'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.contentsEqual(Optional, Object)"})
+  void testContentsEqual_whenOptionalWithValue_thenReturnFalse() {
+    // Arrange
+    Optional<Object> opt = Optional.of("Value");
+
+    // Act and Assert
+    assertFalse(OptionalUtilities.contentsEqual(opt, "Val"));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#contentsEqual(Optional, Object)}.
+   *
+   * <ul>
+   *   <li>When {@link Optional} with {@code Value}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#contentsEqual(Optional, Object)}
+   */
+  @Test
+  @DisplayName(
+      "Test contentsEqual(Optional, Object); when Optional with 'Value'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.contentsEqual(Optional, Object)"})
+  void testContentsEqual_whenOptionalWithValue_thenReturnFalse2() {
+    // Arrange
+    Optional<Object> opt = Optional.of("Value");
+
+    // Act and Assert
+    assertFalse(OptionalUtilities.contentsEqual(opt, null));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#ofNullableOptional(Optional)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return not Present.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#ofNullableOptional(Optional)}
+   */
+  @Test
+  @DisplayName("Test ofNullableOptional(Optional); when 'null'; then return not Present")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Optional OptionalUtilities.ofNullableOptional(Optional)"})
+  void testOfNullableOptional_whenNull_thenReturnNotPresent() {
+    // Arrange and Act
+    Optional<Object> actualOfNullableOptionalResult = OptionalUtilities.ofNullableOptional(null);
+
+    // Assert
+    assertFalse(actualOfNullableOptionalResult.isPresent());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#ofNullableOptional(Optional)}.
+   *
+   * <ul>
+   *   <li>When {@link Optional} with {@code Value}.
+   *   <li>Then return {@link Optional#get()} is {@code Value}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#ofNullableOptional(Optional)}
+   */
+  @Test
+  @DisplayName(
+      "Test ofNullableOptional(Optional); when Optional with 'Value'; then return get() is 'Value'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Optional OptionalUtilities.ofNullableOptional(Optional)"})
+  void testOfNullableOptional_whenOptionalWithValue_thenReturnGetIsValue() {
+    // Arrange
+    Optional<Object> nullable = Optional.of("Value");
+
+    // Act
+    Optional<Object> actualOfNullableOptionalResult =
+        OptionalUtilities.ofNullableOptional(nullable);
+
+    // Assert
+    assertEquals("Value", actualOfNullableOptionalResult.get());
+    assertTrue(actualOfNullableOptionalResult.isPresent());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#isEmpty(Optional)}.
+   *
+   * <ul>
+   *   <li>When empty.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#isEmpty(Optional)}
+   */
+  @Test
+  @DisplayName("Test isEmpty(Optional); when empty; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.isEmpty(Optional)"})
+  void testIsEmpty_whenEmpty_thenReturnTrue() {
+    // Arrange
+    Optional<?> d = Optional.empty();
+
+    // Act and Assert
+    assertTrue(OptionalUtilities.isEmpty(d));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#isEmpty(Optional)}.
+   *
+   * <ul>
+   *   <li>When of {@code Value}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#isEmpty(Optional)}
+   */
+  @Test
+  @DisplayName("Test isEmpty(Optional); when of 'Value'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean OptionalUtilities.isEmpty(Optional)"})
+  void testIsEmpty_whenOfValue_thenReturnFalse() {
+    // Arrange
+    Optional<?> d = Optional.of("Value");
+
+    // Act and Assert
+    assertFalse(OptionalUtilities.isEmpty(d));
+  }
+
+  /**
+   * Test {@link OptionalUtilities#ofExplodable(Supplier)}.
+   *
+   * <ul>
+   *   <li>Given {@code Get}.
+   *   <li>When {@link Supplier} {@link Supplier#get()} return {@code Get}.
+   *   <li>Then return {@link Optional#get()} is {@code Get}.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#ofExplodable(Supplier)}
+   */
+  @Test
+  @DisplayName(
+      "Test ofExplodable(Supplier); given 'Get'; when Supplier get() return 'Get'; then return get() is 'Get'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Optional OptionalUtilities.ofExplodable(Supplier)"})
+  void testOfExplodable_givenGet_whenSupplierGetReturnGet_thenReturnGetIsGet() {
+    // Arrange
+    Supplier<Object> supplier = mock(Supplier.class);
+    when(supplier.get()).thenReturn("Get");
+
+    // Act
+    Optional<Object> actualOfExplodableResult = OptionalUtilities.ofExplodable(supplier);
+
+    // Assert
+    verify(supplier).get();
+    assertEquals("Get", actualOfExplodableResult.get());
+    assertTrue(actualOfExplodableResult.isPresent());
+  }
+
+  /**
+   * Test {@link OptionalUtilities#ofExplodable(Supplier)}.
+   *
+   * <ul>
+   *   <li>Given {@link RuntimeException#RuntimeException()}.
+   *   <li>Then return not Present.
+   * </ul>
+   *
+   * <p>Method under test: {@link OptionalUtilities#ofExplodable(Supplier)}
+   */
+  @Test
+  @DisplayName("Test ofExplodable(Supplier); given RuntimeException(); then return not Present")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Optional OptionalUtilities.ofExplodable(Supplier)"})
+  void testOfExplodable_givenRuntimeException_thenReturnNotPresent() {
+    // Arrange
+    Supplier<Object> supplier = mock(Supplier.class);
+    when(supplier.get()).thenThrow(new RuntimeException());
+
+    // Act
+    Optional<Object> actualOfExplodableResult = OptionalUtilities.ofExplodable(supplier);
+
+    // Assert
+    verify(supplier).get();
+    assertFalse(actualOfExplodableResult.isPresent());
+  }
+}
