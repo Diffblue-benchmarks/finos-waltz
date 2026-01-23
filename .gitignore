@@ -22,3 +22,9 @@ npm-debug.log
 pom.xml.versionsBackup
 /waltz-test-common/screenshots/
 /waltz-ng/mocha-test-results.txt
+
+.diffblue/cache
+**.diffblue/cache
+**/.diffblue/cache
+**/**.diffblue/cache
+**/**/.diffblue/cache
