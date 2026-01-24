@@ -504,7 +504,7 @@ class InvolvementKindDaoDiffblueTest {
 
     InvolvementKindCreateCommand command = mock(InvolvementKindCreateCommand.class);
     when(command.permittedRole()).thenReturn("Permitted Role");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
@@ -565,7 +565,7 @@ class InvolvementKindDaoDiffblueTest {
 
     InvolvementKindCreateCommand command = mock(InvolvementKindCreateCommand.class);
     when(command.permittedRole()).thenReturn("Permitted Role");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");

@@ -313,7 +313,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/9223372036854775807",
         EntityLinkUtilities.mkIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, Long.MAX_VALUE));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, Long.MAX_VALUE));
   }
 
   /**
@@ -355,7 +355,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/123",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 123L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 123L));
   }
 
   /**
@@ -377,7 +377,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/9223372036854775807",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, Long.MAX_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, Long.MAX_VALUE));
   }
 
   /**
@@ -399,7 +399,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/-9223372036854775808",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, Long.MIN_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, Long.MIN_VALUE));
   }
 
   /**
@@ -421,7 +421,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/123",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 123L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 123L));
   }
 
   /**
@@ -900,7 +900,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenEight_thenReturnEntityActorId8() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/8", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 8L));
+    assertEquals("/entity/ACTOR/id/8", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 8L));
   }
 
   /**
@@ -923,7 +923,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/8",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 8L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 8L));
   }
 
   /**
@@ -946,7 +946,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/8",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 8L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 8L));
   }
 
   /**
@@ -967,7 +967,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenEight_thenReturnEntityAllId8() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/8", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 8L));
+    assertEquals("/entity/ALL/id/8", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 8L));
   }
 
   /**
@@ -1034,7 +1034,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenFive_thenReturnEntityActorId5() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/5", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 5L));
+    assertEquals("/entity/ACTOR/id/5", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 5L));
   }
 
   /**
@@ -1057,7 +1057,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/5",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 5L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 5L));
   }
 
   /**
@@ -1080,7 +1080,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/5",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 5L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 5L));
   }
 
   /**
@@ -1100,7 +1100,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenFive_thenReturnEntityAllId5() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/5", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 5L));
+    assertEquals("/entity/ALL/id/5", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 5L));
   }
 
   /**
@@ -1167,7 +1167,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenFour_thenReturnEntityActorId4() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/4", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 4L));
+    assertEquals("/entity/ACTOR/id/4", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 4L));
   }
 
   /**
@@ -1190,7 +1190,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/4",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 4L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 4L));
   }
 
   /**
@@ -1213,7 +1213,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/4",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 4L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 4L));
   }
 
   /**
@@ -1233,7 +1233,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenFour_thenReturnEntityAllId4() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/4", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 4L));
+    assertEquals("/entity/ALL/id/4", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 4L));
   }
 
   /**
@@ -1302,7 +1302,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/id/9223372036854775807",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, Long.MAX_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, Long.MAX_VALUE));
   }
 
   /**
@@ -1325,7 +1325,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/id/9223372036854775807",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, Long.MAX_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, Long.MAX_VALUE));
   }
 
   /**
@@ -1348,7 +1348,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/id/-9223372036854775808",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, Long.MIN_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, Long.MIN_VALUE));
   }
 
   /**
@@ -1371,7 +1371,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/id/-9223372036854775808",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, Long.MIN_VALUE));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, Long.MIN_VALUE));
   }
 
   /**
@@ -1392,7 +1392,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenMinusOne_thenReturnEntityActorId1() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/-1", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, -1L));
+    assertEquals("/entity/ACTOR/id/-1", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, -1L));
   }
 
   /**
@@ -1415,7 +1415,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/-1",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, -1L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, -1L));
   }
 
   /**
@@ -1438,7 +1438,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/-1",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, -1L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, -1L));
   }
 
   /**
@@ -1459,7 +1459,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenMinusOne_thenReturnEntityAllId1() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/-1", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, -1L));
+    assertEquals("/entity/ALL/id/-1", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, -1L));
   }
 
   /**
@@ -1526,7 +1526,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenNine_thenReturnEntityActorId9() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/9", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 9L));
+    assertEquals("/entity/ACTOR/id/9", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 9L));
   }
 
   /**
@@ -1549,7 +1549,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/9",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 9L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 9L));
   }
 
   /**
@@ -1572,7 +1572,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/9",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 9L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 9L));
   }
 
   /**
@@ -1592,7 +1592,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenNine_thenReturnEntityAllId9() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/9", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 9L));
+    assertEquals("/entity/ALL/id/9", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 9L));
   }
 
   /**
@@ -1659,7 +1659,8 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenOneHundredTwentyThree_thenReturnEntityActorId123() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/123", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 123L));
+    assertEquals(
+        "/entity/ACTOR/id/123", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 123L));
   }
 
   /**
@@ -1680,7 +1681,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenOneHundredTwentyThree_thenReturnEntityAllId123() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/123", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 123L));
+    assertEquals("/entity/ALL/id/123", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 123L));
   }
 
   /**
@@ -1701,7 +1702,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenOne_thenReturnEntityActorId1() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/1", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 1L));
+    assertEquals("/entity/ACTOR/id/1", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 1L));
   }
 
   /**
@@ -1724,7 +1725,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/1",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 1L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 1L));
   }
 
   /**
@@ -1747,7 +1748,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/1",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 1L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 1L));
   }
 
   /**
@@ -1767,7 +1768,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenOne_thenReturnEntityAllId1() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/1", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 1L));
+    assertEquals("/entity/ALL/id/1", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 1L));
   }
 
   /**
@@ -1834,7 +1835,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenSeven_thenReturnEntityActorId7() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/7", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 7L));
+    assertEquals("/entity/ACTOR/id/7", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 7L));
   }
 
   /**
@@ -1857,7 +1858,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/7",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 7L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 7L));
   }
 
   /**
@@ -1880,7 +1881,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/7",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 7L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 7L));
   }
 
   /**
@@ -1901,7 +1902,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenSeven_thenReturnEntityAllId7() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/7", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 7L));
+    assertEquals("/entity/ALL/id/7", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 7L));
   }
 
   /**
@@ -1968,7 +1969,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenSix_thenReturnEntityActorId6() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/6", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 6L));
+    assertEquals("/entity/ACTOR/id/6", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 6L));
   }
 
   /**
@@ -1991,7 +1992,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/6",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 6L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 6L));
   }
 
   /**
@@ -2014,7 +2015,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/6",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 6L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 6L));
   }
 
   /**
@@ -2034,7 +2035,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenSix_thenReturnEntityAllId6() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/6", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 6L));
+    assertEquals("/entity/ALL/id/6", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 6L));
   }
 
   /**
@@ -2101,7 +2102,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenTen_thenReturnEntityActorId10() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/10", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 10L));
+    assertEquals("/entity/ACTOR/id/10", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 10L));
   }
 
   /**
@@ -2124,7 +2125,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/10",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 10L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 10L));
   }
 
   /**
@@ -2147,7 +2148,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/10",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 10L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 10L));
   }
 
   /**
@@ -2167,7 +2168,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenTen_thenReturnEntityAllId10() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/10", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 10L));
+    assertEquals("/entity/ALL/id/10", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 10L));
   }
 
   /**
@@ -2234,7 +2235,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenThree_thenReturnEntityActorId3() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/3", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 3L));
+    assertEquals("/entity/ACTOR/id/3", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 3L));
   }
 
   /**
@@ -2257,7 +2258,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/3",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 3L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 3L));
   }
 
   /**
@@ -2280,7 +2281,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/3",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 3L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 3L));
   }
 
   /**
@@ -2301,7 +2302,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenThree_thenReturnEntityAllId3() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/3", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 3L));
+    assertEquals("/entity/ALL/id/3", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 3L));
   }
 
   /**
@@ -2368,7 +2369,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenTwo_thenReturnEntityActorId2() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/2", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 2L));
+    assertEquals("/entity/ACTOR/id/2", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 2L));
   }
 
   /**
@@ -2391,7 +2392,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/2",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 2L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 2L));
   }
 
   /**
@@ -2414,7 +2415,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/2",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 2L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 2L));
   }
 
   /**
@@ -2434,7 +2435,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenTwo_thenReturnEntityAllId2() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/2", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 2L));
+    assertEquals("/entity/ALL/id/2", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 2L));
   }
 
   /**
@@ -2501,7 +2502,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenZero_thenReturnEntityActorId0() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ACTOR/id/0", EntityLinkUtilities.mkIdLink("/", EntityKind.ACTOR, 0L));
+    assertEquals("/entity/ACTOR/id/0", EntityLinkUtilities.mkIdLink("///", EntityKind.ACTOR, 0L));
   }
 
   /**
@@ -2524,7 +2525,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/id/0",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 0L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, 0L));
   }
 
   /**
@@ -2547,7 +2548,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/id/0",
-        EntityLinkUtilities.mkIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 0L));
+        EntityLinkUtilities.mkIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, 0L));
   }
 
   /**
@@ -2567,7 +2568,7 @@ class EntityLinkUtilitiesDiffblueTest {
   @MethodsUnderTest({"String EntityLinkUtilities.mkIdLink(String, EntityKind, Long)"})
   void testMkIdLink_whenZero_thenReturnEntityAllId0() {
     // Arrange, Act and Assert
-    assertEquals("/entity/ALL/id/0", EntityLinkUtilities.mkIdLink("/", EntityKind.ALL, 0L));
+    assertEquals("/entity/ALL/id/0", EntityLinkUtilities.mkIdLink("///", EntityKind.ALL, 0L));
   }
 
   /**
@@ -2847,7 +2848,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "https:/example.org/example/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "https://example.org/example", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "https://example.org/example", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -2999,7 +3000,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "Cannot convert empty or null segments to path/entity/ALL/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "Cannot convert empty or null segments to path", EntityKind.ALL, "/"));
+            "Cannot convert empty or null segments to path", EntityKind.ALL, "///"));
   }
 
   /**
@@ -3017,7 +3018,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/baseUrl cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "baseUrl cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "baseUrl cannot be null"));
   }
 
   /**
@@ -3035,7 +3036,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/kind cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "kind cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "kind cannot be null"));
   }
 
   /**
@@ -3053,7 +3054,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/externalId cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "externalId cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "externalId cannot be null"));
   }
 
   /**
@@ -3071,7 +3072,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/ALL/external-id/Cannot convert empty or null segments to path",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.ALL, "Cannot convert empty or null segments to path"));
+            "///", EntityKind.ALL, "Cannot convert empty or null segments to path"));
   }
 
   /**
@@ -3089,7 +3090,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "baseUrl cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "baseUrl cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "baseUrl cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -3107,7 +3108,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "https:/example.org/example/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "https://example.org/example", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "https://example.org/example", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3225,7 +3226,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "Cannot convert empty or null segments to path/entity/ACTOR/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "Cannot convert empty or null segments to path", EntityKind.ACTOR, "/"));
+            "Cannot convert empty or null segments to path", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -3243,7 +3244,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "kind cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "kind cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "kind cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -3261,7 +3262,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "externalId cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "externalId cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "externalId cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -3281,7 +3282,7 @@ class EntityLinkUtilitiesDiffblueTest {
         EntityLinkUtilities.mkExternalIdLink(
             "Cannot convert empty or null segments to path",
             EntityKind.AGGREGATE_OVERLAY_DIAGRAM,
-            "/"));
+            "///"));
   }
 
   /**
@@ -3299,7 +3300,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/baseUrl cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "baseUrl cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "baseUrl cannot be null"));
   }
 
   /**
@@ -3317,7 +3318,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/kind cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "kind cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "kind cannot be null"));
   }
 
   /**
@@ -3335,7 +3336,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/externalId cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "externalId cannot be null"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "externalId cannot be null"));
   }
 
   /**
@@ -3353,7 +3354,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/External Id",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "External Id"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "External Id"));
   }
 
   /**
@@ -3371,7 +3372,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/entity",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "entity"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "entity"));
   }
 
   /**
@@ -3389,7 +3390,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/external-id",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "external-id"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "external-id"));
   }
 
   /**
@@ -3407,7 +3408,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/ACTOR/external-id/Cannot convert empty or null segments to path",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.ACTOR, "Cannot convert empty or null segments to path"));
+            "///", EntityKind.ACTOR, "Cannot convert empty or null segments to path"));
   }
 
   /**
@@ -3425,7 +3426,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/Cannot convert empty or null segments to path",
         EntityLinkUtilities.mkExternalIdLink(
-            "/",
+            "///",
             EntityKind.AGGREGATE_OVERLAY_DIAGRAM,
             "Cannot convert empty or null segments to path"));
   }
@@ -3445,7 +3446,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "baseUrl cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "baseUrl cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "baseUrl cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3463,7 +3464,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "kind cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "kind cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "kind cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3481,7 +3482,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "externalId cannot be null/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "externalId cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "externalId cannot be null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3499,7 +3500,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "entity/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "entity", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "entity", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3517,7 +3518,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "Base Url/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "Base Url", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "Base Url", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3535,7 +3536,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "external-id/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "external-id", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "external-id", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3555,7 +3556,7 @@ class EntityLinkUtilitiesDiffblueTest {
         EntityLinkUtilities.mkExternalIdLink(
             "Cannot convert empty or null segments to path",
             EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE,
-            "/"));
+            "///"));
   }
 
   /**
@@ -3573,7 +3574,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         ": Array was null/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            ": Array was null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            ": Array was null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -3591,7 +3592,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/Cannot convert empty or null segments to path",
         EntityLinkUtilities.mkExternalIdLink(
-            "/",
+            "///",
             EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE,
             "Cannot convert empty or null segments to path"));
   }
@@ -3611,7 +3612,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         ": Array was null/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            ": Array was null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            ": Array was null", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3755,7 +3756,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "Cannot convert empty or null segments to path/entity/ALLOCATION/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "Cannot convert empty or null segments to path", EntityKind.ALLOCATION, "/"));
+            "Cannot convert empty or null segments to path", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -3778,7 +3779,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "42/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "42", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "42", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -3875,7 +3876,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         ": Array was null/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink(": Array was null", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink(": Array was null", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -3897,7 +3898,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "baseUrl cannot be null/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("baseUrl cannot be null", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("baseUrl cannot be null", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -3919,7 +3920,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "baseUrl cannot be null/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("baseUrl cannot be null", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("baseUrl cannot be null", EntityKind.ALL, "///"));
   }
 
   /**
@@ -3963,7 +3964,8 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "baseUrl cannot be null/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("baseUrl cannot be null", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink(
+            "baseUrl cannot be null", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -3986,7 +3988,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "Base Url/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "Base Url", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "Base Url", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -4008,7 +4010,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/baseUrl cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "baseUrl cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "baseUrl cannot be null"));
   }
 
   /**
@@ -4030,7 +4032,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/externalId cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "externalId cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "externalId cannot be null"));
   }
 
   /**
@@ -4052,7 +4054,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/kind cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "kind cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "kind cannot be null"));
   }
 
   /**
@@ -4074,7 +4076,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -4096,7 +4098,8 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/entity",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "entity"));
+        EntityLinkUtilities.mkExternalIdLink(
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "entity"));
   }
 
   /**
@@ -4119,7 +4122,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/External Id",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "External Id"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "External Id"));
   }
 
   /**
@@ -4142,7 +4145,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/external-id",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "external-id"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "external-id"));
   }
 
   /**
@@ -4165,7 +4168,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "/"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "///"));
   }
 
   /**
@@ -4188,7 +4191,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM_INSTANCE/external-id/42",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "42"));
+            "///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM_INSTANCE, "42"));
   }
 
   /**
@@ -4210,7 +4213,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/baseUrl cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "baseUrl cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "baseUrl cannot be null"));
   }
 
   /**
@@ -4232,7 +4235,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/externalId cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "externalId cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "externalId cannot be null"));
   }
 
   /**
@@ -4254,7 +4257,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/kind cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "kind cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "kind cannot be null"));
   }
 
   /**
@@ -4276,7 +4279,8 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/baseUrl cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "baseUrl cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink(
+            "///", EntityKind.ALLOCATION, "baseUrl cannot be null"));
   }
 
   /**
@@ -4298,7 +4302,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/External Id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "External Id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "External Id"));
   }
 
   /**
@@ -4320,7 +4324,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/external-id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "external-id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "external-id"));
   }
 
   /**
@@ -4343,7 +4347,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "/entity/ALLOCATION/external-id/externalId cannot be null",
         EntityLinkUtilities.mkExternalIdLink(
-            "/", EntityKind.ALLOCATION, "externalId cannot be null"));
+            "///", EntityKind.ALLOCATION, "externalId cannot be null"));
   }
 
   /**
@@ -4365,7 +4369,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/kind cannot be null",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "kind cannot be null"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "kind cannot be null"));
   }
 
   /**
@@ -4387,7 +4391,8 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "entity/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+        EntityLinkUtilities.mkExternalIdLink(
+            "entity", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -4409,7 +4414,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "externalId cannot be null/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("externalId cannot be null", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("externalId cannot be null", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -4431,7 +4436,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "externalId cannot be null/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("externalId cannot be null", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("externalId cannot be null", EntityKind.ALL, "///"));
   }
 
   /**
@@ -4454,7 +4459,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "externalId cannot be null/entity/ALLOCATION/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "externalId cannot be null", EntityKind.ALLOCATION, "/"));
+            "externalId cannot be null", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4477,7 +4482,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "external-id/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "external-id", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+            "external-id", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -4499,7 +4504,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "external-id/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4521,7 +4526,8 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "https:/example.org/example/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("https://example.org/example", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink(
+            "https://example.org/example", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -4635,7 +4641,7 @@ class EntityLinkUtilitiesDiffblueTest {
     assertEquals(
         "https:/example.org/example/entity/ALLOCATION/external-id/",
         EntityLinkUtilities.mkExternalIdLink(
-            "https://example.org/example", EntityKind.ALLOCATION, "/"));
+            "https://example.org/example", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4657,7 +4663,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "kind cannot be null/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -4679,7 +4685,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "kind cannot be null/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ALL, "///"));
   }
 
   /**
@@ -4701,7 +4707,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "kind cannot be null/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("kind cannot be null", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4724,7 +4730,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "42/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -4747,7 +4753,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "42/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "/"));
+        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "///"));
   }
 
   /**
@@ -4770,7 +4776,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "42/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ALL, "///"));
   }
 
   /**
@@ -4793,7 +4799,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "42/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("42", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4816,7 +4822,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/42",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "42"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "42"));
   }
 
   /**
@@ -4839,7 +4845,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/AGGREGATE_OVERLAY_DIAGRAM/external-id/42",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "42"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.AGGREGATE_OVERLAY_DIAGRAM, "42"));
   }
 
   /**
@@ -4862,7 +4868,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/42",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "42"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "42"));
   }
 
   /**
@@ -4885,7 +4891,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/42",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "42"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "42"));
   }
 
   /**
@@ -4908,7 +4914,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -4930,7 +4936,8 @@ class EntityLinkUtilitiesDiffblueTest {
   void testMkExternalIdLink_whenAll_thenReturnEntityAllExternalId() {
     // Arrange, Act and Assert
     assertEquals(
-        "/entity/ALL/external-id/", EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "/"));
+        "/entity/ALL/external-id/",
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "///"));
   }
 
   /**
@@ -4953,7 +4960,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "https:/example.org/example/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("https://example.org/example", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("https://example.org/example", EntityKind.ALL, "///"));
   }
 
   /**
@@ -4976,7 +4983,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -4999,7 +5006,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         ": Array was null/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink(": Array was null", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink(": Array was null", EntityKind.ALL, "///"));
   }
 
   /**
@@ -5049,7 +5056,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "Base Url/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -5072,7 +5079,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "Base Url/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ALL, "///"));
   }
 
   /**
@@ -5095,7 +5102,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "Base Url/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("Base Url", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -5118,7 +5125,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/entity",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "entity"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "entity"));
   }
 
   /**
@@ -5141,7 +5148,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/entity",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "entity"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "entity"));
   }
 
   /**
@@ -5164,7 +5171,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALLOCATION/external-id/entity",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALLOCATION, "entity"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALLOCATION, "entity"));
   }
 
   /**
@@ -5187,7 +5194,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "entity/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -5210,7 +5217,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "entity/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ALL, "///"));
   }
 
   /**
@@ -5233,7 +5240,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "entity/entity/ALLOCATION/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ALLOCATION, "/"));
+        EntityLinkUtilities.mkExternalIdLink("entity", EntityKind.ALLOCATION, "///"));
   }
 
   /**
@@ -5283,7 +5290,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/External Id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "External Id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "External Id"));
   }
 
   /**
@@ -5306,7 +5313,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ACTOR/external-id/external-id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ACTOR, "external-id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ACTOR, "external-id"));
   }
 
   /**
@@ -5329,7 +5336,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/External Id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "External Id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "External Id"));
   }
 
   /**
@@ -5352,7 +5359,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/entity/ALL/external-id/external-id",
-        EntityLinkUtilities.mkExternalIdLink("/", EntityKind.ALL, "external-id"));
+        EntityLinkUtilities.mkExternalIdLink("///", EntityKind.ALL, "external-id"));
   }
 
   /**
@@ -5375,7 +5382,7 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "external-id/entity/ACTOR/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ACTOR, "/"));
+        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ACTOR, "///"));
   }
 
   /**
@@ -5398,6 +5405,6 @@ class EntityLinkUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "external-id/entity/ALL/external-id/",
-        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ALL, "/"));
+        EntityLinkUtilities.mkExternalIdLink("external-id", EntityKind.ALL, "///"));
   }
 }

@@ -15,65 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class UserTimestampDiffblueTest {
   /**
-   * Test {@link UserTimestamp#at()}.
-   *
-   * <ul>
-   *   <li>Then return toLocalTime toString is {@code 00:00}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTimestamp#at()}
-   */
-  @Test
-  @DisplayName("Test at(); then return toLocalTime toString is '00:00'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"LocalDateTime UserTimestamp.at()"})
-  void testAt_thenReturnToLocalTimeToStringIs0000() {
-    // Arrange
-    LocalDate ofResult = LocalDate.of(1970, 1, 1);
-
-    // Act
-    LocalDateTime actualAtResult =
-        ImmutableUserTimestamp.builder().at(ofResult.atStartOfDay()).by("By").build().at();
-
-    // Assert
-    assertEquals("00:00", actualAtResult.toLocalTime().toString());
-    LocalDate toLocalDateResult = actualAtResult.toLocalDate();
-    assertEquals("1970-01-01", toLocalDateResult.toString());
-    assertSame(ofResult, toLocalDateResult);
-  }
-
-  /**
-   * Test {@link UserTimestamp#atTimestamp()}.
-   *
-   * <ul>
-   *   <li>Then return {@link SimpleDateFormat#SimpleDateFormat(String)} with {@code yyyy-MM-dd}
-   *       format is {@code 1970-01-01}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTimestamp#atTimestamp()}
-   */
-  @Test
-  @DisplayName(
-      "Test atTimestamp(); then return SimpleDateFormat(String) with 'yyyy-MM-dd' format is '1970-01-01'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Timestamp UserTimestamp.atTimestamp()"})
-  void testAtTimestamp_thenReturnSimpleDateFormatWithYyyyMmDdFormatIs19700101() {
-    // Arrange and Act
-    Timestamp actualAtTimestampResult =
-        ImmutableUserTimestamp.builder()
-            .at(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .by("By")
-            .build()
-            .atTimestamp();
-
-    // Assert
-    String actualFormatResult = new SimpleDateFormat("yyyy-MM-dd").format(actualAtTimestampResult);
-    assertEquals("1970-01-01", actualFormatResult);
-  }
-
-  /**
    * Test {@link UserTimestamp#mkForUser(String)} with {@code String}.
    *
    * <p>Method under test: {@link UserTimestamp#mkForUser(String)}
@@ -136,7 +77,7 @@ class UserTimestampDiffblueTest {
   @MethodsUnderTest({"UserTimestamp UserTimestamp.mkForUser(String, Timestamp)"})
   void testMkForUserWithStringTimestamp_thenReturnImmutableUserTimestamp() {
     // Arrange and Act
-    UserTimestamp actualMkForUserResult = UserTimestamp.mkForUser("janedoe", new Timestamp(10L));
+    UserTimestamp actualMkForUserResult = UserTimestamp.mkForUser("janedoe", new Timestamp(1L));
 
     // Assert
     assertTrue(actualMkForUserResult instanceof ImmutableUserTimestamp);

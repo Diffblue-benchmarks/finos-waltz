@@ -16,41 +16,6 @@ import org.junit.jupiter.api.Test;
 
 class MeasurableCategoryDiffblueTest {
   /**
-   * Test {@link MeasurableCategory#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MeasurableCategory#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind MeasurableCategory.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableMeasurableCategory.builder()
-            .allowPrimaryRatings(true)
-            .constrainingAssessmentDefinitionId(1L)
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .icon("Icon")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .ratingEditorRole("Rating Editor Role")
-            .ratingSchemeId(1L)
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link MeasurableCategory#editable()}.
    *
    * <ul>
@@ -116,41 +81,6 @@ class MeasurableCategoryDiffblueTest {
             .ratingSchemeId(1L)
             .build()
             .isDeprecated());
-  }
-
-  /**
-   * Test {@link MeasurableCategory#ratingEditorRole()}.
-   *
-   * <ul>
-   *   <li>Then return {@code Rating Editor Role}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MeasurableCategory#ratingEditorRole()}
-   */
-  @Test
-  @DisplayName("Test ratingEditorRole(); then return 'Rating Editor Role'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String MeasurableCategory.ratingEditorRole()"})
-  void testRatingEditorRole_thenReturnRatingEditorRole() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Rating Editor Role",
-        ImmutableMeasurableCategory.builder()
-            .allowPrimaryRatings(true)
-            .constrainingAssessmentDefinitionId(1L)
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .icon("Icon")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .ratingEditorRole("Rating Editor Role")
-            .ratingSchemeId(1L)
-            .build()
-            .ratingEditorRole());
   }
 
   /**

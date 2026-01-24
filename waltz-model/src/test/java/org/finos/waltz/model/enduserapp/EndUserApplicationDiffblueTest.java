@@ -17,40 +17,6 @@ import org.junit.jupiter.api.Test;
 
 class EndUserApplicationDiffblueTest {
   /**
-   * Test {@link EndUserApplication#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link EndUserApplication#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind EndUserApplication.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange
-    Builder provenanceResult =
-        ImmutableEndUserApplication.builder()
-            .applicationKind("Application Kind")
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .isPromoted(true)
-            .kind(EntityKind.ALL)
-            .lifecyclePhase(LifecyclePhase.PRODUCTION)
-            .name("Name")
-            .organisationalUnitId(1L)
-            .provenance("Provenance");
-
-    // Act and Assert
-    assertEquals(
-        EntityKind.ALL, provenanceResult.riskRating(CriticalityValue.of("42")).build().kind());
-  }
-
-  /**
    * Test {@link EndUserApplication#entityReference()}.
    *
    * <ul>

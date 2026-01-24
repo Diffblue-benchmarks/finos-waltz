@@ -15,38 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class ActorDiffblueTest {
   /**
-   * Test {@link Actor#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Actor#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind Actor.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableActor.builder()
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .isExternal(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .provenance("Provenance")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link Actor#entityReference()}.
    *
    * <ul>

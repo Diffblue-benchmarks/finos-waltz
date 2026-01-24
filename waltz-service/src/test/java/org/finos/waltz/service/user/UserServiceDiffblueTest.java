@@ -729,7 +729,7 @@ class UserServiceDiffblueTest {
    * Test {@link UserService#ensureExists(String)}.
    *
    * <ul>
-   *   <li>Given {@link UserDao} {@link UserDao#create(String, String)} return zero.
+   *   <li>Given {@link UserDao} {@link UserDao#create(String, String)} return four.
    *   <li>When {@code janedoe}.
    *   <li>Then return {@code false}.
    * </ul>
@@ -738,13 +738,13 @@ class UserServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test ensureExists(String); given UserDao create(String, String) return zero; when 'janedoe'; then return 'false'")
+      "Test ensureExists(String); given UserDao create(String, String) return four; when 'janedoe'; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean UserService.ensureExists(String)"})
-  void testEnsureExists_givenUserDaoCreateReturnZero_whenJanedoe_thenReturnFalse() {
+  void testEnsureExists_givenUserDaoCreateReturnFour_whenJanedoe_thenReturnFalse() {
     // Arrange
-    when(userDao.create(Mockito.<String>any(), Mockito.<String>any())).thenReturn(0);
+    when(userDao.create(Mockito.<String>any(), Mockito.<String>any())).thenReturn(4);
     when(passwordService.hashPassword(Mockito.<String>any())).thenReturn("iloveyou");
 
     // Act

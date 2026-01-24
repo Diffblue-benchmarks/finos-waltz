@@ -399,7 +399,7 @@ class SurveyRunDaoDiffblueTest {
     SurveyRunDao surveyRunDao = new SurveyRunDao(dsl);
 
     SurveyRunChangeCommand command = mock(SurveyRunChangeCommand.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.contactEmail()).thenReturn(ofResult);
     Optional<LocalDate> ofResult2 = Optional.of(LocalDate.of(1970, 1, 1));
     when(command.approvalDueDate()).thenReturn(ofResult2);
@@ -522,7 +522,7 @@ class SurveyRunDaoDiffblueTest {
     SurveyRunDao surveyRunDao = new SurveyRunDao(dsl);
 
     SurveyRunChangeCommand command = mock(SurveyRunChangeCommand.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.contactEmail()).thenReturn(ofResult);
     Optional<LocalDate> ofResult2 = Optional.of(LocalDate.of(1970, 1, 1));
     when(command.approvalDueDate()).thenReturn(ofResult2);

@@ -448,7 +448,7 @@ class BookmarkServiceDiffblueTest {
         new BookmarkService(bookmarkDao, changeLogService, mock(EntityReferenceNameResolver.class));
 
     Bookmark bookmark = mock(Bookmark.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult);
     when(bookmark.parent())
         .thenReturn(
@@ -640,7 +640,7 @@ class BookmarkServiceDiffblueTest {
         new BookmarkService(bookmarkDao, changeLogService, mock(EntityReferenceNameResolver.class));
 
     Bookmark bookmark = mock(Bookmark.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult);
     when(bookmark.parent())
         .thenReturn(

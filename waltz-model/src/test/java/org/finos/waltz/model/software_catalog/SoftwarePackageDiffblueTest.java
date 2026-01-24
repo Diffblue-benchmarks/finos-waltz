@@ -19,48 +19,6 @@ import org.junit.jupiter.api.Test;
 
 class SoftwarePackageDiffblueTest {
   /**
-   * Test {@link SoftwarePackage#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SoftwarePackage#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind SoftwarePackage.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange
-    Builder builderResult = ImmutableSoftwarePackage.builder();
-    ImmutableUserTimestamp immutableUserTimestamp =
-        ImmutableUserTimestamp.builder()
-            .at(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .by("By")
-            .build();
-    Optional<? extends UserTimestamp> created = Optional.of(immutableUserTimestamp);
-
-    // Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        builderResult
-            .created(created)
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .group("Group")
-            .id(1L)
-            .isNotable(true)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .vendor("Vendor")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link SoftwarePackage#entityReference()}.
    *
    * <ul>

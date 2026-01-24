@@ -1821,7 +1821,7 @@ class FlowClassificationRuleServiceDiffblueTest {
 
     FlowClassificationRuleUpdateCommand command = mock(FlowClassificationRuleUpdateCommand.class);
     when(command.classificationId()).thenThrow(new NotFoundException("Code", "An error occurred"));
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act and Assert
@@ -1829,7 +1829,7 @@ class FlowClassificationRuleServiceDiffblueTest {
         NotFoundException.class, () -> flowClassificationRuleService.update(command, "janedoe"));
     verify(actorDao).getById(1L);
     verify(dataTypeDao).getById(1L);
-    verify(flowClassificationRuleDao).getById(42L);
+    verify(flowClassificationRuleDao).getById(1L);
     verify(flowClassificationRuleDao).update(isA(FlowClassificationRuleUpdateCommand.class));
     verify(command, atLeast(1)).id();
     verify(command).classificationId();
@@ -3418,6 +3418,7 @@ class FlowClassificationRuleServiceDiffblueTest {
   @MethodsUnderTest({"int FlowClassificationRuleService.remove(long, String)"})
   void testRemove3() {
     // Arrange
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
     when(flowClassificationRuleDao.remove(anyLong()))
         .thenThrow(new NotFoundException("Code", "An error occurred"));
 
@@ -3469,6 +3470,8 @@ class FlowClassificationRuleServiceDiffblueTest {
                         .name("Name")
                         .build())
                 .build());
+
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
     when(dataTypeDao.getById(anyLong()))
         .thenReturn(
             ImmutableDataType.builder()
@@ -3479,6 +3482,8 @@ class FlowClassificationRuleServiceDiffblueTest {
                 .name("Name")
                 .parentId(1L)
                 .build());
+
+    ActorDao actorDao = mock(ActorDao.class);
     when(actorDao.getById(anyLong()))
         .thenReturn(
             ImmutableActor.builder()
@@ -3492,6 +3497,97 @@ class FlowClassificationRuleServiceDiffblueTest {
                 .name("Name")
                 .provenance("Provenance")
                 .build());
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    DefaultDSLContext dsl = new DefaultDSLContext(SQLDialect.SQL99);
+    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
+    DataTypeDao dataTypeDao3 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao2 = mock(EntityHierarchyDao.class);
+    EntityStatisticDao entityStatisticDao = mock(EntityStatisticDao.class);
+    MeasurableDao measurableDao = mock(MeasurableDao.class);
+    OrganisationalUnitDao organisationalUnitDao2 = mock(OrganisationalUnitDao.class);
+    PersonDao personDao = mock(PersonDao.class);
+    PersonHierarchyService personHierarchyService =
+        new PersonHierarchyService(personDao, new DefaultDSLContext(SQLDialect.SQL99));
+
+    EntityHierarchyService entityHierarchyService =
+        new EntityHierarchyService(
+            dsl,
+            changeInitiativeDao,
+            dataTypeDao3,
+            entityHierarchyDao2,
+            entityStatisticDao,
+            measurableDao,
+            organisationalUnitDao2,
+            personHierarchyService,
+            mock(PersonDao.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            mock(LogicalFlowDecoratorDao.class),
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
 
     // Act and Assert
     assertThrows(
@@ -6837,6 +6933,122 @@ class FlowClassificationRuleServiceDiffblueTest {
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
   void testFastRecalculateAllFlowRatings8() {
     // Arrange
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
+            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
+        .thenReturn(1);
+    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(),
+            Mockito.<EntityHierarchy>any(),
+            Mockito.<Set<FlowDataType>>any()))
+        .thenReturn(new ArrayList<>());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
+    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
+        .thenReturn(ImmutableEntityHierarchy.builder().build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
+        .thenReturn(new HashSet<>());
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
+
+    // Act
+    int actualFastRecalculateAllFlowRatingsResult =
+        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+
+    // Assert
+    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
+    verify(flowClassificationRuleDao, atLeast(1))
+        .findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
+    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
+    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
+    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
+  }
+
+  /**
+   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
+   *
+   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
+   */
+  @Test
+  @DisplayName("Test fastRecalculateAllFlowRatings()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
+  void testFastRecalculateAllFlowRatings9() {
+    // Arrange
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
         .thenReturn(1);
@@ -6855,6 +7067,8 @@ class FlowClassificationRuleServiceDiffblueTest {
             .kind(EntityKind.ALL)
             .parentId(1L)
             .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
     when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
         .thenReturn(builderResult.build());
 
@@ -6899,8 +7113,81 @@ class FlowClassificationRuleServiceDiffblueTest {
             .targetInboundRating(AuthoritativenessRatingValue.of("42"))
             .targetOuId(1L)
             .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
         .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
 
     // Act
     int actualFastRecalculateAllFlowRatingsResult =
@@ -6926,7 +7213,7 @@ class FlowClassificationRuleServiceDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings9() {
+  void testFastRecalculateAllFlowRatings10() {
     // Arrange
     ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
         new ArrayList<>();
@@ -6963,6 +7250,8 @@ class FlowClassificationRuleServiceDiffblueTest {
                     .build())
             .vantagePointRank(1)
             .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
         .thenReturn(1);
@@ -6981,6 +7270,8 @@ class FlowClassificationRuleServiceDiffblueTest {
             .kind(EntityKind.ALL)
             .parentId(1L)
             .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
     when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
         .thenReturn(builderResult.build());
 
@@ -7025,8 +7316,81 @@ class FlowClassificationRuleServiceDiffblueTest {
             .targetInboundRating(AuthoritativenessRatingValue.of("42"))
             .targetOuId(1L)
             .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
         .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
 
     // Act
     int actualFastRecalculateAllFlowRatingsResult =
@@ -7052,7 +7416,7 @@ class FlowClassificationRuleServiceDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings10() {
+  void testFastRecalculateAllFlowRatings11() {
     // Arrange
     ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
         new ArrayList<>();
@@ -7122,6 +7486,8 @@ class FlowClassificationRuleServiceDiffblueTest {
                     .build())
             .vantagePointRank(1)
             .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
         .thenReturn(1);
@@ -7140,6 +7506,8 @@ class FlowClassificationRuleServiceDiffblueTest {
             .kind(EntityKind.ALL)
             .parentId(1L)
             .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
     when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
         .thenReturn(builderResult.build());
 
@@ -7184,107 +7552,81 @@ class FlowClassificationRuleServiceDiffblueTest {
             .targetInboundRating(AuthoritativenessRatingValue.of("42"))
             .targetOuId(1L)
             .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
         .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
 
-    // Act
-    int actualFastRecalculateAllFlowRatingsResult =
-        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+    TagService tagService = new TagService(tagDao, changeLogService);
 
-    // Assert
-    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
-    verify(flowClassificationRuleDao, atLeast(1))
-        .findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
-    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
-    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
-    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
-  }
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
 
-  /**
-   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
-   *
-   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
-   */
-  @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings11() {
-    // Arrange
-    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
-            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
-        .thenReturn(1);
-    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(),
-            Mockito.<EntityHierarchy>any(),
-            Mockito.<Set<FlowDataType>>any()))
-        .thenReturn(new ArrayList<>());
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
 
-    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(builderResult.build());
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
 
-    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
-
-    Builder outboundRuleIdResult =
-        ImmutableFlowDataType.builder()
-            .dtId(1L)
-            .inboundRuleId(1L)
-            .lfId(1L)
-            .lfdId(1L)
-            .outboundRuleId(1L);
-
-    Builder sourceOuIdResult =
-        outboundRuleIdResult
-            .source(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .sourceOuId(1L);
-
-    Builder sourceOutboundRatingResult =
-        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
-
-    Builder targetResult =
-        sourceOutboundRatingResult.target(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowDataTypeSet.add(
-        targetResult
-            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
-            .targetOuId(1L)
-            .build());
-    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(flowDataTypeSet);
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
 
     // Act
     int actualFastRecalculateAllFlowRatingsResult =
@@ -7312,6 +7654,7 @@ class FlowClassificationRuleServiceDiffblueTest {
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
   void testFastRecalculateAllFlowRatings12() {
     // Arrange
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
         .thenReturn(1);
@@ -7326,10 +7669,12 @@ class FlowClassificationRuleServiceDiffblueTest {
         ImmutableEntityHierarchyItem.builder()
             .ancestorLevel(1)
             .descendantLevel(3)
-            .id(1L)
+            .id(2L)
             .kind(EntityKind.ALL)
             .parentId(1L)
             .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
     when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
         .thenReturn(builderResult.build());
 
@@ -7337,7 +7682,7 @@ class FlowClassificationRuleServiceDiffblueTest {
 
     Builder outboundRuleIdResult =
         ImmutableFlowDataType.builder()
-            .dtId(2L)
+            .dtId(1L)
             .inboundRuleId(1L)
             .lfId(1L)
             .lfdId(1L)
@@ -7374,8 +7719,81 @@ class FlowClassificationRuleServiceDiffblueTest {
             .targetInboundRating(AuthoritativenessRatingValue.of("42"))
             .targetOuId(1L)
             .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
         .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
 
     // Act
     int actualFastRecalculateAllFlowRatingsResult =
@@ -7402,6 +7820,884 @@ class FlowClassificationRuleServiceDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
   void testFastRecalculateAllFlowRatings13() {
+    // Arrange
+    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
+        new ArrayList<>();
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(1L)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
+        ruleIdResult.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
+            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
+        .thenReturn(1);
+    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(),
+            Mockito.<EntityHierarchy>any(),
+            Mockito.<Set<FlowDataType>>any()))
+        .thenReturn(flowClassificationRuleVantagePointList);
+
+    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
+    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
+        .thenReturn(builderResult.build());
+
+    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
+
+    Builder outboundRuleIdResult =
+        ImmutableFlowDataType.builder()
+            .dtId(1L)
+            .inboundRuleId(1L)
+            .lfId(1L)
+            .lfdId(1L)
+            .outboundRuleId(1L);
+
+    Builder sourceOuIdResult =
+        outboundRuleIdResult
+            .source(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(2L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .sourceOuId(1L);
+
+    Builder sourceOutboundRatingResult =
+        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
+
+    Builder targetResult =
+        sourceOutboundRatingResult.target(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowDataTypeSet.add(
+        targetResult
+            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
+            .targetOuId(1L)
+            .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
+        .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
+
+    // Act
+    int actualFastRecalculateAllFlowRatingsResult =
+        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+
+    // Assert
+    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
+    verify(flowClassificationRuleDao, atLeast(1))
+        .findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
+    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
+    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
+    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
+  }
+
+  /**
+   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
+   *
+   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
+   */
+  @Test
+  @DisplayName("Test fastRecalculateAllFlowRatings()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
+  void testFastRecalculateAllFlowRatings14() {
+    // Arrange
+    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
+        new ArrayList<>();
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(1L)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
+        ruleIdResult.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
+            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
+        .thenReturn(1);
+    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(),
+            Mockito.<EntityHierarchy>any(),
+            Mockito.<Set<FlowDataType>>any()))
+        .thenReturn(flowClassificationRuleVantagePointList);
+
+    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
+    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
+        .thenReturn(builderResult.build());
+
+    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
+
+    Builder outboundRuleIdResult =
+        ImmutableFlowDataType.builder()
+            .dtId(1L)
+            .inboundRuleId(1L)
+            .lfId(1L)
+            .lfdId(1L)
+            .outboundRuleId(1L);
+
+    Builder sourceOuIdResult =
+        outboundRuleIdResult
+            .source(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .sourceOuId(1L);
+
+    Builder sourceOutboundRatingResult =
+        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
+
+    Builder targetResult =
+        sourceOutboundRatingResult.target(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(2L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowDataTypeSet.add(
+        targetResult
+            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
+            .targetOuId(1L)
+            .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
+        .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
+
+    // Act
+    int actualFastRecalculateAllFlowRatingsResult =
+        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+
+    // Assert
+    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
+    verify(flowClassificationRuleDao, atLeast(1))
+        .findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
+    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
+    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
+    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
+  }
+
+  /**
+   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
+   *
+   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
+   */
+  @Test
+  @DisplayName("Test fastRecalculateAllFlowRatings()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
+  void testFastRecalculateAllFlowRatings15() {
+    // Arrange
+    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
+        new ArrayList<>();
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(1L)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
+        ruleIdResult.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult2 =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(null)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult2 =
+        ruleIdResult2.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult2
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
+            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
+        .thenReturn(1);
+    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(),
+            Mockito.<EntityHierarchy>any(),
+            Mockito.<Set<FlowDataType>>any()))
+        .thenReturn(flowClassificationRuleVantagePointList);
+
+    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
+    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
+        .thenReturn(builderResult.build());
+
+    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
+
+    Builder outboundRuleIdResult =
+        ImmutableFlowDataType.builder()
+            .dtId(1L)
+            .inboundRuleId(1L)
+            .lfId(1L)
+            .lfdId(1L)
+            .outboundRuleId(1L);
+
+    Builder sourceOuIdResult =
+        outboundRuleIdResult
+            .source(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .sourceOuId(1L);
+
+    Builder sourceOutboundRatingResult =
+        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
+
+    Builder targetResult =
+        sourceOutboundRatingResult.target(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowDataTypeSet.add(
+        targetResult
+            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
+            .targetOuId(1L)
+            .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
+        .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
+
+    // Act
+    int actualFastRecalculateAllFlowRatingsResult =
+        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+
+    // Assert
+    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
+    verify(flowClassificationRuleDao, atLeast(1))
+        .findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
+    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
+    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
+    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
+  }
+
+  /**
+   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
+   *
+   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
+   */
+  @Test
+  @DisplayName("Test fastRecalculateAllFlowRatings()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
+  void testFastRecalculateAllFlowRatings16() {
+    // Arrange
+    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
+        new ArrayList<>();
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(1L)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
+        ruleIdResult.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult2 =
+        ImmutableFlowClassificationRuleVantagePoint.builder()
+            .classificationCode("Classification Code")
+            .dataTypeId(1L)
+            .dataTypeRank(1)
+            .message("Not all who wander are lost")
+            .messageSeverity(MessageSeverity.NONE)
+            .ruleId(1L);
+
+    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult2 =
+        ruleIdResult2.subjectReference(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowClassificationRuleVantagePointList.add(
+        subjectReferenceResult2
+            .vantagePoint(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(2L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .vantagePointRank(1)
+            .build());
+
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
+            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
+        .thenReturn(1);
+    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(),
+            Mockito.<EntityHierarchy>any(),
+            Mockito.<Set<FlowDataType>>any()))
+        .thenReturn(flowClassificationRuleVantagePointList);
+
+    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
+
+    EntityHierarchyService entityHierarchyService = mock(EntityHierarchyService.class);
+    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
+        .thenReturn(builderResult.build());
+
+    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
+
+    Builder outboundRuleIdResult =
+        ImmutableFlowDataType.builder()
+            .dtId(1L)
+            .inboundRuleId(1L)
+            .lfId(1L)
+            .lfdId(1L)
+            .outboundRuleId(1L);
+
+    Builder sourceOuIdResult =
+        outboundRuleIdResult
+            .source(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .sourceOuId(1L);
+
+    Builder sourceOutboundRatingResult =
+        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
+
+    Builder targetResult =
+        sourceOutboundRatingResult.target(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowDataTypeSet.add(
+        targetResult
+            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
+            .targetOuId(1L)
+            .build());
+
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
+        .thenReturn(flowDataTypeSet);
+    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    ActorDao actorDao = mock(ActorDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
+
+    FlowClassificationCalculator ratingCalculator =
+        new FlowClassificationCalculator(
+            dataTypeDao2,
+            entityHierarchyDao,
+            ratingsCalculator,
+            mock(LogicalFlowDecoratorDao.class));
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    FlowClassificationRuleService flowClassificationRuleService =
+        new FlowClassificationRuleService(
+            flowClassificationRuleDao,
+            flowClassificationDao,
+            dataTypeDao,
+            organisationalUnitDao,
+            applicationDao,
+            actorDao,
+            ratingCalculator,
+            changeLogService2,
+            entityHierarchyService,
+            logicalFlowDecoratorDao,
+            mock(EndUserAppDao.class),
+            mock(AppGroupEntryDao.class),
+            mock(AppGroupDao.class));
+
+    // Act
+    int actualFastRecalculateAllFlowRatingsResult =
+        flowClassificationRuleService.fastRecalculateAllFlowRatings();
+
+    // Assert
+    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
+    verify(flowClassificationRuleDao, atLeast(1))
+        .findFlowClassificationRuleVantagePoints(
+            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
+    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
+    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
+    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
+  }
+
+  /**
+   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
+   *
+   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
+   */
+  @Test
+  @DisplayName("Test fastRecalculateAllFlowRatings()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
+  void testFastRecalculateAllFlowRatings17() {
     // Arrange
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
@@ -7492,7 +8788,7 @@ class FlowClassificationRuleServiceDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings14() {
+  void testFastRecalculateAllFlowRatings18() {
     // Arrange
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
@@ -7524,576 +8820,6 @@ class FlowClassificationRuleServiceDiffblueTest {
             .lfId(1L)
             .lfdId(1L)
             .outboundRuleId(null);
-
-    Builder sourceOuIdResult =
-        outboundRuleIdResult
-            .source(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .sourceOuId(1L);
-
-    Builder sourceOutboundRatingResult =
-        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
-
-    Builder targetResult =
-        sourceOutboundRatingResult.target(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowDataTypeSet.add(
-        targetResult
-            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
-            .targetOuId(1L)
-            .build());
-    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(flowDataTypeSet);
-
-    // Act
-    int actualFastRecalculateAllFlowRatingsResult =
-        flowClassificationRuleService.fastRecalculateAllFlowRatings();
-
-    // Assert
-    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
-    verify(flowClassificationRuleDao, atLeast(1))
-        .findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
-    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
-    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
-    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
-  }
-
-  /**
-   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
-   *
-   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
-   */
-  @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings15() {
-    // Arrange
-    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
-        new ArrayList<>();
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(1L)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
-        ruleIdResult.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
-            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
-        .thenReturn(1);
-    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(),
-            Mockito.<EntityHierarchy>any(),
-            Mockito.<Set<FlowDataType>>any()))
-        .thenReturn(flowClassificationRuleVantagePointList);
-
-    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(builderResult.build());
-
-    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
-
-    Builder outboundRuleIdResult =
-        ImmutableFlowDataType.builder()
-            .dtId(1L)
-            .inboundRuleId(1L)
-            .lfId(1L)
-            .lfdId(1L)
-            .outboundRuleId(1L);
-
-    Builder sourceOuIdResult =
-        outboundRuleIdResult
-            .source(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(2L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .sourceOuId(1L);
-
-    Builder sourceOutboundRatingResult =
-        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
-
-    Builder targetResult =
-        sourceOutboundRatingResult.target(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowDataTypeSet.add(
-        targetResult
-            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
-            .targetOuId(1L)
-            .build());
-    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(flowDataTypeSet);
-
-    // Act
-    int actualFastRecalculateAllFlowRatingsResult =
-        flowClassificationRuleService.fastRecalculateAllFlowRatings();
-
-    // Assert
-    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
-    verify(flowClassificationRuleDao, atLeast(1))
-        .findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
-    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
-    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
-    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
-  }
-
-  /**
-   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
-   *
-   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
-   */
-  @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings16() {
-    // Arrange
-    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
-        new ArrayList<>();
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(1L)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
-        ruleIdResult.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
-            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
-        .thenReturn(1);
-    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(),
-            Mockito.<EntityHierarchy>any(),
-            Mockito.<Set<FlowDataType>>any()))
-        .thenReturn(flowClassificationRuleVantagePointList);
-
-    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(builderResult.build());
-
-    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
-
-    Builder outboundRuleIdResult =
-        ImmutableFlowDataType.builder()
-            .dtId(1L)
-            .inboundRuleId(1L)
-            .lfId(1L)
-            .lfdId(1L)
-            .outboundRuleId(1L);
-
-    Builder sourceOuIdResult =
-        outboundRuleIdResult
-            .source(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .sourceOuId(1L);
-
-    Builder sourceOutboundRatingResult =
-        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
-
-    Builder targetResult =
-        sourceOutboundRatingResult.target(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(2L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowDataTypeSet.add(
-        targetResult
-            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
-            .targetOuId(1L)
-            .build());
-    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(flowDataTypeSet);
-
-    // Act
-    int actualFastRecalculateAllFlowRatingsResult =
-        flowClassificationRuleService.fastRecalculateAllFlowRatings();
-
-    // Assert
-    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
-    verify(flowClassificationRuleDao, atLeast(1))
-        .findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
-    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
-    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
-    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
-  }
-
-  /**
-   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
-   *
-   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
-   */
-  @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings17() {
-    // Arrange
-    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
-        new ArrayList<>();
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(1L)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
-        ruleIdResult.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult2 =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(null)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult2 =
-        ruleIdResult2.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult2
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
-            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
-        .thenReturn(1);
-    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(),
-            Mockito.<EntityHierarchy>any(),
-            Mockito.<Set<FlowDataType>>any()))
-        .thenReturn(flowClassificationRuleVantagePointList);
-
-    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(builderResult.build());
-
-    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
-
-    Builder outboundRuleIdResult =
-        ImmutableFlowDataType.builder()
-            .dtId(1L)
-            .inboundRuleId(1L)
-            .lfId(1L)
-            .lfdId(1L)
-            .outboundRuleId(1L);
-
-    Builder sourceOuIdResult =
-        outboundRuleIdResult
-            .source(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .sourceOuId(1L);
-
-    Builder sourceOutboundRatingResult =
-        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
-
-    Builder targetResult =
-        sourceOutboundRatingResult.target(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowDataTypeSet.add(
-        targetResult
-            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
-            .targetOuId(1L)
-            .build());
-    when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(flowDataTypeSet);
-
-    // Act
-    int actualFastRecalculateAllFlowRatingsResult =
-        flowClassificationRuleService.fastRecalculateAllFlowRatings();
-
-    // Assert
-    verify(logicalFlowDecoratorDao).fetchFlowDataTypePopulation(isA(Condition.class));
-    verify(flowClassificationRuleDao, atLeast(1))
-        .findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(), isA(EntityHierarchy.class), isA(Set.class));
-    verify(flowClassificationRuleDao).updateDecoratorsWithClassifications(isA(Set.class));
-    verify(entityHierarchyService, atLeast(1)).fetchHierarchyForKind(Mockito.<EntityKind>any());
-    assertEquals(1, actualFastRecalculateAllFlowRatingsResult);
-  }
-
-  /**
-   * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
-   *
-   * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
-   */
-  @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings18() {
-    // Arrange
-    ArrayList<FlowClassificationRuleVantagePoint> flowClassificationRuleVantagePointList =
-        new ArrayList<>();
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(1L)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult =
-        ruleIdResult.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder ruleIdResult2 =
-        ImmutableFlowClassificationRuleVantagePoint.builder()
-            .classificationCode("Classification Code")
-            .dataTypeId(1L)
-            .dataTypeRank(1)
-            .message("Not all who wander are lost")
-            .messageSeverity(MessageSeverity.NONE)
-            .ruleId(1L);
-
-    ImmutableFlowClassificationRuleVantagePoint.Builder subjectReferenceResult2 =
-        ruleIdResult2.subjectReference(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    flowClassificationRuleVantagePointList.add(
-        subjectReferenceResult2
-            .vantagePoint(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(2L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .vantagePointRank(1)
-            .build());
-    when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
-            Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
-        .thenReturn(1);
-    when(flowClassificationRuleDao.findFlowClassificationRuleVantagePoints(
-            Mockito.<FlowDirection>any(),
-            Mockito.<EntityHierarchy>any(),
-            Mockito.<Set<FlowDataType>>any()))
-        .thenReturn(flowClassificationRuleVantagePointList);
-
-    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
-    builderResult.addHierarchyItems(
-        ImmutableEntityHierarchyItem.builder()
-            .ancestorLevel(1)
-            .descendantLevel(3)
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .parentId(1L)
-            .build());
-    when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(builderResult.build());
-
-    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
-
-    Builder outboundRuleIdResult =
-        ImmutableFlowDataType.builder()
-            .dtId(1L)
-            .inboundRuleId(1L)
-            .lfId(1L)
-            .lfdId(1L)
-            .outboundRuleId(1L);
 
     Builder sourceOuIdResult =
         outboundRuleIdResult
@@ -8306,17 +9032,17 @@ class FlowClassificationRuleServiceDiffblueTest {
    * Test {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}.
    *
    * <ul>
-   *   <li>Then calls {@link EntityHierarchyService#fetchHierarchyForKind(EntityKind)}.
+   *   <li>Given {@link FlowClassificationDao}.
    * </ul>
    *
    * <p>Method under test: {@link FlowClassificationRuleService#fastRecalculateAllFlowRatings()}
    */
   @Test
-  @DisplayName("Test fastRecalculateAllFlowRatings(); then calls fetchHierarchyForKind(EntityKind)")
+  @DisplayName("Test fastRecalculateAllFlowRatings(); given FlowClassificationDao")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
-  void testFastRecalculateAllFlowRatings_thenCallsFetchHierarchyForKind() {
+  void testFastRecalculateAllFlowRatings_givenFlowClassificationDao() {
     // Arrange
     when(flowClassificationRuleDao.updateDecoratorsWithClassifications(
             Mockito.<Set<UpdateConditionStep<LogicalFlowDecoratorRecord>>>any()))
@@ -8326,10 +9052,70 @@ class FlowClassificationRuleServiceDiffblueTest {
             Mockito.<EntityHierarchy>any(),
             Mockito.<Set<FlowDataType>>any()))
         .thenReturn(new ArrayList<>());
+
+    ImmutableEntityHierarchy.Builder builderResult = ImmutableEntityHierarchy.builder();
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
+    builderResult.addHierarchyItems(
+        ImmutableEntityHierarchyItem.builder()
+            .ancestorLevel(1)
+            .descendantLevel(3)
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .parentId(1L)
+            .build());
     when(entityHierarchyService.fetchHierarchyForKind(Mockito.<EntityKind>any()))
-        .thenReturn(ImmutableEntityHierarchy.builder().build());
+        .thenReturn(builderResult.build());
+
+    HashSet<FlowDataType> flowDataTypeSet = new HashSet<>();
+
+    Builder outboundRuleIdResult =
+        ImmutableFlowDataType.builder()
+            .dtId(1L)
+            .inboundRuleId(1L)
+            .lfId(1L)
+            .lfdId(1L)
+            .outboundRuleId(1L);
+
+    Builder sourceOuIdResult =
+        outboundRuleIdResult
+            .source(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .sourceOuId(1L);
+
+    Builder sourceOutboundRatingResult =
+        sourceOuIdResult.sourceOutboundRating(AuthoritativenessRatingValue.of("42"));
+
+    Builder targetResult =
+        sourceOutboundRatingResult.target(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    flowDataTypeSet.add(
+        targetResult
+            .targetInboundRating(AuthoritativenessRatingValue.of("42"))
+            .targetOuId(1L)
+            .build());
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
-        .thenReturn(new HashSet<>());
+        .thenReturn(flowDataTypeSet);
 
     // Act
     int actualFastRecalculateAllFlowRatingsResult =
@@ -8361,104 +9147,9 @@ class FlowClassificationRuleServiceDiffblueTest {
   @MethodsUnderTest({"int FlowClassificationRuleService.fastRecalculateAllFlowRatings()"})
   void testFastRecalculateAllFlowRatings_thenThrowNotFoundException() {
     // Arrange
-    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
     when(logicalFlowDecoratorDao.fetchFlowDataTypePopulation(Mockito.<Condition>any()))
         .thenThrow(
             new NotFoundException("Loading decorator population points", "An error occurred"));
-    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
-    FlowClassificationDao flowClassificationDao = mock(FlowClassificationDao.class);
-    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    ActorDao actorDao = mock(ActorDao.class);
-    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
-    EntityHierarchyDao entityHierarchyDao = mock(EntityHierarchyDao.class);
-    ApplicationDao appDao = mock(ApplicationDao.class);
-    TagDao tagDao = mock(TagDao.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    TagService tagService = new TagService(tagDao, changeLogService);
-
-    ApplicationService applicationService =
-        new ApplicationService(
-            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
-    FlowClassificationRuleDao flowClassificationRuleDao2 = mock(FlowClassificationRuleDao.class);
-    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
-    DataTypeService dataTypeService =
-        new DataTypeService(
-            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
-
-    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
-        new LogicalFlowDecoratorRatingsCalculator(
-            applicationService, flowClassificationRuleDao2, logicalFlowDao, dataTypeService);
-
-    FlowClassificationCalculator ratingCalculator =
-        new FlowClassificationCalculator(
-            dataTypeDao2,
-            entityHierarchyDao,
-            ratingsCalculator,
-            mock(LogicalFlowDecoratorDao.class));
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    DefaultDSLContext dsl = new DefaultDSLContext(SQLDialect.SQL99);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    DataTypeDao dataTypeDao3 = mock(DataTypeDao.class);
-    EntityHierarchyDao entityHierarchyDao2 = mock(EntityHierarchyDao.class);
-    EntityStatisticDao entityStatisticDao = mock(EntityStatisticDao.class);
-    MeasurableDao measurableDao = mock(MeasurableDao.class);
-    OrganisationalUnitDao organisationalUnitDao2 = mock(OrganisationalUnitDao.class);
-    PersonDao personDao = mock(PersonDao.class);
-    PersonHierarchyService personHierarchyService =
-        new PersonHierarchyService(personDao, new DefaultDSLContext(SQLDialect.SQL99));
-
-    EntityHierarchyService entityHierarchyService =
-        new EntityHierarchyService(
-            dsl,
-            changeInitiativeDao,
-            dataTypeDao3,
-            entityHierarchyDao2,
-            entityStatisticDao,
-            measurableDao,
-            organisationalUnitDao2,
-            personHierarchyService,
-            mock(PersonDao.class));
-
-    FlowClassificationRuleService flowClassificationRuleService =
-        new FlowClassificationRuleService(
-            flowClassificationRuleDao,
-            flowClassificationDao,
-            dataTypeDao,
-            organisationalUnitDao,
-            applicationDao,
-            actorDao,
-            ratingCalculator,
-            changeLogService2,
-            entityHierarchyService,
-            logicalFlowDecoratorDao,
-            mock(EndUserAppDao.class),
-            mock(AppGroupEntryDao.class),
-            mock(AppGroupDao.class));
 
     // Act and Assert
     assertThrows(

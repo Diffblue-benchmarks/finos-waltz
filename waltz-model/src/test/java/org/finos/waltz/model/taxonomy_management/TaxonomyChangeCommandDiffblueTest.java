@@ -18,121 +18,6 @@ import org.junit.jupiter.api.Test;
 
 class TaxonomyChangeCommandDiffblueTest {
   /**
-   * Test {@link TaxonomyChangeCommand#status()}.
-   *
-   * <ul>
-   *   <li>Then return {@code DRAFT}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaxonomyChangeCommand#status()}
-   */
-  @Test
-  @DisplayName("Test status(); then return 'DRAFT'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TaxonomyChangeLifecycleStatus TaxonomyChangeCommand.status()"})
-  void testStatus_thenReturnDraft() {
-    // Arrange
-    Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
-
-    Builder lastUpdatedByResult =
-        builderResult
-            .changeDomain(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .changeType(TaxonomyChangeType.ADD_PEER)
-            .createdAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .createdBy("Jan 1, 2020 8:00am GMT+0100")
-            .id(1L)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01");
-
-    Builder paramsResult = lastUpdatedByResult.params(new HashMap<>());
-
-    // Act and Assert
-    assertEquals(
-        TaxonomyChangeLifecycleStatus.DRAFT,
-        paramsResult
-            .primaryReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .status(TaxonomyChangeLifecycleStatus.DRAFT)
-            .build()
-            .status());
-  }
-
-  /**
-   * Test {@link TaxonomyChangeCommand#paramAsBoolean(String, boolean)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code Key} is {@code 42}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaxonomyChangeCommand#paramAsBoolean(String, boolean)}
-   */
-  @Test
-  @DisplayName(
-      "Test paramAsBoolean(String, boolean); given HashMap() 'Key' is '42'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean TaxonomyChangeCommand.paramAsBoolean(String, boolean)"})
-  void testParamAsBoolean_givenHashMapKeyIs42_thenReturnFalse() {
-    // Arrange
-    HashMap<String, String> entries = new HashMap<>();
-    entries.put("Key", "42");
-
-    Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
-
-    Builder paramsResult =
-        builderResult
-            .changeDomain(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .changeType(TaxonomyChangeType.ADD_PEER)
-            .createdAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .createdBy("Jan 1, 2020 8:00am GMT+0100")
-            .id(1L)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .params(entries);
-
-    // Act and Assert
-    assertFalse(
-        paramsResult
-            .primaryReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .status(TaxonomyChangeLifecycleStatus.DRAFT)
-            .build()
-            .paramAsBoolean("Key", true));
-  }
-
-  /**
    * Test {@link TaxonomyChangeCommand#paramAsBoolean(String, boolean)}.
    *
    * <ul>
@@ -188,29 +73,25 @@ class TaxonomyChangeCommandDiffblueTest {
   }
 
   /**
-   * Test {@link TaxonomyChangeCommand#paramAsLong(String, Long)}.
+   * Test {@link TaxonomyChangeCommand#paramAsBoolean(String, boolean)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code Key} is {@code 42}.
-   *   <li>Then return longValue is forty-two.
+   *   <li>When {@code false}.
+   *   <li>Then return {@code false}.
    * </ul>
    *
-   * <p>Method under test: {@link TaxonomyChangeCommand#paramAsLong(String, Long)}
+   * <p>Method under test: {@link TaxonomyChangeCommand#paramAsBoolean(String, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test paramAsLong(String, Long); given HashMap() 'Key' is '42'; then return longValue is forty-two")
+  @DisplayName("Test paramAsBoolean(String, boolean); when 'false'; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"Long TaxonomyChangeCommand.paramAsLong(String, Long)"})
-  void testParamAsLong_givenHashMapKeyIs42_thenReturnLongValueIsFortyTwo() {
+  @MethodsUnderTest({"boolean TaxonomyChangeCommand.paramAsBoolean(String, boolean)"})
+  void testParamAsBoolean_whenFalse_thenReturnFalse() {
     // Arrange
-    HashMap<String, String> entries = new HashMap<>();
-    entries.put("Key", "42");
-
     Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
 
-    Builder paramsResult =
+    Builder lastUpdatedByResult =
         builderResult
             .changeDomain(
                 ImmutableEntityReference.builder()
@@ -226,12 +107,12 @@ class TaxonomyChangeCommandDiffblueTest {
             .createdBy("Jan 1, 2020 8:00am GMT+0100")
             .id(1L)
             .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .params(entries);
+            .lastUpdatedBy("2020-03-01");
+
+    Builder paramsResult = lastUpdatedByResult.params(new HashMap<>());
 
     // Act and Assert
-    assertEquals(
-        42L,
+    assertFalse(
         paramsResult
             .primaryReference(
                 ImmutableEntityReference.builder()
@@ -244,69 +125,7 @@ class TaxonomyChangeCommandDiffblueTest {
                     .build())
             .status(TaxonomyChangeLifecycleStatus.DRAFT)
             .build()
-            .paramAsLong("Key", 1L)
-            .longValue());
-  }
-
-  /**
-   * Test {@link TaxonomyChangeCommand#paramAsLong(String, Long)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code Key} is empty string.
-   *   <li>Then return longValue is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaxonomyChangeCommand#paramAsLong(String, Long)}
-   */
-  @Test
-  @DisplayName(
-      "Test paramAsLong(String, Long); given HashMap() 'Key' is empty string; then return longValue is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Long TaxonomyChangeCommand.paramAsLong(String, Long)"})
-  void testParamAsLong_givenHashMapKeyIsEmptyString_thenReturnLongValueIsOne() {
-    // Arrange
-    HashMap<String, String> entries = new HashMap<>();
-    entries.put("Key", "");
-
-    Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
-
-    Builder paramsResult =
-        builderResult
-            .changeDomain(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .changeType(TaxonomyChangeType.ADD_PEER)
-            .createdAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .createdBy("Jan 1, 2020 8:00am GMT+0100")
-            .id(1L)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .params(entries);
-
-    // Act and Assert
-    assertEquals(
-        1L,
-        paramsResult
-            .primaryReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .status(TaxonomyChangeLifecycleStatus.DRAFT)
-            .build()
-            .paramAsLong("Key", 1L)
-            .longValue());
+            .paramAsBoolean("Key", false));
   }
 
   /**

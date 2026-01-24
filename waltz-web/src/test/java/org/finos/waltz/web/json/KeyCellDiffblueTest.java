@@ -17,35 +17,6 @@ import org.junit.jupiter.api.Test;
 
 class KeyCellDiffblueTest {
   /**
-   * Test {@link KeyCell#type()}.
-   *
-   * <ul>
-   *   <li>Then return {@code Type}.
-   * </ul>
-   *
-   * <p>Method under test: {@link KeyCell#type()}
-   */
-  @Test
-  @DisplayName("Test type(); then return 'Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String KeyCell.type()"})
-  void testType_thenReturnType() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Type",
-        ImmutableKeyCell.builder()
-            .externalId("42")
-            .kind(EntityKind.ALL)
-            .lifecyclePhase(LifecyclePhase.PRODUCTION)
-            .name("Name")
-            .type("Type")
-            .waltzId(1L)
-            .build()
-            .type());
-  }
-
-  /**
    * Test {@link KeyCell#fromSubject(ReportSubject)}.
    *
    * <ul>

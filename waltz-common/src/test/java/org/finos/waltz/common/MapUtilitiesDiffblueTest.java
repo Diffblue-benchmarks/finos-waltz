@@ -1267,23 +1267,22 @@ class MapUtilitiesDiffblueTest {
    * Test {@link MapUtilities#isEmpty(Map)}.
    *
    * <ul>
-   *   <li>Given {@code Key}.
-   *   <li>When newHashMap {@code Key} is {@code Value}.
+   *   <li>Given {@code foo}.
+   *   <li>When newHashMap {@code foo} is {@code 42}.
    *   <li>Then return {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link MapUtilities#isEmpty(Map)}
    */
   @Test
-  @DisplayName(
-      "Test isEmpty(Map); given 'Key'; when newHashMap 'Key' is 'Value'; then return 'false'")
+  @DisplayName("Test isEmpty(Map); given 'foo'; when newHashMap 'foo' is '42'; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean MapUtilities.isEmpty(Map)"})
-  void testIsEmpty_givenKey_whenNewHashMapKeyIsValue_thenReturnFalse() {
+  void testIsEmpty_givenFoo_whenNewHashMapFooIs42_thenReturnFalse() {
     // Arrange
     HashMap<String, Object> map = MapUtilities.newHashMap();
-    map.put("Key", "Value");
+    map.put("foo", "42");
 
     // Act and Assert
     assertFalse(MapUtilities.isEmpty(map));

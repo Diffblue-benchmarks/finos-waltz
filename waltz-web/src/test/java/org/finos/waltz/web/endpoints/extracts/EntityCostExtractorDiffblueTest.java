@@ -54,7 +54,7 @@ class EntityCostExtractorDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link SettingsService} {@link SettingsService#getValue(String)} return of {@code
-   *       42}.
+   *       foo}.
    *   <li>Then calls {@link SettingsService#getValue(String)}.
    * </ul>
    *
@@ -62,14 +62,14 @@ class EntityCostExtractorDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test register(); given SettingsService getValue(String) return of '42'; then calls getValue(String)")
+      "Test register(); given SettingsService getValue(String) return of 'foo'; then calls getValue(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void EntityCostExtractor.register()"})
-  void testRegister_givenSettingsServiceGetValueReturnOf42_thenCallsGetValue() {
+  void testRegister_givenSettingsServiceGetValueReturnOfFoo_thenCallsGetValue() {
     // Arrange
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     EntityCostExtractor entityCostExtractor =
         new EntityCostExtractor(new DefaultDSLContext(SQLDialect.SQL99), settingsService);

@@ -250,7 +250,7 @@ class FlowDiagramDaoDiffblueTest {
     when(flowDiagram.lastUpdatedBy()).thenReturn("2020-03-01");
     when(flowDiagram.name()).thenReturn("Name");
     when(flowDiagram.layoutData()).thenReturn("Layout Data");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(flowDiagram.id()).thenReturn(ofResult);
     when(flowDiagram.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
 
@@ -334,8 +334,8 @@ class FlowDiagramDaoDiffblueTest {
    * Test {@link FlowDiagramDao#create(FlowDiagram)}.
    *
    * <ul>
-   *   <li>Given of {@code 42}.
-   *   <li>When {@link FlowDiagram} {@link FlowDiagram#editorRole()} return of {@code 42}.
+   *   <li>Given of {@code foo}.
+   *   <li>When {@link FlowDiagram} {@link FlowDiagram#editorRole()} return of {@code foo}.
    *   <li>Then calls {@link FlowDiagram#description()}.
    * </ul>
    *
@@ -343,11 +343,11 @@ class FlowDiagramDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test create(FlowDiagram); given of '42'; when FlowDiagram editorRole() return of '42'; then calls description()")
+      "Test create(FlowDiagram); given of 'foo'; when FlowDiagram editorRole() return of 'foo'; then calls description()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"long FlowDiagramDao.create(FlowDiagram)"})
-  void testCreate_givenOf42_whenFlowDiagramEditorRoleReturnOf42_thenCallsDescription()
+  void testCreate_givenOfFoo_whenFlowDiagramEditorRoleReturnOfFoo_thenCallsDescription()
       throws DataAccessException {
     // Arrange
     FlowDiagramRecord flowDiagramRecord = mock(FlowDiagramRecord.class);
@@ -365,14 +365,14 @@ class FlowDiagramDaoDiffblueTest {
     when(dSLContext.insertInto(Mockito.<Table<FlowDiagramRecord>>any())).thenReturn(insertSetStep);
 
     FlowDiagram flowDiagram = mock(FlowDiagram.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(flowDiagram.editorRole()).thenReturn(ofResult);
     when(flowDiagram.isRemoved()).thenReturn(true);
     when(flowDiagram.description()).thenReturn("The characteristics of someone or something");
     when(flowDiagram.lastUpdatedBy()).thenReturn("2020-03-01");
     when(flowDiagram.name()).thenReturn("Name");
     when(flowDiagram.layoutData()).thenReturn("Layout Data");
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(flowDiagram.id()).thenReturn(ofResult2);
     when(flowDiagram.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
 
@@ -400,7 +400,7 @@ class FlowDiagramDaoDiffblueTest {
    * Test {@link FlowDiagramDao#create(FlowDiagram)}.
    *
    * <ul>
-   *   <li>Given of {@code 42}.
+   *   <li>Given of {@code foo}.
    *   <li>When {@link FlowDiagram} {@link FlowDiagram#id()} return empty.
    *   <li>Then calls {@link FlowDiagram#description()}.
    * </ul>
@@ -409,11 +409,11 @@ class FlowDiagramDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test create(FlowDiagram); given of '42'; when FlowDiagram id() return empty; then calls description()")
+      "Test create(FlowDiagram); given of 'foo'; when FlowDiagram id() return empty; then calls description()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"long FlowDiagramDao.create(FlowDiagram)"})
-  void testCreate_givenOf42_whenFlowDiagramIdReturnEmpty_thenCallsDescription()
+  void testCreate_givenOfFoo_whenFlowDiagramIdReturnEmpty_thenCallsDescription()
       throws DataAccessException {
     // Arrange
     FlowDiagramRecord flowDiagramRecord = mock(FlowDiagramRecord.class);
@@ -431,7 +431,7 @@ class FlowDiagramDaoDiffblueTest {
     when(dSLContext.insertInto(Mockito.<Table<FlowDiagramRecord>>any())).thenReturn(insertSetStep);
 
     FlowDiagram flowDiagram = mock(FlowDiagram.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(flowDiagram.editorRole()).thenReturn(ofResult);
     when(flowDiagram.isRemoved()).thenReturn(true);
     when(flowDiagram.description()).thenReturn("The characteristics of someone or something");
@@ -492,7 +492,7 @@ class FlowDiagramDaoDiffblueTest {
     when(flowDiagram.lastUpdatedBy()).thenReturn("2020-03-01");
     when(flowDiagram.name()).thenReturn("Name");
     when(flowDiagram.layoutData()).thenReturn("Layout Data");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(flowDiagram.id()).thenReturn(ofResult);
     when(flowDiagram.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
 
@@ -555,8 +555,8 @@ class FlowDiagramDaoDiffblueTest {
    * Test {@link FlowDiagramDao#update(FlowDiagram)}.
    *
    * <ul>
-   *   <li>Given of {@code 42}.
-   *   <li>When {@link FlowDiagram} {@link FlowDiagram#editorRole()} return of {@code 42}.
+   *   <li>Given of {@code foo}.
+   *   <li>When {@link FlowDiagram} {@link FlowDiagram#editorRole()} return of {@code foo}.
    *   <li>Then calls {@link FlowDiagram#description()}.
    * </ul>
    *
@@ -564,24 +564,24 @@ class FlowDiagramDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test update(FlowDiagram); given of '42'; when FlowDiagram editorRole() return of '42'; then calls description()")
+      "Test update(FlowDiagram); given of 'foo'; when FlowDiagram editorRole() return of 'foo'; then calls description()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean FlowDiagramDao.update(FlowDiagram)"})
-  void testUpdate_givenOf42_whenFlowDiagramEditorRoleReturnOf42_thenCallsDescription()
+  void testUpdate_givenOfFoo_whenFlowDiagramEditorRoleReturnOfFoo_thenCallsDescription()
       throws DataAccessException {
     // Arrange
     when(dSLContext.executeUpdate(Mockito.<UpdatableRecord<?>>any())).thenReturn(1);
 
     FlowDiagram flowDiagram = mock(FlowDiagram.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(flowDiagram.editorRole()).thenReturn(ofResult);
     when(flowDiagram.isRemoved()).thenReturn(true);
     when(flowDiagram.description()).thenReturn("The characteristics of someone or something");
     when(flowDiagram.lastUpdatedBy()).thenReturn("2020-03-01");
     when(flowDiagram.name()).thenReturn("Name");
     when(flowDiagram.layoutData()).thenReturn("Layout Data");
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(flowDiagram.id()).thenReturn(ofResult2);
     when(flowDiagram.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
 
@@ -605,7 +605,7 @@ class FlowDiagramDaoDiffblueTest {
    * Test {@link FlowDiagramDao#update(FlowDiagram)}.
    *
    * <ul>
-   *   <li>Given of {@code 42}.
+   *   <li>Given of {@code foo}.
    *   <li>When {@link FlowDiagram} {@link FlowDiagram#id()} return empty.
    *   <li>Then calls {@link FlowDiagram#description()}.
    * </ul>
@@ -614,17 +614,17 @@ class FlowDiagramDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test update(FlowDiagram); given of '42'; when FlowDiagram id() return empty; then calls description()")
+      "Test update(FlowDiagram); given of 'foo'; when FlowDiagram id() return empty; then calls description()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean FlowDiagramDao.update(FlowDiagram)"})
-  void testUpdate_givenOf42_whenFlowDiagramIdReturnEmpty_thenCallsDescription()
+  void testUpdate_givenOfFoo_whenFlowDiagramIdReturnEmpty_thenCallsDescription()
       throws DataAccessException {
     // Arrange
     when(dSLContext.executeUpdate(Mockito.<UpdatableRecord<?>>any())).thenReturn(1);
 
     FlowDiagram flowDiagram = mock(FlowDiagram.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(flowDiagram.editorRole()).thenReturn(ofResult);
     when(flowDiagram.isRemoved()).thenReturn(true);
     when(flowDiagram.description()).thenReturn("The characteristics of someone or something");

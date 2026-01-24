@@ -282,7 +282,7 @@ class CustomEnvironmentDaoDiffblueTest {
    *
    * <ul>
    *   <li>When {@link CustomEnvironment} {@link CustomEnvironment#externalId()} return of {@code
-   *       42}.
+   *       foo}.
    *   <li>Then calls {@link CustomEnvironment#externalId()}.
    * </ul>
    *
@@ -290,11 +290,11 @@ class CustomEnvironmentDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test create(CustomEnvironment); when CustomEnvironment externalId() return of '42'; then calls externalId()")
+      "Test create(CustomEnvironment); when CustomEnvironment externalId() return of 'foo'; then calls externalId()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Long CustomEnvironmentDao.create(CustomEnvironment)"})
-  void testCreate_whenCustomEnvironmentExternalIdReturnOf42_thenCallsExternalId()
+  void testCreate_whenCustomEnvironmentExternalIdReturnOfFoo_thenCallsExternalId()
       throws DataAccessException {
     // Arrange
     InsertResultStep<CustomEnvironmentRecord> insertResultStep = mock(InsertResultStep.class);
@@ -322,9 +322,9 @@ class CustomEnvironmentDaoDiffblueTest {
                 .name("Name")
                 .build());
     when(environment.name()).thenReturn("Name");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(environment.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(environment.description()).thenReturn(ofResult2);
 
     // Act

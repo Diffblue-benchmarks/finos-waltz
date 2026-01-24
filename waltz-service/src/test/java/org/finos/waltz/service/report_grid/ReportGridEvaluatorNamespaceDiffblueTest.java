@@ -178,6 +178,39 @@ class ReportGridEvaluatorNamespaceDiffblueTest {
   }
 
   /**
+   * Test {@link ReportGridEvaluatorNamespace#hasLifecyclePhase(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridEvaluatorNamespace#hasLifecyclePhase(String[])}
+   */
+  @Test
+  @DisplayName("Test hasLifecyclePhase(String[]); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean ReportGridEvaluatorNamespace.hasLifecyclePhase(String[])"})
+  void testHasLifecyclePhase_thenReturnFalse() {
+    // Arrange
+    ImmutableReportGridDefinition definition =
+        ImmutableReportGridDefinition.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(ReportGridKind.PUBLIC)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .provenance("Provenance")
+            .subjectKind(EntityKind.ALL)
+            .build();
+
+    // Act and Assert
+    assertFalse(new ReportGridEvaluatorNamespace(definition).hasLifecyclePhase());
+  }
+
+  /**
    * Test {@link ReportGridEvaluatorNamespace#hasExternalId(String[])}.
    *
    * <ul>
@@ -219,10 +252,44 @@ class ReportGridEvaluatorNamespaceDiffblueTest {
   }
 
   /**
+   * Test {@link ReportGridEvaluatorNamespace#hasExternalId(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridEvaluatorNamespace#hasExternalId(String[])}
+   */
+  @Test
+  @DisplayName("Test hasExternalId(String[]); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean ReportGridEvaluatorNamespace.hasExternalId(String[])"})
+  void testHasExternalId_thenReturnFalse() {
+    // Arrange
+    ImmutableReportGridDefinition definition =
+        ImmutableReportGridDefinition.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(ReportGridKind.PUBLIC)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .provenance("Provenance")
+            .subjectKind(EntityKind.ALL)
+            .build();
+
+    // Act and Assert
+    assertFalse(new ReportGridEvaluatorNamespace(definition).hasExternalId());
+  }
+
+  /**
    * Test {@link ReportGridEvaluatorNamespace#hasName(String[])}.
    *
    * <ul>
    *   <li>Given {@link HashMap#HashMap()} {@code subjectName} is {@code foo}.
+   *   <li>When {@code Names}.
    *   <li>Then return {@code false}.
    * </ul>
    *
@@ -230,11 +297,11 @@ class ReportGridEvaluatorNamespaceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test hasName(String[]); given HashMap() 'subjectName' is 'foo'; then return 'false'")
+      "Test hasName(String[]); given HashMap() 'subjectName' is 'foo'; when 'Names'; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean ReportGridEvaluatorNamespace.hasName(String[])"})
-  void testHasName_givenHashMapSubjectNameIsFoo_thenReturnFalse() {
+  void testHasName_givenHashMapSubjectNameIsFoo_whenNames_thenReturnFalse() {
     // Arrange
     HashMap<String, Object> ctx = new HashMap<>();
     ctx.put("subjectName", "foo");
@@ -257,6 +324,39 @@ class ReportGridEvaluatorNamespaceDiffblueTest {
 
     // Act and Assert
     assertFalse(reportGridEvaluatorNamespace.hasName("Names"));
+  }
+
+  /**
+   * Test {@link ReportGridEvaluatorNamespace#hasName(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridEvaluatorNamespace#hasName(String[])}
+   */
+  @Test
+  @DisplayName("Test hasName(String[]); then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean ReportGridEvaluatorNamespace.hasName(String[])"})
+  void testHasName_thenReturnFalse() {
+    // Arrange
+    ImmutableReportGridDefinition definition =
+        ImmutableReportGridDefinition.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(ReportGridKind.PUBLIC)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .provenance("Provenance")
+            .subjectKind(EntityKind.ALL)
+            .build();
+
+    // Act and Assert
+    assertFalse(new ReportGridEvaluatorNamespace(definition).hasName());
   }
 
   /**

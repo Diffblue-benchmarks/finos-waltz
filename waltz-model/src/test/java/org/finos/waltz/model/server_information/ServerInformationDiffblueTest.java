@@ -21,49 +21,6 @@ import org.junit.jupiter.api.Test;
 
 class ServerInformationDiffblueTest {
   /**
-   * Test {@link ServerInformation#provenance()}.
-   *
-   * <ul>
-   *   <li>Then return {@code Provenance}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ServerInformation#provenance()}
-   */
-  @Test
-  @DisplayName("Test provenance(); then return 'Provenance'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String ServerInformation.provenance()"})
-  void testProvenance_thenReturnProvenance() {
-    // Arrange
-    Builder externalIdResult = ImmutableServerInformation.builder().country("GB").externalId("42");
-
-    Builder operatingSystemResult =
-        externalIdResult
-            .hardwareEndOfLifeDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .hostname("localhost")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lifecycleStatus(LifecycleStatus.ACTIVE)
-            .location("Location")
-            .operatingSystem("Operating System");
-
-    // Act and Assert
-    assertEquals(
-        "Provenance",
-        operatingSystemResult
-            .operatingSystemEndOfLifeDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .operatingSystemVersion("1.0.2")
-            .provenance("Provenance")
-            .build()
-            .provenance());
-  }
-
-  /**
    * Test {@link ServerInformation#virtual()}.
    *
    * <ul>
@@ -103,49 +60,6 @@ class ServerInformationDiffblueTest {
             .provenance("Provenance")
             .build()
             .virtual());
-  }
-
-  /**
-   * Test {@link ServerInformation#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ServerInformation#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind ServerInformation.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange
-    Builder externalIdResult = ImmutableServerInformation.builder().country("GB").externalId("42");
-
-    Builder operatingSystemResult =
-        externalIdResult
-            .hardwareEndOfLifeDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .hostname("localhost")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lifecycleStatus(LifecycleStatus.ACTIVE)
-            .location("Location")
-            .operatingSystem("Operating System");
-
-    // Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        operatingSystemResult
-            .operatingSystemEndOfLifeDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .operatingSystemVersion("1.0.2")
-            .provenance("Provenance")
-            .build()
-            .kind());
   }
 
   /**

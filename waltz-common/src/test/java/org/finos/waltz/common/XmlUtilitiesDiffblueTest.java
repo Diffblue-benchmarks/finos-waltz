@@ -204,6 +204,7 @@ class XmlUtilitiesDiffblueTest {
     assertFalse(
         actualCreateNonValidatingDocumentBuilderFactoryResult.isIgnoringElementContentWhitespace());
     assertFalse(actualCreateNonValidatingDocumentBuilderFactoryResult.isValidating());
+    assertFalse(actualCreateNonValidatingDocumentBuilderFactoryResult.isXIncludeAware());
     assertTrue(actualCreateNonValidatingDocumentBuilderFactoryResult.isExpandEntityReferences());
     assertTrue(actualCreateNonValidatingDocumentBuilderFactoryResult.isNamespaceAware());
   }

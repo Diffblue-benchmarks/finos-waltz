@@ -201,17 +201,54 @@ class BulkUploadUtilitiesDiffblueTest {
   /**
    * Test {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}.
    *
+   * <ul>
+   *   <li>Given array of {@link String} with empty string.
+   * </ul>
+   *
    * <p>Method under test: {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}
    */
   @Test
-  @DisplayName("Test getColumnValuesFromRows(Set, String)")
+  @DisplayName("Test getColumnValuesFromRows(Set, String); given array of String with empty string")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set BulkUploadUtilities.getColumnValuesFromRows(Set, String)"})
-  void testGetColumnValuesFromRows3() {
+  void testGetColumnValuesFromRows_givenArrayOfStringWithEmptyString() {
     // Arrange
     HashMap<String, Integer> colIdxByName = new HashMap<>();
-    colIdxByName.put("42", 1);
+    colIdxByName.put("42", 0);
+    ImmutableTabularRow inputRow = ImmutableTabularRow.builder().rowNumber(10).values("").build();
+
+    Row row = new Row(inputRow, colIdxByName);
+
+    LinkedHashSet<Row> rows = new LinkedHashSet<>();
+    rows.add(row);
+
+    // Act
+    Set<String> actualColumnValuesFromRows =
+        BulkUploadUtilities.getColumnValuesFromRows(rows, "42");
+
+    // Assert
+    assertTrue(actualColumnValuesFromRows.isEmpty());
+  }
+
+  /**
+   * Test {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is minus one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}
+   */
+  @Test
+  @DisplayName("Test getColumnValuesFromRows(Set, String); given HashMap() '42' is minus one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set BulkUploadUtilities.getColumnValuesFromRows(Set, String)"})
+  void testGetColumnValuesFromRows_givenHashMap42IsMinusOne() {
+    // Arrange
+    HashMap<String, Integer> colIdxByName = new HashMap<>();
+    colIdxByName.put("42", -1);
     ImmutableTabularRow inputRow = ImmutableTabularRow.builder().rowNumber(10).values("42").build();
 
     Row row = new Row(inputRow, colIdxByName);
@@ -230,19 +267,24 @@ class BulkUploadUtilitiesDiffblueTest {
   /**
    * Test {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}.
    *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is zero.
+   *   <li>Then return size is one.
+   * </ul>
+   *
    * <p>Method under test: {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}
    */
   @Test
-  @DisplayName("Test getColumnValuesFromRows(Set, String)")
+  @DisplayName(
+      "Test getColumnValuesFromRows(Set, String); given HashMap() '42' is zero; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set BulkUploadUtilities.getColumnValuesFromRows(Set, String)"})
-  void testGetColumnValuesFromRows4() {
+  void testGetColumnValuesFromRows_givenHashMap42IsZero_thenReturnSizeIsOne() {
     // Arrange
     HashMap<String, Integer> colIdxByName = new HashMap<>();
-    colIdxByName.put("42", 1);
-    ImmutableTabularRow inputRow =
-        ImmutableTabularRow.builder().rowNumber(10).values("42", "").build();
+    colIdxByName.put("42", 0);
+    ImmutableTabularRow inputRow = ImmutableTabularRow.builder().rowNumber(10).values("42").build();
 
     Row row = new Row(inputRow, colIdxByName);
 
@@ -254,7 +296,8 @@ class BulkUploadUtilitiesDiffblueTest {
         BulkUploadUtilities.getColumnValuesFromRows(rows, "42");
 
     // Assert
-    assertTrue(actualColumnValuesFromRows.isEmpty());
+    assertEquals(1, actualColumnValuesFromRows.size());
+    assertTrue(actualColumnValuesFromRows.contains("42"));
   }
 
   /**
@@ -277,7 +320,7 @@ class BulkUploadUtilitiesDiffblueTest {
     when(inputRow.values()).thenReturn(new String[] {"42"});
 
     HashMap<String, Integer> colIdxByName = new HashMap<>();
-    colIdxByName.put("42", 1);
+    colIdxByName.put("42", -1);
 
     Row row = new Row(inputRow, colIdxByName);
 
@@ -291,41 +334,6 @@ class BulkUploadUtilitiesDiffblueTest {
     // Assert
     verify(inputRow).values();
     assertTrue(actualColumnValuesFromRows.isEmpty());
-  }
-
-  /**
-   * Test {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}.
-   *
-   * <ul>
-   *   <li>Then return size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link BulkUploadUtilities#getColumnValuesFromRows(Set, String)}
-   */
-  @Test
-  @DisplayName("Test getColumnValuesFromRows(Set, String); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set BulkUploadUtilities.getColumnValuesFromRows(Set, String)"})
-  void testGetColumnValuesFromRows_thenReturnSizeIsOne() {
-    // Arrange
-    HashMap<String, Integer> colIdxByName = new HashMap<>();
-    colIdxByName.put("42", 1);
-    ImmutableTabularRow inputRow =
-        ImmutableTabularRow.builder().rowNumber(10).values("42", "Values").build();
-
-    Row row = new Row(inputRow, colIdxByName);
-
-    LinkedHashSet<Row> rows = new LinkedHashSet<>();
-    rows.add(row);
-
-    // Act
-    Set<String> actualColumnValuesFromRows =
-        BulkUploadUtilities.getColumnValuesFromRows(rows, "42");
-
-    // Assert
-    assertEquals(1, actualColumnValuesFromRows.size());
-    assertTrue(actualColumnValuesFromRows.contains("Values"));
   }
 
   /**

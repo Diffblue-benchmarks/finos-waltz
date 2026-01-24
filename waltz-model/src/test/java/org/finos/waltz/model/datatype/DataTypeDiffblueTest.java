@@ -71,35 +71,6 @@ class DataTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DataType#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DataType#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind DataType.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableDataType.builder()
-            .code("Code")
-            .description("The characteristics of someone or something")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .parentId(1L)
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link DataType#unknown()}.
    *
    * <ul>

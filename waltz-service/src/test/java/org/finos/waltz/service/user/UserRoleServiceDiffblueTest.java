@@ -1628,7 +1628,7 @@ class UserRoleServiceDiffblueTest {
                 .build());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     UserRoleService userRoleService =
@@ -1693,7 +1693,7 @@ class UserRoleServiceDiffblueTest {
                 .build());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     UserRoleService userRoleService =
@@ -1758,7 +1758,7 @@ class UserRoleServiceDiffblueTest {
                 .userId("42")
                 .userPrincipalName("User Principal Name")
                 .build());
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     // Act and Assert
@@ -1994,7 +1994,7 @@ class UserRoleServiceDiffblueTest {
                 .build());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     UserRoleService userRoleService =
@@ -2064,7 +2064,7 @@ class UserRoleServiceDiffblueTest {
                 .build());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     UserRoleService userRoleService =
@@ -2133,7 +2133,7 @@ class UserRoleServiceDiffblueTest {
                 .build());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     UserRoleService userRoleService =
@@ -2361,7 +2361,7 @@ class UserRoleServiceDiffblueTest {
     when(personDao.findAllEmails()).thenReturn(stringList);
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     UserRoleDao userRoleDao = mock(UserRoleDao.class);
     ChangeLogService changeLogService =
@@ -2611,7 +2611,7 @@ class UserRoleServiceDiffblueTest {
    *
    * <ul>
    *   <li>Given {@link SettingsService} {@link SettingsService#getValue(String)} return of {@code
-   *       42}.
+   *       foo}.
    *   <li>Then calls {@link SettingsService#getValue(String)}.
    * </ul>
    *
@@ -2619,11 +2619,11 @@ class UserRoleServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test bulkUploadPreview(BulkUploadMode, List, String); given SettingsService getValue(String) return of '42'; then calls getValue(String)")
+      "Test bulkUploadPreview(BulkUploadMode, List, String); given SettingsService getValue(String) return of 'foo'; then calls getValue(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List UserRoleService.bulkUploadPreview(BulkUploadMode, List, String)"})
-  void testBulkUploadPreview_givenSettingsServiceGetValueReturnOf42_thenCallsGetValue() {
+  void testBulkUploadPreview_givenSettingsServiceGetValueReturnOfFoo_thenCallsGetValue() {
     // Arrange
     RoleDao roleDao = mock(RoleDao.class);
     when(roleDao.findAllRoles()).thenReturn(new HashSet<>());
@@ -2632,7 +2632,7 @@ class UserRoleServiceDiffblueTest {
     when(personDao.findAllEmails()).thenReturn(new ArrayList<>());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     UserRoleDao userRoleDao = mock(UserRoleDao.class);
     ChangeLogService changeLogService =
@@ -3211,7 +3211,7 @@ class UserRoleServiceDiffblueTest {
             mock(EntityReferenceNameResolver.class));
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3273,7 +3273,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3409,7 +3409,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3456,7 +3456,7 @@ class UserRoleServiceDiffblueTest {
     when(personDao.findAllEmails()).thenReturn(new ArrayList<>());
     when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
         .thenThrow(new IllegalArgumentException());
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     ArrayList<String> lines = new ArrayList<>();
@@ -3688,7 +3688,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3746,7 +3746,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3801,7 +3801,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
@@ -3859,7 +3859,7 @@ class UserRoleServiceDiffblueTest {
         .thenReturn(new int[] {19088743, 1, 19088743, 1});
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
     PersonService personService =
         new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));

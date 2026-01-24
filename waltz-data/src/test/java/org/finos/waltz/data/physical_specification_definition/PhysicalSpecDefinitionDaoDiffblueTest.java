@@ -196,7 +196,7 @@ class PhysicalSpecDefinitionDaoDiffblueTest {
     when(specDefinition.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(specDefinition.provenance()).thenReturn("Provenance");
     when(specDefinition.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(specDefinition.delimiter()).thenReturn(ofResult);
     when(specDefinition.type()).thenReturn(PhysicalSpecDefinitionType.DELIMITED);
     when(specDefinition.version()).thenReturn("1.0.2");

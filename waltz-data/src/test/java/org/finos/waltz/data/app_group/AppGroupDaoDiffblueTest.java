@@ -545,9 +545,9 @@ class AppGroupDaoDiffblueTest {
     AppGroupDao appGroupDao = new AppGroupDao(dsl);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(appGroup.externalId()).thenReturn(ofResult);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult2);
     when(appGroup.description()).thenReturn("The characteristics of someone or something");
     when(appGroup.name()).thenReturn("Name");
@@ -605,9 +605,9 @@ class AppGroupDaoDiffblueTest {
     AppGroupDao appGroupDao = new AppGroupDao(dsl);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(appGroup.externalId()).thenReturn(ofResult);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult2);
     when(appGroup.description()).thenReturn("The characteristics of someone or something");
     when(appGroup.name()).thenReturn("Name");
@@ -621,7 +621,7 @@ class AppGroupDaoDiffblueTest {
         .prepareStatement(
             "update \"application_group\" set \"application_group\".\"description\" = cast(? as varchar), \"application_group\".\"name\" = cast(? as varchar), \"application_group\".\"kind\" = cast(? as varchar), \"application_group\".\"external_id\" = cast(? as varchar) where \"application_group\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(5, 42L);
+    verify(preparedStatement).setLong(5, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -664,9 +664,9 @@ class AppGroupDaoDiffblueTest {
     AppGroupDao appGroupDao = new AppGroupDao(dsl);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(appGroup.externalId()).thenReturn(ofResult);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult2);
     when(appGroup.description()).thenReturn("The characteristics of someone or something");
     when(appGroup.name()).thenReturn("Name");
@@ -678,9 +678,9 @@ class AppGroupDaoDiffblueTest {
     // Assert
     verify(connection)
         .prepareStatement(
-            "update \"application_group\" set \"application_group\".\"description\" = cast(? as varchar(43)), \"application_group\".\"name\" = cast(? as varchar(4)), \"application_group\".\"kind\" = cast(? as varchar(6)), \"application_group\".\"external_id\" = cast(? as varchar(2)) where \"application_group\".\"id\" = cast(? as bigint)");
+            "update \"application_group\" set \"application_group\".\"description\" = cast(? as varchar(43)), \"application_group\".\"name\" = cast(? as varchar(4)), \"application_group\".\"kind\" = cast(? as varchar(6)), \"application_group\".\"external_id\" = cast(? as varchar(3)) where \"application_group\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(5, 42L);
+    verify(preparedStatement).setLong(5, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -725,9 +725,9 @@ class AppGroupDaoDiffblueTest {
     AppGroupDao appGroupDao = new AppGroupDao(dsl);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(appGroup.externalId()).thenReturn(ofResult);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult2);
     when(appGroup.description()).thenReturn("The characteristics of someone or something");
     when(appGroup.name()).thenReturn("Name");
@@ -741,7 +741,7 @@ class AppGroupDaoDiffblueTest {
         .prepareStatement(
             "update \"application_group\" set \"application_group\".\"description\" = ?, \"application_group\".\"name\" = ?, \"application_group\".\"kind\" = ?, \"application_group\".\"external_id\" = ? where \"application_group\".\"id\" = ?");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(5, 42L);
+    verify(preparedStatement).setLong(5, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -878,7 +878,7 @@ class AppGroupDaoDiffblueTest {
     AppGroupDao appGroupDao = new AppGroupDao(dsl);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(appGroup.externalId()).thenReturn(ofResult);
     when(appGroup.isRemoved()).thenReturn(true);
     when(appGroup.isFavouriteGroup()).thenReturn(true);

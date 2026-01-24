@@ -3,25 +3,26 @@
     "reportVersion" : "2.8"
   },
   "run" : {
-    "version" : "2025.11.01-3385b9f-licensed",
-    "creationTimestamp" : "2025-11-13T00:09:54.399105Z",
+    "version" : "2026.01.01-c73dc7d-licensed",
+    "creationTimestamp" : "2026-01-23T12:00:56.176Z",
     "command" : "dcover create --exclude-modules=org.finos:waltz-integration-test,org.finos:waltz-schema --coverage-reports --upload http://localhost:8080 --project-name finos-waltz --name with-diffblue-tests",
-    "totalTime" : 371.253,
-    "environmentDetectionTime" : 1.483,
-    "indexingTime" : 0.334,
-    "entryPointsTime" : 1.452,
-    "generationTime" : 286.292,
-    "timeToFirstTest" : 26.516,
-    "timeToLastTest" : 340.746,
-    "indexQueryTime" : 3.095,
-    "verificationTime" : 44.981,
-    "validationTime" : 12.917
+    "totalTime" : 352.599,
+    "environmentDetectionTime" : 1.258,
+    "indexingTime" : 0.287,
+    "entryPointsTime" : 1.226,
+    "generationTime" : 287.855,
+    "timeToFirstTest" : 24.504,
+    "timeToLastTest" : 323.221,
+    "indexQueryTime" : 2.36,
+    "verificationTime" : 26.699,
+    "validationTime" : 12.4
   },
   "codes" : {
     "F009" : "Internal error",
     "R000" : "Success",
     "R002" : "Missing observers",
     "R004" : "No meaningful assertions found",
+    "R011" : "Sandboxing policy violation",
     "R013" : "No inputs found that don't throw a trivial exception",
     "R031" : "Method may be time-sensitive",
     "T000" : "Method eligible for test creation",
@@ -39,9 +40,9 @@
   "summary" : {
     "classesCount" : 37,
     "methodsCount" : 345,
-    "cumulativeDiffblueTestCount" : 799,
+    "cumulativeDiffblueTestCount" : 793,
     "cumulativeManualTestCount" : 628,
-    "completeTestCount" : 799,
+    "completeTestCount" : 793,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 2076,
@@ -57,24 +58,25 @@
     },
     "perMethodOutcome" : {
       "F009" : 2,
-      "R000" : 241,
-      "R002" : 2,
-      "R004" : 2,
-      "R013" : 9,
+      "R000" : 231,
+      "R002" : 3,
+      "R004" : 6,
+      "R011" : 1,
+      "R013" : 3,
       "R031" : 3,
       "T003" : 5,
       "T005" : 27,
       "T012" : 50,
-      "W001" : 4
+      "W001" : 14
     },
     "perTestOutcome" : {
-      "R000" : 799
+      "R000" : 793
     },
     "perTestValidation" : {
-      "V000" : 799
+      "V000" : 793
     },
     "warnings" : {
-      "W001" : 13,
+      "W001" : 52,
       "W002" : 2
     }
   },
@@ -214,7 +216,7 @@
       },
       "perMethodOutcome" : {
         "R000" : 2,
-        "R013" : 2,
+        "R004" : 2,
         "T005" : 1,
         "T012" : 1,
         "W001" : 1
@@ -244,7 +246,7 @@
     },
     "org.finos.waltz.common.EnumUtilities" : {
       "methodsCount" : 7,
-      "completeTestCount" : 12,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -253,13 +255,17 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 4,
+        "R000" : 2,
         "T003" : 1,
         "T005" : 1,
-        "T012" : 1
+        "T012" : 1,
+        "W001" : 2
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 4
+      },
+      "warnings" : {
+        "W001" : 9
       }
     },
     "org.finos.waltz.common.FunctionUtilities" : {
@@ -291,7 +297,7 @@
       },
       "perMethodOutcome" : {
         "R000" : 4,
-        "R013" : 1,
+        "R011" : 1,
         "T005" : 1
       },
       "perTestOutcome" : {
@@ -437,7 +443,7 @@
     },
     "org.finos.waltz.common.RandomUtilities" : {
       "methodsCount" : 12,
-      "completeTestCount" : 21,
+      "completeTestCount" : 20,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -446,16 +452,17 @@
       },
       "perMethodOutcome" : {
         "R000" : 7,
-        "R013" : 3,
+        "R002" : 1,
+        "R004" : 2,
         "T005" : 2
       },
       "perTestOutcome" : {
-        "R000" : 21
+        "R000" : 20
       }
     },
     "org.finos.waltz.common.RangeBand" : {
       "methodsCount" : 9,
-      "completeTestCount" : 27,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
@@ -463,11 +470,11 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
-        "T012" : 1
+        "T012" : 1,
+        "W001" : 8
       },
-      "perTestOutcome" : {
-        "R000" : 27
+      "warnings" : {
+        "W001" : 30
       }
     },
     "org.finos.waltz.common.SetUtilities" : {
@@ -524,7 +531,7 @@
     },
     "org.finos.waltz.common.StringUtilities" : {
       "methodsCount" : 38,
-      "completeTestCount" : 338,
+      "completeTestCount" : 366,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 32,
@@ -538,7 +545,7 @@
         "T012" : 5
       },
       "perTestOutcome" : {
-        "R000" : 338
+        "R000" : 366
       },
       "warnings" : {
         "W002" : 1
@@ -684,7 +691,7 @@
     },
     "org.finos.waltz.common.hierarchy.HierarchyUtilities" : {
       "methodsCount" : 18,
-      "completeTestCount" : 11,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -699,7 +706,7 @@
         "T012" : 10
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 13
       }
     },
     "org.finos.waltz.common.hierarchy.Node" : {
@@ -1398,7 +1405,6 @@
         231,
         232,
         233,
-        236,
         234,
         235,
         236,
@@ -1482,8 +1488,6 @@
         83,
         84,
         85,
-        86,
-        87,
         88,
         83,
         91
@@ -1622,7 +1626,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         77,
         78
@@ -1632,7 +1636,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         82,
         85,
@@ -1784,12 +1788,12 @@
       ]
     },
     "org.finos.waltz.common.EnumUtilities.parseEnumWithAliases:(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;Lorg/finos/waltz/common/Aliases;)Ljava/lang/Enum;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 6
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 7
       },
       "lineNumbers" : [
         51,
@@ -1804,12 +1808,12 @@
       ]
     },
     "org.finos.waltz.common.EnumUtilities.readEnum:(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;)Ljava/lang/Enum;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 2
       },
       "lineNumbers" : [
         34,
@@ -1953,7 +1957,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R011",
       "lineNumbers" : [
         83,
         84,
@@ -2346,6 +2350,7 @@
         65,
         66,
         64,
+        66,
         68,
         72,
         70,
@@ -2466,7 +2471,6 @@
       "lineNumbers" : [
         234,
         235,
-        236,
         234
       ]
     },
@@ -3014,7 +3018,6 @@
       "lineNumbers" : [
         94,
         95,
-        96,
         94
       ]
     },
@@ -3200,7 +3203,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         43
       ]
@@ -3209,7 +3212,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         144
       ]
@@ -3225,8 +3228,6 @@
       "lineNumbers" : [
         58,
         59,
-        60,
-        61,
         62
       ]
     },
@@ -3301,12 +3302,12 @@
       ]
     },
     "org.finos.waltz.common.RandomUtilities.randomTrue:(D)Z" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         139
@@ -3316,18 +3317,18 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         120
       ]
     },
     "org.finos.waltz.common.RangeBand.<init>:(Ljava/lang/Comparable;Ljava/lang/Comparable;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
       },
       "lineNumbers" : [
         35,
@@ -3342,12 +3343,12 @@
       ]
     },
     "org.finos.waltz.common.RangeBand.contains:(Ljava/lang/Comparable;)Z" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 7
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 7
       },
       "lineNumbers" : [
         50,
@@ -3359,12 +3360,12 @@
       ]
     },
     "org.finos.waltz.common.RangeBand.equals:(Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 6
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 9
       },
       "lineNumbers" : [
         82,
@@ -3375,36 +3376,36 @@
       ]
     },
     "org.finos.waltz.common.RangeBand.getHigh:()Ljava/lang/Comparable;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T001",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
       },
       "lineNumbers" : [
         76
       ]
     },
     "org.finos.waltz.common.RangeBand.getLow:()Ljava/lang/Comparable;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T001",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
       },
       "lineNumbers" : [
         71
       ]
     },
     "org.finos.waltz.common.RangeBand.hashCode:()I" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 6
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 9
       },
       "lineNumbers" : [
         94,
@@ -3413,12 +3414,12 @@
       ]
     },
     "org.finos.waltz.common.RangeBand.test:(Ljava/lang/Comparable;)Z" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 7
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 7
       },
       "lineNumbers" : [
         66
@@ -3434,12 +3435,12 @@
       ]
     },
     "org.finos.waltz.common.RangeBand.toString:()Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
       },
       "lineNumbers" : [
         102,
@@ -3983,7 +3984,6 @@
       "lineNumbers" : [
         179,
         180,
-        181,
         179
       ]
     },
@@ -4123,7 +4123,7 @@
         327
       ]
     },
-    "org.finos.waltz.common.StringUtilities.lambda$toHtmlTable$2:(Ljava/lang/Object;)Ljava/lang/String;" : {
+    "org.finos.waltz.common.StringUtilities.lambda$null$2:(Ljava/lang/Object;)Ljava/lang/String;" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4164,7 +4164,6 @@
       },
       "lineNumbers" : [
         114,
-        115,
         116,
         114
       ]
@@ -4214,12 +4213,12 @@
       ]
     },
     "org.finos.waltz.common.StringUtilities.mkPath:([Ljava/lang/String;)Ljava/lang/String;" : {
-      "completeTestCount" : 256,
+      "completeTestCount" : 281,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 256
+        "R000" : 281
       },
       "lineNumbers" : [
         208,
@@ -4240,9 +4239,6 @@
         "R000" : 2
       },
       "lineNumbers" : [
-        96,
-        97,
-        98,
         96
       ]
     },
@@ -4267,9 +4263,6 @@
         "R000" : 3
       },
       "lineNumbers" : [
-        313,
-        314,
-        315,
         313
       ]
     },
@@ -4385,12 +4378,12 @@
       ]
     },
     "org.finos.waltz.common.StringUtilities.toHtmlTable:(Ljava/util/List;Ljava/util/Collection;)Ljava/lang/String;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 8
       },
       "lineNumbers" : [
         284,
@@ -4517,7 +4510,40 @@
         64
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$10:(Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;Ljava/lang/String;)V" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$12:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        79,
+        80,
+        81,
+        79
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$8:(Ljava/lang/String;Lorg/w3c/dom/Node;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        52,
+        53,
+        54,
+        52
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$0:(Lorg/w3c/dom/Node;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.finos.waltz.common.SvgUtilities.lambda$null$10:(Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;Ljava/lang/String;)V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4531,7 +4557,7 @@
         93
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$11:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$11:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4545,37 +4571,7 @@
         94
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$12:(Ljava/lang/String;Ljava/util/function/Function;Lorg/w3c/dom/Document;Lorg/w3c/dom/Node;)V" : {
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T012",
-      "perMethodOutcome" : "T012",
-      "lineNumbers" : [
-        79,
-        80,
-        81,
-        79
-      ]
-    },
-    "org.finos.waltz.common.SvgUtilities.lambda$addWaltzEntityLinks$9:(Ljava/lang/String;Lorg/w3c/dom/Node;)Z" : {
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T012",
-      "perMethodOutcome" : "T012",
-      "lineNumbers" : [
-        80
-      ]
-    },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$0:(Lorg/w3c/dom/Node;)Z" : {
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T012",
-      "perMethodOutcome" : "T012",
-      "lineNumbers" : [
-        53
-      ]
-    },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$1:(Lorg/w3c/dom/Node;)Z" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$1:(Lorg/w3c/dom/Node;)Z" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4584,7 +4580,7 @@
         55
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$2:(Lorg/w3c/dom/Node;)Lorg/w3c/dom/Element;" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$2:(Lorg/w3c/dom/Node;)Lorg/w3c/dom/Element;" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4593,7 +4589,7 @@
         56
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$3:(Ljava/lang/String;Lorg/w3c/dom/Element;)Z" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$3:(Ljava/lang/String;Lorg/w3c/dom/Element;)Z" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4602,7 +4598,7 @@
         57
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$4:(Lorg/w3c/dom/Element;)Ljava/lang/String;" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$4:(Lorg/w3c/dom/Element;)Ljava/lang/String;" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4611,7 +4607,7 @@
         58
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$5:(Ljava/lang/String;)Ljava/lang/String;" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$5:(Ljava/lang/String;)Ljava/lang/String;" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4620,7 +4616,7 @@
         59
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$6:(Lorg/w3c/dom/Node;Ljava/lang/String;Ljava/lang/String;)V" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$6:(Lorg/w3c/dom/Node;Ljava/lang/String;Ljava/lang/String;)V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4629,7 +4625,7 @@
         60
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$7:(Ljava/lang/String;Lorg/w3c/dom/Node;Lorg/w3c/dom/Node;)V" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$7:(Ljava/lang/String;Lorg/w3c/dom/Node;Lorg/w3c/dom/Node;)V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -4645,16 +4641,13 @@
         54
       ]
     },
-    "org.finos.waltz.common.SvgUtilities.lambda$convertVisioSvg$8:(Ljava/lang/String;Lorg/w3c/dom/Node;)V" : {
+    "org.finos.waltz.common.SvgUtilities.lambda$null$9:(Ljava/lang/String;Lorg/w3c/dom/Node;)Z" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
       "perMethodOutcome" : "T012",
       "lineNumbers" : [
-        52,
-        53,
-        54,
-        52
+        80
       ]
     },
     "org.finos.waltz.common.XmlUtilities.<init>:()V" : {
@@ -5063,12 +5056,12 @@
       ]
     },
     "org.finos.waltz.common.hierarchy.HierarchyUtilities.hasCycle:(Lorg/finos/waltz/common/hierarchy/Forest;)Z" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         107,
@@ -5114,7 +5107,7 @@
         127
       ]
     },
-    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$sanitizeFlatNodes$5:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Z" : {
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$null$5:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Z" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -5123,7 +5116,7 @@
         100
       ]
     },
-    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$sanitizeFlatNodes$6:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Lorg/finos/waltz/common/hierarchy/FlatNode;" : {
+    "org.finos.waltz.common.hierarchy.HierarchyUtilities.lambda$null$6:(Lorg/finos/waltz/common/hierarchy/FlatNode;Ljava/lang/Object;)Lorg/finos/waltz/common/hierarchy/FlatNode;" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T012",
@@ -5223,12 +5216,12 @@
       ]
     },
     "org.finos.waltz.common.hierarchy.HierarchyUtilities.toForest:(Ljava/util/Collection;)Lorg/finos/waltz/common/hierarchy/Forest;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         46,
@@ -5481,7 +5474,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":null,\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.DebugUtilities\",\"fileName\":\"DebugUtilities.java\",\"lineNumber\":85,\"methodName\":\"dump\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.DebugUtilities\",\"fileName\":\"DebugUtilities.java\",\"lineNumber\":77,\"methodName\":\"dump\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5493,7 +5486,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":null,\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.DebugUtilities\",\"fileName\":\"DebugUtilities.java\",\"lineNumber\":85,\"methodName\":\"dump\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5505,7 +5498,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.DebugUtilitiesDiffblueTest12181635397638738019\",\"line\":37,\"message\":\"incompatible types: inference variable K has incompatible equality constraints Object,String\\nwhere K,V are type-variables:\\n  K extends Object declared in method <K,V>dump(Map<K,V>)\\n  V extends Object declared in method <K,V>dump(Map<K,V>)\",\"methodSignature\":\"testDumpWithM_givenFoo_whenNewHashMapFooIsValue_thenReturnSizeIsTwo:()V\",\"sourceFile\":\"/tmp/DebugUtilitiesDiffblueTest12181635397638738019.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/DebugUtilitiesDiffblueTest12181635397638738019.java, 45 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class DebugUtilitiesDiffblueTest12181635397638738019 {\\n  13:   /**\\n  14:    * Test {@link DebugUtilities#dump(Map)} with {@code m}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>Given {@code foo}.\\n  18:    *   <li>When newHashMap {@code foo} is {@code Value}.\\n  19:    *   <li>Then return size is two.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link DebugUtilities#dump(Map)}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\n  26:       \\\"Test dump(Map) with 'm'; given 'foo'; when newHashMap 'foo' is 'Value'; then return size is two\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"Map DebugUtilities.dump(Map)\\\"})\\n  30:   void testDumpWithM_givenFoo_whenNewHashMapFooIsValue_thenReturnSizeIsTwo() {\\n  31:     // Arrange\\n  32:     HashMap<String, Object> m = MapUtilities.newHashMap();\\n  33:     m.put(\\\"foo\\\", \\\"Value\\\");\\n  34:     m.put(\\\"Key\\\", \\\"Value\\\");\\n  35: \\n  36:     // Act\\n  37:     Map<Object, Object> actualDumpResult = DebugUtilities.dump(m);\\n  38: \\n  39:     // Assert\\n  40:     assertEquals(2, actualDumpResult.size());\\n  41:     assertEquals(\\\"Value\\\", actualDumpResult.get(\\\"Key\\\"));\\n  42:     assertEquals(\\\"Value\\\", actualDumpResult.get(\\\"foo\\\"));\\n  43:   }\\n  44: }\\n  45: \\nTest compilation failed for method org.finos.waltz.common.DebugUtilities.dump\\n\"}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.DebugUtilitiesDiffblueTest8927811000120370962\",\"line\":37,\"message\":\"incompatible types: inference variable K has incompatible equality constraints Object,String\\nwhere K,V are type-variables:\\n  K extends Object declared in method <K,V>dump(Map<K,V>)\\n  V extends Object declared in method <K,V>dump(Map<K,V>)\",\"methodSignature\":\"testDumpWithM_given42_whenNewHashMap42Is42_thenReturnSizeIsTwo:()V\",\"sourceFile\":\"/tmp/DebugUtilitiesDiffblueTest8927811000120370962.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/DebugUtilitiesDiffblueTest8927811000120370962.java, 45 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class DebugUtilitiesDiffblueTest8927811000120370962 {\\n  13:   /**\\n  14:    * Test {@link DebugUtilities#dump(Map)} with {@code m}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>Given {@code 42}.\\n  18:    *   <li>When newHashMap {@code 42} is {@code 42}.\\n  19:    *   <li>Then return size is two.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link DebugUtilities#dump(Map)}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\n  26:       \\\"Test dump(Map) with 'm'; given '42'; when newHashMap '42' is '42'; then return size is two\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"Map DebugUtilities.dump(Map)\\\"})\\n  30:   void testDumpWithM_given42_whenNewHashMap42Is42_thenReturnSizeIsTwo() {\\n  31:     // Arrange\\n  32:     HashMap<String, Object> m = MapUtilities.newHashMap();\\n  33:     m.put(\\\"42\\\", \\\"42\\\");\\n  34:     m.put(\\\"foo\\\", \\\"42\\\");\\n  35: \\n  36:     // Act\\n  37:     Map<Object, Object> actualDumpResult = DebugUtilities.dump(m);\\n  38: \\n  39:     // Assert\\n  40:     assertEquals(2, actualDumpResult.size());\\n  41:     assertEquals(\\\"42\\\", actualDumpResult.get(\\\"42\\\"));\\n  42:     assertEquals(\\\"42\\\", actualDumpResult.get(\\\"foo\\\"));\\n  43:   }\\n  44: }\\n  45: \\nTest compilation failed for method org.finos.waltz.common.DebugUtilities.dump\\n\"}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5536,6 +5529,30 @@
             "binaryClassName" : "org.finos.waltz.common.EnumUtilities",
             "descriptor" : "()V",
             "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":9,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":null,\"line\":10,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":40,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":40,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":42,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":43,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":46,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest2291118341995280916\",\"line\":52,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class EnumUtilitiesDiffblueTest2291118341995280916\",\"methodSignature\":\"testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest2291118341995280916.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/EnumUtilitiesDiffblueTest2291118341995280916.java, 55 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.mockito.Mockito.mock;\\n   5: import static org.mockito.Mockito.verify;\\n   6: import static org.mockito.Mockito.when;\\n   7: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   8: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   9: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n  10: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n  11: import java.util.function.Function;\\n  12: import org.junit.jupiter.api.DisplayName;\\n  13: import org.junit.jupiter.api.Tag;\\n  14: import org.junit.jupiter.api.Test;\\n  15: import org.mockito.Mockito;\\n  16: \\n  17: class EnumUtilitiesDiffblueTest2291118341995280916 {\\n  18:   /**\\n  19:    * Test {@link EnumUtilities#parseEnumWithAliases(String, Class, Function, Aliases)}.\\n  20:    *\\n  21:    * <ul>\\n  22:    *   <li>Given {@code SOAP11}.\\n  23:    *   <li>When {@code value cannot be null}.\\n  24:    *   <li>Then calls {@link Function#apply(Object)}.\\n  25:    * </ul>\\n  26:    *\\n  27:    * <p>Method under test: {@link EnumUtilities#parseEnumWithAliases(String, Class, Function,\\n  28:    * Aliases)}\\n  29:    */\\n  30:   @Test\\n  31:   @DisplayName(\\n  32:       \\\"Test parseEnumWithAliases(String, Class, Function, Aliases); given 'SOAP11'; when 'value cannot be null'; then calls apply(Object)\\\")\\n  33:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  34:   @ManagedByDiffblue\\n  35:   @MethodsUnderTest({\\n  36:     \\\"java.lang.Enum EnumUtilities.parseEnumWithAliases(String, Class, Function, Aliases)\\\"\\n  37:   })\\n  38:   void testParseEnumWithAliases_givenSoap11_whenValueCannotBeNull_thenCallsApply() {\\n  39:     // Arrange\\n  40:     Class<Style> enumClass = Style.class;\\n  41: \\n  42:     Function<String, Style> failedParseSupplier = mock(Function.class);\\n  43:     when(failedParseSupplier.apply(Mockito.<String>any())).thenReturn(Style.SOAP11);\\n  44: \\n  45:     // Act\\n  46:     Style actualParseEnumWithAliasesResult =\\n  47:         EnumUtilities.parseEnumWithAliases(\\n  48:             \\\"value cannot be null\\\", enumClass, failedParseSupplier, new Aliases<>());\\n  49: \\n  50:     // Assert\\n  51:     verify(failedParseSupplier).apply(\\\"value cannot be null\\\");\\n  52:     assertEquals(Style.SOAP11, actualParseEnumWithAliasesResult);\\n  53:   }\\n  54: }\\n  55: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.EnumUtilities.parseEnumWithAliases due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.EnumUtilities.parseEnumWithAliases due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.EnumUtilities",
+            "descriptor" : "(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;Lorg/finos/waltz/common/Aliases;)Ljava/lang/Enum;",
+            "methodName" : "parseEnumWithAliases"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"},{\"className\":null,\"line\":8,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest5512025383038595125\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest5512025383038595125\",\"methodSignature\":\"testReadEnum_whenSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest5512025383038595125\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest5512025383038595125\",\"methodSignature\":\"testReadEnum_whenSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest5512025383038595125\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class EnumUtilitiesDiffblueTest5512025383038595125\",\"methodSignature\":\"testReadEnum_whenSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"},{\"className\":\"org.finos.waltz.common.EnumUtilitiesDiffblueTest5512025383038595125\",\"line\":38,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class EnumUtilitiesDiffblueTest5512025383038595125\",\"methodSignature\":\"testReadEnum_whenSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/EnumUtilitiesDiffblueTest5512025383038595125.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/EnumUtilitiesDiffblueTest5512025383038595125.java, 41 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.mockito.Mockito.mock;\\n   5: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   6: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   8: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   9: import java.util.function.Function;\\n  10: import org.junit.jupiter.api.DisplayName;\\n  11: import org.junit.jupiter.api.Tag;\\n  12: import org.junit.jupiter.api.Test;\\n  13: \\n  14: class EnumUtilitiesDiffblueTest5512025383038595125 {\\n  15:   /**\\n  16:    * Test {@link EnumUtilities#readEnum(String, Class, Function)}.\\n  17:    *\\n  18:    * <ul>\\n  19:    *   <li>When {@code SOAP11}.\\n  20:    *   <li>Then return {@code SOAP11}.\\n  21:    * </ul>\\n  22:    *\\n  23:    * <p>Method under test: {@link EnumUtilities#readEnum(String, Class, Function)}\\n  24:    */\\n  25:   @Test\\n  26:   @DisplayName(\\\"Test readEnum(String, Class, Function); when 'SOAP11'; then return 'SOAP11'\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"java.lang.Enum EnumUtilities.readEnum(String, Class, Function)\\\"})\\n  30:   void testReadEnum_whenSoap11_thenReturnSoap11() {\\n  31:     // Arrange\\n  32:     Class<Style> enumClass = Style.class;\\n  33: \\n  34:     // Act\\n  35:     Style actualReadEnumResult = EnumUtilities.readEnum(\\\"SOAP11\\\", enumClass, mock(Function.class));\\n  36: \\n  37:     // Assert\\n  38:     assertEquals(Style.SOAP11, actualReadEnumResult);\\n  39:   }\\n  40: }\\n  41: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.EnumUtilities.readEnum due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.EnumUtilities.readEnum due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.EnumUtilities",
+            "descriptor" : "(Ljava/lang/String;Ljava/lang/Class;Ljava/util/function/Function;)Ljava/lang/Enum;",
+            "methodName" : "readEnum"
           }
         ]
       }
@@ -5587,7 +5604,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Path must not be null\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.springframework.util.Assert\",\"fileName\":\"Assert.java\",\"lineNumber\":201,\"methodName\":\"notNull\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.ClassPathResource\",\"fileName\":\"ClassPathResource.java\",\"lineNumber\":81,\"methodName\":\"<init>\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.ClassPathResource\",\"fileName\":\"ClassPathResource.java\",\"lineNumber\":68,\"methodName\":\"<init>\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.IOUtilities\",\"fileName\":\"IOUtilities.java\",\"lineNumber\":83,\"methodName\":\"getFileResource\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.SandboxingPolicyViolationMessage\",\"capability\":null,\"sandboxViolationReason\":\"to access files (file '/home/ci/.waltz/foo.txt', permission 'write') from calling class 'org.springframework.core.io.FileSystemResource'\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5713,7 +5730,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapBuilderDiffblueTest9974545582417469206\",\"line\":34,\"message\":\"incompatible types: HashMap<String,Object> cannot be converted to Map<Object,Object>\",\"methodSignature\":\"testFrom_whenNewHashMap_thenReturnMapBuilder:()V\",\"sourceFile\":\"/tmp/MapBuilderDiffblueTest9974545582417469206.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapBuilderDiffblueTest9974545582417469206.java, 40 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class MapBuilderDiffblueTest9974545582417469206 {\\n  13:   /**\\n  14:    * Test {@link MapBuilder#from(Map)}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When newHashMap.\\n  18:    *   <li>Then return {@link MapBuilder} (default constructor).\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Method under test: {@link MapBuilder#from(Map)}\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test from(Map); when newHashMap; then return MapBuilder (default constructor)\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\\"MapBuilder MapBuilder.from(Map)\\\"})\\n  28:   void testFrom_whenNewHashMap_thenReturnMapBuilder() {\\n  29:     // Arrange\\n  30:     MapBuilder<Object, Object> mapBuilder = new MapBuilder<>();\\n  31:     HashMap<String, Object> m = MapUtilities.newHashMap();\\n  32: \\n  33:     // Act\\n  34:     MapBuilder<Object, Object> actualFromResult = mapBuilder.from(m);\\n  35: \\n  36:     // Assert\\n  37:     assertSame(mapBuilder, actualFromResult);\\n  38:   }\\n  39: }\\n  40: \\nTest compilation failed for method org.finos.waltz.common.MapBuilder.from\\n\"}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapBuilderDiffblueTest2133964599527096130\",\"line\":34,\"message\":\"incompatible types: HashMap<String,Object> cannot be converted to Map<Object,Object>\",\"methodSignature\":\"testFrom_whenNewHashMap_thenReturnMapBuilder:()V\",\"sourceFile\":\"/tmp/MapBuilderDiffblueTest2133964599527096130.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapBuilderDiffblueTest2133964599527096130.java, 40 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class MapBuilderDiffblueTest2133964599527096130 {\\n  13:   /**\\n  14:    * Test {@link MapBuilder#from(Map)}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When newHashMap.\\n  18:    *   <li>Then return {@link MapBuilder} (default constructor).\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Method under test: {@link MapBuilder#from(Map)}\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test from(Map); when newHashMap; then return MapBuilder (default constructor)\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\\"MapBuilder MapBuilder.from(Map)\\\"})\\n  28:   void testFrom_whenNewHashMap_thenReturnMapBuilder() {\\n  29:     // Arrange\\n  30:     MapBuilder<Object, Object> mapBuilder = new MapBuilder<>();\\n  31:     HashMap<String, Object> m = MapUtilities.newHashMap();\\n  32: \\n  33:     // Act\\n  34:     MapBuilder<Object, Object> actualFromResult = mapBuilder.from(m);\\n  35: \\n  36:     // Assert\\n  37:     assertSame(mapBuilder, actualFromResult);\\n  38:   }\\n  39: }\\n  40: \\nTest compilation failed for method org.finos.waltz.common.MapBuilder.from\\n\"}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5737,7 +5754,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapUtilitiesDiffblueTest15964299316287575139\",\"line\":39,\"message\":\"method compose in class MapUtilities cannot be applied to given types;\\nrequired: Map<K1,K2>,Map<K2,V>\\nfound: HashMap<String,Object>,HashMap<String,Object>\\nreason: inference variable K2 has incompatible equality constraints String,Object\\nwhere K1,K2,V are type-variables:\\n  K1 extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\\n  K2 extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\\n  V extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\",\"methodSignature\":\"testCompose_given42_whenNewHashMap42IsValue_thenReturnSizeIsTwo:()V\",\"sourceFile\":\"/tmp/MapUtilitiesDiffblueTest15964299316287575139.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapUtilitiesDiffblueTest15964299316287575139.java, 47 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.junit.jupiter.api.Assertions.assertNull;\\n   5: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   6: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   7: import java.util.HashMap;\\n   8: import java.util.Map;\\n   9: import org.junit.jupiter.api.DisplayName;\\n  10: import org.junit.jupiter.api.Tag;\\n  11: import org.junit.jupiter.api.Test;\\n  12: \\n  13: class MapUtilitiesDiffblueTest15964299316287575139 {\\n  14:   /**\\n  15:    * Test {@link MapUtilities#compose(Map, Map)}.\\n  16:    *\\n  17:    * <ul>\\n  18:    *   <li>Given {@code 42}.\\n  19:    *   <li>When newHashMap {@code 42} is {@code Value}.\\n  20:    *   <li>Then return size is two.\\n  21:    * </ul>\\n  22:    *\\n  23:    * <p>Method under test: {@link MapUtilities#compose(Map, Map)}\\n  24:    */\\n  25:   @Test\\n  26:   @DisplayName(\\n  27:       \\\"Test compose(Map, Map); given '42'; when newHashMap '42' is 'Value'; then return size is two\\\")\\n  28:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  29:   @ManagedByDiffblue\\n  30:   @MethodsUnderTest({\\\"Map MapUtilities.compose(Map, Map)\\\"})\\n  31:   void testCompose_given42_whenNewHashMap42IsValue_thenReturnSizeIsTwo() {\\n  32:     // Arrange\\n  33:     HashMap<String, Object> map1 = MapUtilities.newHashMap();\\n  34:     map1.put(\\\"42\\\", \\\"Value\\\");\\n  35:     map1.put(\\\"Key\\\", \\\"Value\\\");\\n  36:     HashMap<String, Object> map2 = MapUtilities.newHashMap();\\n  37: \\n  38:     // Act\\n  39:     Map<Object, Object> actualComposeResult = MapUtilities.compose(map1, map2);\\n  40: \\n  41:     // Assert\\n  42:     assertEquals(2, actualComposeResult.size());\\n  43:     assertNull(actualComposeResult.get(\\\"42\\\"));\\n  44:     assertNull(actualComposeResult.get(\\\"Key\\\"));\\n  45:   }\\n  46: }\\n  47: \\nTest compilation failed for method org.finos.waltz.common.MapUtilities.compose\\n\"}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapUtilitiesDiffblueTest9003831656059964538\",\"line\":39,\"message\":\"method compose in class MapUtilities cannot be applied to given types;\\nrequired: Map<K1,K2>,Map<K2,V>\\nfound: HashMap<String,Object>,HashMap<String,Object>\\nreason: inference variable K2 has incompatible equality constraints String,Object\\nwhere K1,K2,V are type-variables:\\n  K1 extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\\n  K2 extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\\n  V extends Object declared in method <K1,K2,V>compose(Map<K1,K2>,Map<K2,V>)\",\"methodSignature\":\"testCompose_given42_whenNewHashMap42Is42_thenReturnSizeIsTwo:()V\",\"sourceFile\":\"/tmp/MapUtilitiesDiffblueTest9003831656059964538.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapUtilitiesDiffblueTest9003831656059964538.java, 47 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.junit.jupiter.api.Assertions.assertNull;\\n   5: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   6: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   7: import java.util.HashMap;\\n   8: import java.util.Map;\\n   9: import org.junit.jupiter.api.DisplayName;\\n  10: import org.junit.jupiter.api.Tag;\\n  11: import org.junit.jupiter.api.Test;\\n  12: \\n  13: class MapUtilitiesDiffblueTest9003831656059964538 {\\n  14:   /**\\n  15:    * Test {@link MapUtilities#compose(Map, Map)}.\\n  16:    *\\n  17:    * <ul>\\n  18:    *   <li>Given {@code 42}.\\n  19:    *   <li>When newHashMap {@code 42} is {@code 42}.\\n  20:    *   <li>Then return size is two.\\n  21:    * </ul>\\n  22:    *\\n  23:    * <p>Method under test: {@link MapUtilities#compose(Map, Map)}\\n  24:    */\\n  25:   @Test\\n  26:   @DisplayName(\\n  27:       \\\"Test compose(Map, Map); given '42'; when newHashMap '42' is '42'; then return size is two\\\")\\n  28:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  29:   @ManagedByDiffblue\\n  30:   @MethodsUnderTest({\\\"Map MapUtilities.compose(Map, Map)\\\"})\\n  31:   void testCompose_given42_whenNewHashMap42Is42_thenReturnSizeIsTwo() {\\n  32:     // Arrange\\n  33:     HashMap<String, Object> map1 = MapUtilities.newHashMap();\\n  34:     map1.put(\\\"42\\\", \\\"42\\\");\\n  35:     map1.put(\\\"foo\\\", \\\"42\\\");\\n  36:     HashMap<String, Object> map2 = MapUtilities.newHashMap();\\n  37: \\n  38:     // Act\\n  39:     Map<Object, Object> actualComposeResult = MapUtilities.compose(map1, map2);\\n  40: \\n  41:     // Assert\\n  42:     assertEquals(2, actualComposeResult.size());\\n  43:     assertNull(actualComposeResult.get(\\\"42\\\"));\\n  44:     assertNull(actualComposeResult.get(\\\"foo\\\"));\\n  45:   }\\n  46: }\\n  47: \\nTest compilation failed for method org.finos.waltz.common.MapUtilities.compose\\n\"}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5749,7 +5766,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapUtilitiesDiffblueTest4166100077672631210\",\"line\":33,\"message\":\"incompatible types: inference variable K has incompatible equality constraints Object,String\\nwhere K,V are type-variables:\\n  K extends Object declared in method <K,V>merge(Map<K,V>...)\\n  V extends Object declared in method <K,V>merge(Map<K,V>...)\",\"methodSignature\":\"testMerge_whenNewHashMap_thenReturnEmpty:()V\",\"sourceFile\":\"/tmp/MapUtilitiesDiffblueTest4166100077672631210.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapUtilitiesDiffblueTest4166100077672631210.java, 39 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class MapUtilitiesDiffblueTest4166100077672631210 {\\n  13:   /**\\n  14:    * Test {@link MapUtilities#merge(Map[])}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When newHashMap.\\n  18:    *   <li>Then return Empty.\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Method under test: {@link MapUtilities#merge(Map[])}\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test merge(Map[]); when newHashMap; then return Empty\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\\"Map MapUtilities.merge(Map[])\\\"})\\n  28:   void testMerge_whenNewHashMap_thenReturnEmpty() {\\n  29:     // Arrange\\n  30:     HashMap<String, Object> newHashMapResult = MapUtilities.newHashMap();\\n  31: \\n  32:     // Act\\n  33:     Map<Object, Object> actualMergeResult = MapUtilities.merge(newHashMapResult);\\n  34: \\n  35:     // Assert\\n  36:     assertTrue(actualMergeResult.isEmpty());\\n  37:   }\\n  38: }\\n  39: \\nTest compilation failed for method org.finos.waltz.common.MapUtilities.merge\\n\"}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.finos.waltz.common.MapUtilitiesDiffblueTest112239409495720634\",\"line\":33,\"message\":\"incompatible types: inference variable K has incompatible equality constraints Object,String\\nwhere K,V are type-variables:\\n  K extends Object declared in method <K,V>merge(Map<K,V>...)\\n  V extends Object declared in method <K,V>merge(Map<K,V>...)\",\"methodSignature\":\"testMerge_whenNewHashMap_thenReturnEmpty:()V\",\"sourceFile\":\"/tmp/MapUtilitiesDiffblueTest112239409495720634.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/MapUtilitiesDiffblueTest112239409495720634.java, 39 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import java.util.HashMap;\\n   7: import java.util.Map;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class MapUtilitiesDiffblueTest112239409495720634 {\\n  13:   /**\\n  14:    * Test {@link MapUtilities#merge(Map[])}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When newHashMap.\\n  18:    *   <li>Then return Empty.\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Method under test: {@link MapUtilities#merge(Map[])}\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test merge(Map[]); when newHashMap; then return Empty\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\\"Map MapUtilities.merge(Map[])\\\"})\\n  28:   void testMerge_whenNewHashMap_thenReturnEmpty() {\\n  29:     // Arrange\\n  30:     HashMap<String, Object> newHashMapResult = MapUtilities.newHashMap();\\n  31: \\n  32:     // Act\\n  33:     Map<Object, Object> actualMergeResult = MapUtilities.merge(newHashMapResult);\\n  34: \\n  35:     // Assert\\n  36:     assertTrue(actualMergeResult.isEmpty());\\n  37:   }\\n  38: }\\n  39: \\nTest compilation failed for method org.finos.waltz.common.MapUtilities.merge\\n\"}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5761,7 +5778,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"keyFn cannot be null\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":127,\"methodName\":\"mkFail\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":122,\"methodName\":\"fail\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":86,\"methodName\":\"checkTrue\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":37,\"methodName\":\"checkNotNull\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.MapUtilities\",\"fileName\":\"MapUtilities.java\",\"lineNumber\":142,\"methodName\":\"orderedGroupBy\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"valueFn cannot be null\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":127,\"methodName\":\"mkFail\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":122,\"methodName\":\"fail\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":86,\"methodName\":\"checkTrue\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.Checks\",\"fileName\":\"Checks.java\",\"lineNumber\":37,\"methodName\":\"checkNotNull\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.MapUtilities\",\"fileName\":\"MapUtilities.java\",\"lineNumber\":143,\"methodName\":\"orderedGroupBy\",\"nativeMethod\":false},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"nativeMethod\":true},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"sun.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"nativeMethod\":false}]}}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5843,7 +5860,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"bound must be positive\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"java.util.Random\",\"fileName\":\"Random.java\",\"lineNumber\":388,\"methodName\":\"nextInt\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.RandomUtilities\",\"fileName\":\"RandomUtilities.java\",\"lineNumber\":43,\"methodName\":\"randomIntBetween\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5855,7 +5872,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"bound must be positive\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"java.util.concurrent.ThreadLocalRandom\",\"fileName\":\"ThreadLocalRandom.java\",\"lineNumber\":361,\"methodName\":\"nextLong\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.RandomUtilities\",\"fileName\":\"RandomUtilities.java\",\"lineNumber\":144,\"methodName\":\"randomLongBetween\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5867,13 +5884,129 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"bound must be positive\",\"originalClassName\":\"java.lang.IllegalArgumentException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"java.util.Random\",\"fileName\":\"Random.java\",\"lineNumber\":388,\"methodName\":\"nextInt\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.RandomUtilities\",\"fileName\":\"RandomUtilities.java\",\"lineNumber\":43,\"methodName\":\"randomIntBetween\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.RandomUtilities\",\"fileName\":\"RandomUtilities.java\",\"lineNumber\":120,\"methodName\":\"randomlySizedIntStream\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"combinedFlags\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"depth\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"linkedOrConsumed\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"nextStage\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"parallel\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"previousStage\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceAnyStateful\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceCloseAction\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceOrOpFlags\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceSpliterator\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceStage\"},{\"className\":{\"descriptor\":\"Ljava/util/stream/AbstractPipeline;\",\"simpleNames\":[\"AbstractPipeline\"]},\"fieldName\":\"sourceSupplier\"}],\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
           {
             "binaryClassName" : "org.finos.waltz.common.RandomUtilities",
             "descriptor" : "(II)Ljava/util/stream/IntStream;",
             "methodName" : "randomlySizedIntStream"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":39,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":40,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest5689896646351801064.java, 43 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest5689896646351801064 {\\n  13:   /**\\n  14:    * Test getters and setters.\\n  15:    *\\n  16:    * <p>Methods under test:\\n  17:    *\\n  18:    * <ul>\\n  19:    *   <li>{@link RangeBand#getHigh()}\\n  20:    *   <li>{@link RangeBand#getLow()}\\n  21:    * </ul>\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test getters and setters\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\n  28:     \\\"java.lang.Comparable RangeBand.getHigh()\\\",\\n  29:     \\\"java.lang.Comparable RangeBand.getLow()\\\"\\n  30:   })\\n  31:   void testGettersAndSetters() {\\n  32:     // Arrange\\n  33:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, Style.SOAP11);\\n  34: \\n  35:     // Act\\n  36:     Style actualHigh = rangeBand.getHigh();\\n  37: \\n  38:     // Assert\\n  39:     assertEquals(Style.SOAP11, actualHigh);\\n  40:     assertEquals(Style.SOAP11, rangeBand.getLow());\\n  41:   }\\n  42: }\\n  43: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.getHigh, org.finos.waltz.common.RangeBand.getLow due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.getHigh, org.finos.waltz.common.RangeBand.getLow due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()Ljava/lang/Comparable;",
+            "methodName" : "getHigh"
+          },
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()Ljava/lang/Comparable;",
+            "methodName" : "getLow"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":33,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":39,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5689896646351801064\",\"line\":40,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5689896646351801064\",\"methodSignature\":\"testGettersAndSetters:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5689896646351801064.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest5689896646351801064.java, 43 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest5689896646351801064 {\\n  13:   /**\\n  14:    * Test getters and setters.\\n  15:    *\\n  16:    * <p>Methods under test:\\n  17:    *\\n  18:    * <ul>\\n  19:    *   <li>{@link RangeBand#getHigh()}\\n  20:    *   <li>{@link RangeBand#getLow()}\\n  21:    * </ul>\\n  22:    */\\n  23:   @Test\\n  24:   @DisplayName(\\\"Test getters and setters\\\")\\n  25:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  26:   @ManagedByDiffblue\\n  27:   @MethodsUnderTest({\\n  28:     \\\"java.lang.Comparable RangeBand.getHigh()\\\",\\n  29:     \\\"java.lang.Comparable RangeBand.getLow()\\\"\\n  30:   })\\n  31:   void testGettersAndSetters() {\\n  32:     // Arrange\\n  33:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, Style.SOAP11);\\n  34: \\n  35:     // Act\\n  36:     Style actualHigh = rangeBand.getHigh();\\n  37: \\n  38:     // Assert\\n  39:     assertEquals(Style.SOAP11, actualHigh);\\n  40:     assertEquals(Style.SOAP11, rangeBand.getLow());\\n  41:   }\\n  42: }\\n  43: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.getHigh, org.finos.waltz.common.RangeBand.getLow due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.getHigh, org.finos.waltz.common.RangeBand.getLow due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()Ljava/lang/Comparable;",
+            "methodName" : "getHigh"
+          },
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()Ljava/lang/Comparable;",
+            "methodName" : "getLow"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest1850633233383858120.java, 43 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest1850633233383858120 {\\n  13:   /**\\n  14:    * Test {@link RangeBand#equals(Object)}, and {@link RangeBand#hashCode()}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When other is equal.\\n  18:    *   <li>Then return equal.\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Methods under test:\\n  22:    *\\n  23:    * <ul>\\n  24:    *   <li>{@link RangeBand#equals(Object)}\\n  25:    *   <li>{@link RangeBand#hashCode()}\\n  26:    * </ul>\\n  27:    */\\n  28:   @Test\\n  29:   @DisplayName(\\\"Test equals(Object), and hashCode(); when other is equal; then return equal\\\")\\n  30:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  31:   @ManagedByDiffblue\\n  32:   @MethodsUnderTest({\\\"boolean RangeBand.equals(Object)\\\", \\\"int RangeBand.hashCode()\\\"})\\n  33:   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {\\n  34:     // Arrange\\n  35:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, null);\\n  36:     RangeBand<Style> rangeBand2 = new RangeBand<>(Style.SOAP11, null);\\n  37: \\n  38:     // Act and Assert\\n  39:     assertEquals(rangeBand, rangeBand2);\\n  40:     assertEquals(rangeBand.hashCode(), rangeBand2.hashCode());\\n  41:   }\\n  42: }\\n  43: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.equals, org.finos.waltz.common.RangeBand.hashCode due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.equals, org.finos.waltz.common.RangeBand.hashCode due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "(Ljava/lang/Object;)Z",
+            "methodName" : "equals"
+          },
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()I",
+            "methodName" : "hashCode"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest1850633233383858120\",\"line\":36,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest1850633233383858120\",\"methodSignature\":\"testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest1850633233383858120.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest1850633233383858120.java, 43 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest1850633233383858120 {\\n  13:   /**\\n  14:    * Test {@link RangeBand#equals(Object)}, and {@link RangeBand#hashCode()}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>When other is equal.\\n  18:    *   <li>Then return equal.\\n  19:    * </ul>\\n  20:    *\\n  21:    * <p>Methods under test:\\n  22:    *\\n  23:    * <ul>\\n  24:    *   <li>{@link RangeBand#equals(Object)}\\n  25:    *   <li>{@link RangeBand#hashCode()}\\n  26:    * </ul>\\n  27:    */\\n  28:   @Test\\n  29:   @DisplayName(\\\"Test equals(Object), and hashCode(); when other is equal; then return equal\\\")\\n  30:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  31:   @ManagedByDiffblue\\n  32:   @MethodsUnderTest({\\\"boolean RangeBand.equals(Object)\\\", \\\"int RangeBand.hashCode()\\\"})\\n  33:   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {\\n  34:     // Arrange\\n  35:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, null);\\n  36:     RangeBand<Style> rangeBand2 = new RangeBand<>(Style.SOAP11, null);\\n  37: \\n  38:     // Act and Assert\\n  39:     assertEquals(rangeBand, rangeBand2);\\n  40:     assertEquals(rangeBand.hashCode(), rangeBand2.hashCode());\\n  41:   }\\n  42: }\\n  43: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.equals, org.finos.waltz.common.RangeBand.hashCode due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.equals, org.finos.waltz.common.RangeBand.hashCode due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "(Ljava/lang/Object;)Z",
+            "methodName" : "equals"
+          },
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()I",
+            "methodName" : "hashCode"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest4326338925026594825.java\"},{\"className\":null,\"line\":8,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest4326338925026594825.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest4326338925026594825\",\"line\":31,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest4326338925026594825\",\"methodSignature\":\"testNewRangeBand_whenNull_thenReturnLowIsNull:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest4326338925026594825.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest4326338925026594825\",\"line\":31,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest4326338925026594825\",\"methodSignature\":\"testNewRangeBand_whenNull_thenReturnLowIsNull:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest4326338925026594825.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest4326338925026594825\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest4326338925026594825\",\"methodSignature\":\"testNewRangeBand_whenNull_thenReturnLowIsNull:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest4326338925026594825.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest4326338925026594825.java, 38 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.junit.jupiter.api.Assertions.assertNull;\\n   5: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   6: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   8: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   9: import org.junit.jupiter.api.DisplayName;\\n  10: import org.junit.jupiter.api.Tag;\\n  11: import org.junit.jupiter.api.Test;\\n  12: \\n  13: class RangeBandDiffblueTest4326338925026594825 {\\n  14:   /**\\n  15:    * Test {@link RangeBand#RangeBand(Comparable, Comparable)}.\\n  16:    *\\n  17:    * <ul>\\n  18:    *   <li>When {@code null}.\\n  19:    *   <li>Then return Low is {@code null}.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link RangeBand#RangeBand(Comparable, Comparable)}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\\"Test new RangeBand(Comparable, Comparable); when 'null'; then return Low is 'null'\\\")\\n  26:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  27:   @ManagedByDiffblue\\n  28:   @MethodsUnderTest({\\\"void RangeBand.<init>(Comparable, Comparable)\\\"})\\n  29:   void testNewRangeBand_whenNull_thenReturnLowIsNull() {\\n  30:     // Arrange and Act\\n  31:     RangeBand<Style> actualRangeBand = new RangeBand<>(null, Style.SOAP11);\\n  32: \\n  33:     // Assert\\n  34:     assertNull(actualRangeBand.getLow());\\n  35:     assertEquals(Style.SOAP11, actualRangeBand.getHigh());\\n  36:   }\\n  37: }\\n  38: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.<init> due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.<init> due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "(Ljava/lang/Comparable;Ljava/lang/Comparable;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5151948677317001368\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest5151948677317001368\",\"methodSignature\":\"testContains_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5151948677317001368\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5151948677317001368\",\"methodSignature\":\"testContains_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5151948677317001368\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5151948677317001368\",\"methodSignature\":\"testContains_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest5151948677317001368\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest5151948677317001368\",\"methodSignature\":\"testContains_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest5151948677317001368.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest5151948677317001368.java, 38 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertFalse;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest5151948677317001368 {\\n  13:   /**\\n  14:    * Test {@link RangeBand#contains(Comparable)}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>Given {@link RangeBand#RangeBand(Comparable, Comparable)} with low is {@code SOAP11} and\\n  18:    *       high is {@code SOAP11}.\\n  19:    *   <li>When {@code SOAP12}.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link RangeBand#contains(Comparable)}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\n  26:       \\\"Test contains(Comparable); given RangeBand(Comparable, Comparable) with low is 'SOAP11' and high is 'SOAP11'; when 'SOAP12'\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"boolean RangeBand.contains(Comparable)\\\"})\\n  30:   void testContains_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12() {\\n  31:     // Arrange\\n  32:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, Style.SOAP11);\\n  33: \\n  34:     // Act and Assert\\n  35:     assertFalse(rangeBand.contains(Style.SOAP12));\\n  36:   }\\n  37: }\\n  38: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.contains due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.contains due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "(Ljava/lang/Comparable;)Z",
+            "methodName" : "contains"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest963862081397533074\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest963862081397533074\",\"methodSignature\":\"testTestWithStyle_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest963862081397533074\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest963862081397533074\",\"methodSignature\":\"testTestWithStyle_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest963862081397533074\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest963862081397533074\",\"methodSignature\":\"testTestWithStyle_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest963862081397533074\",\"line\":35,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest963862081397533074\",\"methodSignature\":\"testTestWithStyle_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest963862081397533074.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest963862081397533074.java, 38 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertFalse;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest963862081397533074 {\\n  13:   /**\\n  14:    * Test {@link RangeBand#test(Comparable)} with {@code Style}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>Given {@link RangeBand#RangeBand(Comparable, Comparable)} with low is {@code SOAP11} and\\n  18:    *       high is {@code SOAP11}.\\n  19:    *   <li>When {@code SOAP12}.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link RangeBand#test(Comparable)}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\n  26:       \\\"Test test(Comparable) with 'Style'; given RangeBand(Comparable, Comparable) with low is 'SOAP11' and high is 'SOAP11'; when 'SOAP12'\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"boolean RangeBand.test(Comparable)\\\"})\\n  30:   void testTestWithStyle_givenRangeBandWithLowIsSoap11AndHighIsSoap11_whenSoap12() {\\n  31:     // Arrange\\n  32:     RangeBand<Style> rangeBand = new RangeBand<>(Style.SOAP11, Style.SOAP11);\\n  33: \\n  34:     // Act and Assert\\n  35:     assertFalse(rangeBand.test(Style.SOAP12));\\n  36:   }\\n  37: }\\n  38: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.test due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.test due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "(Ljava/lang/Comparable;)Z",
+            "methodName" : "test"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":null,\"line\":6,\"message\":\"package com.oracle.webservices.internal.api does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest901423229584276418.java\"},{\"className\":null,\"line\":7,\"message\":\"package com.oracle.webservices.internal.api.EnvelopeStyle does not exist\",\"methodSignature\":null,\"sourceFile\":\"/tmp/RangeBandDiffblueTest901423229584276418.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest901423229584276418\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   class Style\\nlocation: class RangeBandDiffblueTest901423229584276418\",\"methodSignature\":\"testToString_givenRangeBandWithLowIsNullAndHighIsSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest901423229584276418.java\"},{\"className\":\"org.finos.waltz.common.RangeBandDiffblueTest901423229584276418\",\"line\":32,\"message\":\"cannot find symbol\\nsymbol:   variable Style\\nlocation: class RangeBandDiffblueTest901423229584276418\",\"methodSignature\":\"testToString_givenRangeBandWithLowIsNullAndHighIsSoap11_thenReturnSoap11:()V\",\"sourceFile\":\"/tmp/RangeBandDiffblueTest901423229584276418.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/RangeBandDiffblueTest901423229584276418.java, 38 lines:\\n   1: package org.finos.waltz.common;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   5: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   6: import com.oracle.webservices.internal.api.EnvelopeStyle;\\n   7: import com.oracle.webservices.internal.api.EnvelopeStyle.Style;\\n   8: import org.junit.jupiter.api.DisplayName;\\n   9: import org.junit.jupiter.api.Tag;\\n  10: import org.junit.jupiter.api.Test;\\n  11: \\n  12: class RangeBandDiffblueTest901423229584276418 {\\n  13:   /**\\n  14:    * Test {@link RangeBand#toString()}.\\n  15:    *\\n  16:    * <ul>\\n  17:    *   <li>Given {@link RangeBand#RangeBand(Comparable, Comparable)} with low is {@code null} and\\n  18:    *       high is {@code SOAP11}.\\n  19:    *   <li>Then return {@code * - SOAP11}.\\n  20:    * </ul>\\n  21:    *\\n  22:    * <p>Method under test: {@link RangeBand#toString()}\\n  23:    */\\n  24:   @Test\\n  25:   @DisplayName(\\n  26:       \\\"Test toString(); given RangeBand(Comparable, Comparable) with low is 'null' and high is 'SOAP11'; then return '* - SOAP11'\\\")\\n  27:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  28:   @ManagedByDiffblue\\n  29:   @MethodsUnderTest({\\\"java.lang.String RangeBand.toString()\\\"})\\n  30:   void testToString_givenRangeBandWithLowIsNullAndHighIsSoap11_thenReturnSoap11() {\\n  31:     // Arrange\\n  32:     RangeBand<Style> rangeBand = new RangeBand<>(null, Style.SOAP11);\\n  33: \\n  34:     // Act and Assert\\n  35:     assertEquals(\\\"* - SOAP11\\\", rangeBand.toString());\\n  36:   }\\n  37: }\\n  38: \\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.toString due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle'. Please check your configuration, there may be a missing dependency.\\nTest compilation unexpectedly failed for method org.finos.waltz.common.RangeBand.toString due to an unresolved import 'com.oracle.webservices.internal.api.EnvelopeStyle.Style'. Please check your configuration, there may be a missing dependency.\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.finos.waltz.common.RangeBand",
+            "descriptor" : "()Ljava/lang/String;",
+            "methodName" : "toString"
           }
         ]
       }
@@ -5915,7 +6048,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.internalexception.UnexpectedMessage\",\"reason\":\"java.lang.AssertionError: Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"serializableCause\":{\"cause\":null,\"message\":\"Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"originalClassName\":\"java.lang.AssertionError\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.commons.messages.b\",\"fileName\":\"SourceFile\",\"lineNumber\":425,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.a\",\"fileName\":\"SourceFile\",\"lineNumber\":378,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d$b\",\"fileName\":\"SourceFile\",\"lineNumber\":15569,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.b\",\"fileName\":\"SourceFile\",\"lineNumber\":110,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":249,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":195,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.ArrayList\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1541,\"methodName\":\"forEach\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.SortedOps$RefSortingSink\",\"fileName\":\"SortedOps.java\",\"lineNumber\":395,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":485,\"methodName\":\"copyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":474,\"methodName\":\"wrapAndCopyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReduceOps$ReduceOp\",\"fileName\":\"ReduceOps.java\",\"lineNumber\":913,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":578,\"methodName\":\"collect\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":251,\"methodName\":\"d\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":183,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":195,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.ArrayList$ArrayListSpliterator\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1655,\"methodName\":\"forEachRemaining\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":484,\"methodName\":\"copyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":474,\"methodName\":\"wrapAndCopyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":150,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":173,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":497,\"methodName\":\"forEach\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":4747,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":624,\"methodName\":\"r\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":164,\"methodName\":\"lambda$callWorkerThread$3\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.internalexception.UnexpectedMessage\",\"reason\":\"java.lang.AssertionError: Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"serializableCause\":{\"cause\":null,\"message\":\"Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"originalClassName\":\"java.lang.AssertionError\",\"stackTrace\":[{\"className\":\"com.diffblue.cover.commons.messages.b\",\"fileName\":\"SourceFile\",\"lineNumber\":449,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.a\",\"fileName\":\"SourceFile\",\"lineNumber\":378,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d$b\",\"fileName\":\"SourceFile\",\"lineNumber\":15569,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.g.b\",\"fileName\":\"SourceFile\",\"lineNumber\":110,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":249,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":193,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.ArrayList\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1259,\"methodName\":\"forEach\",\"nativeMethod\":false},{\"className\":\"java.util.stream.SortedOps$RefSortingSink\",\"fileName\":\"SortedOps.java\",\"lineNumber\":395,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":483,\"methodName\":\"copyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":472,\"methodName\":\"wrapAndCopyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReduceOps$ReduceOp\",\"fileName\":\"ReduceOps.java\",\"lineNumber\":708,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":566,\"methodName\":\"collect\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":251,\"methodName\":\"d\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":183,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":193,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.ArrayList$ArrayListSpliterator\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1384,\"methodName\":\"forEachRemaining\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":482,\"methodName\":\"copyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":472,\"methodName\":\"wrapAndCopyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":150,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":173,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":485,\"methodName\":\"forEach\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":4762,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":638,\"methodName\":\"r\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":164,\"methodName\":\"lambda$callWorkerThread$3\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"nativeMethod\":false}]}}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5927,7 +6060,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.internalexception.UnexpectedMessage\",\"reason\":\"java.lang.AssertionError: Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"serializableCause\":{\"cause\":null,\"message\":\"Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"originalClassName\":\"java.lang.AssertionError\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.commons.messages.b\",\"fileName\":\"SourceFile\",\"lineNumber\":425,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.a\",\"fileName\":\"SourceFile\",\"lineNumber\":378,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d$b\",\"fileName\":\"SourceFile\",\"lineNumber\":15569,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.b\",\"fileName\":\"SourceFile\",\"lineNumber\":110,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":249,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":195,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.ArrayList\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1541,\"methodName\":\"forEach\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.SortedOps$RefSortingSink\",\"fileName\":\"SortedOps.java\",\"lineNumber\":395,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":485,\"methodName\":\"copyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":474,\"methodName\":\"wrapAndCopyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReduceOps$ReduceOp\",\"fileName\":\"ReduceOps.java\",\"lineNumber\":913,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":578,\"methodName\":\"collect\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":251,\"methodName\":\"d\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":183,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":195,\"methodName\":\"accept\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.ArrayList$ArrayListSpliterator\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1655,\"methodName\":\"forEachRemaining\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":484,\"methodName\":\"copyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":474,\"methodName\":\"wrapAndCopyInto\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":150,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":173,\"methodName\":\"evaluateSequential\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":497,\"methodName\":\"forEach\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":4747,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":624,\"methodName\":\"r\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":164,\"methodName\":\"lambda$callWorkerThread$3\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.internalexception.UnexpectedMessage\",\"reason\":\"java.lang.AssertionError: Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"serializableCause\":{\"cause\":null,\"message\":\"Expected structure Paragraph > Text: â€ operating system command </th></tr></thead>\",\"originalClassName\":\"java.lang.AssertionError\",\"stackTrace\":[{\"className\":\"com.diffblue.cover.commons.messages.b\",\"fileName\":\"SourceFile\",\"lineNumber\":449,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.a\",\"fileName\":\"SourceFile\",\"lineNumber\":378,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d$b\",\"fileName\":\"SourceFile\",\"lineNumber\":15569,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.g.b\",\"fileName\":\"SourceFile\",\"lineNumber\":110,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":249,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":193,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.ArrayList\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1259,\"methodName\":\"forEach\",\"nativeMethod\":false},{\"className\":\"java.util.stream.SortedOps$RefSortingSink\",\"fileName\":\"SortedOps.java\",\"lineNumber\":395,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.Sink$ChainedReference\",\"fileName\":\"Sink.java\",\"lineNumber\":258,\"methodName\":\"end\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":483,\"methodName\":\"copyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":472,\"methodName\":\"wrapAndCopyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReduceOps$ReduceOp\",\"fileName\":\"ReduceOps.java\",\"lineNumber\":708,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":566,\"methodName\":\"collect\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.a.d\",\"fileName\":\"SourceFile\",\"lineNumber\":251,\"methodName\":\"d\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":183,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline$3$1\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":193,\"methodName\":\"accept\",\"nativeMethod\":false},{\"className\":\"java.util.ArrayList$ArrayListSpliterator\",\"fileName\":\"ArrayList.java\",\"lineNumber\":1384,\"methodName\":\"forEachRemaining\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":482,\"methodName\":\"copyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":472,\"methodName\":\"wrapAndCopyInto\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":150,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ForEachOps$ForEachOp$OfRef\",\"fileName\":\"ForEachOps.java\",\"lineNumber\":173,\"methodName\":\"evaluateSequential\",\"nativeMethod\":false},{\"className\":\"java.util.stream.AbstractPipeline\",\"fileName\":\"AbstractPipeline.java\",\"lineNumber\":234,\"methodName\":\"evaluate\",\"nativeMethod\":false},{\"className\":\"java.util.stream.ReferencePipeline\",\"fileName\":\"ReferencePipeline.java\",\"lineNumber\":485,\"methodName\":\"forEach\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":4762,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":638,\"methodName\":\"r\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":164,\"methodName\":\"lambda$callWorkerThread$3\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"nativeMethod\":false}]}}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5951,7 +6084,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Content is not allowed in prolog.\",\"originalClassName\":\"org.xml.sax.SAXParseException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"com.sun.org.apache.xerces.internal.parsers.DOMParser\",\"fileName\":\"DOMParser.java\",\"lineNumber\":261,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl\",\"fileName\":\"DocumentBuilderImpl.java\",\"lineNumber\":339,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.SvgUtilities\",\"fileName\":\"SvgUtilities.java\",\"lineNumber\":73,\"methodName\":\"addWaltzEntityLinks\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Content is not allowed in prolog.\",\"originalClassName\":\"org.xml.sax.SAXParseException\",\"stackTrace\":[{\"className\":\"com.sun.org.apache.xerces.internal.parsers.DOMParser\",\"fileName\":\"DOMParser.java\",\"lineNumber\":257,\"methodName\":\"parse\",\"nativeMethod\":false},{\"className\":\"com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl\",\"fileName\":\"DocumentBuilderImpl.java\",\"lineNumber\":338,\"methodName\":\"parse\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.SvgUtilities\",\"fileName\":\"SvgUtilities.java\",\"lineNumber\":73,\"methodName\":\"addWaltzEntityLinks\",\"nativeMethod\":false},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"nativeMethod\":true},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"sun.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"nativeMethod\":false}]}}",
       "methodGroup" : {
         "methods" : [
           {
@@ -5963,7 +6096,7 @@
       }
     },
     {
-      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Content is not allowed in prolog.\",\"originalClassName\":\"org.xml.sax.SAXParseException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"com.sun.org.apache.xerces.internal.parsers.DOMParser\",\"fileName\":\"DOMParser.java\",\"lineNumber\":261,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl\",\"fileName\":\"DocumentBuilderImpl.java\",\"lineNumber\":339,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.finos.waltz.common.SvgUtilities\",\"fileName\":\"SvgUtilities.java\",\"lineNumber\":46,\"methodName\":\"convertVisioSvg\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":true},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":566,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Content is not allowed in prolog.\",\"originalClassName\":\"org.xml.sax.SAXParseException\",\"stackTrace\":[{\"className\":\"com.sun.org.apache.xerces.internal.parsers.DOMParser\",\"fileName\":\"DOMParser.java\",\"lineNumber\":257,\"methodName\":\"parse\",\"nativeMethod\":false},{\"className\":\"com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl\",\"fileName\":\"DocumentBuilderImpl.java\",\"lineNumber\":338,\"methodName\":\"parse\",\"nativeMethod\":false},{\"className\":\"org.finos.waltz.common.SvgUtilities\",\"fileName\":\"SvgUtilities.java\",\"lineNumber\":46,\"methodName\":\"convertVisioSvg\",\"nativeMethod\":false},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":-2,\"methodName\":\"invoke0\",\"nativeMethod\":true},{\"className\":\"sun.reflect.NativeMethodAccessorImpl\",\"fileName\":\"NativeMethodAccessorImpl.java\",\"lineNumber\":62,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"sun.reflect.DelegatingMethodAccessorImpl\",\"fileName\":\"DelegatingMethodAccessorImpl.java\",\"lineNumber\":43,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":498,\"methodName\":\"invoke\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":590,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.g.e\",\"fileName\":\"SourceFile\",\"lineNumber\":28,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"nativeMethod\":false},{\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"nativeMethod\":false}]}}",
       "methodGroup" : {
         "methods" : [
           {

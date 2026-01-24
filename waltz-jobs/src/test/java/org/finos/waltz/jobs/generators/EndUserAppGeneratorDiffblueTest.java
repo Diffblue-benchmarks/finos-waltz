@@ -3,6 +3,8 @@ package org.finos.waltz.jobs.generators;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -17,6 +19,9 @@ import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.Map;
 import org.finos.waltz.data.orgunit.OrganisationalUnitDao;
+import org.finos.waltz.model.EntityKind;
+import org.finos.waltz.model.orgunit.ImmutableOrganisationalUnit;
+import org.finos.waltz.model.orgunit.OrganisationalUnit;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DefaultDSLContext;
@@ -34,18 +39,17 @@ class EndUserAppGeneratorDiffblueTest {
    * <ul>
    *   <li>Given {@link DefaultDSLContext#DefaultDSLContext(SQLDialect)} with dialect is {@code
    *       SQL99}.
-   *   <li>Then return {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link EndUserAppGenerator#create(ApplicationContext)}
    */
   @Test
   @DisplayName(
-      "Test create(ApplicationContext); given DefaultDSLContext(SQLDialect) with dialect is 'SQL99'; then return 'null'")
+      "Test create(ApplicationContext); given DefaultDSLContext(SQLDialect) with dialect is 'SQL99'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map EndUserAppGenerator.create(ApplicationContext)"})
-  void testCreate_givenDefaultDSLContextWithDialectIsSql99_thenReturnNull() throws BeansException {
+  void testCreate_givenDefaultDSLContextWithDialectIsSql99() throws BeansException {
     // Arrange
     EndUserAppGenerator endUserAppGenerator = new EndUserAppGenerator();
 
@@ -55,6 +59,85 @@ class EndUserAppGeneratorDiffblueTest {
     ApplicationContext ctx = mock(ApplicationContext.class);
     when(ctx.getBean(OrganisationalUnitDao.class)).thenReturn(organisationalUnitDao);
     when(ctx.getBean(DSLContext.class)).thenReturn(new DefaultDSLContext(SQLDialect.SQL99));
+
+    // Act
+    Map<String, Integer> actualCreateResult = endUserAppGenerator.create(ctx);
+
+    // Assert
+    verify(organisationalUnitDao).findAll();
+    verify(ctx, atLeast(1)).getBean(Mockito.<Class<Object>>any());
+    assertNull(actualCreateResult);
+  }
+
+  /**
+   * Test {@link EndUserAppGenerator#create(ApplicationContext)}.
+   *
+   * <ul>
+   *   <li>Given {@link PreparedStatement} {@link PreparedStatement#getResultSet()} return {@code
+   *       null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link EndUserAppGenerator#create(ApplicationContext)}
+   */
+  @Test
+  @DisplayName(
+      "Test create(ApplicationContext); given PreparedStatement getResultSet() return 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map EndUserAppGenerator.create(ApplicationContext)"})
+  void testCreate_givenPreparedStatementGetResultSetReturnNull()
+      throws SQLException, BeansException {
+    // Arrange
+    EndUserAppGenerator endUserAppGenerator = new EndUserAppGenerator();
+
+    ArrayList<OrganisationalUnit> organisationalUnitList = new ArrayList<>();
+    organisationalUnitList.add(
+        ImmutableOrganisationalUnit.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .parentId(1L)
+            .build());
+    organisationalUnitList.add(
+        ImmutableOrganisationalUnit.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .parentId(1L)
+            .build());
+    organisationalUnitList.add(
+        ImmutableOrganisationalUnit.builder()
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .parentId(1L)
+            .build());
+
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    when(organisationalUnitDao.findAll()).thenReturn(organisationalUnitList);
+
+    PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    when(preparedStatement.getResultSet()).thenReturn(null);
+    when(preparedStatement.execute()).thenReturn(true);
+    when(preparedStatement.executeUpdate()).thenReturn(1);
+    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
+    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
+    doNothing().when(preparedStatement).close();
+
+    Connection connection = mock(Connection.class);
+    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
+    DefaultDSLContext defaultDSLContext = new DefaultDSLContext(connection, SQLDialect.CUBRID);
+
+    ApplicationContext ctx = mock(ApplicationContext.class);
+    when(ctx.getBean(OrganisationalUnitDao.class)).thenReturn(organisationalUnitDao);
+    when(ctx.getBean(DSLContext.class)).thenReturn(defaultDSLContext);
 
     // Act
     Map<String, Integer> actualCreateResult = endUserAppGenerator.create(ctx);

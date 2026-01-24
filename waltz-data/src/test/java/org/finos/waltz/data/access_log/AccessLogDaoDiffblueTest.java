@@ -433,7 +433,7 @@ class AccessLogDaoDiffblueTest {
     DSLContext dsl = mock(DSLContext.class);
     when(dsl.select((SelectFieldOrAsterisk[]) Mockito.any())).thenReturn(selectSelectStep);
     AccessLogDao accessLogDao = new AccessLogDao(dsl);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<AccessLog> actualFindForUserIdResult = accessLogDao.findForUserId("42", limit);

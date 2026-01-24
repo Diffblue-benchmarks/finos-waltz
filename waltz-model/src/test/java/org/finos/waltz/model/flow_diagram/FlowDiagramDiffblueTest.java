@@ -15,37 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class FlowDiagramDiffblueTest {
   /**
-   * Test {@link FlowDiagram#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FlowDiagram#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind FlowDiagram.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableFlowDiagram.builder()
-            .description("The characteristics of someone or something")
-            .editorRole("Editor Role")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .layoutData("Layout Data")
-            .name("Name")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link FlowDiagram#entityReference()}.
    *
    * <ul>

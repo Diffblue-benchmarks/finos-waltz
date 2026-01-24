@@ -1254,10 +1254,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -1328,6 +1327,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -1340,8 +1340,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -1463,10 +1461,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -1537,6 +1534,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -1549,8 +1547,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -1581,10 +1577,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -1655,6 +1650,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -1667,8 +1663,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -1699,10 +1693,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -1773,6 +1766,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -1785,8 +1779,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -1822,10 +1814,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -1897,6 +1888,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -1909,8 +1901,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -1946,10 +1936,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -2024,6 +2013,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -2036,8 +2026,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**
@@ -2073,10 +2061,9 @@ class ComplexityServiceDiffblueTest {
     when(complexityDao.findTopComplexityScoresForKindAndSelector(
             anyLong(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple22 = new Tuple2<>(1, 1);
     when(complexityDao.getMappedAndMissingCountsForKindBySelector(
             Mockito.<Long>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple22);
+        .thenReturn(new Tuple2<>(1, 1));
     BigDecimal bigDecimal2 = new BigDecimal("2.3");
     BigDecimal bigDecimal3 = new BigDecimal("2.3");
 
@@ -2149,6 +2136,7 @@ class ComplexityServiceDiffblueTest {
         actualComplexitySummaryForSelector.complexityKind() instanceof ImmutableComplexityKind);
     assertTrue(actualComplexitySummaryForSelector instanceof ImmutableComplexitySummary);
     assertEquals(1, actualComplexitySummaryForSelector.mappedCount());
+    assertEquals(1, actualComplexitySummaryForSelector.missingCount());
     assertTrue(actualComplexitySummaryForSelector.topComplexityScores().isEmpty());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualComplexitySummaryForSelector.total());
@@ -2161,8 +2149,6 @@ class ComplexityServiceDiffblueTest {
         expectedStandardDeviationResult, actualComplexitySummaryForSelector.standardDeviation());
     BigDecimal expectedVarianceResult = new BigDecimal("2.30");
     assertEquals(expectedVarianceResult, actualComplexitySummaryForSelector.variance());
-    Integer expectedMissingCountResult = tuple22.v2;
-    assertSame(expectedMissingCountResult, actualComplexitySummaryForSelector.missingCount());
   }
 
   /**

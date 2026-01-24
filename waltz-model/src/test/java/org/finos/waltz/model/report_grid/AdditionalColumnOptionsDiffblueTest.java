@@ -28,17 +28,17 @@ class AdditionalColumnOptionsDiffblueTest {
 
     // Assert
     assertEquals(86, actualAllowedKindsResult.size());
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.AGGREGATE_OVERLAY_DIAGRAM));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.APPLICATION));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.CHANGE_SET));
     assertTrue(actualAllowedKindsResult.contains(EntityKind.COST));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.ENTITY_FIELD_REFERENCE));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.FLOW_ANNOTATION));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.FLOW_CLASSIFICATION));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.INVOLVEMENT_KIND));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.LEGAL_ENTITY_RELATIONSHIP));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.REPORT_GRID));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.ENTITY_NAMED_NOTE_TYPE));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.FLOW_CLASSIFICATION_RULE));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.MEASURABLE_RATING_REPLACEMENT));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.PERFORMANCE_METRIC_PACK));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.PHYSICAL_FLOW));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.PHYSICAL_SPEC_DEFN));
+    assertTrue(actualAllowedKindsResult.contains(EntityKind.REPORT_GRID_FIXED_COLUMN_DEFINITION));
     assertTrue(actualAllowedKindsResult.contains(EntityKind.ROADMAP));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.SERVER));
-    assertTrue(actualAllowedKindsResult.contains(EntityKind.SURVEY_TEMPLATE));
   }
 
   /**

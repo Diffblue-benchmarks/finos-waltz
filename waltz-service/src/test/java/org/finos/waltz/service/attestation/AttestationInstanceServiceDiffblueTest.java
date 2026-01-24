@@ -269,8 +269,115 @@ class AttestationInstanceServiceDiffblueTest {
   @MethodsUnderTest({"List AttestationInstanceService.findByRecipient(String, boolean)"})
   void testFindByRecipient_thenThrowUpdateFailedException() {
     // Arrange
+    AttestationInstanceDao attestationInstanceDao = mock(AttestationInstanceDao.class);
     when(attestationInstanceDao.findByRecipient(Mockito.<String>any(), anyBoolean()))
         .thenThrow(new UpdateFailedException("userId cannot be null", "An error occurred"));
+    AttestationInstanceDao attestationInstanceDao2 = mock(AttestationInstanceDao.class);
+    AttestationInstanceRecipientDao attestationInstanceRecipientDao =
+        mock(AttestationInstanceRecipientDao.class);
+    AttestationRunDao attestationRunDao = mock(AttestationRunDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementDao involvementDao = mock(InvolvementDao.class);
+    InvolvementGroupService involvementGroupService =
+        new InvolvementGroupService(mock(InvolvementGroupDao.class));
+
+    AttestationRunService attestationRunService =
+        new AttestationRunService(
+            attestationInstanceDao2,
+            attestationInstanceRecipientDao,
+            attestationRunDao,
+            entityReferenceNameResolver,
+            involvementDao,
+            involvementGroupService);
+    AttestationPreCheckDao attestationPreCheckDao = mock(AttestationPreCheckDao.class);
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
+
+    AttestationPreCheckService attestationPreCheckService =
+        new AttestationPreCheckService(attestationPreCheckDao, settingsService);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    EntityReferenceNameResolver entityReferenceNameResolver2 =
+        mock(EntityReferenceNameResolver.class);
+    PersonDao personDao = mock(PersonDao.class);
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    InvolvementDao dao = mock(InvolvementDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver3 =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+
+    InvolvementService involvementService =
+        new InvolvementService(
+            changeLogService2,
+            dao,
+            logicalFlowDao,
+            physicalFlowDao,
+            entityReferenceNameResolver3,
+            involvementKindService,
+            mock(PersonDao.class),
+            mock(UserRoleService.class));
+
+    PermissionGroupService permissionGroupService =
+        new PermissionGroupService(personService, permissionGroupDao, involvementService);
+    ChangeLogService changeLogService3 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AttestationInstanceService attestationInstanceService =
+        new AttestationInstanceService(
+            attestationInstanceDao,
+            attestationRunService,
+            attestationPreCheckService,
+            applicationService,
+            entityReferenceNameResolver2,
+            personDao,
+            permissionGroupService,
+            changeLogService3);
 
     // Act and Assert
     assertThrows(
@@ -431,8 +538,115 @@ class AttestationInstanceServiceDiffblueTest {
   @MethodsUnderTest({"List AttestationInstanceService.findHistoricalForPendingByUserId(String)"})
   void testFindHistoricalForPendingByUserId_thenThrowUpdateFailedException() {
     // Arrange
+    AttestationInstanceDao attestationInstanceDao = mock(AttestationInstanceDao.class);
     when(attestationInstanceDao.findHistoricalForPendingByUserId(Mockito.<String>any()))
         .thenThrow(new UpdateFailedException("userId cannot be null", "An error occurred"));
+    AttestationInstanceDao attestationInstanceDao2 = mock(AttestationInstanceDao.class);
+    AttestationInstanceRecipientDao attestationInstanceRecipientDao =
+        mock(AttestationInstanceRecipientDao.class);
+    AttestationRunDao attestationRunDao = mock(AttestationRunDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementDao involvementDao = mock(InvolvementDao.class);
+    InvolvementGroupService involvementGroupService =
+        new InvolvementGroupService(mock(InvolvementGroupDao.class));
+
+    AttestationRunService attestationRunService =
+        new AttestationRunService(
+            attestationInstanceDao2,
+            attestationInstanceRecipientDao,
+            attestationRunDao,
+            entityReferenceNameResolver,
+            involvementDao,
+            involvementGroupService);
+    AttestationPreCheckDao attestationPreCheckDao = mock(AttestationPreCheckDao.class);
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
+
+    AttestationPreCheckService attestationPreCheckService =
+        new AttestationPreCheckService(attestationPreCheckDao, settingsService);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    EntityReferenceNameResolver entityReferenceNameResolver2 =
+        mock(EntityReferenceNameResolver.class);
+    PersonDao personDao = mock(PersonDao.class);
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    InvolvementDao dao = mock(InvolvementDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver3 =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+
+    InvolvementService involvementService =
+        new InvolvementService(
+            changeLogService2,
+            dao,
+            logicalFlowDao,
+            physicalFlowDao,
+            entityReferenceNameResolver3,
+            involvementKindService,
+            mock(PersonDao.class),
+            mock(UserRoleService.class));
+
+    PermissionGroupService permissionGroupService =
+        new PermissionGroupService(personService, permissionGroupDao, involvementService);
+    ChangeLogService changeLogService3 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AttestationInstanceService attestationInstanceService =
+        new AttestationInstanceService(
+            attestationInstanceDao,
+            attestationRunService,
+            attestationPreCheckService,
+            applicationService,
+            entityReferenceNameResolver2,
+            personDao,
+            permissionGroupService,
+            changeLogService3);
 
     // Act and Assert
     assertThrows(
@@ -600,8 +814,115 @@ class AttestationInstanceServiceDiffblueTest {
   @MethodsUnderTest({"List AttestationInstanceService.findByEntityReference(EntityReference)"})
   void testFindByEntityReference_thenThrowUpdateFailedException() {
     // Arrange
+    AttestationInstanceDao attestationInstanceDao = mock(AttestationInstanceDao.class);
     when(attestationInstanceDao.findByEntityReference(Mockito.<EntityReference>any()))
         .thenThrow(new UpdateFailedException("ref cannot be null", "An error occurred"));
+    AttestationInstanceDao attestationInstanceDao2 = mock(AttestationInstanceDao.class);
+    AttestationInstanceRecipientDao attestationInstanceRecipientDao =
+        mock(AttestationInstanceRecipientDao.class);
+    AttestationRunDao attestationRunDao = mock(AttestationRunDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementDao involvementDao = mock(InvolvementDao.class);
+    InvolvementGroupService involvementGroupService =
+        new InvolvementGroupService(mock(InvolvementGroupDao.class));
+
+    AttestationRunService attestationRunService =
+        new AttestationRunService(
+            attestationInstanceDao2,
+            attestationInstanceRecipientDao,
+            attestationRunDao,
+            entityReferenceNameResolver,
+            involvementDao,
+            involvementGroupService);
+    AttestationPreCheckDao attestationPreCheckDao = mock(AttestationPreCheckDao.class);
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
+
+    AttestationPreCheckService attestationPreCheckService =
+        new AttestationPreCheckService(attestationPreCheckDao, settingsService);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagDao tagDao = mock(TagDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    TagService tagService = new TagService(tagDao, changeLogService);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    EntityReferenceNameResolver entityReferenceNameResolver2 =
+        mock(EntityReferenceNameResolver.class);
+    PersonDao personDao = mock(PersonDao.class);
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    InvolvementDao dao = mock(InvolvementDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver3 =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+
+    InvolvementService involvementService =
+        new InvolvementService(
+            changeLogService2,
+            dao,
+            logicalFlowDao,
+            physicalFlowDao,
+            entityReferenceNameResolver3,
+            involvementKindService,
+            mock(PersonDao.class),
+            mock(UserRoleService.class));
+
+    PermissionGroupService permissionGroupService =
+        new PermissionGroupService(personService, permissionGroupDao, involvementService);
+    ChangeLogService changeLogService3 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AttestationInstanceService attestationInstanceService =
+        new AttestationInstanceService(
+            attestationInstanceDao,
+            attestationRunService,
+            attestationPreCheckService,
+            applicationService,
+            entityReferenceNameResolver2,
+            personDao,
+            permissionGroupService,
+            changeLogService3);
 
     // Act and Assert
     assertThrows(

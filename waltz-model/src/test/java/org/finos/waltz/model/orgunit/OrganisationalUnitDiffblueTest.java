@@ -14,35 +14,6 @@ import org.junit.jupiter.api.Test;
 
 class OrganisationalUnitDiffblueTest {
   /**
-   * Test {@link OrganisationalUnit#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link OrganisationalUnit#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind OrganisationalUnit.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableOrganisationalUnit.builder()
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .parentId(1L)
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link OrganisationalUnit#entityReference()}.
    *
    * <ul>

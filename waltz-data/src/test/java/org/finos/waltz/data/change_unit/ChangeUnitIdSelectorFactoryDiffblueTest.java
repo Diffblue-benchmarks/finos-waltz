@@ -1,7 +1,6 @@
 package org.finos.waltz.data.change_unit;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
@@ -169,52 +168,6 @@ class ChangeUnitIdSelectorFactoryDiffblueTest {
     // Arrange
     ChangeUnitIdSelectorFactory changeUnitIdSelectorFactory = new ChangeUnitIdSelectorFactory();
 
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            changeUnitIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ChangeUnitIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions5() {
-    // Arrange
-    ChangeUnitIdSelectorFactory changeUnitIdSelectorFactory = new ChangeUnitIdSelectorFactory();
-
     Builder builderResult = ImmutableIdSelectionOptions.builder();
 
     Builder filtersResult =
@@ -235,94 +188,6 @@ class ChangeUnitIdSelectorFactoryDiffblueTest {
 
     // Act
     assertDoesNotThrow(
-        () ->
-            changeUnitIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ChangeUnitIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions6() {
-    // Arrange
-    ChangeUnitIdSelectorFactory changeUnitIdSelectorFactory = new ChangeUnitIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            changeUnitIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ChangeUnitIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ChangeUnitIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions7() {
-    // Arrange
-    ChangeUnitIdSelectorFactory changeUnitIdSelectorFactory = new ChangeUnitIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
         () ->
             changeUnitIdSelectorFactory.apply(
                 joiningEntityKindResult

@@ -1,7 +1,6 @@
 package org.finos.waltz.data.process_diagram;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
@@ -173,53 +172,6 @@ class ProcessDiagramIdSelectorFactoryDiffblueTest {
     ProcessDiagramIdSelectorFactory processDiagramIdSelectorFactory =
         new ProcessDiagramIdSelectorFactory();
 
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            processDiagramIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ProcessDiagramIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions5() {
-    // Arrange
-    ProcessDiagramIdSelectorFactory processDiagramIdSelectorFactory =
-        new ProcessDiagramIdSelectorFactory();
-
     Builder builderResult = ImmutableIdSelectionOptions.builder();
 
     Builder filtersResult =
@@ -240,96 +192,6 @@ class ProcessDiagramIdSelectorFactoryDiffblueTest {
 
     // Act
     assertDoesNotThrow(
-        () ->
-            processDiagramIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ProcessDiagramIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions6() {
-    // Arrange
-    ProcessDiagramIdSelectorFactory processDiagramIdSelectorFactory =
-        new ProcessDiagramIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            processDiagramIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link ProcessDiagramIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select ProcessDiagramIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions7() {
-    // Arrange
-    ProcessDiagramIdSelectorFactory processDiagramIdSelectorFactory =
-        new ProcessDiagramIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
         () ->
             processDiagramIdSelectorFactory.apply(
                 joiningEntityKindResult

@@ -13,27 +13,6 @@ import org.junit.jupiter.api.Test;
 
 class QuarterDetailDiffblueTest {
   /**
-   * Test {@link QuarterDetail#quarterName()}.
-   *
-   * <ul>
-   *   <li>Given builder quarter one year one build.
-   *   <li>Then return {@code Q1}.
-   * </ul>
-   *
-   * <p>Method under test: {@link QuarterDetail#quarterName()}
-   */
-  @Test
-  @DisplayName("Test quarterName(); given builder quarter one year one build; then return 'Q1'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Quarter QuarterDetail.quarterName()"})
-  void testQuarterName_givenBuilderQuarterOneYearOneBuild_thenReturnQ1() {
-    // Arrange, Act and Assert
-    assertEquals(
-        Quarter.Q1, ImmutableQuarterDetail.builder().quarter(1).year(1).build().quarterName());
-  }
-
-  /**
    * Test {@link QuarterDetail#mkQuarterDetail(LocalDate)}.
    *
    * <ul>
@@ -65,20 +44,28 @@ class QuarterDetailDiffblueTest {
    * Test {@link QuarterDetail#mkQuarterDetail(LocalDate)}.
    *
    * <ul>
-   *   <li>When now.
-   *   <li>Then return {@link ImmutableQuarterDetail}.
+   *   <li>When ofEpochDay minus one.
+   *   <li>Then return year is {@code 1969}.
    * </ul>
    *
    * <p>Method under test: {@link QuarterDetail#mkQuarterDetail(LocalDate)}
    */
   @Test
-  @DisplayName("Test mkQuarterDetail(LocalDate); when now; then return ImmutableQuarterDetail")
+  @DisplayName(
+      "Test mkQuarterDetail(LocalDate); when ofEpochDay minus one; then return year is '1969'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"QuarterDetail QuarterDetail.mkQuarterDetail(LocalDate)"})
-  void testMkQuarterDetail_whenNow_thenReturnImmutableQuarterDetail() {
-    // Arrange, Act and Assert
-    assertTrue(QuarterDetail.mkQuarterDetail(LocalDate.now()) instanceof ImmutableQuarterDetail);
+  void testMkQuarterDetail_whenOfEpochDayMinusOne_thenReturnYearIs1969() {
+    // Arrange and Act
+    QuarterDetail actualMkQuarterDetailResult =
+        QuarterDetail.mkQuarterDetail(LocalDate.ofEpochDay(-1L));
+
+    // Assert
+    assertTrue(actualMkQuarterDetailResult instanceof ImmutableQuarterDetail);
+    assertEquals(1969, actualMkQuarterDetailResult.year());
+    assertEquals(4, actualMkQuarterDetailResult.quarter());
+    assertEquals(Quarter.Q4, actualMkQuarterDetailResult.quarterName());
   }
 
   /**

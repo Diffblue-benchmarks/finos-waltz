@@ -436,24 +436,24 @@ class ChecksDiffblueTest {
    * Test {@link Checks#checkOptionalIsPresent(Optional, String)}.
    *
    * <ul>
-   *   <li>When {@link Optional} with {@code Value}.
-   *   <li>Then return {@code Value}.
+   *   <li>When {@link Optional} with {@code 42}.
+   *   <li>Then return {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link Checks#checkOptionalIsPresent(Optional, String)}
    */
   @Test
   @DisplayName(
-      "Test checkOptionalIsPresent(Optional, String); when Optional with 'Value'; then return 'Value'")
+      "Test checkOptionalIsPresent(Optional, String); when Optional with '42'; then return '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Object Checks.checkOptionalIsPresent(Optional, String)"})
-  void testCheckOptionalIsPresent_whenOptionalWithValue_thenReturnValue() {
+  void testCheckOptionalIsPresent_whenOptionalWith42_thenReturn42() {
     // Arrange
-    Optional<Object> optional = Optional.of("Value");
+    Optional<Object> optional = Optional.of("42");
 
     // Act and Assert
-    assertEquals("Value", Checks.checkOptionalIsPresent(optional, "Not all who wander are lost"));
+    assertEquals("42", Checks.checkOptionalIsPresent(optional, "Not all who wander are lost"));
   }
 
   /**

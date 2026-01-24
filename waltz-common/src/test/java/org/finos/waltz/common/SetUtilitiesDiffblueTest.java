@@ -1244,22 +1244,21 @@ class SetUtilitiesDiffblueTest {
    * Test {@link SetUtilities#fromOptionals(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Given {@link Optional} with {@code 42}.
    *   <li>Then return size is one.
    * </ul>
    *
    * <p>Method under test: {@link SetUtilities#fromOptionals(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test fromOptionals(Collection); given Optional with 'Value'; then return size is one")
+  @DisplayName("Test fromOptionals(Collection); given Optional with '42'; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set SetUtilities.fromOptionals(Collection)"})
-  void testFromOptionals_givenOptionalWithValue_thenReturnSizeIsOne() {
+  void testFromOptionals_givenOptionalWith42_thenReturnSizeIsOne() {
     // Arrange
     ArrayList<Optional<Object>> ts = new ArrayList<>();
-    Optional<Object> ofResult = Optional.of("Value");
+    Optional<Object> ofResult = Optional.of("42");
     ts.add(ofResult);
 
     // Act
@@ -1273,24 +1272,23 @@ class SetUtilitiesDiffblueTest {
    * Test {@link SetUtilities#fromOptionals(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Given {@link Optional} with {@code 42}.
    *   <li>Then return size is one.
    * </ul>
    *
    * <p>Method under test: {@link SetUtilities#fromOptionals(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test fromOptionals(Collection); given Optional with 'Value'; then return size is one")
+  @DisplayName("Test fromOptionals(Collection); given Optional with '42'; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set SetUtilities.fromOptionals(Collection)"})
-  void testFromOptionals_givenOptionalWithValue_thenReturnSizeIsOne2() {
+  void testFromOptionals_givenOptionalWith42_thenReturnSizeIsOne2() {
     // Arrange
     ArrayList<Optional<Object>> ts = new ArrayList<>();
-    Optional<Object> ofResult = Optional.of("Value");
+    Optional<Object> ofResult = Optional.of("42");
     ts.add(ofResult);
-    Optional<Object> ofResult2 = Optional.of("Value");
+    Optional<Object> ofResult2 = Optional.of("42");
     ts.add(ofResult2);
 
     // Act
@@ -1329,28 +1327,28 @@ class SetUtilitiesDiffblueTest {
    * <ul>
    *   <li>Given {@code 42}.
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.
-   *   <li>Then return size is two.
+   *   <li>Then return {@link HashSet#HashSet()}.
    * </ul>
    *
    * <p>Method under test: {@link SetUtilities#maybeAdd(Set, Optional)}
    */
   @Test
   @DisplayName(
-      "Test maybeAdd(Set, Optional); given '42'; when HashSet() add '42'; then return size is two")
+      "Test maybeAdd(Set, Optional); given '42'; when HashSet() add '42'; then return HashSet()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set SetUtilities.maybeAdd(Set, Optional)"})
-  void testMaybeAdd_given42_whenHashSetAdd42_thenReturnSizeIsTwo() {
+  void testMaybeAdd_given42_whenHashSetAdd42_thenReturnHashSet() {
     // Arrange
     HashSet<Object> ts = new HashSet<>();
     ts.add("42");
-    Optional<Object> toAdd = Optional.of("Value");
+    Optional<Object> toAdd = Optional.of("42");
 
     // Act
     Set<Object> actualMaybeAddResult = SetUtilities.maybeAdd(ts, toAdd);
 
     // Assert
-    assertEquals(2, actualMaybeAddResult.size());
+    assertEquals(ts, actualMaybeAddResult);
   }
 
   /**
@@ -1359,29 +1357,29 @@ class SetUtilitiesDiffblueTest {
    * <ul>
    *   <li>Given two.
    *   <li>When {@link HashSet#HashSet()} add two.
-   *   <li>Then return size is three.
+   *   <li>Then return {@link HashSet#HashSet()}.
    * </ul>
    *
    * <p>Method under test: {@link SetUtilities#maybeAdd(Set, Optional)}
    */
   @Test
   @DisplayName(
-      "Test maybeAdd(Set, Optional); given two; when HashSet() add two; then return size is three")
+      "Test maybeAdd(Set, Optional); given two; when HashSet() add two; then return HashSet()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set SetUtilities.maybeAdd(Set, Optional)"})
-  void testMaybeAdd_givenTwo_whenHashSetAddTwo_thenReturnSizeIsThree() {
+  void testMaybeAdd_givenTwo_whenHashSetAddTwo_thenReturnHashSet() {
     // Arrange
     HashSet<Object> ts = new HashSet<>();
     ts.add(2);
     ts.add("42");
-    Optional<Object> toAdd = Optional.of("Value");
+    Optional<Object> toAdd = Optional.of("42");
 
     // Act
     Set<Object> actualMaybeAddResult = SetUtilities.maybeAdd(ts, toAdd);
 
     // Assert
-    assertEquals(3, actualMaybeAddResult.size());
+    assertEquals(ts, actualMaybeAddResult);
   }
 
   /**
@@ -1429,7 +1427,7 @@ class SetUtilitiesDiffblueTest {
   void testMaybeAdd_whenHashSet_thenReturnSizeIsOne() {
     // Arrange
     HashSet<Object> ts = new HashSet<>();
-    Optional<Object> toAdd = Optional.of("Value");
+    Optional<Object> toAdd = Optional.of("42");
 
     // Act
     Set<Object> actualMaybeAddResult = SetUtilities.maybeAdd(ts, toAdd);

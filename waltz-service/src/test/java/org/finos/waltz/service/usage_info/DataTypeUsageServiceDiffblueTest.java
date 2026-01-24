@@ -1448,6 +1448,90 @@ class DataTypeUsageServiceDiffblueTest {
    * Test {@link DataTypeUsageService#save(EntityReference, Long, List, String)}.
    *
    * <ul>
+   *   <li>Given builder description empty string Selected is {@code true} kind {@code CONSUMER}
+   *       build.
+   * </ul>
+   *
+   * <p>Method under test: {@link DataTypeUsageService#save(EntityReference, Long, List, String)}
+   */
+  @Test
+  @DisplayName(
+      "Test save(EntityReference, Long, List, String); given builder description empty string Selected is 'true' kind 'CONSUMER' build")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "SystemChangeSet DataTypeUsageService.save(EntityReference, Long, List, String)"
+  })
+  void testSave_givenBuilderDescriptionEmptyStringSelectedIsTrueKindConsumerBuild() {
+    // Arrange
+    DataTypeUsageDao dataTypeUsageDao = mock(DataTypeUsageDao.class);
+    when(dataTypeUsageDao.deleteUsageInfo(
+            Mockito.<EntityReference>any(), Mockito.<Long>any(), Mockito.<List<UsageKind>>any()))
+        .thenReturn(1);
+    when(dataTypeUsageDao.insertUsageInfo(
+            Mockito.<EntityReference>any(), Mockito.<Long>any(), Mockito.<List<UsageInfo>>any()))
+        .thenReturn(new int[] {1, -1, 1, -1});
+    when(dataTypeUsageDao.updateUsageInfo(
+            Mockito.<EntityReference>any(), Mockito.<Long>any(), Mockito.<List<UsageInfo>>any()))
+        .thenReturn(new int[] {1, -1, 1, -1});
+    when(dataTypeUsageDao.findForEntityAndDataType(
+            Mockito.<EntityReference>any(), Mockito.<Long>any()))
+        .thenReturn(new ArrayList<>());
+
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    when(dataTypeDao.getById(anyLong()))
+        .thenReturn(
+            ImmutableDataType.builder()
+                .code("Code")
+                .description("The characteristics of someone or something")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .parentId(1L)
+                .build());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<ChangeLog>any())).thenReturn(19088743);
+
+    DataTypeUsageService dataTypeUsageService =
+        new DataTypeUsageService(dataTypeUsageDao, dataTypeDao, changeLogService);
+    ImmutableEntityReference entityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+
+    ArrayList<UsageInfo> usages = new ArrayList<>();
+    usages.add(
+        ImmutableUsageInfo.builder()
+            .description("")
+            .isSelected(true)
+            .kind(UsageKind.CONSUMER)
+            .build());
+
+    // Act
+    SystemChangeSet<UsageInfo, UsageKind> actualSaveResult =
+        dataTypeUsageService.save(entityReference, 1L, usages, "42");
+
+    // Assert
+    verify(dataTypeDao).getById(1L);
+    verify(dataTypeUsageDao).deleteUsageInfo(isA(EntityReference.class), eq(1L), isA(List.class));
+    verify(dataTypeUsageDao).findForEntityAndDataType(isA(EntityReference.class), eq(1L));
+    verify(dataTypeUsageDao).insertUsageInfo(isA(EntityReference.class), eq(1L), isA(List.class));
+    verify(dataTypeUsageDao).updateUsageInfo(isA(EntityReference.class), eq(1L), isA(List.class));
+    verify(changeLogService).write(isA(ChangeLog.class));
+    assertTrue(actualSaveResult instanceof ImmutableSystemChangeSet);
+    assertEquals(usages, actualSaveResult.inserts());
+  }
+
+  /**
+   * Test {@link DataTypeUsageService#save(EntityReference, Long, List, String)}.
+   *
+   * <ul>
    *   <li>Given {@link ChangeLogDao} {@link ChangeLogDao#write(Optional, ChangeLog)} return {@code
    *       19088743}.
    *   <li>Then calls {@link ChangeLogDao#write(Optional, ChangeLog)}.

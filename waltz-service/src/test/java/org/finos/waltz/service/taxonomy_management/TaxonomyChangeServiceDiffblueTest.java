@@ -1432,8 +1432,8 @@ class TaxonomyChangeServiceDiffblueTest {
    * Test {@link TaxonomyChangeService#submitDraftChange(TaxonomyChangeCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code Command must be DRAFT} is {@code 42}.
-   *   <li>Then calls {@link TaxonomyChangeCommand#createdAt()}.
+   *   <li>Given {@link HashMap#HashMap()} {@code Command must be DRAFT} is {@code Command must be
+   *       DRAFT}.
    * </ul>
    *
    * <p>Method under test: {@link TaxonomyChangeService#submitDraftChange(TaxonomyChangeCommand,
@@ -1441,13 +1441,13 @@ class TaxonomyChangeServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test submitDraftChange(TaxonomyChangeCommand, String); given HashMap() 'Command must be DRAFT' is '42'; then calls createdAt()")
+      "Test submitDraftChange(TaxonomyChangeCommand, String); given HashMap() 'Command must be DRAFT' is 'Command must be DRAFT'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "TaxonomyChangeCommand TaxonomyChangeService.submitDraftChange(TaxonomyChangeCommand, String)"
   })
-  void testSubmitDraftChange_givenHashMapCommandMustBeDraftIs42_thenCallsCreatedAt() {
+  void testSubmitDraftChange_givenHashMapCommandMustBeDraftIsCommandMustBeDraft() {
     // Arrange
     Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
 
@@ -1491,7 +1491,7 @@ class TaxonomyChangeServiceDiffblueTest {
     when(userRoleService.hasRole(Mockito.<String>any(), (String[]) Mockito.any())).thenReturn(true);
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("Command must be DRAFT", "42");
+    stringStringMap.put("Command must be DRAFT", "Command must be DRAFT");
 
     TaxonomyChangeCommand draftCommand = mock(TaxonomyChangeCommand.class);
     when(draftCommand.params()).thenReturn(stringStringMap);
@@ -1564,7 +1564,8 @@ class TaxonomyChangeServiceDiffblueTest {
    * Test {@link TaxonomyChangeService#submitDraftChange(TaxonomyChangeCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code instance} is {@code Command must be DRAFT}.
+   *   <li>Given {@link HashMap#HashMap()} {@code instance} is {@code instance}.
+   *   <li>Then calls {@link TaxonomyChangeCommand#createdAt()}.
    * </ul>
    *
    * <p>Method under test: {@link TaxonomyChangeService#submitDraftChange(TaxonomyChangeCommand,
@@ -1572,13 +1573,13 @@ class TaxonomyChangeServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test submitDraftChange(TaxonomyChangeCommand, String); given HashMap() 'instance' is 'Command must be DRAFT'")
+      "Test submitDraftChange(TaxonomyChangeCommand, String); given HashMap() 'instance' is 'instance'; then calls createdAt()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "TaxonomyChangeCommand TaxonomyChangeService.submitDraftChange(TaxonomyChangeCommand, String)"
   })
-  void testSubmitDraftChange_givenHashMapInstanceIsCommandMustBeDraft() {
+  void testSubmitDraftChange_givenHashMapInstanceIsInstance_thenCallsCreatedAt() {
     // Arrange
     Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
 
@@ -1622,8 +1623,8 @@ class TaxonomyChangeServiceDiffblueTest {
     when(userRoleService.hasRole(Mockito.<String>any(), (String[]) Mockito.any())).thenReturn(true);
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("instance", "Command must be DRAFT");
-    stringStringMap.put("Command must be DRAFT", "42");
+    stringStringMap.put("instance", "instance");
+    stringStringMap.put("Command must be DRAFT", "Command must be DRAFT");
 
     TaxonomyChangeCommand draftCommand = mock(TaxonomyChangeCommand.class);
     when(draftCommand.params()).thenReturn(stringStringMap);

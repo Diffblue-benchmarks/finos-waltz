@@ -15,23 +15,18 @@ import org.junit.jupiter.api.Test;
 
 class PersonDiffblueTest {
   /**
-   * Test {@link Person#name()}.
+   * Test {@link Person#entityReference()}.
    *
-   * <ul>
-   *   <li>Then return {@code Display Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Person#name()}
+   * <p>Method under test: {@link Person#entityReference()}
    */
   @Test
-  @DisplayName("Test name(); then return 'Display Name'")
+  @DisplayName("Test entityReference()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String Person.name()"})
-  void testName_thenReturnDisplayName() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Display Name",
+  @MethodsUnderTest({"EntityReference Person.entityReference()"})
+  void testEntityReference() {
+    // Arrange and Act
+    EntityReference actualEntityReferenceResult =
         ImmutablePerson.builder()
             .departmentName("Department Name")
             .displayName("Display Name")
@@ -49,83 +44,15 @@ class PersonDiffblueTest {
             .userId("42")
             .userPrincipalName("User Principal Name")
             .build()
-            .name());
-  }
+            .entityReference();
 
-  /**
-   * Test {@link Person#userId()}.
-   *
-   * <ul>
-   *   <li>Then return {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Person#userId()}
-   */
-  @Test
-  @DisplayName("Test userId(); then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.String Person.userId()"})
-  void testUserId_thenReturn42() {
-    // Arrange, Act and Assert
+    // Assert
+    assertTrue(actualEntityReferenceResult instanceof ImmutableEntityReference);
+    assertNull(actualEntityReferenceResult.description());
+    assertEquals(1L, actualEntityReferenceResult.id());
+    assertEquals(EntityKind.PERSON, actualEntityReferenceResult.kind());
     assertEquals(
-        "42",
-        ImmutablePerson.builder()
-            .departmentName("Department Name")
-            .displayName("Display Name")
-            .email("jane.doe@example.org")
-            .employeeId("42")
-            .id(1L)
-            .isRemoved(true)
-            .kind(EntityKind.ALL)
-            .managerEmployeeId("42")
-            .mobilePhone("6625550144")
-            .officePhone("6625550144")
-            .organisationalUnitId(1L)
-            .personKind(PersonKind.EMPLOYEE)
-            .title("Dr")
-            .userId("42")
-            .userPrincipalName("User Principal Name")
-            .build()
-            .userId());
-  }
-
-  /**
-   * Test {@link Person#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Person#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind Person.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutablePerson.builder()
-            .departmentName("Department Name")
-            .displayName("Display Name")
-            .email("jane.doe@example.org")
-            .employeeId("42")
-            .id(1L)
-            .isRemoved(true)
-            .kind(EntityKind.ALL)
-            .managerEmployeeId("42")
-            .mobilePhone("6625550144")
-            .officePhone("6625550144")
-            .organisationalUnitId(1L)
-            .personKind(PersonKind.EMPLOYEE)
-            .title("Dr")
-            .userId("42")
-            .userPrincipalName("User Principal Name")
-            .build()
-            .kind());
+        EntityLifecycleStatus.REMOVED, actualEntityReferenceResult.entityLifecycleStatus());
   }
 
   /**
@@ -176,17 +103,17 @@ class PersonDiffblueTest {
    * Test {@link Person#entityReference()}.
    *
    * <ul>
-   *   <li>Then return entityLifecycleStatus is {@code REMOVED}.
+   *   <li>Then return id is two.
    * </ul>
    *
    * <p>Method under test: {@link Person#entityReference()}
    */
   @Test
-  @DisplayName("Test entityReference(); then return entityLifecycleStatus is 'REMOVED'")
+  @DisplayName("Test entityReference(); then return id is two")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"EntityReference Person.entityReference()"})
-  void testEntityReference_thenReturnEntityLifecycleStatusIsRemoved() {
+  void testEntityReference_thenReturnIdIsTwo() {
     // Arrange and Act
     EntityReference actualEntityReferenceResult =
         ImmutablePerson.builder()
@@ -194,7 +121,7 @@ class PersonDiffblueTest {
             .displayName("Display Name")
             .email("jane.doe@example.org")
             .employeeId("42")
-            .id(1L)
+            .id(2L)
             .isRemoved(true)
             .kind(EntityKind.ALL)
             .managerEmployeeId("42")
@@ -211,7 +138,7 @@ class PersonDiffblueTest {
     // Assert
     assertTrue(actualEntityReferenceResult instanceof ImmutableEntityReference);
     assertNull(actualEntityReferenceResult.description());
-    assertEquals(1L, actualEntityReferenceResult.id());
+    assertEquals(2L, actualEntityReferenceResult.id());
     assertEquals(EntityKind.PERSON, actualEntityReferenceResult.kind());
     assertEquals(
         EntityLifecycleStatus.REMOVED, actualEntityReferenceResult.entityLifecycleStatus());

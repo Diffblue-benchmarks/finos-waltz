@@ -1,7 +1,6 @@
 package org.finos.waltz.service.cost;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -1038,10 +1037,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1103,15 +1101,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1138,10 +1135,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1203,15 +1199,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1238,10 +1233,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1303,15 +1297,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1342,10 +1335,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1408,15 +1400,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1447,10 +1438,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1516,15 +1506,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1555,10 +1544,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1622,15 +1610,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**
@@ -1661,10 +1648,9 @@ class CostServiceDiffblueTest {
     when(costDao.findTopCostsForCostKindAndSelector(
             anyLong(), anyInt(), Mockito.<GenericSelector>any(), anyInt()))
         .thenReturn(new HashSet<>());
-    Tuple2<Integer, Integer> tuple2 = new Tuple2<>(1, 1);
     when(costDao.getMappedAndMissingCountsForKindAndYearBySelector(
             Mockito.<Long>any(), Mockito.<Integer>any(), Mockito.<GenericSelector>any()))
-        .thenReturn(tuple2);
+        .thenReturn(new Tuple2<>(1, 1));
 
     CostKindDao costKindDao = mock(CostKindDao.class);
     when(costKindDao.getById(Mockito.<Long>any()))
@@ -1726,15 +1712,14 @@ class CostServiceDiffblueTest {
     assertEquals("Name", costKindResult.name());
     assertEquals("The characteristics of someone or something", costKindResult.description());
     assertEquals(1, actualSummariseByCostKindAndSelectorResult.mappedCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.missingCount());
+    assertEquals(1, actualSummariseByCostKindAndSelectorResult.year());
     assertEquals(EntityKind.ALL, costKindResult.kind());
     assertEquals(EntityKind.ALL, costKindResult.subjectKind());
     assertTrue(actualSummariseByCostKindAndSelectorResult.topCosts().isEmpty());
     assertTrue(costKindResult.isDefault());
     BigDecimal expectedTotalResult = new BigDecimal("2.3");
     assertEquals(expectedTotalResult, actualSummariseByCostKindAndSelectorResult.total());
-    Integer integer = tuple2.v2;
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.missingCount());
-    assertSame(integer, actualSummariseByCostKindAndSelectorResult.year());
   }
 
   /**

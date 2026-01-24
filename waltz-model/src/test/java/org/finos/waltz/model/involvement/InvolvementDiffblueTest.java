@@ -53,43 +53,6 @@ class InvolvementDiffblueTest {
   }
 
   /**
-   * Test {@link Involvement#provenance()}.
-   *
-   * <ul>
-   *   <li>Then return {@code Provenance}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Involvement#provenance()}
-   */
-  @Test
-  @DisplayName("Test provenance(); then return 'Provenance'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String Involvement.provenance()"})
-  void testProvenance_thenReturnProvenance() {
-    // Arrange
-    Builder employeeIdResult = ImmutableInvolvement.builder().employeeId("42");
-
-    // Act and Assert
-    assertEquals(
-        "Provenance",
-        employeeIdResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .kindId(1L)
-            .provenance("Provenance")
-            .build()
-            .provenance());
-  }
-
-  /**
    * Test {@link Involvement#mkInvolvement(EntityReference, String, int, String, boolean)}.
    *
    * <ul>

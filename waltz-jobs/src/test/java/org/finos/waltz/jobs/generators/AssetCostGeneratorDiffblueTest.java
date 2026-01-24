@@ -247,7 +247,7 @@ class AssetCostGeneratorDiffblueTest {
     verify(preparedStatement, atLeast(1)).addBatch();
     verify(preparedStatement, atLeast(1)).execute();
     verify(preparedStatement, atLeast(1)).setBigDecimal(eq(5), Mockito.<BigDecimal>any());
-    verify(preparedStatement, atLeast(1)).setInt(4, 2025);
+    verify(preparedStatement, atLeast(1)).setInt(4, 2026);
     verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement, atLeast(1)).setTimestamp(eq(6), Mockito.<Timestamp>any());
@@ -391,7 +391,7 @@ class AssetCostGeneratorDiffblueTest {
     verify(preparedStatement, atLeast(1)).addBatch();
     verify(preparedStatement, atLeast(1)).execute();
     verify(preparedStatement, atLeast(1)).setBigDecimal(eq(5), Mockito.<BigDecimal>any());
-    verify(preparedStatement, atLeast(1)).setInt(4, 2025);
+    verify(preparedStatement, atLeast(1)).setInt(4, 2026);
     verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement, atLeast(1)).setTimestamp(eq(6), Mockito.<Timestamp>any());
@@ -562,7 +562,7 @@ class AssetCostGeneratorDiffblueTest {
     verify(preparedStatement, atLeast(1)).addBatch();
     verify(preparedStatement, atLeast(1)).execute();
     verify(preparedStatement, atLeast(1)).setBigDecimal(eq(5), Mockito.<BigDecimal>any());
-    verify(preparedStatement, atLeast(1)).setInt(4, 2025);
+    verify(preparedStatement, atLeast(1)).setInt(4, 2026);
     verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement, atLeast(1)).setTimestamp(eq(6), Mockito.<Timestamp>any());
@@ -618,7 +618,7 @@ class AssetCostGeneratorDiffblueTest {
         .prepareStatement(
             "delete from \"cost\" where (\"cost\".\"year\" = ? and \"cost\".\"provenance\" = ?)");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setInt(1, 2025);
+    verify(preparedStatement).setInt(1, 2026);
     verify(preparedStatement).setString(2, "waltz-sample");
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();

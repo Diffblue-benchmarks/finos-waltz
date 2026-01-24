@@ -220,7 +220,7 @@ class AggregateOverlayDiagramCalloutDaoDiffblueTest {
    * Test {@link AggregateOverlayDiagramCalloutDao#update(AggregateOverlayDiagramCallout)}.
    *
    * <ul>
-   *   <li>Given of forty-two.
+   *   <li>Given of one.
    *   <li>Then return intValue is one.
    * </ul>
    *
@@ -229,13 +229,13 @@ class AggregateOverlayDiagramCalloutDaoDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test update(AggregateOverlayDiagramCallout); given of forty-two; then return intValue is one")
+      "Test update(AggregateOverlayDiagramCallout); given of one; then return intValue is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "Integer AggregateOverlayDiagramCalloutDao.update(AggregateOverlayDiagramCallout)"
   })
-  void testUpdate_givenOfFortyTwo_thenReturnIntValueIsOne() throws DataAccessException {
+  void testUpdate_givenOfOne_thenReturnIntValueIsOne() throws DataAccessException {
     // Arrange
     UpdateConditionStep<AggregateOverlayDiagramCalloutRecord> updateConditionStep =
         mock(UpdateConditionStep.class);
@@ -272,7 +272,7 @@ class AggregateOverlayDiagramCalloutDaoDiffblueTest {
     when(callout.endColor()).thenReturn("End Color");
     when(callout.startColor()).thenReturn("Start Color");
     when(callout.title()).thenReturn("Dr");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(callout.id()).thenReturn(ofResult);
 
     // Act

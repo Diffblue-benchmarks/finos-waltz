@@ -136,7 +136,7 @@ class PhysicalSpecDefinitionFieldDaoDiffblueTest {
     PhysicalSpecDefinitionField definitionField = mock(PhysicalSpecDefinitionField.class);
     when(definitionField.lastUpdatedBy()).thenReturn("2020-03-01");
     when(definitionField.description()).thenReturn("The characteristics of someone or something");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(definitionField.logicalDataElementId()).thenReturn(ofResult);
     when(definitionField.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(definitionField.position()).thenReturn(1);

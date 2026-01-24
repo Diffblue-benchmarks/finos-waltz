@@ -59,6 +59,7 @@ import org.finos.waltz.model.HierarchyQueryScope;
 import org.finos.waltz.model.IdSelectionOptions;
 import org.finos.waltz.model.ImmutableEntityReference;
 import org.finos.waltz.model.ImmutableIdSelectionOptions;
+import org.finos.waltz.model.ImmutableIdSelectionOptions.Builder;
 import org.finos.waltz.model.ImmutableSelectionFilters;
 import org.finos.waltz.model.Operation;
 import org.finos.waltz.model.application.ApplicationKind;
@@ -68,7 +69,6 @@ import org.finos.waltz.model.assessment_definition.AssessmentDefinition;
 import org.finos.waltz.model.assessment_definition.AssessmentRipplerJobConfiguration;
 import org.finos.waltz.model.assessment_definition.AssessmentVisibility;
 import org.finos.waltz.model.assessment_definition.ImmutableAssessmentDefinition;
-import org.finos.waltz.model.assessment_definition.ImmutableAssessmentDefinition.Builder;
 import org.finos.waltz.model.assessment_definition.ImmutableAssessmentRipplerJobConfiguration;
 import org.finos.waltz.model.assessment_rating.AssessmentDefinitionRatingOperations;
 import org.finos.waltz.model.assessment_rating.AssessmentRating;
@@ -2423,7 +2423,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -2578,7 +2578,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -2720,7 +2720,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -2869,7 +2869,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3017,7 +3017,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3163,7 +3163,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3315,7 +3315,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3469,11 +3469,14 @@ class AssessmentRatingServiceDiffblueTest {
   void testStore_givenChangeLogServiceWriteThrowIllegalArgumentException()
       throws InsufficientPrivelegeException {
     // Arrange
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.isUpdate(Mockito.<SaveAssessmentRatingCommand>any())).thenReturn(true);
     when(assessmentRatingDao.findForEntity(Mockito.<EntityReference>any()))
         .thenReturn(new ArrayList<>());
 
-    Builder provenanceResult =
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3505,6 +3508,8 @@ class AssessmentRatingServiceDiffblueTest {
                 .ratingSchemeId(1L)
                 .visibility(AssessmentVisibility.PRIMARY)
                 .build());
+
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.getRatingSchemeItemById(anyLong()))
         .thenReturn(
             ImmutableRatingSchemeItem.builder()
@@ -3517,8 +3522,13 @@ class AssessmentRatingServiceDiffblueTest {
                 .ratingGroup("Rating Group")
                 .ratingSchemeId(1L)
                 .build());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
     when(changeLogService.write(Mockito.<ChangeLog>any()))
         .thenThrow(new IllegalArgumentException());
+
+    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
+        mock(AssessmentRatingPermissionChecker.class);
     doNothing()
         .when(assessmentRatingPermissionChecker)
         .verifyAnyPerms(
@@ -3532,6 +3542,18 @@ class AssessmentRatingServiceDiffblueTest {
     when(assessmentRatingPermissionChecker.getRatingPermissions(
             Mockito.<EntityReference>any(), anyLong(), Mockito.<String>any()))
         .thenReturn(builderResult.addAllRatingOperations(new ArrayList<>()).build());
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(
+            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            assessmentRatingPermissionChecker,
+            rippler);
 
     ImmutableSaveAssessmentRatingCommand.Builder commentResult =
         ImmutableSaveAssessmentRatingCommand.builder()
@@ -3575,8 +3597,8 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#store(SaveAssessmentRatingCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code collection must not be null} is {@code 42}.
-   *   <li>Then calls {@link ChangeLogDao#write(Optional, ChangeLog)}.
+   *   <li>Given {@link HashMap#HashMap()} {@code collection must not be null} is {@code collection
+   *       must not be null}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingService#store(SaveAssessmentRatingCommand,
@@ -3584,11 +3606,11 @@ class AssessmentRatingServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test store(SaveAssessmentRatingCommand, String); given HashMap() 'collection must not be null' is '42'; then calls write(Optional, ChangeLog)")
+      "Test store(SaveAssessmentRatingCommand, String); given HashMap() 'collection must not be null' is 'collection must not be null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean AssessmentRatingService.store(SaveAssessmentRatingCommand, String)"})
-  void testStore_givenHashMapCollectionMustNotBeNullIs42_thenCallsWrite()
+  void testStore_givenHashMapCollectionMustNotBeNullIsCollectionMustNotBeNull()
       throws InsufficientPrivelegeException {
     // Arrange
     AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
@@ -3599,7 +3621,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -3679,7 +3701,7 @@ class AssessmentRatingServiceDiffblueTest {
         .thenReturn(builderResult.addAllRatingOperations(new ArrayList<>()).build());
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("collection must not be null", "42");
+    stringStringMap.put("collection must not be null", "collection must not be null");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -3740,158 +3762,6 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#store(SaveAssessmentRatingCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code Storing assessment %s as [%s - %s]%s} is {@code
-   *       predicate cannot be null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AssessmentRatingService#store(SaveAssessmentRatingCommand,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test store(SaveAssessmentRatingCommand, String); given HashMap() 'Storing assessment %s as [%s - %s]%s' is 'predicate cannot be null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean AssessmentRatingService.store(SaveAssessmentRatingCommand, String)"})
-  void testStore_givenHashMapStoringAssessmentSAsSSSIsPredicateCannotBeNull()
-      throws InsufficientPrivelegeException {
-    // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    when(assessmentRatingDao.store(Mockito.<SaveAssessmentRatingCommand>any())).thenReturn(true);
-    when(assessmentRatingDao.isUpdate(Mockito.<SaveAssessmentRatingCommand>any())).thenReturn(true);
-    when(assessmentRatingDao.findForEntity(Mockito.<EntityReference>any()))
-        .thenReturn(new ArrayList<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-
-    Builder provenanceResult =
-        ImmutableAssessmentDefinition.builder()
-            .cardinality(Cardinality.ZERO_ONE)
-            .definitionGroup("Definition Group")
-            .description("The characteristics of someone or something")
-            .entityKind(EntityKind.ALL)
-            .externalId("42")
-            .id(1L)
-            .isReadOnly(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .permittedRole("Permitted Role")
-            .provenance("Provenance");
-    ImmutableEntityReference immutableEntityReference =
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build();
-    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
-    when(assessmentDefinitionDao.getById(anyLong()))
-        .thenReturn(
-            provenanceResult
-                .qualifierReference(qualifierReference)
-                .ratingSchemeId(1L)
-                .visibility(AssessmentVisibility.PRIMARY)
-                .build());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    when(ratingSchemeDAO.getRatingSchemeItemById(anyLong()))
-        .thenReturn(
-            ImmutableRatingSchemeItem.builder()
-                .color("Color")
-                .description("The characteristics of someone or something")
-                .externalId("42")
-                .id(1L)
-                .name("Name")
-                .rating("Rating")
-                .ratingGroup("Rating Group")
-                .ratingSchemeId(1L)
-                .build());
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<ChangeLog>any())).thenReturn(19088743);
-
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    doNothing()
-        .when(assessmentRatingPermissionChecker)
-        .verifyAnyPerms(
-            Mockito.<Set<Operation>>any(),
-            Mockito.<Set<Operation>>any(),
-            Mockito.<EntityKind>any(),
-            Mockito.<String>any());
-
-    ImmutableAssessmentDefinitionRatingOperations.Builder builderResult =
-        ImmutableAssessmentDefinitionRatingOperations.builder();
-    when(assessmentRatingPermissionChecker.getRatingPermissions(
-            Mockito.<EntityReference>any(), anyLong(), Mockito.<String>any()))
-        .thenReturn(builderResult.addAllRatingOperations(new ArrayList<>()).build());
-
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("Storing assessment %s as [%s - %s]%s", "predicate cannot be null");
-
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    ImmutableSaveAssessmentRatingCommand.Builder commentResult =
-        ImmutableSaveAssessmentRatingCommand.builder()
-            .assessmentDefinitionId(1L)
-            .comment("Comment");
-
-    // Act
-    boolean actualStoreResult =
-        assessmentRatingService.store(
-            commentResult
-                .entityReference(
-                    ImmutableEntityReference.builder()
-                        .description("The characteristics of someone or something")
-                        .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                        .externalId("42")
-                        .id(1L)
-                        .kind(EntityKind.ALL)
-                        .name("Name")
-                        .build())
-                .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-                .lastUpdatedBy("2020-03-01")
-                .provenance("Provenance")
-                .ratingId(1L)
-                .build(),
-            "janedoe");
-
-    // Assert
-    verify(assessmentDefinitionDao).getById(1L);
-    verify(assessmentRatingDao).findForEntity(isA(EntityReference.class));
-    verify(assessmentRatingDao).isUpdate(isA(SaveAssessmentRatingCommand.class));
-    verify(assessmentRatingDao).store(isA(SaveAssessmentRatingCommand.class));
-    verify(ratingSchemeDAO).getRatingSchemeItemById(1L);
-    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
-    verify(changeLogService).write(isA(ChangeLog.class));
-    verify(assessmentRatingPermissionChecker)
-        .getRatingPermissions(isA(EntityReference.class), eq(1L), eq("janedoe"));
-    verify(assessmentRatingPermissionChecker)
-        .verifyAnyPerms(
-            isA(Set.class), isA(Set.class), eq(EntityKind.ASSESSMENT_DEFINITION), eq("janedoe"));
-    assertTrue(actualStoreResult);
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#store(SaveAssessmentRatingCommand, String)}.
-   *
-   * <ul>
    *   <li>Given {@link HashSet#HashSet()} add builder name {@code Name} build.
    *   <li>Then calls {@link AssessmentRatingRippler#findRippleConfig()}.
    * </ul>
@@ -3916,7 +3786,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -4062,7 +3932,7 @@ class AssessmentRatingServiceDiffblueTest {
     when(assessmentRatingDao.findForEntity(Mockito.<EntityReference>any()))
         .thenReturn(new ArrayList<>());
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5327,7 +5197,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5480,7 +5350,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5607,7 +5477,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5729,7 +5599,7 @@ class AssessmentRatingServiceDiffblueTest {
     when(assessmentRatingDao.bulkRemove(Mockito.<RemoveAssessmentRatingCommand>any()))
         .thenReturn(true);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5843,7 +5713,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -5971,7 +5841,7 @@ class AssessmentRatingServiceDiffblueTest {
     when(assessmentRatingDao.bulkRemove(Mockito.<RemoveAssessmentRatingCommand>any()))
         .thenReturn(true);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6090,7 +5960,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6233,7 +6103,7 @@ class AssessmentRatingServiceDiffblueTest {
     // Arrange
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6340,8 +6210,8 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#remove(RemoveAssessmentRatingCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code collection must not be null} is {@code 42}.
-   *   <li>Then calls {@link ChangeLogDao#write(Optional, ChangeLog)}.
+   *   <li>Given {@link HashMap#HashMap()} {@code collection must not be null} is {@code collection
+   *       must not be null}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingService#remove(RemoveAssessmentRatingCommand,
@@ -6349,13 +6219,13 @@ class AssessmentRatingServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test remove(RemoveAssessmentRatingCommand, String); given HashMap() 'collection must not be null' is '42'; then calls write(Optional, ChangeLog)")
+      "Test remove(RemoveAssessmentRatingCommand, String); given HashMap() 'collection must not be null' is 'collection must not be null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "boolean AssessmentRatingService.remove(RemoveAssessmentRatingCommand, String)"
   })
-  void testRemove_givenHashMapCollectionMustNotBeNullIs42_thenCallsWrite()
+  void testRemove_givenHashMapCollectionMustNotBeNullIsCollectionMustNotBeNull()
       throws InsufficientPrivelegeException {
     // Arrange
     AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
@@ -6364,7 +6234,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6434,7 +6304,7 @@ class AssessmentRatingServiceDiffblueTest {
         .thenReturn(builderResult.addAllRatingOperations(new ArrayList<>()).build());
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("collection must not be null", "42");
+    stringStringMap.put("collection must not be null", "collection must not be null");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -6490,143 +6360,6 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#remove(RemoveAssessmentRatingCommand, String)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code ,} is {@code predicate cannot be null}.
-   *   <li>Then calls {@link SettingsDao#indexByPrefix(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AssessmentRatingService#remove(RemoveAssessmentRatingCommand,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test remove(RemoveAssessmentRatingCommand, String); given HashMap() ',' is 'predicate cannot be null'; then calls indexByPrefix(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssessmentRatingService.remove(RemoveAssessmentRatingCommand, String)"
-  })
-  void testRemove_givenHashMapCommaIsPredicateCannotBeNull_thenCallsIndexByPrefix()
-      throws InsufficientPrivelegeException {
-    // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    when(assessmentRatingDao.bulkRemove(Mockito.<RemoveAssessmentRatingCommand>any()))
-        .thenReturn(true);
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-
-    Builder provenanceResult =
-        ImmutableAssessmentDefinition.builder()
-            .cardinality(Cardinality.ZERO_ONE)
-            .definitionGroup("Definition Group")
-            .description("The characteristics of someone or something")
-            .entityKind(EntityKind.ALL)
-            .externalId("42")
-            .id(1L)
-            .isReadOnly(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .permittedRole("Permitted Role")
-            .provenance("Provenance");
-    ImmutableEntityReference immutableEntityReference =
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build();
-    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
-    when(assessmentDefinitionDao.getById(anyLong()))
-        .thenReturn(
-            provenanceResult
-                .qualifierReference(qualifierReference)
-                .ratingSchemeId(1L)
-                .visibility(AssessmentVisibility.PRIMARY)
-                .build());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
-        .thenReturn(new HashSet<>());
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<ChangeLog>any())).thenReturn(19088743);
-
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    doNothing()
-        .when(assessmentRatingPermissionChecker)
-        .verifyAnyPerms(
-            Mockito.<Set<Operation>>any(),
-            Mockito.<Set<Operation>>any(),
-            Mockito.<EntityKind>any(),
-            Mockito.<String>any());
-
-    ImmutableAssessmentDefinitionRatingOperations.Builder builderResult =
-        ImmutableAssessmentDefinitionRatingOperations.builder();
-    when(assessmentRatingPermissionChecker.getRatingPermissions(
-            Mockito.<EntityReference>any(), anyLong(), Mockito.<String>any()))
-        .thenReturn(builderResult.addAllRatingOperations(new ArrayList<>()).build());
-
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put(", ", "predicate cannot be null");
-
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    ImmutableRemoveAssessmentRatingCommand.Builder assessmentDefinitionIdResult =
-        ImmutableRemoveAssessmentRatingCommand.builder().assessmentDefinitionId(1L);
-
-    // Act
-    boolean actualRemoveResult =
-        assessmentRatingService.remove(
-            assessmentDefinitionIdResult
-                .entityReference(
-                    ImmutableEntityReference.builder()
-                        .description("The characteristics of someone or something")
-                        .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                        .externalId("42")
-                        .id(1L)
-                        .kind(EntityKind.ALL)
-                        .name("Name")
-                        .build())
-                .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-                .lastUpdatedBy("2020-03-01")
-                .ratingId(1L)
-                .build(),
-            "janedoe");
-
-    // Assert
-    verify(assessmentDefinitionDao).getById(1L);
-    verify(assessmentRatingDao).bulkRemove(isA(RemoveAssessmentRatingCommand.class));
-    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
-    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
-    verify(changeLogService).write(isA(ChangeLog.class));
-    verify(assessmentRatingPermissionChecker)
-        .getRatingPermissions(isA(EntityReference.class), eq(1L), eq("janedoe"));
-    verify(assessmentRatingPermissionChecker)
-        .verifyAnyPerms(
-            isA(Set.class), isA(Set.class), eq(EntityKind.ASSESSMENT_DEFINITION), eq("janedoe"));
-    assertTrue(actualRemoveResult);
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#remove(RemoveAssessmentRatingCommand, String)}.
-   *
-   * <ul>
    *   <li>Given {@link HashSet#HashSet()} add builder name {@code Name} build.
    *   <li>Then calls {@link AssessmentRatingRippler#findRippleConfig()}.
    * </ul>
@@ -6651,7 +6384,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6780,7 +6513,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6876,7 +6609,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -6966,7 +6699,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_MANY)
             .definitionGroup("Definition Group")
@@ -7049,12 +6782,101 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testBulkStore4() {
     // Arrange
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    when(assessmentRatingDao.bulkUpdateMultiValuedAssessments(Mockito.<Set<AssessmentRating>>any()))
+        .thenThrow(new IllegalArgumentException());
+    when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
+
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+
+    ImmutableAssessmentDefinition.Builder provenanceResult =
+        ImmutableAssessmentDefinition.builder()
+            .cardinality(Cardinality.ZERO_MANY)
+            .definitionGroup("Definition Group")
+            .description("The characteristics of someone or something")
+            .entityKind(EntityKind.ALL)
+            .externalId("42")
+            .id(1L)
+            .isReadOnly(true)
+            .kind(EntityKind.ALL)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .permittedRole("Permitted Role")
+            .provenance("Provenance");
+    ImmutableEntityReference immutableEntityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
+    when(assessmentDefinitionDao.getById(anyLong()))
+        .thenReturn(
+            provenanceResult
+                .qualifierReference(qualifierReference)
+                .ratingSchemeId(1L)
+                .visibility(AssessmentVisibility.PRIMARY)
+                .build());
+
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
+        .thenReturn(new ArrayList<>());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
+        mock(AssessmentRatingPermissionChecker.class);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(
+            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            assessmentRatingPermissionChecker,
+            rippler);
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            assessmentRatingService.bulkStore(new BulkAssessmentRatingCommand[] {}, 1L, "janedoe"));
+    verify(assessmentDefinitionDao, atLeast(1)).getById(1L);
+    verify(assessmentRatingDao).add(isA(Set.class));
+    verify(assessmentRatingDao).bulkUpdateMultiValuedAssessments(isA(Set.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
+    verify(changeLogService).write(isA(Collection.class));
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[], long, String)}.
+   *
+   * <p>Method under test: {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[],
+   * long, String)}
+   */
+  @Test
+  @DisplayName("Test bulkStore(BulkAssessmentRatingCommand[], long, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
+  })
+  void testBulkStore5() {
+    // Arrange
     when(assessmentRatingDao.bulkUpdateSingleValuedAssessments(
             Mockito.<Set<AssessmentRating>>any()))
         .thenReturn(42);
     when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7150,14 +6972,14 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkStore5() {
+  void testBulkStore6() {
     // Arrange
     when(assessmentRatingDao.bulkUpdateSingleValuedAssessments(
             Mockito.<Set<AssessmentRating>>any()))
         .thenReturn(42);
     when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7272,14 +7094,155 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkStore6() {
+  void testBulkStore7() {
+    // Arrange
+    when(assessmentRatingDao.bulkUpdateSingleValuedAssessments(
+            Mockito.<Set<AssessmentRating>>any()))
+        .thenReturn(42);
+    when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
+
+    ImmutableAssessmentDefinition.Builder provenanceResult =
+        ImmutableAssessmentDefinition.builder()
+            .cardinality(Cardinality.ZERO_ONE)
+            .definitionGroup("Definition Group")
+            .description("The characteristics of someone or something")
+            .entityKind(EntityKind.ALL)
+            .externalId("42")
+            .id(1L)
+            .isReadOnly(true)
+            .kind(EntityKind.ALL)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .permittedRole("Permitted Role")
+            .provenance("Provenance");
+    ImmutableEntityReference immutableEntityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
+    when(assessmentDefinitionDao.getById(anyLong()))
+        .thenReturn(
+            provenanceResult
+                .qualifierReference(qualifierReference)
+                .ratingSchemeId(1L)
+                .visibility(AssessmentVisibility.PRIMARY)
+                .build());
+
+    ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
+    ratingSchemeItemList.add(
+        ImmutableRatingSchemeItem.builder()
+            .color("Color")
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .name("Name")
+            .rating("Rating")
+            .ratingGroup("Rating Group")
+            .ratingSchemeId(1L)
+            .build());
+    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
+        .thenReturn(ratingSchemeItemList);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+
+    ImmutableBulkAssessmentRatingCommand.Builder commentResult =
+        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
+    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand =
+        commentResult
+            .entityRef(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .operation(Operation.ADD)
+            .ratingId(1L)
+            .build();
+
+    ImmutableBulkAssessmentRatingCommand.Builder commentResult2 =
+        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
+    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand2 =
+        commentResult2
+            .entityRef(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .operation(Operation.ADD)
+            .ratingId(1L)
+            .build();
+
+    ImmutableBulkAssessmentRatingCommand.Builder commentResult3 =
+        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
+    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand3 =
+        commentResult3
+            .entityRef(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .operation(Operation.ADD)
+            .ratingId(1L)
+            .build();
+
+    // Act
+    boolean actualBulkStoreResult =
+        assessmentRatingService.bulkStore(
+            new BulkAssessmentRatingCommand[] {
+              immutableBulkAssessmentRatingCommand,
+              immutableBulkAssessmentRatingCommand2,
+              immutableBulkAssessmentRatingCommand3
+            },
+            1L,
+            "janedoe");
+
+    // Assert
+    verify(assessmentDefinitionDao, atLeast(1)).getById(1L);
+    verify(assessmentRatingDao).add(isA(Set.class));
+    verify(assessmentRatingDao).bulkUpdateSingleValuedAssessments(isA(Set.class));
+    verify(ratingSchemeDAO, atLeast(1)).findRatingSchemeItemsForAssessmentDefinition(1L);
+    verify(changeLogService, atLeast(1)).write(Mockito.<Collection<ChangeLog>>any());
+    assertTrue(actualBulkStoreResult);
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[], long, String)}.
+   *
+   * <p>Method under test: {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[],
+   * long, String)}
+   */
+  @Test
+  @DisplayName("Test bulkStore(BulkAssessmentRatingCommand[], long, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
+  })
+  void testBulkStore8() {
     // Arrange
     when(assessmentRatingDao.bulkUpdateSingleValuedAssessments(
             Mockito.<Set<AssessmentRating>>any()))
         .thenThrow(new IllegalArgumentException());
     when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7357,107 +7320,6 @@ class AssessmentRatingServiceDiffblueTest {
     verify(assessmentDefinitionDao, atLeast(1)).getById(1L);
     verify(assessmentRatingDao).add(isA(Set.class));
     verify(assessmentRatingDao).bulkUpdateSingleValuedAssessments(isA(Set.class));
-    verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[], long, String)}.
-   *
-   * <p>Method under test: {@link AssessmentRatingService#bulkStore(BulkAssessmentRatingCommand[],
-   * long, String)}
-   */
-  @Test
-  @DisplayName("Test bulkStore(BulkAssessmentRatingCommand[], long, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssessmentRatingService.bulkStore(BulkAssessmentRatingCommand[], long, String)"
-  })
-  void testBulkStore7() {
-    // Arrange
-    when(assessmentRatingDao.bulkUpdateMultiValuedAssessments(Mockito.<Set<AssessmentRating>>any()))
-        .thenThrow(new IllegalArgumentException());
-    when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
-
-    Builder provenanceResult =
-        ImmutableAssessmentDefinition.builder()
-            .cardinality(Cardinality.ZERO_MANY)
-            .definitionGroup("Definition Group")
-            .description("The characteristics of someone or something")
-            .entityKind(EntityKind.ALL)
-            .externalId("42")
-            .id(1L)
-            .isReadOnly(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .permittedRole("Permitted Role")
-            .provenance("Provenance");
-    ImmutableEntityReference immutableEntityReference =
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build();
-    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
-    when(assessmentDefinitionDao.getById(anyLong()))
-        .thenReturn(
-            provenanceResult
-                .qualifierReference(qualifierReference)
-                .ratingSchemeId(1L)
-                .visibility(AssessmentVisibility.PRIMARY)
-                .build());
-
-    ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
-    ratingSchemeItemList.add(
-        ImmutableRatingSchemeItem.builder()
-            .color("Color")
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .name("Name")
-            .rating("Rating")
-            .ratingGroup("Rating Group")
-            .ratingSchemeId(1L)
-            .build());
-    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
-        .thenReturn(ratingSchemeItemList);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-
-    ImmutableBulkAssessmentRatingCommand.Builder commentResult =
-        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
-    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand =
-        commentResult
-            .entityRef(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .operation(Operation.ADD)
-            .ratingId(1L)
-            .build();
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.bulkStore(
-                new BulkAssessmentRatingCommand[] {immutableBulkAssessmentRatingCommand},
-                1L,
-                "janedoe"));
-    verify(assessmentDefinitionDao, atLeast(1)).getById(1L);
-    verify(assessmentRatingDao).add(isA(Set.class));
-    verify(assessmentRatingDao).bulkUpdateMultiValuedAssessments(isA(Set.class));
     verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
     verify(changeLogService).write(isA(Collection.class));
   }
@@ -7554,7 +7416,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7649,7 +7511,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7741,7 +7603,7 @@ class AssessmentRatingServiceDiffblueTest {
     // Arrange
     when(assessmentRatingDao.add(Mockito.<Set<AssessmentRating>>any())).thenReturn(2);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7850,7 +7712,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -7958,7 +7820,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8079,7 +7941,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8198,12 +8060,9 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testBulkDelete() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    when(assessmentRatingDao.bulkRemove(Mockito.<Set<AssessmentRating>>any())).thenReturn(1);
-
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8236,29 +8095,13 @@ class AssessmentRatingServiceDiffblueTest {
                 .visibility(AssessmentVisibility.PRIMARY)
                 .build());
 
-    ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
-    ratingSchemeItemList.add(
-        ImmutableRatingSchemeItem.builder()
-            .color("Color")
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .name("Name")
-            .rating("Rating")
-            .ratingGroup("Rating Group")
-            .ratingSchemeId(1L)
-            .build());
-
     RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
-        .thenReturn(ratingSchemeItemList);
-
-    ChangeLogDao changeLogDao = mock(ChangeLogDao.class);
-    when(changeLogDao.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+        .thenThrow(new IllegalArgumentException());
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     ChangeLogService changeLogService =
         new ChangeLogService(
-            changeLogDao,
+            mock(ChangeLogDao.class),
             mock(ChangeLogSummariesDao.class),
             mock(PhysicalFlowDao.class),
             mock(PhysicalSpecificationDao.class),
@@ -8283,16 +8126,14 @@ class AssessmentRatingServiceDiffblueTest {
             assessmentRatingPermissionChecker,
             rippler);
 
-    // Act
-    boolean actualBulkDeleteResult =
-        assessmentRatingService.bulkDelete(new BulkAssessmentRatingCommand[] {}, 1L, "janedoe");
-
-    // Assert
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            assessmentRatingService.bulkDelete(
+                new BulkAssessmentRatingCommand[] {}, 1L, "janedoe"));
     verify(assessmentDefinitionDao).getById(1L);
-    verify(assessmentRatingDao).bulkRemove(isA(Set.class));
-    verify(changeLogDao).write(isA(Collection.class));
     verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
-    assertFalse(actualBulkDeleteResult);
   }
 
   /**
@@ -8315,7 +8156,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8349,17 +8190,6 @@ class AssessmentRatingServiceDiffblueTest {
                 .build());
 
     ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
-    ratingSchemeItemList.add(
-        ImmutableRatingSchemeItem.builder()
-            .color("Color")
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .name("Name")
-            .rating("Rating")
-            .ratingGroup("Rating Group")
-            .ratingSchemeId(1L)
-            .build());
     ratingSchemeItemList.add(
         ImmutableRatingSchemeItem.builder()
             .color("Color")
@@ -8438,7 +8268,130 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
+        ImmutableAssessmentDefinition.builder()
+            .cardinality(Cardinality.ZERO_ONE)
+            .definitionGroup("Definition Group")
+            .description("The characteristics of someone or something")
+            .entityKind(EntityKind.ALL)
+            .externalId("42")
+            .id(1L)
+            .isReadOnly(true)
+            .kind(EntityKind.ALL)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .permittedRole("Permitted Role")
+            .provenance("Provenance");
+    ImmutableEntityReference immutableEntityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
+    when(assessmentDefinitionDao.getById(anyLong()))
+        .thenReturn(
+            provenanceResult
+                .qualifierReference(qualifierReference)
+                .ratingSchemeId(1L)
+                .visibility(AssessmentVisibility.PRIMARY)
+                .build());
+
+    ArrayList<RatingSchemeItem> ratingSchemeItemList = new ArrayList<>();
+    ratingSchemeItemList.add(
+        ImmutableRatingSchemeItem.builder()
+            .color("Color")
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .name("Name")
+            .rating("Rating")
+            .ratingGroup("Rating Group")
+            .ratingSchemeId(1L)
+            .build());
+    ratingSchemeItemList.add(
+        ImmutableRatingSchemeItem.builder()
+            .color("Color")
+            .description("The characteristics of someone or something")
+            .externalId("42")
+            .id(1L)
+            .name("Name")
+            .rating("Rating")
+            .ratingGroup("Rating Group")
+            .ratingSchemeId(1L)
+            .build());
+
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
+        .thenReturn(ratingSchemeItemList);
+
+    ChangeLogDao changeLogDao = mock(ChangeLogDao.class);
+    when(changeLogDao.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            changeLogDao,
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
+        mock(AssessmentRatingPermissionChecker.class);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(
+            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            assessmentRatingPermissionChecker,
+            rippler);
+
+    // Act
+    boolean actualBulkDeleteResult =
+        assessmentRatingService.bulkDelete(new BulkAssessmentRatingCommand[] {}, 1L, "janedoe");
+
+    // Assert
+    verify(assessmentDefinitionDao).getById(1L);
+    verify(assessmentRatingDao).bulkRemove(isA(Set.class));
+    verify(changeLogDao).write(isA(Collection.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
+    assertFalse(actualBulkDeleteResult);
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#bulkDelete(BulkAssessmentRatingCommand[], long, String)}.
+   *
+   * <p>Method under test: {@link AssessmentRatingService#bulkDelete(BulkAssessmentRatingCommand[],
+   * long, String)}
+   */
+  @Test
+  @DisplayName("Test bulkDelete(BulkAssessmentRatingCommand[], long, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean AssessmentRatingService.bulkDelete(BulkAssessmentRatingCommand[], long, String)"
+  })
+  void testBulkDelete4() {
+    // Arrange
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    when(assessmentRatingDao.bulkRemove(Mockito.<Set<AssessmentRating>>any())).thenReturn(1);
+
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8550,14 +8503,14 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkDelete(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkDelete4() {
+  void testBulkDelete5() {
     // Arrange
     AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.bulkRemove(Mockito.<Set<AssessmentRating>>any())).thenReturn(1);
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8688,14 +8641,14 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "boolean AssessmentRatingService.bulkDelete(BulkAssessmentRatingCommand[], long, String)"
   })
-  void testBulkDelete5() {
+  void testBulkDelete6() {
     // Arrange
     AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.bulkRemove(Mockito.<Set<AssessmentRating>>any())).thenReturn(1);
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8765,66 +8718,6 @@ class AssessmentRatingServiceDiffblueTest {
   /**
    * Test {@link AssessmentRatingService#bulkDelete(BulkAssessmentRatingCommand[], long, String)}.
    *
-   * <p>Method under test: {@link AssessmentRatingService#bulkDelete(BulkAssessmentRatingCommand[],
-   * long, String)}
-   */
-  @Test
-  @DisplayName("Test bulkDelete(BulkAssessmentRatingCommand[], long, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssessmentRatingService.bulkDelete(BulkAssessmentRatingCommand[], long, String)"
-  })
-  void testBulkDelete6() {
-    // Arrange
-    Builder provenanceResult =
-        ImmutableAssessmentDefinition.builder()
-            .cardinality(Cardinality.ZERO_ONE)
-            .definitionGroup("Definition Group")
-            .description("The characteristics of someone or something")
-            .entityKind(EntityKind.ALL)
-            .externalId("42")
-            .id(1L)
-            .isReadOnly(true)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .permittedRole("Permitted Role")
-            .provenance("Provenance");
-    ImmutableEntityReference immutableEntityReference =
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build();
-    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
-    when(assessmentDefinitionDao.getById(anyLong()))
-        .thenReturn(
-            provenanceResult
-                .qualifierReference(qualifierReference)
-                .ratingSchemeId(1L)
-                .visibility(AssessmentVisibility.PRIMARY)
-                .build());
-    when(ratingSchemeDAO.findRatingSchemeItemsForAssessmentDefinition(Mockito.<Long>any()))
-        .thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.bulkDelete(
-                new BulkAssessmentRatingCommand[] {}, 1L, "janedoe"));
-    verify(assessmentDefinitionDao).getById(1L);
-    verify(ratingSchemeDAO).findRatingSchemeItemsForAssessmentDefinition(1L);
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#bulkDelete(BulkAssessmentRatingCommand[], long, String)}.
-   *
    * <ul>
    *   <li>Given {@link AssessmentDefinitionDao} {@link AssessmentDefinitionDao#getById(long)} throw
    *       {@link IllegalArgumentException#IllegalArgumentException()}.
@@ -8843,33 +8736,43 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testBulkDelete_givenAssessmentDefinitionDaoGetByIdThrowIllegalArgumentException() {
     // Arrange
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.getById(anyLong())).thenThrow(new IllegalArgumentException());
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
+        mock(AssessmentRatingPermissionChecker.class);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(
+            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    ImmutableBulkAssessmentRatingCommand.Builder commentResult =
-        ImmutableBulkAssessmentRatingCommand.builder().comment("Comment");
-    ImmutableBulkAssessmentRatingCommand immutableBulkAssessmentRatingCommand =
-        commentResult
-            .entityRef(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .operation(Operation.ADD)
-            .ratingId(1L)
-            .build();
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            assessmentRatingPermissionChecker,
+            rippler);
 
     // Act and Assert
     assertThrows(
         IllegalArgumentException.class,
         () ->
             assessmentRatingService.bulkDelete(
-                new BulkAssessmentRatingCommand[] {immutableBulkAssessmentRatingCommand},
-                1L,
-                "janedoe"));
+                new BulkAssessmentRatingCommand[] {}, 1L, "janedoe"));
     verify(assessmentDefinitionDao).getById(1L);
   }
 
@@ -8899,7 +8802,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -8987,7 +8890,7 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testBulkDelete_givenChangeLogServiceWriteThrowIllegalArgumentException() {
     // Arrange
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -9079,7 +8982,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -9535,7 +9438,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -9677,7 +9580,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -9818,7 +9721,7 @@ class AssessmentRatingServiceDiffblueTest {
                 .ratingId(1L)
                 .build());
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -9936,7 +9839,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -10088,7 +9991,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -10301,7 +10204,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -10415,7 +10318,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -10538,7 +10441,7 @@ class AssessmentRatingServiceDiffblueTest {
                 .ratingId(1L)
                 .build());
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_MANY)
             .definitionGroup("Definition Group")
@@ -10701,7 +10604,7 @@ class AssessmentRatingServiceDiffblueTest {
 
     AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -10811,9 +10714,9 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -10827,8 +10730,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -10865,9 +10767,9 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -10881,8 +10783,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -10919,9 +10820,9 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -10935,8 +10836,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -10973,9 +10873,9 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -10989,8 +10889,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -11031,10 +10930,10 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
     builderResult.addEntityLifecycleStatuses(EntityLifecycleStatus.ACTIVE);
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -11048,8 +10947,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -11095,9 +10993,9 @@ class AssessmentRatingServiceDiffblueTest {
     builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
     ImmutableSelectionFilters filters = builderResult.build();
 
-    ImmutableIdSelectionOptions.Builder builderResult2 = ImmutableIdSelectionOptions.builder();
+    Builder builderResult2 = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult2
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -11111,8 +11009,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(filters);
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -11154,9 +11051,9 @@ class AssessmentRatingServiceDiffblueTest {
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenThrow(new IllegalArgumentException());
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -11170,8 +11067,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
     ImmutableIdSelectionOptions idSelectionOptions =
         joiningEntityKindResult
             .addAllEntityLifecycleStatuses(new ArrayList<>())
@@ -11901,200 +11797,18 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testGetPrimaryAssessmentsViewForKindAndSelector() {
     // Arrange
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
-            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
-        .thenThrow(new IllegalArgumentException());
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
-                EntityKind.ALL, null));
-    verify(assessmentDefinitionDao)
-        .findPrimaryDefinitionsForKind(
-            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}.
-   *
-   * <p>Method under test: {@link
-   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
-  })
-  void testGetPrimaryAssessmentsViewForKindAndSelector2() {
-    // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    when(assessmentRatingDao.findBySelectorForDefinitions(
-            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
-        .thenThrow(new IllegalArgumentException());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
-            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
-        .thenReturn(new HashSet<>());
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
-                EntityKind.APPLICATION,
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-    verify(assessmentDefinitionDao)
-        .findPrimaryDefinitionsForKind(
-            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
-    verify(assessmentRatingDao)
-        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}.
-   *
-   * <p>Method under test: {@link
-   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
-  })
-  void testGetPrimaryAssessmentsViewForKindAndSelector3() {
-    // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12108,8 +11822,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12155,101 +11868,7 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector4() {
-    // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    when(assessmentRatingDao.findBySelectorForDefinitions(
-            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
-        .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
-            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
-        .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
-        .thenThrow(new IllegalArgumentException());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
-                EntityKind.APPLICATION,
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-    verify(assessmentDefinitionDao)
-        .findPrimaryDefinitionsForKind(
-            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
-    verify(assessmentRatingDao)
-        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
-    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}.
-   *
-   * <p>Method under test: {@link
-   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
-   * IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
-  })
-  void testGetPrimaryAssessmentsViewForKindAndSelector5() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector2() {
     // Arrange
     HashSet<AssessmentRating> assessmentRatingSet = new HashSet<>();
 
@@ -12272,50 +11891,18 @@ class AssessmentRatingServiceDiffblueTest {
             .provenance("Provenance")
             .ratingId(1L)
             .build());
-
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(assessmentRatingSet);
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12329,8 +11916,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12374,16 +11960,15 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector6() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector3() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
 
     HashSet<AssessmentDefinition> assessmentDefinitionSet = new HashSet<>();
 
-    Builder provenanceResult =
+    ImmutableAssessmentDefinition.Builder provenanceResult =
         ImmutableAssessmentDefinition.builder()
             .cardinality(Cardinality.ZERO_ONE)
             .definitionGroup("Definition Group")
@@ -12414,45 +11999,15 @@ class AssessmentRatingServiceDiffblueTest {
             .ratingSchemeId(1L)
             .visibility(AssessmentVisibility.PRIMARY)
             .build());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(assessmentDefinitionSet);
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12466,8 +12021,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12510,14 +12064,11 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector7() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector4() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
@@ -12534,40 +12085,12 @@ class AssessmentRatingServiceDiffblueTest {
             .ratingGroup("Rating Group")
             .ratingSchemeId(1L)
             .build());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(ratingSchemeItemSet);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12581,8 +12104,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12634,51 +12156,79 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector8() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector5() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
-        .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+        .thenThrow(new IllegalArgumentException());
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
 
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+                EntityKind.APPLICATION,
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+    verify(assessmentRatingDao)
+        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector6() {
+    // Arrange
+    when(assessmentRatingDao.findBySelectorForDefinitions(
+            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenReturn(new HashSet<>());
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12692,8 +12242,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12739,51 +12288,20 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector9() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector7() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12797,8 +12315,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12844,51 +12361,20 @@ class AssessmentRatingServiceDiffblueTest {
   @MethodsUnderTest({
     "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
   })
-  void testGetPrimaryAssessmentsViewForKindAndSelector10() {
+  void testGetPrimaryAssessmentsViewForKindAndSelector8() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -12902,8 +12388,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -12956,50 +12441,19 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testGetPrimaryAssessmentsViewForKindAndSelector_givenActive() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
 
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
-
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
     builderResult.addEntityLifecycleStatuses(EntityLifecycleStatus.ACTIVE);
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -13013,8 +12467,7 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
@@ -13050,6 +12503,65 @@ class AssessmentRatingServiceDiffblueTest {
    * IdSelectionOptions)}.
    *
    * <ul>
+   *   <li>Given {@link AssessmentRatingDao}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions); given AssessmentRatingDao")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector_givenAssessmentRatingDao() {
+    // Arrange
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenThrow(new IllegalArgumentException());
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+                EntityKind.APPLICATION,
+                joiningEntityKindResult
+                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .scope(HierarchyQueryScope.EXACT)
+                    .build()));
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <ul>
    *   <li>Given {@code IN_HOUSE}.
    * </ul>
    *
@@ -13067,53 +12579,22 @@ class AssessmentRatingServiceDiffblueTest {
   })
   void testGetPrimaryAssessmentsViewForKindAndSelector_givenInHouse() {
     // Arrange
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
     when(assessmentRatingDao.findBySelectorForDefinitions(
             Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
     when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
             Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
         .thenReturn(new HashSet<>());
-
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
     when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
         .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    AssessmentRatingPermissionChecker assessmentRatingPermissionChecker =
-        mock(AssessmentRatingPermissionChecker.class);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(
-            new DefaultDSLContext(SQLDialect.SQL99), mock(SettingsDao.class));
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            assessmentRatingPermissionChecker,
-            rippler);
 
     ImmutableSelectionFilters.Builder builderResult = ImmutableSelectionFilters.builder();
     builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
     ImmutableSelectionFilters filters = builderResult.build();
 
-    ImmutableIdSelectionOptions.Builder builderResult2 = ImmutableIdSelectionOptions.builder();
+    Builder builderResult2 = ImmutableIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult2
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -13127,13 +12608,324 @@ class AssessmentRatingServiceDiffblueTest {
             .filters(filters);
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
     // Act
     AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
         assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
             EntityKind.APPLICATION,
+            joiningEntityKindResult
+                .addAllEntityLifecycleStatuses(new ArrayList<>())
+                .scope(HierarchyQueryScope.EXACT)
+                .build());
+
+    // Assert
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+    verify(assessmentRatingDao)
+        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector instanceof ImmutableAssessmentsView);
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItemsById().isEmpty());
+    Set<AssessmentDefinition> assessmentDefinitionsResult =
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentDefinitions();
+    assertTrue(assessmentDefinitionsResult.isEmpty());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentRatings());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItems());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <ul>
+   *   <li>When {@code CHANGE_INITIATIVE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions); when 'CHANGE_INITIATIVE'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector_whenChangeInitiative() {
+    // Arrange
+    when(assessmentRatingDao.findBySelectorForDefinitions(
+            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenReturn(new HashSet<>());
+    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
+        assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+            EntityKind.CHANGE_INITIATIVE,
+            joiningEntityKindResult
+                .addAllEntityLifecycleStatuses(new ArrayList<>())
+                .scope(HierarchyQueryScope.EXACT)
+                .build());
+
+    // Assert
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+    verify(assessmentRatingDao)
+        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector instanceof ImmutableAssessmentsView);
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItemsById().isEmpty());
+    Set<AssessmentDefinition> assessmentDefinitionsResult =
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentDefinitions();
+    assertTrue(assessmentDefinitionsResult.isEmpty());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentRatings());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItems());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <ul>
+   *   <li>When {@code CHANGE_UNIT}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions); when 'CHANGE_UNIT'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector_whenChangeUnit() {
+    // Arrange
+    when(assessmentRatingDao.findBySelectorForDefinitions(
+            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenReturn(new HashSet<>());
+    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
+        assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+            EntityKind.CHANGE_UNIT,
+            joiningEntityKindResult
+                .addAllEntityLifecycleStatuses(new ArrayList<>())
+                .scope(HierarchyQueryScope.EXACT)
+                .build());
+
+    // Assert
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+    verify(assessmentRatingDao)
+        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector instanceof ImmutableAssessmentsView);
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItemsById().isEmpty());
+    Set<AssessmentDefinition> assessmentDefinitionsResult =
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentDefinitions();
+    assertTrue(assessmentDefinitionsResult.isEmpty());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentRatings());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItems());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <ul>
+   *   <li>When {@code LICENCE}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions); when 'LICENCE'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector_whenLicence() {
+    // Arrange
+    when(assessmentRatingDao.findBySelectorForDefinitions(
+            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenReturn(new HashSet<>());
+    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
+        assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+            EntityKind.LICENCE,
+            joiningEntityKindResult
+                .addAllEntityLifecycleStatuses(new ArrayList<>())
+                .scope(HierarchyQueryScope.EXACT)
+                .build());
+
+    // Assert
+    verify(assessmentDefinitionDao)
+        .findPrimaryDefinitionsForKind(
+            eq(EntityKind.LOGICAL_DATA_FLOW_DATA_TYPE_DECORATOR), isA(Optional.class));
+    verify(assessmentRatingDao)
+        .findBySelectorForDefinitions(isA(GenericSelector.class), isA(Set.class));
+    verify(ratingSchemeDAO).findRatingSchemeItemsByIds(isA(Set.class));
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector instanceof ImmutableAssessmentsView);
+    assertTrue(actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItemsById().isEmpty());
+    Set<AssessmentDefinition> assessmentDefinitionsResult =
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentDefinitions();
+    assertTrue(assessmentDefinitionsResult.isEmpty());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.assessmentRatings());
+    assertSame(
+        assessmentDefinitionsResult,
+        actualPrimaryAssessmentsViewForKindAndSelector.ratingSchemeItems());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}.
+   *
+   * <ul>
+   *   <li>When {@code LOGICAL_DATA_FLOW}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AssessmentRatingService#getPrimaryAssessmentsViewForKindAndSelector(EntityKind,
+   * IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions); when 'LOGICAL_DATA_FLOW'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "AssessmentsView AssessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(EntityKind, IdSelectionOptions)"
+  })
+  void testGetPrimaryAssessmentsViewForKindAndSelector_whenLogicalDataFlow() {
+    // Arrange
+    when(assessmentRatingDao.findBySelectorForDefinitions(
+            Mockito.<GenericSelector>any(), Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+    when(assessmentDefinitionDao.findPrimaryDefinitionsForKind(
+            Mockito.<EntityKind>any(), Mockito.<Optional<EntityReference>>any()))
+        .thenReturn(new HashSet<>());
+    when(ratingSchemeDAO.findRatingSchemeItemsByIds(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashSet<>());
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    AssessmentsView actualPrimaryAssessmentsViewForKindAndSelector =
+        assessmentRatingService.getPrimaryAssessmentsViewForKindAndSelector(
+            EntityKind.LOGICAL_DATA_FLOW,
             joiningEntityKindResult
                 .addAllEntityLifecycleStatuses(new ArrayList<>())
                 .scope(HierarchyQueryScope.EXACT)
@@ -13228,20 +13020,19 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#rippleAll()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code 42}.
-   *   <li>Then return longValue is zero.
+   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code
+   *       job.RIPPLE_ASSESSMENTS.}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingService#rippleAll()}
    */
   @Test
   @DisplayName(
-      "Test rippleAll(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is '42'; then return longValue is zero")
+      "Test rippleAll(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is 'job.RIPPLE_ASSESSMENTS.'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Long AssessmentRatingService.rippleAll()"})
-  void testRippleAll_givenHashMapJobRippleAssessmentsIs42_thenReturnLongValueIsZero()
-      throws SQLException {
+  void testRippleAll_givenHashMapJobRippleAssessmentsIsJobRippleAssessments() throws SQLException {
     // Arrange
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
@@ -13250,7 +13041,7 @@ class AssessmentRatingServiceDiffblueTest {
     DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.SQL99);
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "42");
+    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -13313,6 +13104,113 @@ class AssessmentRatingServiceDiffblueTest {
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> assessmentRatingService.rippleAll());
     verify(assessmentRatingRippler).findRippleConfig();
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#findRippleConfig()}.
+   *
+   * <p>Method under test: {@link AssessmentRatingService#findRippleConfig()}
+   */
+  @Test
+  @DisplayName("Test findRippleConfig()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
+  void testFindRippleConfig() {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
+
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            mock(AssessmentRatingPermissionChecker.class),
+            rippler);
+
+    // Act
+    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
+        assessmentRatingService.findRippleConfig();
+
+    // Assert
+    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
+    assertTrue(actualFindRippleConfigResult.isEmpty());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#findRippleConfig()}.
+   *
+   * <p>Method under test: {@link AssessmentRatingService#findRippleConfig()}
+   */
+  @Test
+  @DisplayName("Test findRippleConfig()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
+  void testFindRippleConfig2() {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
+    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
+
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            mock(AssessmentRatingPermissionChecker.class),
+            rippler);
+
+    // Act
+    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
+        assessmentRatingService.findRippleConfig();
+
+    // Assert
+    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
+    assertTrue(actualFindRippleConfigResult.isEmpty());
   }
 
   /**
@@ -13412,6 +13310,67 @@ class AssessmentRatingServiceDiffblueTest {
   void testFindRippleConfig_givenHashMapIfAbsentJobRippleAssessmentsIs42() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
+    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "42");
+
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
+    AssessmentRatingRippler rippler =
+        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
+    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
+    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
+    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    AssessmentRatingService assessmentRatingService =
+        new AssessmentRatingService(
+            assessmentRatingDao,
+            assessmentDefinitionDao,
+            ratingSchemeDAO,
+            changeLogService,
+            mock(AssessmentRatingPermissionChecker.class),
+            rippler);
+
+    // Act
+    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
+        assessmentRatingService.findRippleConfig();
+
+    // Assert
+    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
+    assertTrue(actualFindRippleConfigResult.isEmpty());
+  }
+
+  /**
+   * Test {@link AssessmentRatingService#findRippleConfig()}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} IfAbsent {@code job.RIPPLE_ASSESSMENTS.} is {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AssessmentRatingService#findRippleConfig()}
+   */
+  @Test
+  @DisplayName(
+      "Test findRippleConfig(); given HashMap() IfAbsent 'job.RIPPLE_ASSESSMENTS.' is '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
+  void testFindRippleConfig_givenHashMapIfAbsentJobRippleAssessmentsIs422() {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
     stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "42");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
@@ -13470,7 +13429,7 @@ class AssessmentRatingServiceDiffblueTest {
   void testFindRippleConfig_givenHashMapIfAbsentJobRippleAssessmentsIsEmptyString() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
     stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
@@ -13515,66 +13474,7 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#findRippleConfig()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code 42}.
-   *   <li>Then calls {@link SettingsDao#indexByPrefix(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AssessmentRatingService#findRippleConfig()}
-   */
-  @Test
-  @DisplayName(
-      "Test findRippleConfig(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is '42'; then calls indexByPrefix(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
-  void testFindRippleConfig_givenHashMapJobRippleAssessmentsIs42_thenCallsIndexByPrefix() {
-    // Arrange
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "42");
-
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
-    AssessmentRatingRippler rippler =
-        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
-    AssessmentRatingDao assessmentRatingDao = mock(AssessmentRatingDao.class);
-    AssessmentDefinitionDao assessmentDefinitionDao = mock(AssessmentDefinitionDao.class);
-    RatingSchemeDAO ratingSchemeDAO = mock(RatingSchemeDAO.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    AssessmentRatingService assessmentRatingService =
-        new AssessmentRatingService(
-            assessmentRatingDao,
-            assessmentDefinitionDao,
-            ratingSchemeDAO,
-            changeLogService,
-            mock(AssessmentRatingPermissionChecker.class),
-            rippler);
-
-    // Act
-    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
-        assessmentRatingService.findRippleConfig();
-
-    // Assert
-    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
-    assertTrue(actualFindRippleConfigResult.isEmpty());
-  }
-
-  /**
-   * Test {@link AssessmentRatingService#findRippleConfig()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code ^job.RIPPLE_ASSESSMENTS.} is {@code
+   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code
    *       job.RIPPLE_ASSESSMENTS.}.
    * </ul>
    *
@@ -13582,15 +13482,14 @@ class AssessmentRatingServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test findRippleConfig(); given HashMap() '^job.RIPPLE_ASSESSMENTS.' is 'job.RIPPLE_ASSESSMENTS.'")
+      "Test findRippleConfig(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is 'job.RIPPLE_ASSESSMENTS.'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
   void testFindRippleConfig_givenHashMapJobRippleAssessmentsIsJobRippleAssessments() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
-    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "42");
+    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -13634,22 +13533,24 @@ class AssessmentRatingServiceDiffblueTest {
    * Test {@link AssessmentRatingService#findRippleConfig()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code jobURIPPLE_ASSESSMENTSU} is {@code 42}.
+   *   <li>Given {@link HashMap#HashMap()} {@code jobxRIPPLE_ASSESSMENTSx} is {@code
+   *       jobxRIPPLE_ASSESSMENTSx}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingService#findRippleConfig()}
    */
   @Test
-  @DisplayName("Test findRippleConfig(); given HashMap() 'jobURIPPLE_ASSESSMENTSU' is '42'")
+  @DisplayName(
+      "Test findRippleConfig(); given HashMap() 'jobxRIPPLE_ASSESSMENTSx' is 'jobxRIPPLE_ASSESSMENTSx'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set AssessmentRatingService.findRippleConfig()"})
-  void testFindRippleConfig_givenHashMapJobURIPPLEAssessmentsuIs42() {
+  void testFindRippleConfig_givenHashMapJobxRIPPLEASSESSMENTSxIsJobxRIPPLEASSESSMENTSx() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("jobURIPPLE_ASSESSMENTSU", "42");
-    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
-    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "42");
+    stringStringMap.put("jobxRIPPLE_ASSESSMENTSx", "jobxRIPPLE_ASSESSMENTSx");
+    stringStringMap.put("^job.RIPPLE_ASSESSMENTS.", "^job.RIPPLE_ASSESSMENTS.");
+    stringStringMap.putIfAbsent("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);

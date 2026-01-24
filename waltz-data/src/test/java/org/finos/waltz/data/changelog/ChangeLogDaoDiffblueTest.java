@@ -136,7 +136,7 @@ class ChangeLogDaoDiffblueTest {
         Optional.of(
             java.util.Date.from(
                 LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceResult =
@@ -212,7 +212,7 @@ class ChangeLogDaoDiffblueTest {
             .name("Name")
             .build();
     Optional<java.util.Date> date = Optional.empty();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceResult =
@@ -272,7 +272,7 @@ class ChangeLogDaoDiffblueTest {
         Optional.of(
             java.util.Date.from(
                 LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceResult =
@@ -336,7 +336,7 @@ class ChangeLogDaoDiffblueTest {
         Optional.of(
             java.util.Date.from(
                 LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceResult =
@@ -399,7 +399,7 @@ class ChangeLogDaoDiffblueTest {
             .name("Name")
             .build();
     Optional<java.util.Date> date = Optional.empty();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceResult =
@@ -467,7 +467,7 @@ class ChangeLogDaoDiffblueTest {
     when(ref.kind()).thenReturn(EntityKind.ALL);
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceForDateRangeResult =
@@ -542,7 +542,7 @@ class ChangeLogDaoDiffblueTest {
             .build();
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceForDateRangeResult =
@@ -601,7 +601,7 @@ class ChangeLogDaoDiffblueTest {
             .build();
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceForDateRangeResult =
@@ -665,7 +665,7 @@ class ChangeLogDaoDiffblueTest {
             .build();
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceForDateRangeResult =
@@ -720,7 +720,7 @@ class ChangeLogDaoDiffblueTest {
     DSLContext dsl = mock(DSLContext.class);
     when(dsl.select((SelectFieldOrAsterisk[]) Mockito.any())).thenReturn(selectSelectStep);
     ChangeLogDao changeLogDao = new ChangeLogDao(dsl);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByUserResult = changeLogDao.findByUser("janedoe", limit);
@@ -1504,7 +1504,7 @@ class ChangeLogDaoDiffblueTest {
 
     ChangeLog changeLog = mock(ChangeLog.class);
     when(changeLog.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(changeLog.childId()).thenReturn(ofResult);
     Optional<EntityKind> ofResult2 = Optional.of(EntityKind.ALL);
     when(changeLog.childKind()).thenReturn(ofResult2);
@@ -1584,7 +1584,7 @@ class ChangeLogDaoDiffblueTest {
 
     ChangeLog changeLog = mock(ChangeLog.class);
     when(changeLog.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(changeLog.childId()).thenReturn(ofResult);
     Optional<EntityKind> ofResult2 = Optional.of(EntityKind.ALL);
     when(changeLog.childKind()).thenReturn(ofResult2);
@@ -1611,7 +1611,7 @@ class ChangeLogDaoDiffblueTest {
         .prepareStatement(
             "insert into \"change_log\" (\"message\", \"parent_id\", \"parent_kind\", \"user_id\", \"severity\", \"child_kind\", \"child_id\", \"operation\", \"created_at\") values (cast(? as varchar), cast(? as bigint), cast(? as varchar), cast(? as varchar), cast(? as varchar), cast(? as varchar), cast(? as bigint), cast(? as varchar), cast(? as datetime))");
     verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(9), isA(Timestamp.class));
     verify(preparedStatement).close();
@@ -1662,7 +1662,7 @@ class ChangeLogDaoDiffblueTest {
 
     ChangeLog changeLog = mock(ChangeLog.class);
     when(changeLog.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(changeLog.childId()).thenReturn(ofResult);
     Optional<EntityKind> ofResult2 = Optional.of(EntityKind.ALL);
     when(changeLog.childKind()).thenReturn(ofResult2);
@@ -1689,7 +1689,7 @@ class ChangeLogDaoDiffblueTest {
         .prepareStatement(
             "insert into \"change_log\" (\"message\", \"parent_id\", \"parent_kind\", \"user_id\", \"severity\", \"child_kind\", \"child_id\", \"operation\", \"created_at\") values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(9), isA(Timestamp.class));
     verify(preparedStatement).close();

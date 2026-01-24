@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import org.jooq.lambda.tuple.Tuple;
+import org.jooq.lambda.tuple.Tuple1;
+import org.jooq.lambda.tuple.Tuple10;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -47,29 +49,6 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#isEmpty(Optional)} with {@code maybeString}.
    *
    * <ul>
-   *   <li>When of {@code 42}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#isEmpty(Optional)}
-   */
-  @Test
-  @DisplayName("Test isEmpty(Optional) with 'maybeString'; when of '42'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean StringUtilities.isEmpty(Optional)"})
-  void testIsEmptyWithMaybeString_whenOf42_thenReturnFalse() {
-    // Arrange
-    Optional<String> maybeString = Optional.of("42");
-
-    // Act and Assert
-    assertFalse(StringUtilities.isEmpty(maybeString));
-  }
-
-  /**
-   * Test {@link StringUtilities#isEmpty(Optional)} with {@code maybeString}.
-   *
-   * <ul>
    *   <li>When of empty string.
    *   <li>Then return {@code true}.
    * </ul>
@@ -88,6 +67,29 @@ class StringUtilitiesDiffblueTest {
 
     // Act and Assert
     assertTrue(StringUtilities.isEmpty(maybeString));
+  }
+
+  /**
+   * Test {@link StringUtilities#isEmpty(Optional)} with {@code maybeString}.
+   *
+   * <ul>
+   *   <li>When of {@code foo}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#isEmpty(Optional)}
+   */
+  @Test
+  @DisplayName("Test isEmpty(Optional) with 'maybeString'; when of 'foo'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean StringUtilities.isEmpty(Optional)"})
+  void testIsEmptyWithMaybeString_whenOfFoo_thenReturnFalse() {
+    // Arrange
+    Optional<String> maybeString = Optional.of("foo");
+
+    // Act and Assert
+    assertFalse(StringUtilities.isEmpty(maybeString));
   }
 
   /**
@@ -1231,7 +1233,7 @@ class StringUtilitiesDiffblueTest {
         StringUtilities.mkPath(
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path",
-            "/");
+            "///");
 
     // Assert
     assertEquals(
@@ -1253,7 +1255,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Predicate must be provided", "Cannot convert empty or null segments to path", "/");
+            "Predicate must be provided", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -1275,7 +1277,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/",
+            "///",
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path");
 
@@ -1299,7 +1301,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "Predicate must be provided");
+            "///", "Cannot convert empty or null segments to path", "Predicate must be provided");
 
     // Assert
     assertEquals(
@@ -1321,7 +1323,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Predicate must be provided", "/");
+            "Cannot convert empty or null segments to path", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(
@@ -1345,11 +1347,11 @@ class StringUtilitiesDiffblueTest {
         StringUtilities.mkPath(
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path",
-            "/+");
+            "/");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path/+",
+        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -1367,11 +1369,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Predicate must be provided", "Cannot convert empty or null segments to path", "/+");
+            "Predicate must be provided", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        "Predicate must be provided/Cannot convert empty or null segments to path/+",
+        "Predicate must be provided/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -1389,11 +1391,13 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Predicate must be provided", "Cannot convert empty or null segments to path");
+            "/",
+            "Cannot convert empty or null segments to path",
+            "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
-        "/Predicate must be provided/Cannot convert empty or null segments to path",
+        "/Cannot convert empty or null segments to path/Cannot convert empty or null segments to path",
         actualMkPathResult);
   }
 
@@ -1411,13 +1415,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path",
-            "/",
-            "Cannot convert empty or null segments to path");
+            "/", "Cannot convert empty or null segments to path", "Predicate must be provided");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path",
+        "/Cannot convert empty or null segments to path/Predicate must be provided",
         actualMkPathResult);
   }
 
@@ -1435,11 +1437,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", "Predicate must be provided");
+            "///", "Predicate must be provided", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Predicate must be provided",
+        "/Predicate must be provided/Cannot convert empty or null segments to path",
         actualMkPathResult);
   }
 
@@ -1461,6 +1463,54 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
+        StringUtilities.mkPath("42", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("42/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /42/Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/42/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "42", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/42/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code 42/Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '42/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange and Act
+    String actualMkPathResult =
         StringUtilities.mkPath("42", "Cannot convert empty or null segments to path", "/");
 
     // Assert
@@ -1471,24 +1521,86 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code 42/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code /Array must be provided}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '42/Cannot convert empty or null segments to path/+'")
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath2() {
+  void testMkPath_thenReturnArrayMustBeProvided() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "/Array must be provided", StringUtilities.mkPath("///", "Array must be provided"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("42", "Cannot convert empty or null segments to path", "/+");
+    String actualMkPathResult = StringUtilities.mkPath("///", "Array must be provided", "///");
 
     // Assert
-    assertEquals("42/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Array must be provided", "/");
+
+    // Assert
+    assertEquals("/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Array must be provided", "42");
+
+    // Assert
+    assertEquals("/Array must be provided/42", actualMkPathResult);
   }
 
   /**
@@ -1509,7 +1621,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Array must be provided", "Array must be provided", "/");
+        StringUtilities.mkPath("Array must be provided", "Array must be provided", "///");
 
     // Assert
     assertEquals("Array must be provided/Array must be provided/", actualMkPathResult);
@@ -1533,7 +1645,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Array must be provided", "Array must be provided");
+        StringUtilities.mkPath("///", "Array must be provided", "Array must be provided");
 
     // Assert
     assertEquals("/Array must be provided/Array must be provided", actualMkPathResult);
@@ -1556,7 +1668,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Array must be provided", ": Array was null", "/");
+        StringUtilities.mkPath("Array must be provided", ": Array was null", "///");
 
     // Assert
     assertEquals("Array must be provided/: Array was null/", actualMkPathResult);
@@ -1579,7 +1691,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Array must be provided", ": Array was null");
+        StringUtilities.mkPath("///", "Array must be provided", ": Array was null");
 
     // Assert
     assertEquals("/Array must be provided/: Array was null", actualMkPathResult);
@@ -1605,7 +1717,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Array must be provided", "Cannot convert empty or null segments to path", "/");
+            "Array must be provided", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -1618,14 +1730,14 @@ class StringUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>Then return {@code Array must be provided/Cannot convert empty or null segments to
-   *       path/+}.
+   *       path/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Array must be provided/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return 'Array must be provided/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -1633,11 +1745,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Array must be provided", "Cannot convert empty or null segments to path", "/+");
+            "Array must be provided", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        "Array must be provided/Cannot convert empty or null segments to path/+",
+        "Array must be provided/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -1661,7 +1773,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Array must be provided", "Cannot convert empty or null segments to path");
+            "///", "Array must be provided", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -1687,7 +1799,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Array must be provided", "Predicate must be provided", "/");
+        StringUtilities.mkPath("Array must be provided", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Array must be provided/Predicate must be provided/", actualMkPathResult);
@@ -1711,7 +1823,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Array must be provided", "Predicate must be provided");
+        StringUtilities.mkPath("///", "Array must be provided", "Predicate must be provided");
 
     // Assert
     assertEquals("/Array must be provided/Predicate must be provided", actualMkPathResult);
@@ -1734,7 +1846,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Array must be provided", ": Predicate was null", "/");
+        StringUtilities.mkPath("Array must be provided", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Array must be provided/: Predicate was null/", actualMkPathResult);
@@ -1757,10 +1869,32 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Array must be provided", ": Predicate was null");
+        StringUtilities.mkPath("///", "Array must be provided", ": Predicate was null");
 
     // Assert
     assertEquals("/Array must be provided/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvidedSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Array must be provided", "Segs");
+
+    // Assert
+    assertEquals("/Array must be provided/Segs", actualMkPathResult);
   }
 
   /**
@@ -1780,7 +1914,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Array must be provided", "</th></tr></thead>", "/");
+        StringUtilities.mkPath("Array must be provided", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("Array must be provided/</th></tr></thead>/", actualMkPathResult);
@@ -1803,7 +1937,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedThTrThead2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Array must be provided", "</th></tr></thead>");
+        StringUtilities.mkPath("///", "Array must be provided", "</th></tr></thead>");
 
     // Assert
     assertEquals("/Array must be provided/</th></tr></thead>", actualMkPathResult);
@@ -1826,10 +1960,33 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Array was null", "Array must be provided", "/");
+        StringUtilities.mkPath(": Array was null", "Array must be provided", "///");
 
     // Assert
     assertEquals(": Array was null/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Array was null/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Array was null/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayWasNullArrayMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Array was null", "Array must be provided");
+
+    // Assert
+    assertEquals("/: Array was null/Array must be provided", actualMkPathResult);
   }
 
   /**
@@ -1851,7 +2008,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            ": Array was null", "Cannot convert empty or null segments to path", "/");
+            ": Array was null", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -1862,14 +2019,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code : Array was null/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code : Array was null/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return ': Array was null/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return ': Array was null/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -1877,11 +2034,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            ": Array was null", "Cannot convert empty or null segments to path", "/+");
+            ": Array was null", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        ": Array was null/Cannot convert empty or null segments to path/+", actualMkPathResult);
+        ": Array was null/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -1903,7 +2060,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", ": Array was null", "Cannot convert empty or null segments to path");
+            "///", ": Array was null", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -1927,7 +2084,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Array was null", "Predicate must be provided", "/");
+        StringUtilities.mkPath(": Array was null", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(": Array was null/Predicate must be provided/", actualMkPathResult);
@@ -1950,7 +2107,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Array was null", "Predicate must be provided");
+        StringUtilities.mkPath("///", ": Array was null", "Predicate must be provided");
 
     // Assert
     assertEquals("/: Array was null/Predicate must be provided", actualMkPathResult);
@@ -1973,10 +2130,33 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Array was null", ": Predicate was null", "/");
+        StringUtilities.mkPath(": Array was null", ": Predicate was null", "///");
 
     // Assert
     assertEquals(": Array was null/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Array was null/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Array was null/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayWasNullPredicateWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Array was null", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Array was null/: Predicate was null", actualMkPathResult);
   }
 
   /**
@@ -1998,7 +2178,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/Cannot convert empty or null segments to path",
-        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path"));
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path"));
   }
 
   /**
@@ -2019,7 +2199,77 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/");
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "/Cannot convert empty or null segments to path",
+        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath4() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath5() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -2040,13 +2290,85 @@ class StringUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath3() {
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath6() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "/");
+        StringUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("/+/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath7() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath8() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "///", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath9() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "/", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
   }
 
   /**
@@ -2064,153 +2386,13 @@ class StringUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/+");
-
-    // Assert
-    assertEquals("/Cannot convert empty or null segments to path/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath5() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/",
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath6() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/+",
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/+"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath7() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/", "/");
-
-    // Assert
-    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath8() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/+", "/");
-
-    // Assert
-    assertEquals("Cannot convert empty or null segments to path/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code /+/Cannot convert empty or null segments to path/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '/+/Cannot convert empty or null segments to path/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath9() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "/+");
-
-    // Assert
-    assertEquals("/+/Cannot convert empty or null segments to path/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code /+/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '/+/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath10() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "/+", "Cannot convert empty or null segments to path");
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path", "/+");
 
     // Assert
-    assertEquals("/+/Cannot convert empty or null segments to path", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/+", actualMkPathResult);
   }
 
   /**
@@ -2229,12 +2411,34 @@ class StringUtilitiesDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath11() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/+",
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/+"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /+/Cannot convert empty or null segments to path/+}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/+/Cannot convert empty or null segments to path/+'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath12() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/", "/+");
+        StringUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "/+");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/+/Cannot convert empty or null segments to path/+", actualMkPathResult);
   }
 
   /**
@@ -2255,7 +2459,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath42() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "42");
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path", "42");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/42", actualMkPathResult);
@@ -2279,7 +2483,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath422() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "42", "/");
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "42", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/42/", actualMkPathResult);
@@ -2289,24 +2493,24 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/42}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/42}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/42'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath423() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/", "42");
+        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "42");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/42", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/42", actualMkPathResult);
   }
 
   /**
@@ -2329,7 +2533,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "Array must be provided");
+            "///", "Cannot convert empty or null segments to path", "Array must be provided");
 
     // Assert
     assertEquals(
@@ -2357,7 +2561,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Array must be provided", "/");
+            "Cannot convert empty or null segments to path", "Array must be provided", "///");
 
     // Assert
     assertEquals(
@@ -2369,14 +2573,15 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Array must be provided}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/Array must be
+   *       provided}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Array must be provided'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/Array must be provided'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -2384,38 +2589,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", "Array must be provided");
+            "/", "Cannot convert empty or null segments to path", "Array must be provided");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Array must be
-   *       provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Array must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathArrayMustBeProvided4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Array must be provided", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/Array must be provided/+",
+        "/Cannot convert empty or null segments to path/Array must be provided",
         actualMkPathResult);
   }
 
@@ -2438,7 +2616,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", ": Array was null");
+            "///", "Cannot convert empty or null segments to path", ": Array was null");
 
     // Assert
     assertEquals(
@@ -2464,7 +2642,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Array was null", "/");
+            "Cannot convert empty or null segments to path", ": Array was null", "///");
 
     // Assert
     assertEquals(
@@ -2475,14 +2653,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Array was null}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/: Array was null}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Array was null'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/: Array was null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -2490,37 +2668,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", ": Array was null");
+            "/", "Cannot convert empty or null segments to path", ": Array was null");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Array was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Array was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathArrayWasNull4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Array was null", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/: Array was null/+", actualMkPathResult);
+        "/Cannot convert empty or null segments to path/: Array was null", actualMkPathResult);
   }
 
   /**
@@ -2542,37 +2694,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "java.lang.Boolean");
+            "///", "Cannot convert empty or null segments to path", "java.lang.Boolean");
 
     // Assert
     assertEquals(
         "/Cannot convert empty or null segments to path/java.lang.Boolean", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/java.lang.Boolean/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/java.lang.Boolean/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathJavaLangBoolean2() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "java.lang.Boolean", "/");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/java.lang.Boolean/", actualMkPathResult);
   }
 
   /**
@@ -2594,7 +2720,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", ": Predicate was null");
+            "///", "Cannot convert empty or null segments to path", ": Predicate was null");
 
     // Assert
     assertEquals(
@@ -2620,7 +2746,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Predicate was null", "/");
+            "Cannot convert empty or null segments to path", ": Predicate was null", "///");
 
     // Assert
     assertEquals(
@@ -2631,14 +2757,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Predicate was null}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/: Predicate was null}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Predicate was null'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/: Predicate was null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -2646,37 +2772,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", ": Predicate was null");
+            "/", "Cannot convert empty or null segments to path", ": Predicate was null");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Predicate was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Predicate was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathPredicateWasNull4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Predicate was null", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/: Predicate was null/+", actualMkPathResult);
+        "/Cannot convert empty or null segments to path/: Predicate was null", actualMkPathResult);
   }
 
   /**
@@ -2697,7 +2797,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "Segs");
+        StringUtilities.mkPath("///", "Cannot convert empty or null segments to path", "Segs");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/Segs", actualMkPathResult);
@@ -2721,7 +2821,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "Segs", "/");
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "Segs", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/Segs/", actualMkPathResult);
@@ -2731,24 +2831,24 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Segs}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/Segs}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Segs'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/Segs'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs3() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/", "Segs");
+        StringUtilities.mkPath("/", "Cannot convert empty or null segments to path", "Segs");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/Segs", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/Segs", actualMkPathResult);
   }
 
   /**
@@ -2770,7 +2870,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "</th></tr></thead>");
+            "///", "Cannot convert empty or null segments to path", "</th></tr></thead>");
 
     // Assert
     assertEquals(
@@ -2796,7 +2896,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "</th></tr></thead>", "/");
+            "Cannot convert empty or null segments to path", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals(
@@ -2807,14 +2907,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/</th> </tr> </thead>}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/</th> </tr> </thead>}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/</th></tr></thead>'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/</th></tr></thead>'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -2822,11 +2922,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", "</th></tr></thead>");
+            "/", "Cannot convert empty or null segments to path", "</th></tr></thead>");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/</th></tr></thead>", actualMkPathResult);
+        "/Cannot convert empty or null segments to path/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -2846,7 +2946,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnJavaLangBooleanArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", "Array must be provided", "/");
+        StringUtilities.mkPath("java.lang.Boolean", "Array must be provided", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/Array must be provided/", actualMkPathResult);
@@ -2869,7 +2969,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnJavaLangBooleanArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", ": Array was null", "/");
+        StringUtilities.mkPath("java.lang.Boolean", ": Array was null", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/: Array was null/", actualMkPathResult);
@@ -2894,7 +2994,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "java.lang.Boolean", "Cannot convert empty or null segments to path", "/");
+            "java.lang.Boolean", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -2918,7 +3018,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnJavaLangBooleanJavaLangBoolean() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", "java.lang.Boolean", "/");
+        StringUtilities.mkPath("java.lang.Boolean", "java.lang.Boolean", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/java.lang.Boolean/", actualMkPathResult);
@@ -2941,7 +3041,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnJavaLangBooleanPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", "Predicate must be provided", "/");
+        StringUtilities.mkPath("java.lang.Boolean", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/Predicate must be provided/", actualMkPathResult);
@@ -2964,10 +3064,96 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnJavaLangBooleanPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", ": Predicate was null", "/");
+        StringUtilities.mkPath("java.lang.Boolean", ": Predicate was null", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "/Predicate must be provided", StringUtilities.mkPath("///", "Predicate must be provided"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Predicate must be provided", "///");
+
+    // Assert
+    assertEquals("/Predicate must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided4() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Predicate must be provided", "/");
+
+    // Assert
+    assertEquals("/Predicate must be provided/", actualMkPathResult);
   }
 
   /**
@@ -2984,32 +3170,10 @@ class StringUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided() {
+  void testMkPath_thenReturnPredicateMustBeProvided5() {
     // Arrange, Act and Assert
     assertEquals(
         "Predicate must be provided/+", StringUtilities.mkPath("Predicate must be provided", "/+"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Predicate must be provided/+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); then return 'Predicate must be provided/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided2() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "/+", "/");
-
-    // Assert
-    assertEquals("Predicate must be provided/+/", actualMkPathResult);
   }
 
   /**
@@ -3026,9 +3190,9 @@ class StringUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided3() {
+  void testMkPath_thenReturnPredicateMustBeProvided6() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "Predicate must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("/+/Predicate must be provided/", actualMkPathResult);
@@ -3050,7 +3214,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Predicate must be provided", "42");
+    String actualMkPathResult = StringUtilities.mkPath("///", "Predicate must be provided", "42");
 
     // Assert
     assertEquals("/Predicate must be provided/42", actualMkPathResult);
@@ -3074,7 +3238,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Predicate must be provided", "Array must be provided", "/");
+        StringUtilities.mkPath("Predicate must be provided", "Array must be provided", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Array must be provided/", actualMkPathResult);
@@ -3098,7 +3262,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Predicate must be provided", "Array must be provided");
+        StringUtilities.mkPath("///", "Predicate must be provided", "Array must be provided");
 
     // Assert
     assertEquals("/Predicate must be provided/Array must be provided", actualMkPathResult);
@@ -3121,7 +3285,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Predicate must be provided", ": Array was null", "/");
+        StringUtilities.mkPath("Predicate must be provided", ": Array was null", "///");
 
     // Assert
     assertEquals("Predicate must be provided/: Array was null/", actualMkPathResult);
@@ -3144,7 +3308,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Predicate must be provided", ": Array was null");
+        StringUtilities.mkPath("///", "Predicate must be provided", ": Array was null");
 
     // Assert
     assertEquals("/Predicate must be provided/: Array was null", actualMkPathResult);
@@ -3168,7 +3332,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Predicate must be provided", "Predicate must be provided", "/");
+        StringUtilities.mkPath("Predicate must be provided", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Predicate must be provided/", actualMkPathResult);
@@ -3192,7 +3356,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Predicate must be provided", "Predicate must be provided");
+        StringUtilities.mkPath("///", "Predicate must be provided", "Predicate must be provided");
 
     // Assert
     assertEquals("/Predicate must be provided/Predicate must be provided", actualMkPathResult);
@@ -3216,7 +3380,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Predicate must be provided", ": Predicate was null", "/");
+        StringUtilities.mkPath("Predicate must be provided", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Predicate must be provided/: Predicate was null/", actualMkPathResult);
@@ -3240,7 +3404,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Predicate must be provided", ": Predicate was null");
+        StringUtilities.mkPath("///", "Predicate must be provided", ": Predicate was null");
 
     // Assert
     assertEquals("/Predicate must be provided/: Predicate was null", actualMkPathResult);
@@ -3262,7 +3426,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "Segs", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Segs/", actualMkPathResult);
@@ -3284,7 +3448,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedSegs2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Predicate must be provided", "Segs");
+    String actualMkPathResult = StringUtilities.mkPath("///", "Predicate must be provided", "Segs");
 
     // Assert
     assertEquals("/Predicate must be provided/Segs", actualMkPathResult);
@@ -3308,7 +3472,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Predicate must be provided", "</th></tr></thead>", "/");
+        StringUtilities.mkPath("Predicate must be provided", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("Predicate must be provided/</th></tr></thead>/", actualMkPathResult);
@@ -3332,7 +3496,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedThTrThead2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", "Predicate must be provided", "</th></tr></thead>");
+        StringUtilities.mkPath("///", "Predicate must be provided", "</th></tr></thead>");
 
     // Assert
     assertEquals("/Predicate must be provided/</th></tr></thead>", actualMkPathResult);
@@ -3355,7 +3519,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Predicate was null", "Array must be provided", "/");
+        StringUtilities.mkPath(": Predicate was null", "Array must be provided", "///");
 
     // Assert
     assertEquals(": Predicate was null/Array must be provided/", actualMkPathResult);
@@ -3378,7 +3542,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Predicate was null", "Array must be provided");
+        StringUtilities.mkPath("///", ": Predicate was null", "Array must be provided");
 
     // Assert
     assertEquals("/: Predicate was null/Array must be provided", actualMkPathResult);
@@ -3401,10 +3565,33 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Predicate was null", ": Array was null", "/");
+        StringUtilities.mkPath(": Predicate was null", ": Array was null", "///");
 
     // Assert
     assertEquals(": Predicate was null/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Predicate was null/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Predicate was null/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateWasNullArrayWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Predicate was null", ": Array was null");
+
+    // Assert
+    assertEquals("/: Predicate was null/: Array was null", actualMkPathResult);
   }
 
   /**
@@ -3426,7 +3613,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            ": Predicate was null", "Cannot convert empty or null segments to path", "/");
+            ": Predicate was null", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -3437,14 +3624,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code : Predicate was null/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code : Predicate was null/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return ': Predicate was null/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return ': Predicate was null/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -3452,11 +3639,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            ": Predicate was null", "Cannot convert empty or null segments to path", "/+");
+            ": Predicate was null", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        ": Predicate was null/Cannot convert empty or null segments to path/+", actualMkPathResult);
+        ": Predicate was null/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -3478,7 +3665,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", ": Predicate was null", "Cannot convert empty or null segments to path");
+            "///", ": Predicate was null", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -3503,7 +3690,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Predicate was null", "Predicate must be provided", "/");
+        StringUtilities.mkPath(": Predicate was null", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(": Predicate was null/Predicate must be provided/", actualMkPathResult);
@@ -3527,7 +3714,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Predicate was null", "Predicate must be provided");
+        StringUtilities.mkPath("///", ": Predicate was null", "Predicate must be provided");
 
     // Assert
     assertEquals("/: Predicate was null/Predicate must be provided", actualMkPathResult);
@@ -3550,7 +3737,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Predicate was null", ": Predicate was null", "/");
+        StringUtilities.mkPath(": Predicate was null", ": Predicate was null", "///");
 
     // Assert
     assertEquals(": Predicate was null/: Predicate was null/", actualMkPathResult);
@@ -3573,10 +3760,33 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Predicate was null", ": Predicate was null");
+        StringUtilities.mkPath("///", ": Predicate was null", ": Predicate was null");
 
     // Assert
     assertEquals("/: Predicate was null/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Predicate was null/</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Predicate was null/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateWasNullThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Predicate was null", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/: Predicate was null/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -3597,7 +3807,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/");
+        StringUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("Segs/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -3607,24 +3817,48 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Segs/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code /Segs/Cannot convert empty or null segments to path}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Segs/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return '/Segs/Cannot convert empty or null segments to path'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/+");
+        StringUtilities.mkPath("///", "Segs", "Cannot convert empty or null segments to path");
 
     // Assert
-    assertEquals("Segs/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/Segs/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code Segs/Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return 'Segs/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/");
+
+    // Assert
+    assertEquals("Segs/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -3643,7 +3877,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSegsPredicateMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "Predicate must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Segs/Predicate must be provided/", actualMkPathResult);
@@ -3684,7 +3918,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSlashPlusSignSlashPlusSignSlash() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "/+", "///");
 
     // Assert
     assertEquals("/+/+/", actualMkPathResult);
@@ -3707,10 +3941,33 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnThTrTheadArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("</th></tr></thead>", "Array must be provided", "/");
+        StringUtilities.mkPath("</th></tr></thead>", "Array must be provided", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /</th> </tr> </thead>/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/</th></tr></thead>/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnThTrTheadArrayMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "</th></tr></thead>", "Array must be provided");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/Array must be provided", actualMkPathResult);
   }
 
   /**
@@ -3732,7 +3989,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "</th></tr></thead>", "Cannot convert empty or null segments to path", "/");
+            "</th></tr></thead>", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -3758,7 +4015,7 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "/", "</th></tr></thead>", "Cannot convert empty or null segments to path");
+            "///", "</th></tr></thead>", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -3769,14 +4026,14 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code </th> </tr> </thead>/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code </th> </tr> </thead>/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return '</th></tr></thead>/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return '</th></tr></thead>/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
@@ -3784,11 +4041,11 @@ class StringUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         StringUtilities.mkPath(
-            "</th></tr></thead>", "Cannot convert empty or null segments to path", "/+");
+            "</th></tr></thead>", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        "</th></tr></thead>/Cannot convert empty or null segments to path/+", actualMkPathResult);
+        "</th></tr></thead>/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -3809,10 +4066,34 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_thenReturnThTrTheadPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("</th></tr></thead>", "Predicate must be provided", "/");
+        StringUtilities.mkPath("</th></tr></thead>", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/Predicate must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /</th> </tr> </thead>/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/</th></tr></thead>/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnThTrTheadPredicateMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "</th></tr></thead>", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/Predicate must be provided", actualMkPathResult);
   }
 
   /**
@@ -3832,7 +4113,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42And42_thenReturn4242() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "42", "///");
 
     // Assert
     assertEquals("42/42/", actualMkPathResult);
@@ -3856,7 +4137,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndArrayMustBeProvided_thenReturn42ArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "Array must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "Array must be provided", "///");
 
     // Assert
     assertEquals("42/Array must be provided/", actualMkPathResult);
@@ -3880,7 +4161,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndArrayWasNull_thenReturn42ArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", ": Array was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", ": Array was null", "///");
 
     // Assert
     assertEquals("42/: Array was null/", actualMkPathResult);
@@ -3904,7 +4185,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndPredicateMustBeProvided_thenReturn42PredicateMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "Predicate must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("42/Predicate must be provided/", actualMkPathResult);
@@ -3928,7 +4209,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndPredicateWasNull_thenReturn42PredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", ": Predicate was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", ": Predicate was null", "///");
 
     // Assert
     assertEquals("42/: Predicate was null/", actualMkPathResult);
@@ -3951,7 +4232,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndSegs_thenReturn42Segs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "Segs", "///");
 
     // Assert
     assertEquals("42/Segs/", actualMkPathResult);
@@ -3981,23 +4262,43 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code 42} and {@code /+}.
-   *   <li>Then return {@code 42/+/}.
+   *   <li>When {@code 42} and {@code ///}.
+   *   <li>Then return {@code 42/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when '42' and '/+'; then return '42/+/'")
+  @DisplayName("Test mkPath(String[]); when '42' and '///'; then return '42/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_when42AndSlashPlusSign_thenReturn422() {
+  void testMkPath_when42AndSlashSlashSlash_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals("42/", StringUtilities.mkPath("42", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code 42} and {@code ///}.
+   *   <li>Then return {@code 42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '42' and '///'; then return '42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_when42AndSlashSlashSlash_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "///", "///");
 
     // Assert
-    assertEquals("42/+/", actualMkPathResult);
+    assertEquals("42/", actualMkPathResult);
   }
 
   /**
@@ -4037,7 +4338,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndSlash_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "/", "///");
 
     // Assert
     assertEquals("42/", actualMkPathResult);
@@ -4061,7 +4362,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_when42AndThTrThead_thenReturn42ThTrThead() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("42", "</th></tr></thead>", "/");
+    String actualMkPathResult = StringUtilities.mkPath("42", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("42/</th></tr></thead>/", actualMkPathResult);
@@ -4085,7 +4386,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAnd42_thenReturnArrayMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "42", "///");
 
     // Assert
     assertEquals("Array must be provided/42/", actualMkPathResult);
@@ -4109,7 +4410,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAndSegs_thenReturnArrayMustBeProvidedSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "Segs", "///");
 
     // Assert
     assertEquals("Array must be provided/Segs/", actualMkPathResult);
@@ -4141,24 +4442,42 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code Array must be provided} and {@code /+}.
-   *   <li>Then return {@code Array must be provided/+/}.
+   *   <li>When {@code Array must be provided} and {@code ///}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName(
-      "Test mkPath(String[]); when 'Array must be provided' and '/+'; then return 'Array must be provided/+/'")
+  @DisplayName("Test mkPath(String[]); when 'Array must be provided' and '///'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenArrayMustBeProvidedAndSlashPlusSign_thenReturnArrayMustBeProvided2() {
+  void testMkPath_whenArrayMustBeProvidedAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Array must be provided/", StringUtilities.mkPath("Array must be provided", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Array must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Array must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenArrayMustBeProvidedAndSlashSlashSlash2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "///", "///");
 
     // Assert
-    assertEquals("Array must be provided/+/", actualMkPathResult);
+    assertEquals("Array must be provided/", actualMkPathResult);
   }
 
   /**
@@ -4200,7 +4519,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAndSlash_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Array must be provided", "/", "///");
 
     // Assert
     assertEquals("Array must be provided/", actualMkPathResult);
@@ -4224,7 +4543,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAnd42_thenReturnArrayWasNull42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "42", "///");
 
     // Assert
     assertEquals(": Array was null/42/", actualMkPathResult);
@@ -4248,7 +4567,8 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Array was null", ": Array was null", "/");
+    String actualMkPathResult =
+        StringUtilities.mkPath(": Array was null", ": Array was null", "///");
 
     // Assert
     assertEquals(": Array was null/: Array was null/", actualMkPathResult);
@@ -4272,7 +4592,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndSegs_thenReturnArrayWasNullSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "Segs", "///");
 
     // Assert
     assertEquals(": Array was null/Segs/", actualMkPathResult);
@@ -4303,24 +4623,45 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code : Array was null} and {@code /+}.
-   *   <li>Then return {@code : Array was null/+/}.
+   *   <li>When {@code : Array was null} and {@code ///}.
+   *   <li>Then return {@code : Array was null/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when ': Array was null' and '/+'; then return ': Array was null/+/'")
+      "Test mkPath(String[]); when ': Array was null' and '///'; then return ': Array was null/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenArrayWasNullAndSlashPlusSign_thenReturnArrayWasNull2() {
+  void testMkPath_whenArrayWasNullAndSlashSlashSlash_thenReturnArrayWasNull() {
+    // Arrange, Act and Assert
+    assertEquals(": Array was null/", StringUtilities.mkPath(": Array was null", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code : Array was null} and {@code ///}.
+   *   <li>Then return {@code : Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when ': Array was null' and '///'; then return ': Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenArrayWasNullAndSlashSlashSlash_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "///", "///");
 
     // Assert
-    assertEquals(": Array was null/+/", actualMkPathResult);
+    assertEquals(": Array was null/", actualMkPathResult);
   }
 
   /**
@@ -4362,7 +4703,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndSlash_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Array was null", "/", "///");
 
     // Assert
     assertEquals(": Array was null/", actualMkPathResult);
@@ -4387,10 +4728,102 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenArrayWasNullAndThTrThead_thenReturnArrayWasNullThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Array was null", "</th></tr></thead>", "/");
+        StringUtilities.mkPath(": Array was null", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals(": Array was null/</th></tr></thead>/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/",
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlash2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "/", "///");
+
+    // Assert
+    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/",
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlashSlashSlash2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("Cannot convert empty or null segments to path", "///", "///");
+
+    // Assert
+    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -4411,7 +4844,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenJavaLangBooleanAnd42_thenReturnJavaLangBoolean42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "42", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/42/", actualMkPathResult);
@@ -4435,7 +4868,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenJavaLangBooleanAndSegs_thenReturnJavaLangBooleanSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "Segs", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/Segs/", actualMkPathResult);
@@ -4445,21 +4878,45 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code java.lang.Boolean} and {@code /+}.
-   *   <li>Then return {@code java.lang.Boolean/+}.
+   *   <li>When {@code java.lang.Boolean} and {@code ///}.
+   *   <li>Then return {@code java.lang.Boolean/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when 'java.lang.Boolean' and '/+'; then return 'java.lang.Boolean/+'")
+      "Test mkPath(String[]); when 'java.lang.Boolean' and '///'; then return 'java.lang.Boolean/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenJavaLangBooleanAndSlashPlusSign_thenReturnJavaLangBoolean() {
+  void testMkPath_whenJavaLangBooleanAndSlashSlashSlash_thenReturnJavaLangBoolean() {
     // Arrange, Act and Assert
-    assertEquals("java.lang.Boolean/+", StringUtilities.mkPath("java.lang.Boolean", "/+"));
+    assertEquals("java.lang.Boolean/", StringUtilities.mkPath("java.lang.Boolean", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code java.lang.Boolean} and {@code ///}.
+   *   <li>Then return {@code java.lang.Boolean/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'java.lang.Boolean' and '///'; then return 'java.lang.Boolean/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenJavaLangBooleanAndSlashSlashSlash_thenReturnJavaLangBoolean2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "///", "///");
+
+    // Assert
+    assertEquals("java.lang.Boolean/", actualMkPathResult);
   }
 
   /**
@@ -4487,30 +4944,6 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code java.lang.Boolean} and {@code /}.
-   *   <li>Then return {@code java.lang.Boolean/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when 'java.lang.Boolean' and '/'; then return 'java.lang.Boolean/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenJavaLangBooleanAndSlash_thenReturnJavaLangBoolean2() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("java.lang.Boolean", "/", "/");
-
-    // Assert
-    assertEquals("java.lang.Boolean/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
    *   <li>When {@code java.lang.Boolean} and {@code </th> </tr> </thead>}.
    *   <li>Then return {@code java.lang.Boolean/</th> </tr> </thead>/}.
    * </ul>
@@ -4526,7 +4959,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenJavaLangBooleanAndThTrThead_thenReturnJavaLangBooleanThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("java.lang.Boolean", "</th></tr></thead>", "/");
+        StringUtilities.mkPath("java.lang.Boolean", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("java.lang.Boolean/</th></tr></thead>/", actualMkPathResult);
@@ -4550,10 +4983,52 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateMustBeProvidedAnd42_thenReturnPredicateMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "42", "///");
 
     // Assert
     assertEquals("Predicate must be provided/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Predicate must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Predicate must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateMustBeProvidedAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Predicate must be provided/", StringUtilities.mkPath("Predicate must be provided", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Predicate must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Predicate must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateMustBeProvidedAndSlashSlashSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "///", "///");
+
+    // Assert
+    assertEquals("Predicate must be provided/", actualMkPathResult);
   }
 
   /**
@@ -4596,7 +5071,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateMustBeProvidedAndSlash_thenReturnPredicateMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Predicate must be provided", "/", "///");
 
     // Assert
     assertEquals("Predicate must be provided/", actualMkPathResult);
@@ -4620,7 +5095,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAnd42_thenReturnPredicateWasNull42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "42", "///");
 
     // Assert
     assertEquals(": Predicate was null/42/", actualMkPathResult);
@@ -4644,7 +5119,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndSegs_thenReturnPredicateWasNullSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "Segs", "///");
 
     // Assert
     assertEquals(": Predicate was null/Segs/", actualMkPathResult);
@@ -4675,24 +5150,45 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code : Predicate was null} and {@code /+}.
-   *   <li>Then return {@code : Predicate was null/+/}.
+   *   <li>When {@code : Predicate was null} and {@code ///}.
+   *   <li>Then return {@code : Predicate was null/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when ': Predicate was null' and '/+'; then return ': Predicate was null/+/'")
+      "Test mkPath(String[]); when ': Predicate was null' and '///'; then return ': Predicate was null/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenPredicateWasNullAndSlashPlusSign_thenReturnPredicateWasNull2() {
+  void testMkPath_whenPredicateWasNullAndSlashSlashSlash_thenReturnPredicateWasNull() {
+    // Arrange, Act and Assert
+    assertEquals(": Predicate was null/", StringUtilities.mkPath(": Predicate was null", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code : Predicate was null} and {@code ///}.
+   *   <li>Then return {@code : Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when ': Predicate was null' and '///'; then return ': Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateWasNullAndSlashSlashSlash_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "///", "///");
 
     // Assert
-    assertEquals(": Predicate was null/+/", actualMkPathResult);
+    assertEquals(": Predicate was null/", actualMkPathResult);
   }
 
   /**
@@ -4734,7 +5230,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndSlash_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath(": Predicate was null", "/", "///");
 
     // Assert
     assertEquals(": Predicate was null/", actualMkPathResult);
@@ -4759,7 +5255,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenPredicateWasNullAndThTrThead_thenReturnPredicateWasNullThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath(": Predicate was null", "</th></tr></thead>", "/");
+        StringUtilities.mkPath(": Predicate was null", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals(": Predicate was null/</th></tr></thead>/", actualMkPathResult);
@@ -4782,7 +5278,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAnd42_thenReturnSegs42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "42", "///");
 
     // Assert
     assertEquals("Segs/42/", actualMkPathResult);
@@ -4806,7 +5302,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndArrayMustBeProvided_thenReturnSegsArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "Array must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "Array must be provided", "///");
 
     // Assert
     assertEquals("Segs/Array must be provided/", actualMkPathResult);
@@ -4830,7 +5326,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndArrayWasNull_thenReturnSegsArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", ": Array was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", ": Array was null", "///");
 
     // Assert
     assertEquals("Segs/: Array was null/", actualMkPathResult);
@@ -4854,7 +5350,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndPredicateWasNull_thenReturnSegsPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", ": Predicate was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Segs/: Predicate was null/", actualMkPathResult);
@@ -4877,7 +5373,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndSegs_thenReturnSegsSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "Segs", "///");
 
     // Assert
     assertEquals("Segs/Segs/", actualMkPathResult);
@@ -4907,23 +5403,43 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code Segs} and {@code /+}.
-   *   <li>Then return {@code Segs/+/}.
+   *   <li>When {@code Segs} and {@code ///}.
+   *   <li>Then return {@code Segs/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when 'Segs' and '/+'; then return 'Segs/+/'")
+  @DisplayName("Test mkPath(String[]); when 'Segs' and '///'; then return 'Segs/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSegsAndSlashPlusSign_thenReturnSegs2() {
+  void testMkPath_whenSegsAndSlashSlashSlash_thenReturnSegs() {
+    // Arrange, Act and Assert
+    assertEquals("Segs/", StringUtilities.mkPath("Segs", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Segs} and {@code ///}.
+   *   <li>Then return {@code Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Segs' and '///'; then return 'Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSegsAndSlashSlashSlash_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "///", "///");
 
     // Assert
-    assertEquals("Segs/+/", actualMkPathResult);
+    assertEquals("Segs/", actualMkPathResult);
   }
 
   /**
@@ -4963,7 +5479,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndSlash_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "/", "///");
 
     // Assert
     assertEquals("Segs/", actualMkPathResult);
@@ -4987,7 +5503,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndThTrThead_thenReturnSegsThTrThead() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("Segs", "</th></tr></thead>", "/");
+    String actualMkPathResult = StringUtilities.mkPath("Segs", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("Segs/</th></tr></thead>/", actualMkPathResult);
@@ -5038,170 +5554,6 @@ class StringUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42ArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "Array must be provided");
-
-    // Assert
-    assertEquals("/42/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42ArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", ": Array was null");
-
-    // Assert
-    assertEquals("/42/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '42'; then return '/42/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42CannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "42", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/42/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '42'; then return '/42/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42PredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/42/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42PredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", ": Predicate was null");
-
-    // Assert
-    assertEquals("/42/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42Segs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "Segs");
-
-    // Assert
-    assertEquals("/42/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42ThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/42/</th></tr></thead>", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
    *   <li>Then return {@code /42/}.
    * </ul>
    *
@@ -5214,56 +5566,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAnd42_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", "42", "///");
 
     // Assert
     assertEquals("/42/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn423() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "/+");
-
-    // Assert
-    assertEquals("/42/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn4242() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "42", "42");
-
-    // Assert
-    assertEquals("/42/42", actualMkPathResult);
   }
 
   /**
@@ -5305,82 +5611,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Array must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", "Array must be provided", "///");
 
     // Assert
     assertEquals("/Array must be provided/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Array must be provided", "/+");
-
-    // Assert
-    assertEquals("/Array must be provided/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Array must be provided", "42");
-
-    // Assert
-    assertEquals("/Array must be provided/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvidedSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Array must be provided", "Segs");
-
-    // Assert
-    assertEquals("/Array must be provided/Segs", actualMkPathResult);
   }
 
   /**
@@ -5422,181 +5656,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", "///");
 
     // Assert
     assertEquals("/: Array was null/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", "/+");
-
-    // Assert
-    assertEquals("/: Array was null/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", "42");
-
-    // Assert
-    assertEquals("/: Array was null/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Array was null", "Array must be provided");
-
-    // Assert
-    assertEquals("/: Array was null/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", ": Array was null");
-
-    // Assert
-    assertEquals("/: Array was null/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Array was null", ": Predicate was null");
-
-    // Assert
-    assertEquals("/: Array was null/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Array was null", "Segs");
-
-    // Assert
-    assertEquals("/: Array was null/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Array was null", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/: Array was null/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -5618,30 +5681,6 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenSlashAndJavaLangBoolean_thenReturnJavaLangBoolean() {
     // Arrange, Act and Assert
     assertEquals("/java.lang.Boolean", StringUtilities.mkPath("/", "java.lang.Boolean"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code java.lang.Boolean}.
-   *   <li>Then return {@code /java.lang.Boolean/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'java.lang.Boolean'; then return '/java.lang.Boolean/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndJavaLangBoolean_thenReturnJavaLangBoolean2() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "java.lang.Boolean", "/");
-
-    // Assert
-    assertEquals("/java.lang.Boolean/", actualMkPathResult);
   }
 
   /**
@@ -5684,34 +5723,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndPredicateMustBeProvided_thenReturnPredicateMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Predicate must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("/Predicate must be provided/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Predicate must be provided}.
-   *   <li>Then return {@code /Predicate must be provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Predicate must be provided'; then return '/Predicate must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateMustBeProvided_thenReturnPredicateMustBeProvided3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Predicate must be provided", "/+");
-
-    // Assert
-    assertEquals("/Predicate must be provided/+", actualMkPathResult);
   }
 
   /**
@@ -5753,132 +5768,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Predicate was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", ": Predicate was null", "///");
 
     // Assert
     assertEquals("/: Predicate was null/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Predicate was null", "/+");
-
-    // Assert
-    assertEquals("/: Predicate was null/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Predicate was null", "42");
-
-    // Assert
-    assertEquals("/: Predicate was null/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Predicate was null", ": Array was null");
-
-    // Assert
-    assertEquals("/: Predicate was null/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", ": Predicate was null", "Segs");
-
-    // Assert
-    assertEquals("/: Predicate was null/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", ": Predicate was null", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/: Predicate was null/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -5918,361 +5811,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndSegs_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "///");
 
     // Assert
     assertEquals("/Segs/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegs3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "/+");
-
-    // Assert
-    assertEquals("/Segs/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegs42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "42");
-
-    // Assert
-    assertEquals("/Segs/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "Array must be provided");
-
-    // Assert
-    assertEquals("/Segs/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", ": Array was null");
-
-    // Assert
-    assertEquals("/Segs/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "Segs", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/Segs/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/Segs/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", ": Predicate was null");
-
-    // Assert
-    assertEquals("/Segs/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "Segs");
-
-    // Assert
-    assertEquals("/Segs/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "Segs", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/Segs/</th></tr></thead>", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturn42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "42");
-
-    // Assert
-    assertEquals("/+/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "Array must be provided");
-
-    // Assert
-    assertEquals("/+/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", ": Array was null");
-
-    // Assert
-    assertEquals("/+/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '/+'; then return '/+/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/+/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", ": Predicate was null");
-
-    // Assert
-    assertEquals("/+/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "Segs");
-
-    // Assert
-    assertEquals("/+/Segs", actualMkPathResult);
   }
 
   /**
@@ -6293,327 +5835,6 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSign() {
     // Arrange, Act and Assert
     assertEquals("/+", StringUtilities.mkPath("/", "/+"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSignSlash() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "/");
-
-    // Assert
-    assertEquals("/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSignSlashPlusSign() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "/+");
-
-    // Assert
-    assertEquals("/+/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/+", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/+/</th></tr></thead>", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturn42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "42");
-
-    // Assert
-    assertEquals("/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "Array must be provided");
-
-    // Assert
-    assertEquals("/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", ": Array was null");
-
-    // Assert
-    assertEquals("/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '/'; then return '/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnCannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "/", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", ": Predicate was null");
-
-    // Assert
-    assertEquals("/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "Segs");
-
-    // Assert
-    assertEquals("/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlash() {
-    // Arrange, Act and Assert
-    assertEquals("/", StringUtilities.mkPath("/", "/"));
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlash2() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "/");
-
-    // Assert
-    assertEquals("/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlashPlusSign() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "/+");
-
-    // Assert
-    assertEquals("/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "/", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -6655,207 +5876,10 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndThTrThead_thenReturnThTrThead2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "</th></tr></thead>", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("/</th></tr></thead>/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrThead3() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "</th></tr></thead>", "/+");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrThead42() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "</th></tr></thead>", "42");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "</th></tr></thead>", "Array must be provided");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "</th></tr></thead>", ": Array was null");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "</th></tr></thead>", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "</th></tr></thead>", ": Predicate was null");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadSegs() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/", "</th></tr></thead>", "Segs");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code </th> </tr> </thead>}.
-   *   <li>Then return {@code /</th> </tr> </thead>/</th> </tr> </thead>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '</th></tr></thead>'; then return '/</th></tr></thead>/</th></tr></thead>'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndThTrThead_thenReturnThTrTheadThTrThead() {
-    // Arrange and Act
-    String actualMkPathResult =
-        StringUtilities.mkPath("/", "</th></tr></thead>", "</th></tr></thead>");
-
-    // Assert
-    assertEquals("/</th></tr></thead>/</th></tr></thead>", actualMkPathResult);
   }
 
   /**
@@ -6875,7 +5899,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAnd42_thenReturn42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "42", "///");
 
     // Assert
     assertEquals("/+/42/", actualMkPathResult);
@@ -6899,7 +5923,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndArrayMustBeProvided_thenReturnArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "Array must be provided", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "Array must be provided", "///");
 
     // Assert
     assertEquals("/+/Array must be provided/", actualMkPathResult);
@@ -6923,7 +5947,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndArrayWasNull_thenReturnArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", ": Array was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", ": Array was null", "///");
 
     // Assert
     assertEquals("/+/: Array was null/", actualMkPathResult);
@@ -6947,7 +5971,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndPredicateWasNull_thenReturnPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", ": Predicate was null", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", ": Predicate was null", "///");
 
     // Assert
     assertEquals("/+/: Predicate was null/", actualMkPathResult);
@@ -6970,10 +5994,53 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndSegs_thenReturnSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "Segs", "///");
 
     // Assert
     assertEquals("/+/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code /+} and {@code ///}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '/+' and '///'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashPlusSignAndSlashSlashSlash_thenReturnSlashPlusSignSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/+/", StringUtilities.mkPath("/+", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code /+} and {@code ///}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '/+' and '///'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashPlusSignAndSlashSlashSlash_thenReturnSlashPlusSignSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("/+", "///", "///");
+
+    // Assert
+    assertEquals("/+/", actualMkPathResult);
   }
 
   /**
@@ -7000,29 +6067,6 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code /+} and {@code /}.
-   *   <li>Then return {@code /+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/+' and '/'; then return '/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashPlusSignAndSlash_thenReturnSlashPlusSignSlash2() {
-    // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "/", "/");
-
-    // Assert
-    assertEquals("/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link StringUtilities#mkPath(String[])}.
-   *
-   * <ul>
    *   <li>When {@code /+} and {@code </th> </tr> </thead>}.
    *   <li>Then return {@code /+/</th> </tr> </thead>/}.
    * </ul>
@@ -7037,10 +6081,1440 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndThTrThead_thenReturnThTrThead() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("/+", "</th></tr></thead>", "/");
+    String actualMkPathResult = StringUtilities.mkPath("/+", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("/+/</th></tr></thead>/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals("/42", StringUtilities.mkPath("///", "42"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '42'; then return '/42/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42ArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "Array must be provided");
+
+    // Assert
+    assertEquals("/42/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42ArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", ": Array was null");
+
+    // Assert
+    assertEquals("/42/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '42'; then return '/42/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42PredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/42/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42PredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", ": Predicate was null");
+
+    // Assert
+    assertEquals("/42/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42Segs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "Segs");
+
+    // Assert
+    assertEquals("/42/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42ThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/42/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn422() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "///");
+
+    // Assert
+    assertEquals("/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn423() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "/");
+
+    // Assert
+    assertEquals("/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn4242() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "42", "42");
+
+    // Assert
+    assertEquals("/42/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull() {
+    // Arrange, Act and Assert
+    assertEquals("/: Array was null", StringUtilities.mkPath("///", ": Array was null"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Array was null", "///");
+
+    // Assert
+    assertEquals("/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Array was null", "/");
+
+    // Assert
+    assertEquals("/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Array was null", "42");
+
+    // Assert
+    assertEquals("/: Array was null/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Array was null", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Array was null", "Segs");
+
+    // Assert
+    assertEquals("/: Array was null/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", ": Array was null", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/: Array was null/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code java.lang.Boolean}.
+   *   <li>Then return {@code /java.lang.Boolean}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'java.lang.Boolean'; then return '/java.lang.Boolean'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndJavaLangBoolean_thenReturnJavaLangBoolean() {
+    // Arrange, Act and Assert
+    assertEquals("/java.lang.Boolean", StringUtilities.mkPath("///", "java.lang.Boolean"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code java.lang.Boolean}.
+   *   <li>Then return {@code /java.lang.Boolean/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'java.lang.Boolean'; then return '/java.lang.Boolean/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndJavaLangBoolean_thenReturnJavaLangBoolean2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "java.lang.Boolean", "///");
+
+    // Assert
+    assertEquals("/java.lang.Boolean/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull() {
+    // Arrange, Act and Assert
+    assertEquals("/: Predicate was null", StringUtilities.mkPath("///", ": Predicate was null"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Predicate was null", "///");
+
+    // Assert
+    assertEquals("/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Predicate was null", "/");
+
+    // Assert
+    assertEquals("/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Predicate was null", "42");
+
+    // Assert
+    assertEquals("/: Predicate was null/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNullSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", ": Predicate was null", "Segs");
+
+    // Assert
+    assertEquals("/: Predicate was null/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs() {
+    // Arrange, Act and Assert
+    assertEquals("/Segs", StringUtilities.mkPath("///", "Segs"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "///");
+
+    // Assert
+    assertEquals("/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "/");
+
+    // Assert
+    assertEquals("/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "42");
+
+    // Assert
+    assertEquals("/Segs/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "Array must be provided");
+
+    // Assert
+    assertEquals("/Segs/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", ": Array was null");
+
+    // Assert
+    assertEquals("/Segs/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsPredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Segs/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", ": Predicate was null");
+
+    // Assert
+    assertEquals("/Segs/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "Segs");
+
+    // Assert
+    assertEquals("/Segs/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "Segs", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/Segs/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /+}.
+   *   <li>Then return {@code /+}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/+'; then return '/+'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashPlusSign_thenReturnSlashPlusSign() {
+    // Arrange, Act and Assert
+    assertEquals("/+", StringUtilities.mkPath("///", "/+"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /+}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/+'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashPlusSign_thenReturnSlashPlusSignSlash() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/+", "///");
+
+    // Assert
+    assertEquals("/+/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturn42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "42");
+
+    // Assert
+    assertEquals("/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "Array must be provided");
+
+    // Assert
+    assertEquals("/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "Segs");
+
+    // Assert
+    assertEquals("/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", StringUtilities.mkPath("///", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "///");
+
+    // Assert
+    assertEquals("/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "///", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturn42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "42");
+
+    // Assert
+    assertEquals("/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "Array must be provided");
+
+    // Assert
+    assertEquals("/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '/'; then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnPredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "Segs");
+
+    // Assert
+    assertEquals("/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", StringUtilities.mkPath("///", "/"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "///");
+
+    // Assert
+    assertEquals("/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "/", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrThead() {
+    // Arrange, Act and Assert
+    assertEquals("/</th></tr></thead>", StringUtilities.mkPath("///", "</th></tr></thead>"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrThead2() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "</th></tr></thead>", "///");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrThead3() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "</th></tr></thead>", "/");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrThead42() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "</th></tr></thead>", "42");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrTheadArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "</th></tr></thead>", ": Array was null");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrTheadPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "</th></tr></thead>", ": Predicate was null");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrTheadSegs() {
+    // Arrange and Act
+    String actualMkPathResult = StringUtilities.mkPath("///", "</th></tr></thead>", "Segs");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code </th> </tr> </thead>}.
+   *   <li>Then return {@code /</th> </tr> </thead>/</th> </tr> </thead>}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '</th></tr></thead>'; then return '/</th></tr></thead>/</th></tr></thead>'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndThTrThead_thenReturnThTrTheadThTrThead() {
+    // Arrange and Act
+    String actualMkPathResult =
+        StringUtilities.mkPath("///", "</th></tr></thead>", "</th></tr></thead>");
+
+    // Assert
+    assertEquals("/</th></tr></thead>/</th></tr></thead>", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", StringUtilities.mkPath("///"));
   }
 
   /**
@@ -7061,7 +7535,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenThTrTheadAnd42_thenReturnThTrThead42() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "42", "/");
+    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "42", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/42/", actualMkPathResult);
@@ -7086,7 +7560,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenThTrTheadAndArrayWasNull_thenReturnThTrTheadArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("</th></tr></thead>", ": Array was null", "/");
+        StringUtilities.mkPath("</th></tr></thead>", ": Array was null", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/: Array was null/", actualMkPathResult);
@@ -7111,7 +7585,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenThTrTheadAndPredicateWasNull_thenReturnThTrTheadPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("</th></tr></thead>", ": Predicate was null", "/");
+        StringUtilities.mkPath("</th></tr></thead>", ": Predicate was null", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/: Predicate was null/", actualMkPathResult);
@@ -7135,7 +7609,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenThTrTheadAndSegs_thenReturnThTrTheadSegs() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "Segs", "/");
+    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "Segs", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/Segs/", actualMkPathResult);
@@ -7166,24 +7640,45 @@ class StringUtilitiesDiffblueTest {
    * Test {@link StringUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code </th> </tr> </thead>} and {@code /+}.
-   *   <li>Then return {@code </th> </tr> </thead>/+/}.
+   *   <li>When {@code </th> </tr> </thead>} and {@code ///}.
+   *   <li>Then return {@code </th> </tr> </thead>/}.
    * </ul>
    *
    * <p>Method under test: {@link StringUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when '</th></tr></thead>' and '/+'; then return '</th></tr></thead>/+/'")
+      "Test mkPath(String[]); when '</th></tr></thead>' and '///'; then return '</th></tr></thead>/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
-  void testMkPath_whenThTrTheadAndSlashPlusSign_thenReturnThTrThead2() {
+  void testMkPath_whenThTrTheadAndSlashSlashSlash_thenReturnThTrThead() {
+    // Arrange, Act and Assert
+    assertEquals("</th></tr></thead>/", StringUtilities.mkPath("</th></tr></thead>", "///"));
+  }
+
+  /**
+   * Test {@link StringUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code </th> </tr> </thead>} and {@code ///}.
+   *   <li>Then return {@code </th> </tr> </thead>/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '</th></tr></thead>' and '///'; then return '</th></tr></thead>/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
+  void testMkPath_whenThTrTheadAndSlashSlashSlash_thenReturnThTrThead2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "/+", "/");
+    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "///", "///");
 
     // Assert
-    assertEquals("</th></tr></thead>/+/", actualMkPathResult);
+    assertEquals("</th></tr></thead>/", actualMkPathResult);
   }
 
   /**
@@ -7225,7 +7720,7 @@ class StringUtilitiesDiffblueTest {
   @MethodsUnderTest({"String StringUtilities.mkPath(String[])"})
   void testMkPath_whenThTrTheadAndSlash_thenReturnThTrThead2() {
     // Arrange and Act
-    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "/", "/");
+    String actualMkPathResult = StringUtilities.mkPath("</th></tr></thead>", "/", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/", actualMkPathResult);
@@ -7250,7 +7745,7 @@ class StringUtilitiesDiffblueTest {
   void testMkPath_whenThTrTheadAndThTrThead_thenReturnThTrTheadThTrThead() {
     // Arrange and Act
     String actualMkPathResult =
-        StringUtilities.mkPath("</th></tr></thead>", "</th></tr></thead>", "/");
+        StringUtilities.mkPath("</th></tr></thead>", "</th></tr></thead>", "///");
 
     // Assert
     assertEquals("</th></tr></thead>/</th></tr></thead>/", actualMkPathResult);
@@ -7422,6 +7917,102 @@ class StringUtilitiesDiffblueTest {
         "<table class='table table-condensed small'><thead><tr><th></th><th></th><th>\n"
             + "</th></tr></thead><tbody></tbody></table>",
         StringUtilities.toHtmlTable(headers, new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link StringUtilities#toHtmlTable(List, Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Tuple1#Tuple1(Object)} with v1 is {@code null}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link Tuple1#Tuple1(Object)} with v1 is {@code
+   *       null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#toHtmlTable(List, Collection)}
+   */
+  @Test
+  @DisplayName(
+      "Test toHtmlTable(List, Collection); given Tuple1(Object) with v1 is 'null'; when ArrayList() add Tuple1(Object) with v1 is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.toHtmlTable(List, Collection)"})
+  void testToHtmlTable_givenTuple1WithV1IsNull_whenArrayListAddTuple1WithV1IsNull() {
+    // Arrange
+    ArrayList<String> headers = new ArrayList<>();
+
+    ArrayList<Tuple> rows = new ArrayList<>();
+    rows.add(new Tuple1<>((Object) null));
+
+    // Act and Assert
+    assertEquals(
+        "<table class='table table-condensed small'><thead><tr><th></th></tr></thead><tbody><tr><td>-</td></tr"
+            + "></tbody></table>",
+        StringUtilities.toHtmlTable(headers, rows));
+  }
+
+  /**
+   * Test {@link StringUtilities#toHtmlTable(List, Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Tuple1#Tuple1(Object)} with {@code V1}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link Tuple1#Tuple1(Object)} with {@code V1}.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#toHtmlTable(List, Collection)}
+   */
+  @Test
+  @DisplayName(
+      "Test toHtmlTable(List, Collection); given Tuple1(Object) with 'V1'; when ArrayList() add Tuple1(Object) with 'V1'; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.toHtmlTable(List, Collection)"})
+  void testToHtmlTable_givenTuple1WithV1_whenArrayListAddTuple1WithV1_thenReturnAString() {
+    // Arrange
+    ArrayList<String> headers = new ArrayList<>();
+
+    ArrayList<Tuple> rows = new ArrayList<>();
+    rows.add(new Tuple1<>("V1"));
+
+    // Act and Assert
+    assertEquals(
+        "<table class='table table-condensed small'><thead><tr><th></th></tr></thead><tbody><tr><td>V1</td><"
+            + "/tr></tbody></table>",
+        StringUtilities.toHtmlTable(headers, rows));
+  }
+
+  /**
+   * Test {@link StringUtilities#toHtmlTable(List, Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Tuple10#Tuple10(Object, Object, Object, Object, Object, Object, Object,
+   *       Object, Object, Object)} with {@code V1} and {@code V2} and {@code V3} and {@code V4} and
+   *       {@code V5} and {@code V6} and {@code V7} and {@code V8} and {@code V9} and {@code V10}.
+   * </ul>
+   *
+   * <p>Method under test: {@link StringUtilities#toHtmlTable(List, Collection)}
+   */
+  @Test
+  @DisplayName(
+      "Test toHtmlTable(List, Collection); given Tuple10(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object) with 'V1' and 'V2' and 'V3' and 'V4' and 'V5' and 'V6' and 'V7' and 'V8' and 'V9' and 'V10'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String StringUtilities.toHtmlTable(List, Collection)"})
+  void testToHtmlTable_givenTuple10WithV1AndV2AndV3AndV4AndV5AndV6AndV7AndV8AndV9AndV10() {
+    // Arrange
+    ArrayList<String> headers = new ArrayList<>();
+
+    ArrayList<Tuple> rows = new ArrayList<>();
+    Tuple10<Object, Object, Object, Object, Object, Object, Object, Object, Object, Object>
+        tuple10 = new Tuple10<>("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10");
+    rows.add(tuple10);
+
+    // Act and Assert
+    assertEquals(
+        "<table class='table table-condensed small'><thead><tr><th></th></tr></thead><tbody><tr><td>V1</td><td"
+            + ">V2</td><td>V3</td><td>V4</td><td>V5</td><td>V6</td><td>V7</td><td>V8</td><td>V9</td><td>V10</td></tr"
+            + "></tbody></table>",
+        StringUtilities.toHtmlTable(headers, rows));
   }
 
   /**

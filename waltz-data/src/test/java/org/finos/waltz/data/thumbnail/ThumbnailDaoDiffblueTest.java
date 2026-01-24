@@ -185,7 +185,7 @@ class ThumbnailDaoDiffblueTest {
     when(thumbnail.blob()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
     when(thumbnail.lastUpdatedBy()).thenReturn("2020-03-01");
     when(thumbnail.mimeType()).thenReturn("text/plain");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(thumbnail.externalId()).thenReturn(ofResult);
     when(thumbnail.provenance()).thenReturn("Provenance");
     when(thumbnail.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
@@ -312,7 +312,7 @@ class ThumbnailDaoDiffblueTest {
     when(thumbnail.blob()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
     when(thumbnail.lastUpdatedBy()).thenReturn("2020-03-01");
     when(thumbnail.mimeType()).thenReturn("text/plain");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(thumbnail.externalId()).thenReturn(ofResult);
     when(thumbnail.provenance()).thenReturn("Provenance");
     when(thumbnail.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());

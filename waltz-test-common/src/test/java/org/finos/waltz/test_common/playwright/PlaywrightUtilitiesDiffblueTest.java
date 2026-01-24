@@ -130,6 +130,48 @@ class PlaywrightUtilitiesDiffblueTest {
    * Test {@link PlaywrightUtilities#login(Page, String)}.
    *
    * <ul>
+   *   <li>When {@code ///}.
+   *   <li>Then calls {@link APIRequestContext#post(String, RequestOptions)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PlaywrightUtilities#login(Page, String)}
+   */
+  @Test
+  @DisplayName("Test login(Page, String); when '///'; then calls post(String, RequestOptions)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void PlaywrightUtilities.login(Page, String)"})
+  void testLogin_whenSlashSlashSlash_thenCallsPost() throws IOException {
+    // Arrange
+    APIResponse apiResponse = mock(APIResponse.class);
+    when(apiResponse.text()).thenReturn("{\"userName\":\"admin\", \"password\": \"password\"}");
+
+    APIRequestContext apiRequestContext = mock(APIRequestContext.class);
+    when(apiRequestContext.post(Mockito.<String>any(), Mockito.<RequestOptions>any()))
+        .thenReturn(apiResponse);
+
+    BrowserContext browserContext = mock(BrowserContext.class);
+    doNothing().when(browserContext).setExtraHTTPHeaders(Mockito.<Map<String, String>>any());
+    when(browserContext.request()).thenReturn(apiRequestContext);
+
+    Page page = mock(Page.class);
+    when(page.context()).thenReturn(browserContext);
+
+    // Act
+    PlaywrightUtilities.login(page, "///");
+
+    // Assert
+    verify(apiRequestContext).post(eq("/authentication/login"), isA(RequestOptions.class));
+    verify(apiResponse).text();
+    verify(browserContext).request();
+    verify(browserContext).setExtraHTTPHeaders(isA(Map.class));
+    verify(page, atLeast(1)).context();
+  }
+
+  /**
+   * Test {@link PlaywrightUtilities#login(Page, String)}.
+   *
+   * <ul>
    *   <li>When {@code /}.
    *   <li>Then calls {@link APIRequestContext#post(String, RequestOptions)}.
    * </ul>

@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.finos.waltz.data.application.ApplicationDao;
 import org.finos.waltz.model.EntityKind;
 import org.finos.waltz.model.EntityLifecycleStatus;
 import org.finos.waltz.model.EntityReference;
@@ -40,12 +41,16 @@ import org.finos.waltz.model.survey.ImmutableSurveyInstance.Builder;
 import org.finos.waltz.model.survey.SurveyInstance;
 import org.finos.waltz.model.survey.SurveyInstanceStatus;
 import org.finos.waltz.schema.tables.records.SurveyInstanceRecord;
+import org.jooq.Binding;
+import org.jooq.CommonTableExpression;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.DataType;
 import org.jooq.DeleteConditionStep;
 import org.jooq.DeleteUsingStep;
 import org.jooq.Field;
 import org.jooq.Record;
+import org.jooq.Record6;
 import org.jooq.RecordMapper;
 import org.jooq.SQLDialect;
 import org.jooq.SelectConditionStep;
@@ -61,7 +66,12 @@ import org.jooq.UpdateConditionStep;
 import org.jooq.UpdateSetFirstStep;
 import org.jooq.UpdateSetMoreStep;
 import org.jooq.exception.DataAccessException;
+import org.jooq.impl.DefaultBinding;
 import org.jooq.impl.DefaultDSLContext;
+import org.jooq.impl.DefaultDataType;
+import org.jooq.impl.DelegatingConverter;
+import org.jooq.impl.IdentityConverter;
+import org.jooq.impl.TableImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -2959,5 +2969,96 @@ class SurveyInstanceDaoDiffblueTest {
     assertTrue(actualReassignOwnersResult instanceof ImmutableSyncRecipientsResponse);
     assertEquals(3L, actualReassignOwnersResult.recipientsCreatedCount().longValue());
     assertEquals(3L, actualReassignOwnersResult.recipientsRemovedCount().longValue());
+  }
+
+  /**
+   * Test {@link SurveyInstanceDao#getRequiredRecipientsCTE(CommonTableExpression)}.
+   *
+   * <p>Method under test: {@link SurveyInstanceDao#getRequiredRecipientsCTE(CommonTableExpression)}
+   */
+  @Test
+  @DisplayName("Test getRequiredRecipientsCTE(CommonTableExpression)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CommonTableExpression SurveyInstanceDao.getRequiredRecipientsCTE(CommonTableExpression)"
+  })
+  void testGetRequiredRecipientsCTE() {
+    // Arrange
+    SurveyInstanceDao surveyInstanceDao =
+        new SurveyInstanceDao(new DefaultDSLContext(SQLDialect.SQL99));
+
+    Field<Object> field = mock(Field.class);
+    when(field.eq(Mockito.<Field<Object>>any())).thenReturn(ApplicationDao.IS_ACTIVE);
+    Class<Object> type = Object.class;
+    when(field.getDataType())
+        .thenReturn(new DefaultDataType<>(SQLDialect.SQL99, type, "Type Name"));
+
+    CommonTableExpression<Record6<Long, Long, String, Long, Long, String>> inScopeSurveys =
+        mock(CommonTableExpression.class);
+    when(inScopeSurveys.field(Mockito.<Field<Object>>any())).thenReturn(field);
+    when(inScopeSurveys.asTable()).thenReturn(new TableImpl<>("Name"));
+
+    // Act
+    surveyInstanceDao.getRequiredRecipientsCTE(inScopeSurveys);
+
+    // Assert
+    verify(field).eq(isA(Field.class));
+    verify(inScopeSurveys).asTable();
+    verify(inScopeSurveys, atLeast(1)).field(Mockito.<Field<Object>>any());
+    verify(field, atLeast(1)).getDataType();
+  }
+
+  /**
+   * Test {@link SurveyInstanceDao#getRequiredRecipientsCTE(CommonTableExpression)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link DataType#asConvertedDataType(Binding)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link SurveyInstanceDao#getRequiredRecipientsCTE(CommonTableExpression)}
+   */
+  @Test
+  @DisplayName(
+      "Test getRequiredRecipientsCTE(CommonTableExpression); then calls asConvertedDataType(Binding)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CommonTableExpression SurveyInstanceDao.getRequiredRecipientsCTE(CommonTableExpression)"
+  })
+  void testGetRequiredRecipientsCTE_thenCallsAsConvertedDataType() {
+    // Arrange
+    SurveyInstanceDao surveyInstanceDao =
+        new SurveyInstanceDao(new DefaultDSLContext(SQLDialect.SQL99));
+
+    DataType<Object> dataType = mock(DataType.class);
+    Class<Object> type = Object.class;
+    DelegatingConverter<?, Object> converter =
+        new DelegatingConverter<>(new IdentityConverter<>(type));
+    Mockito.<Binding<?, Object>>when(dataType.getBinding())
+        .thenReturn(new DefaultBinding<>(converter));
+    Class<Object> type2 = Object.class;
+    when(dataType.asConvertedDataType(Mockito.<Binding<Object, Object>>any()))
+        .thenReturn(new DefaultDataType<>(SQLDialect.SQL99, type2, "Type Name"));
+
+    Field<Object> field = mock(Field.class);
+    when(field.eq(Mockito.<Field<Object>>any())).thenReturn(ApplicationDao.IS_ACTIVE);
+    when(field.getDataType()).thenReturn(dataType);
+
+    CommonTableExpression<Record6<Long, Long, String, Long, Long, String>> inScopeSurveys =
+        mock(CommonTableExpression.class);
+    when(inScopeSurveys.field(Mockito.<Field<Object>>any())).thenReturn(field);
+    when(inScopeSurveys.asTable()).thenReturn(new TableImpl<>("Name"));
+
+    // Act
+    surveyInstanceDao.getRequiredRecipientsCTE(inScopeSurveys);
+
+    // Assert
+    verify(dataType, atLeast(1)).asConvertedDataType(isA(Binding.class));
+    verify(dataType, atLeast(1)).getBinding();
+    verify(field).eq(isA(Field.class));
+    verify(inScopeSurveys).asTable();
+    verify(inScopeSurveys, atLeast(1)).field(Mockito.<Field<Object>>any());
+    verify(field, atLeast(1)).getDataType();
   }
 }

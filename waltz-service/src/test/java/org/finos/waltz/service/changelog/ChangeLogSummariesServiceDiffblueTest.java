@@ -74,7 +74,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -139,7 +139,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -199,7 +199,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -260,7 +260,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -329,7 +329,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -398,7 +398,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -467,7 +467,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -537,7 +537,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -604,7 +604,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -668,7 +668,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -729,7 +729,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -792,7 +792,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -856,7 +856,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =
@@ -919,7 +919,7 @@ class ChangeLogSummariesServiceDiffblueTest {
                 .build());
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLogTally> actualFindCountByParentAndChildKindForDateRangeBySelectorResult =

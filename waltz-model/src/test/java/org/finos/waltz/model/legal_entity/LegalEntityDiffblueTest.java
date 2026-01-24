@@ -52,36 +52,4 @@ class LegalEntityDiffblueTest {
     assertEquals(EntityKind.LEGAL_ENTITY, actualEntityReferenceResult.kind());
     assertEquals(EntityLifecycleStatus.ACTIVE, actualEntityReferenceResult.entityLifecycleStatus());
   }
-
-  /**
-   * Test {@link LegalEntity#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link LegalEntity#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind LegalEntity.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableLegalEntity.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .provenance("Provenance")
-            .build()
-            .kind());
-  }
 }

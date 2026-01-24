@@ -1395,138 +1395,6 @@ class AppGroupEntryDaoDiffblueTest {
   /**
    * Test {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}.
    *
-   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}
-   */
-  @Test
-  @DisplayName("Test replaceGroupApplicationEntries(Set)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupApplicationEntries(Set)"})
-  void testReplaceGroupApplicationEntries3() throws SQLException {
-    // Arrange
-    PreparedStatement preparedStatement = mock(PreparedStatement.class);
-    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
-    doNothing().when(preparedStatement).addBatch();
-    doNothing().when(preparedStatement).setBoolean(anyInt(), anyBoolean());
-    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
-    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
-    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
-    when(preparedStatement.execute()).thenReturn(true);
-    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
-    doNothing().when(preparedStatement).close();
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).commit();
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
-    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.CUBRID);
-    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
-
-    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
-    appGroupEntrySet.add(
-        ImmutableAppGroupEntry.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .build());
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
-
-    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple2);
-
-    // Act
-    appGroupEntryDao.replaceGroupApplicationEntries(entriesForGroups);
-
-    // Assert
-    verify(connection).commit();
-    verify(connection).getAutoCommit();
-    verify(connection, atLeast(1)).prepareStatement(Mockito.<String>any());
-    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
-    verify(preparedStatement).addBatch();
-    verify(preparedStatement).execute();
-    verify(preparedStatement).setBoolean(3, false);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
-    verify(preparedStatement).setString(4, "Provenance");
-    verify(preparedStatement).setTimestamp(eq(5), isA(Timestamp.class));
-    verify(preparedStatement, atLeast(1)).close();
-    verify(preparedStatement).executeBatch();
-    verify(preparedStatement, atLeast(1)).getWarnings();
-  }
-
-  /**
-   * Test {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}.
-   *
-   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}
-   */
-  @Test
-  @DisplayName("Test replaceGroupApplicationEntries(Set)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupApplicationEntries(Set)"})
-  void testReplaceGroupApplicationEntries4() throws SQLException {
-    // Arrange
-    PreparedStatement preparedStatement = mock(PreparedStatement.class);
-    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
-    doNothing().when(preparedStatement).addBatch();
-    doNothing().when(preparedStatement).setBoolean(anyInt(), anyBoolean());
-    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
-    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
-    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
-    when(preparedStatement.execute()).thenReturn(true);
-    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
-    doNothing().when(preparedStatement).close();
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).commit();
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
-    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.FIREBIRD);
-    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
-
-    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
-    appGroupEntrySet.add(
-        ImmutableAppGroupEntry.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .build());
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
-
-    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple2);
-
-    // Act
-    appGroupEntryDao.replaceGroupApplicationEntries(entriesForGroups);
-
-    // Assert
-    verify(connection).commit();
-    verify(connection).getAutoCommit();
-    verify(connection, atLeast(1)).prepareStatement(Mockito.<String>any());
-    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
-    verify(preparedStatement).addBatch();
-    verify(preparedStatement).execute();
-    verify(preparedStatement).setBoolean(3, false);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
-    verify(preparedStatement).setString(4, "Provenance");
-    verify(preparedStatement).setTimestamp(eq(5), isA(Timestamp.class));
-    verify(preparedStatement, atLeast(1)).close();
-    verify(preparedStatement).executeBatch();
-    verify(preparedStatement, atLeast(1)).getWarnings();
-  }
-
-  /**
-   * Test {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}.
-   *
    * <ul>
    *   <li>Given {@link AppGroupEntryDao#AppGroupEntryDao(DSLContext)} with dsl is {@link
    *       DSLContext}.
@@ -1546,21 +1414,8 @@ class AppGroupEntryDaoDiffblueTest {
     doNothing().when(dsl).transaction(Mockito.<TransactionalRunnable>any());
     AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
 
-    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
-    appGroupEntrySet.add(
-        ImmutableAppGroupEntry.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .build());
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
-
     HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple2);
+    entriesForGroups.add(mock(Tuple2.class));
 
     // Act
     appGroupEntryDao.replaceGroupApplicationEntries(entriesForGroups);
@@ -1654,6 +1509,76 @@ class AppGroupEntryDaoDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupApplicationEntries(Set)"})
   void testReplaceGroupApplicationEntries_thenCallsAddBatch2() throws SQLException {
+    // Arrange
+    PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
+    doNothing().when(preparedStatement).addBatch();
+    doNothing().when(preparedStatement).setBoolean(anyInt(), anyBoolean());
+    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
+    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
+    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
+    when(preparedStatement.execute()).thenReturn(true);
+    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(preparedStatement).close();
+
+    Connection connection = mock(Connection.class);
+    doNothing().when(connection).commit();
+    doNothing().when(connection).setAutoCommit(anyBoolean());
+    when(connection.getAutoCommit()).thenReturn(true);
+    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
+    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.CUBRID);
+    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
+
+    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
+    appGroupEntrySet.add(
+        ImmutableAppGroupEntry.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .provenance("Provenance")
+            .build());
+    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
+
+    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
+    entriesForGroups.add(tuple2);
+
+    // Act
+    appGroupEntryDao.replaceGroupApplicationEntries(entriesForGroups);
+
+    // Assert
+    verify(connection).commit();
+    verify(connection).getAutoCommit();
+    verify(connection, atLeast(1)).prepareStatement(Mockito.<String>any());
+    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
+    verify(preparedStatement).addBatch();
+    verify(preparedStatement).execute();
+    verify(preparedStatement).setBoolean(3, false);
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
+    verify(preparedStatement).setString(4, "Provenance");
+    verify(preparedStatement).setTimestamp(eq(5), isA(Timestamp.class));
+    verify(preparedStatement, atLeast(1)).close();
+    verify(preparedStatement).executeBatch();
+    verify(preparedStatement, atLeast(1)).getWarnings();
+  }
+
+  /**
+   * Test {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link PreparedStatement#addBatch()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupApplicationEntries(Set)}
+   */
+  @Test
+  @DisplayName("Test replaceGroupApplicationEntries(Set); then calls addBatch()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupApplicationEntries(Set)"})
+  void testReplaceGroupApplicationEntries_thenCallsAddBatch3() throws SQLException {
     // Arrange
     PreparedStatement preparedStatement = mock(PreparedStatement.class);
     when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
@@ -1890,54 +1815,6 @@ class AppGroupEntryDaoDiffblueTest {
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
-    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.SQL99);
-    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
-
-    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, new HashSet<>());
-    entriesForGroups.add(tuple2);
-
-    // Act
-    appGroupEntryDao.replaceGroupChangeInitiativeEntries(entriesForGroups);
-
-    // Assert
-    verify(connection).commit();
-    verify(connection).getAutoCommit();
-    verify(connection)
-        .prepareStatement(
-            "delete from \"entity_relationship\" where (\"entity_relationship\".\"id_a\" in (?) and \"entity_relationship\".\"kind_a\" = ? and \"entity_relationship\".\"kind_b\" = ?)");
-    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
-    verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(1, 1L);
-    verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
-    verify(preparedStatement).close();
-    verify(preparedStatement).getWarnings();
-  }
-
-  /**
-   * Test {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}.
-   *
-   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}
-   */
-  @Test
-  @DisplayName("Test replaceGroupChangeInitiativeEntries(Set)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupChangeInitiativeEntries(Set)"})
-  void testReplaceGroupChangeInitiativeEntries3() throws SQLException {
-    // Arrange
-    PreparedStatement preparedStatement = mock(PreparedStatement.class);
-    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
-    when(preparedStatement.execute()).thenReturn(true);
-    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
-    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
-    doNothing().when(preparedStatement).close();
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).commit();
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
     DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.CUBRID);
     AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
 
@@ -1965,70 +1842,6 @@ class AppGroupEntryDaoDiffblueTest {
   /**
    * Test {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}.
    *
-   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}
-   */
-  @Test
-  @DisplayName("Test replaceGroupChangeInitiativeEntries(Set)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupChangeInitiativeEntries(Set)"})
-  void testReplaceGroupChangeInitiativeEntries4() throws SQLException {
-    // Arrange
-    PreparedStatement preparedStatement = mock(PreparedStatement.class);
-    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
-    doNothing().when(preparedStatement).addBatch();
-    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
-    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
-    when(preparedStatement.execute()).thenReturn(true);
-    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
-    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
-    doNothing().when(preparedStatement).close();
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).commit();
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
-    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.FIREBIRD);
-    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
-
-    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
-    appGroupEntrySet.add(
-        ImmutableAppGroupEntry.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .build());
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
-
-    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple2);
-
-    // Act
-    appGroupEntryDao.replaceGroupChangeInitiativeEntries(entriesForGroups);
-
-    // Assert
-    verify(connection).commit();
-    verify(connection).getAutoCommit();
-    verify(connection, atLeast(1)).prepareStatement(Mockito.<String>any());
-    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
-    verify(preparedStatement).addBatch();
-    verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
-    verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
-    verify(preparedStatement).setTimestamp(eq(7), isA(Timestamp.class));
-    verify(preparedStatement, atLeast(1)).close();
-    verify(preparedStatement).executeBatch();
-    verify(preparedStatement, atLeast(1)).getWarnings();
-  }
-
-  /**
-   * Test {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}.
-   *
    * <ul>
    *   <li>Given {@link AppGroupEntryDao#AppGroupEntryDao(DSLContext)} with dsl is {@link
    *       DSLContext}.
@@ -2048,21 +1861,8 @@ class AppGroupEntryDaoDiffblueTest {
     doNothing().when(dsl).transaction(Mockito.<TransactionalRunnable>any());
     AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
 
-    HashSet<AppGroupEntry> appGroupEntrySet = new HashSet<>();
-    appGroupEntrySet.add(
-        ImmutableAppGroupEntry.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .provenance("Provenance")
-            .build());
-    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, appGroupEntrySet);
-
     HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple2);
+    entriesForGroups.add(mock(Tuple2.class));
 
     // Act
     appGroupEntryDao.replaceGroupChangeInitiativeEntries(entriesForGroups);
@@ -2207,6 +2007,58 @@ class AppGroupEntryDaoDiffblueTest {
     verify(preparedStatement, atLeast(1)).close();
     verify(preparedStatement).executeBatch();
     verify(preparedStatement, atLeast(1)).getWarnings();
+  }
+
+  /**
+   * Test {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link PreparedStatement#setLong(int, long)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupEntryDao#replaceGroupChangeInitiativeEntries(Set)}
+   */
+  @Test
+  @DisplayName("Test replaceGroupChangeInitiativeEntries(Set); then calls setLong(int, long)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupEntryDao.replaceGroupChangeInitiativeEntries(Set)"})
+  void testReplaceGroupChangeInitiativeEntries_thenCallsSetLong() throws SQLException {
+    // Arrange
+    PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
+    when(preparedStatement.execute()).thenReturn(true);
+    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
+    doNothing().when(preparedStatement).close();
+
+    Connection connection = mock(Connection.class);
+    doNothing().when(connection).commit();
+    doNothing().when(connection).setAutoCommit(anyBoolean());
+    when(connection.getAutoCommit()).thenReturn(true);
+    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
+    DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.SQL99);
+    AppGroupEntryDao appGroupEntryDao = new AppGroupEntryDao(dsl);
+
+    HashSet<Tuple2<Long, Set<AppGroupEntry>>> entriesForGroups = new HashSet<>();
+    Tuple2<Long, Set<AppGroupEntry>> tuple2 = new Tuple2<>(1L, new HashSet<>());
+    entriesForGroups.add(tuple2);
+
+    // Act
+    appGroupEntryDao.replaceGroupChangeInitiativeEntries(entriesForGroups);
+
+    // Assert
+    verify(connection).commit();
+    verify(connection).getAutoCommit();
+    verify(connection)
+        .prepareStatement(
+            "delete from \"entity_relationship\" where (\"entity_relationship\".\"id_a\" in (?) and \"entity_relationship\".\"kind_a\" = ? and \"entity_relationship\".\"kind_b\" = ?)");
+    verify(connection, atLeast(1)).setAutoCommit(anyBoolean());
+    verify(preparedStatement).execute();
+    verify(preparedStatement).setLong(1, 1L);
+    verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
+    verify(preparedStatement).close();
+    verify(preparedStatement).getWarnings();
   }
 
   /**

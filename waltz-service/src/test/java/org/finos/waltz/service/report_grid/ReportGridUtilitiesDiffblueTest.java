@@ -94,7 +94,7 @@ class ReportGridUtilitiesDiffblueTest {
         IllegalStateException.class,
         () ->
             ReportGridUtilities.parseGridFilterNoteText(
-                "| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id | "));
+                "| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id |   "));
   }
 
   /**
@@ -367,7 +367,7 @@ class ReportGridUtilitiesDiffblueTest {
         IllegalStateException.class,
         () ->
             ReportGridUtilities.parseGridFilterNoteText(
-                "|| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id |"));
+                "|Cannot parse empty note| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id |"));
   }
 
   /**
@@ -386,7 +386,9 @@ class ReportGridUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertThrows(
         IllegalStateException.class,
-        () -> ReportGridUtilities.parseGridFilterNoteText("|[:;*?!/\\\\]"));
+        () ->
+            ReportGridUtilities.parseGridFilterNoteText(
+                "|Cannot parse empty noteorg.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -407,7 +409,7 @@ class ReportGridUtilitiesDiffblueTest {
         IllegalStateException.class,
         () ->
             ReportGridUtilities.parseGridFilterNoteText(
-                "|Incorrect number of header rows found [%d], ensure there are blank rows between tables"));
+                "|Cannot parse empty note| Filter Column | Filter Operator | Value/s |"));
   }
 
   /**
@@ -428,7 +430,7 @@ class ReportGridUtilitiesDiffblueTest {
         IllegalStateException.class,
         () ->
             ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |org.finos.waltz.service.report_grid.ReportGridUtilities"));
+                "| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id ||Cannot parse empty note"));
   }
 
   /**
@@ -449,7 +451,7 @@ class ReportGridUtilitiesDiffblueTest {
         IllegalStateException.class,
         () ->
             ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s || Filter Column | Filter Operator | Value/s |"));
+                "| Grid Name | Grid Identifier | Vantage Point Kind | Vantage Point Id || --"));
   }
 
   /**
@@ -560,58 +562,6 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
    *
    * <ul>
-   *   <li>When a string.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when a string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenAString5() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s || Grid Name | Grid Identifier | Vantage Point Kind |"
-                    + " Vantage Point Id |"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When a string.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when a string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenAString6() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |Incorrect number of header rows found [%d], ensure there"
-                    + " are blank rows between tables"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
    *   <li>When {@code |Cannot parse empty note}.
    * </ul>
    *
@@ -635,6 +585,385 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
    *
    * <ul>
+   *   <li>When {@code |Cannot parse empty note;}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note;'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote2() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note;"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote3() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note   "));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note[:;*?!/\\]}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note[:;*?!/\\\\]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote4() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note[:;*?!/\\\\]"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote5() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note  "));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note|}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note|'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote6() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note|"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note|--}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note|--'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote7() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note|--"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note| --}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note| --'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote8() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note| --"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNote42() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note42"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note|Cannot parse empty note}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test parseGridFilterNoteText(String); when '|Cannot parse empty note|Cannot parse empty note'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNoteCannotParseEmptyNote() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            ReportGridUtilities.parseGridFilterNoteText(
+                "|Cannot parse empty note|Cannot parse empty note"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty noteNote Text}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty noteNote Text'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNoteNoteText() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty noteNote Text"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note\r?\n}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note\\r?\\n'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNoteRN() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note\\r?\\n"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty note\s+}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty note\\s+'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNoteS() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty note\\s+"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty notefoo\r?\nbar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName("Test parseGridFilterNoteText(String); when '|Cannot parse empty notefoo\\r?\\nbar'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNotefooRNbar() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () -> ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty notefoo\\r?\\nbar"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty notefoo\r?\nbar\r?\nbaz}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test parseGridFilterNoteText(String); when '|Cannot parse empty notefoo\\r?\\nbar\\r?\\nbaz'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNotefooRNbarRNbaz() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            ReportGridUtilities.parseGridFilterNoteText(
+                "|Cannot parse empty notefoo\\r?\\nbar\\r?\\nbaz"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty noteList}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test parseGridFilterNoteText(String); when '|Cannot parse empty notejava.util.List'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNotejavaUtilList() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            ReportGridUtilities.parseGridFilterNoteText("|Cannot parse empty notejava.util.List"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
+   *   <li>When {@code |Cannot parse empty noteOptional}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test parseGridFilterNoteText(String); when '|Cannot parse empty notejava.util.Optional'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
+  })
+  void testParseGridFilterNoteText_whenCannotParseEmptyNotejavaUtilOptional() {
+    // Arrange, Act and Assert
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            ReportGridUtilities.parseGridFilterNoteText(
+                "|Cannot parse empty notejava.util.Optional"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
+   *
+   * <ul>
    *   <li>When empty string.
    * </ul>
    *
@@ -651,396 +980,6 @@ class ReportGridUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertThrows(
         IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText(""));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code || Filter Column | Filter Operator | Value/s |}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '|| Filter Column | Filter Operator | Value/s |'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "|| Filter Column | Filter Operator | Value/s |"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |;}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |;'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |;"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS3() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s | "));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |[:;*?!/\\]}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |[:;*?!/\\\\]'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS4() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |[:;*?!/\\\\]"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS5() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |  "));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s ||}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s ||'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS6() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s ||"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s ||--}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s ||--'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS7() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s ||--"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueS42() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |42"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |foo\r?\nbar}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |foo\\r?\\nbar'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSFooRNbar() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |foo\\r?\\nbar"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |foo\r?\nbar\r?\nbaz}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |foo\\r?\\nbar\\r?\\nbaz'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSFooRNbarRNbaz() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |foo\\r?\\nbar\\r?\\nbaz"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |List}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |java.util.List'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSJavaUtilList() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |java.util.List"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |Optional}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |java.util.Optional'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSJavaUtilOptional() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |java.util.Optional"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |Note Text}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |Note Text'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSNoteText() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |Note Text"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |\r?\n}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |\\r?\\n'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSRN() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |\\r?\\n"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code | Filter Column | Filter Operator | Value/s |\s+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test parseGridFilterNoteText(String); when '| Filter Column | Filter Operator | Value/s |\\s+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenFilterColumnFilterOperatorValueSS() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ReportGridUtilities.parseGridFilterNoteText(
-                "| Filter Column | Filter Operator | Value/s |\\s+"));
   }
 
   /**
@@ -1161,50 +1100,6 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
    *
    * <ul>
-   *   <li>When {@code |\r?\n}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when '|\\r?\\n'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenRN() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("|\\r?\\n"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code |\s+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when '|\\s+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenS() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("|\\s+"));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
    *   <li>When {@code |}.
    * </ul>
    *
@@ -1221,28 +1116,6 @@ class ReportGridUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertThrows(
         IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("|  "));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
-   *
-   * <ul>
-   *   <li>When {@code |}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
-   */
-  @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when '|'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
-  })
-  void testParseGridFilterNoteText_whenVerticalLine2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("| "));
   }
 
   /**
@@ -1271,22 +1144,22 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseGridFilterNoteText(String)}.
    *
    * <ul>
-   *   <li>When {@code |;}.
+   *   <li>When {@code | --}.
    * </ul>
    *
    * <p>Method under test: {@link ReportGridUtilities#parseGridFilterNoteText(String)}
    */
   @Test
-  @DisplayName("Test parseGridFilterNoteText(String); when '|;'")
+  @DisplayName("Test parseGridFilterNoteText(String); when '| --'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "org.jooq.lambda.tuple.Tuple2 ReportGridUtilities.parseGridFilterNoteText(String)"
   })
-  void testParseGridFilterNoteText_whenVerticalLineSemicolon() {
+  void testParseGridFilterNoteText_whenVerticalLineSpaceDashDash() {
     // Arrange, Act and Assert
     assertThrows(
-        IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("|;"));
+        IllegalStateException.class, () -> ReportGridUtilities.parseGridFilterNoteText("| --"));
   }
 
   /**
@@ -1331,20 +1204,21 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseTableData(String[], String)}.
    *
    * <ul>
-   *   <li>When array of {@link String} with {@code ;} and space.
+   *   <li>When array of {@link String} with {@code ;} and space space space.
    * </ul>
    *
    * <p>Method under test: {@link ReportGridUtilities#parseTableData(String[], String)}
    */
   @Test
-  @DisplayName("Test parseTableData(String[], String); when array of String with ';' and space")
+  @DisplayName(
+      "Test parseTableData(String[], String); when array of String with ';' and space space space")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List ReportGridUtilities.parseTableData(String[], String)"})
-  void testParseTableData_whenArrayOfStringWithSemicolonAndSpace() {
+  void testParseTableData_whenArrayOfStringWithSemicolonAndSpaceSpaceSpace() {
     // Arrange and Act
     List<List<String>> actualParseTableDataResult =
-        ReportGridUtilities.parseTableData(new String[] {";", " "}, "Table Header");
+        ReportGridUtilities.parseTableData(new String[] {";", "   "}, "Table Header");
 
     // Assert
     assertTrue(actualParseTableDataResult.isEmpty());
@@ -1561,20 +1435,20 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseTableData(String[], String)}.
    *
    * <ul>
-   *   <li>When space.
+   *   <li>When space space space.
    * </ul>
    *
    * <p>Method under test: {@link ReportGridUtilities#parseTableData(String[], String)}
    */
   @Test
-  @DisplayName("Test parseTableData(String[], String); when space")
+  @DisplayName("Test parseTableData(String[], String); when space space space")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List ReportGridUtilities.parseTableData(String[], String)"})
-  void testParseTableData_whenSpace() {
+  void testParseTableData_whenSpaceSpaceSpace() {
     // Arrange and Act
     List<List<String>> actualParseTableDataResult =
-        ReportGridUtilities.parseTableData(new String[] {"Lines"}, " ");
+        ReportGridUtilities.parseTableData(new String[] {"Lines"}, "   ");
 
     // Assert
     assertTrue(actualParseTableDataResult.isEmpty());
@@ -1679,7 +1553,7 @@ class ReportGridUtilitiesDiffblueTest {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("[:;*?!/\\\\]");
-    stringList.add(" ");
+    stringList.add("   ");
     stringList.add(";");
     stringList.add("Filter Rows");
     stringList.add("Filter Rows");
@@ -2417,7 +2291,7 @@ class ReportGridUtilitiesDiffblueTest {
    * Test {@link ReportGridUtilities#parseGridFilters(List, ReportGridDefinition)}.
    *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add space.
+   *   <li>Given {@link ArrayList#ArrayList()} add space space space.
    *   <li>When {@link ArrayList#ArrayList()} add {@link ArrayList#ArrayList()}.
    * </ul>
    *
@@ -2425,14 +2299,14 @@ class ReportGridUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test parseGridFilters(List, ReportGridDefinition); given ArrayList() add space; when ArrayList() add ArrayList()")
+      "Test parseGridFilters(List, ReportGridDefinition); given ArrayList() add space space space; when ArrayList() add ArrayList()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set ReportGridUtilities.parseGridFilters(List, ReportGridDefinition)"})
-  void testParseGridFilters_givenArrayListAddSpace_whenArrayListAddArrayList() {
+  void testParseGridFilters_givenArrayListAddSpaceSpaceSpace_whenArrayListAddArrayList() {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
-    stringList.add(" ");
+    stringList.add("   ");
     stringList.add(";");
     stringList.add("Filter Rows");
     stringList.add("Filter Rows");
@@ -2647,7 +2521,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString3() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]"));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]"));
   }
 
   /**
@@ -2677,7 +2551,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString5() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString("[:;*?!/\\\\] "));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("[:;*?!/\\\\]   "));
   }
 
   /**
@@ -2782,7 +2656,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString12() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString("; [:;*?!/\\\\]"));
+    assertEquals("[]", ReportGridUtilities.sanitizeString(";   [:;*?!/\\\\]"));
   }
 
   /**
@@ -2812,7 +2686,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString14() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString(";[:;*?!/\\\\] "));
+    assertEquals("[]", ReportGridUtilities.sanitizeString(";[:;*?!/\\\\]   "));
   }
 
   /**
@@ -2992,7 +2866,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString25() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString(" ;[:;*?!/\\\\]"));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("   ;[:;*?!/\\\\]"));
   }
 
   /**
@@ -3007,7 +2881,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString26() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString("  [:;*?!/\\\\]"));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("      [:;*?!/\\\\]"));
   }
 
   /**
@@ -3022,7 +2896,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString27() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\];"));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\];"));
   }
 
   /**
@@ -3037,7 +2911,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString28() {
     // Arrange, Act and Assert
-    assertEquals("[]", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\] "));
+    assertEquals("[]", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]   "));
   }
 
   /**
@@ -3052,7 +2926,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString29() {
     // Arrange, Act and Assert
-    assertEquals("[][]", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\][:;*?!/\\\\]"));
+    assertEquals("[][]", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\][:;*?!/\\\\]"));
   }
 
   /**
@@ -3067,7 +2941,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString30() {
     // Arrange, Act and Assert
-    assertEquals("[]|", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]|"));
+    assertEquals("[]|", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]|"));
   }
 
   /**
@@ -3082,7 +2956,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString31() {
     // Arrange, Act and Assert
-    assertEquals("[]|--", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]|--"));
+    assertEquals("[]|--", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]|--"));
   }
 
   /**
@@ -3480,7 +3354,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn422() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString(" 42"));
+    assertEquals("42", ReportGridUtilities.sanitizeString("   42"));
   }
 
   /**
@@ -3540,7 +3414,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn425() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString("42 "));
+    assertEquals("42", ReportGridUtilities.sanitizeString("42   "));
   }
 
   /**
@@ -3600,7 +3474,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn428() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString("; 42"));
+    assertEquals("42", ReportGridUtilities.sanitizeString(";   42"));
   }
 
   /**
@@ -3660,7 +3534,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn4211() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString(";42 "));
+    assertEquals("42", ReportGridUtilities.sanitizeString(";42   "));
   }
 
   /**
@@ -3780,7 +3654,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn4217() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString(" ;42"));
+    assertEquals("42", ReportGridUtilities.sanitizeString("   ;42"));
   }
 
   /**
@@ -3800,7 +3674,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn4218() {
     // Arrange, Act and Assert
-    assertEquals("42", ReportGridUtilities.sanitizeString("  42"));
+    assertEquals("42", ReportGridUtilities.sanitizeString("      42"));
   }
 
   /**
@@ -3820,7 +3694,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_when42_thenReturn4219() {
     // Arrange, Act and Assert
-    assertEquals("[]42", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]42"));
+    assertEquals("[]42", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]42"));
   }
 
   /**
@@ -4032,7 +3906,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList2() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(" java.util.List"));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("   java.util.List"));
   }
 
   /**
@@ -4094,7 +3968,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList5() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("java.util.List "));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("java.util.List   "));
   }
 
   /**
@@ -4156,7 +4030,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList8() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("; java.util.List"));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(";   java.util.List"));
   }
 
   /**
@@ -4218,7 +4092,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList11() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(";java.util.List "));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(";java.util.List   "));
   }
 
   /**
@@ -4344,7 +4218,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList17() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(" ;java.util.List"));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("   ;java.util.List"));
   }
 
   /**
@@ -4364,7 +4238,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList18() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("  java.util.List"));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("      java.util.List"));
   }
 
   /**
@@ -4386,7 +4260,7 @@ class ReportGridUtilitiesDiffblueTest {
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList19() {
     // Arrange, Act and Assert
     assertEquals(
-        "[]java.util.list", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]java.util.List"));
+        "[]java.util.list", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]java.util.List"));
   }
 
   /**
@@ -4406,7 +4280,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList20() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(" java.util.List;"));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("   java.util.List;"));
   }
 
   /**
@@ -4426,7 +4300,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList21() {
     // Arrange, Act and Assert
-    assertEquals("java.util.list", ReportGridUtilities.sanitizeString(" java.util.List "));
+    assertEquals("java.util.list", ReportGridUtilities.sanitizeString("   java.util.List   "));
   }
 
   /**
@@ -4448,7 +4322,7 @@ class ReportGridUtilitiesDiffblueTest {
   void testSanitizeString_whenJavaUtilList_thenReturnJavaUtilList22() {
     // Arrange, Act and Assert
     assertEquals(
-        "java.util.list[]", ReportGridUtilities.sanitizeString(" java.util.List[:;*?!/\\\\]"));
+        "java.util.list[]", ReportGridUtilities.sanitizeString("   java.util.List[:;*?!/\\\\]"));
   }
 
   /**
@@ -4578,7 +4452,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional2() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString(" java.util.Optional"));
+    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString("   java.util.Optional"));
   }
 
   /**
@@ -4643,7 +4517,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional5() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString("java.util.Optional "));
+    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString("java.util.Optional   "));
   }
 
   /**
@@ -4708,7 +4582,8 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional8() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString("; java.util.Optional"));
+    assertEquals(
+        "java.util.optional", ReportGridUtilities.sanitizeString(";   java.util.Optional"));
   }
 
   /**
@@ -4773,7 +4648,8 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional11() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString(";java.util.Optional "));
+    assertEquals(
+        "java.util.optional", ReportGridUtilities.sanitizeString(";java.util.Optional   "));
   }
 
   /**
@@ -4903,7 +4779,8 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional17() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString(" ;java.util.Optional"));
+    assertEquals(
+        "java.util.optional", ReportGridUtilities.sanitizeString("   ;java.util.Optional"));
   }
 
   /**
@@ -4924,7 +4801,8 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenJavaUtilOptional_thenReturnJavaUtilOptional18() {
     // Arrange, Act and Assert
-    assertEquals("java.util.optional", ReportGridUtilities.sanitizeString("  java.util.Optional"));
+    assertEquals(
+        "java.util.optional", ReportGridUtilities.sanitizeString("      java.util.Optional"));
   }
 
   /**
@@ -4947,7 +4825,7 @@ class ReportGridUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "[]java.util.optional",
-        ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]java.util.Optional"));
+        ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]java.util.Optional"));
   }
 
   /**
@@ -4987,7 +4865,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName42_thenReturnName422() {
     // Arrange, Act and Assert
-    assertEquals("name42", ReportGridUtilities.sanitizeString(" Name42"));
+    assertEquals("name42", ReportGridUtilities.sanitizeString("   Name42"));
   }
 
   /**
@@ -5027,7 +4905,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenNameName_thenReturnNamename2() {
     // Arrange, Act and Assert
-    assertEquals("namename", ReportGridUtilities.sanitizeString(" NameName"));
+    assertEquals("namename", ReportGridUtilities.sanitizeString("   NameName"));
   }
 
   /**
@@ -5087,7 +4965,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenNameS_thenReturnNames3() {
     // Arrange, Act and Assert
-    assertEquals("names+", ReportGridUtilities.sanitizeString(" Name\\s+"));
+    assertEquals("names+", ReportGridUtilities.sanitizeString("   Name\\s+"));
   }
 
   /**
@@ -5147,7 +5025,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName3() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString(" Name"));
+    assertEquals("name", ReportGridUtilities.sanitizeString("   Name"));
   }
 
   /**
@@ -5207,7 +5085,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName6() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString("Name "));
+    assertEquals("name", ReportGridUtilities.sanitizeString("Name   "));
   }
 
   /**
@@ -5267,7 +5145,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName9() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString("; Name"));
+    assertEquals("name", ReportGridUtilities.sanitizeString(";   Name"));
   }
 
   /**
@@ -5327,7 +5205,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName12() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString(";Name "));
+    assertEquals("name", ReportGridUtilities.sanitizeString(";Name   "));
   }
 
   /**
@@ -5447,7 +5325,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName18() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString(" ;Name"));
+    assertEquals("name", ReportGridUtilities.sanitizeString("   ;Name"));
   }
 
   /**
@@ -5467,7 +5345,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName19() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString("  Name"));
+    assertEquals("name", ReportGridUtilities.sanitizeString("      Name"));
   }
 
   /**
@@ -5487,7 +5365,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName20() {
     // Arrange, Act and Assert
-    assertEquals("[]name", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]Name"));
+    assertEquals("[]name", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]Name"));
   }
 
   /**
@@ -5507,7 +5385,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName21() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString(" Name;"));
+    assertEquals("name", ReportGridUtilities.sanitizeString("   Name;"));
   }
 
   /**
@@ -5527,7 +5405,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName22() {
     // Arrange, Act and Assert
-    assertEquals("name", ReportGridUtilities.sanitizeString(" Name "));
+    assertEquals("name", ReportGridUtilities.sanitizeString("   Name   "));
   }
 
   /**
@@ -5547,7 +5425,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName23() {
     // Arrange, Act and Assert
-    assertEquals("name[]", ReportGridUtilities.sanitizeString(" Name[:;*?!/\\\\]"));
+    assertEquals("name[]", ReportGridUtilities.sanitizeString("   Name[:;*?!/\\\\]"));
   }
 
   /**
@@ -5567,7 +5445,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName24() {
     // Arrange, Act and Assert
-    assertEquals("name|", ReportGridUtilities.sanitizeString(" Name|"));
+    assertEquals("name|", ReportGridUtilities.sanitizeString("   Name|"));
   }
 
   /**
@@ -5587,7 +5465,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenName_thenReturnName25() {
     // Arrange, Act and Assert
-    assertEquals("name|--", ReportGridUtilities.sanitizeString(" Name|--"));
+    assertEquals("name|--", ReportGridUtilities.sanitizeString("   Name|--"));
   }
 
   /**
@@ -5629,7 +5507,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenNamejavaUtilList_thenReturnNamejavaUtilList2() {
     // Arrange, Act and Assert
-    assertEquals("namejava.util.list", ReportGridUtilities.sanitizeString(" Namejava.util.List"));
+    assertEquals("namejava.util.list", ReportGridUtilities.sanitizeString("   Namejava.util.List"));
   }
 
   /**
@@ -5673,7 +5551,7 @@ class ReportGridUtilitiesDiffblueTest {
   void testSanitizeString_whenNamejavaUtilOptional_thenReturnNamejavaUtilOptional2() {
     // Arrange, Act and Assert
     assertEquals(
-        "namejava.util.optional", ReportGridUtilities.sanitizeString(" Namejava.util.Optional"));
+        "namejava.util.optional", ReportGridUtilities.sanitizeString("   Namejava.util.Optional"));
   }
 
   /**
@@ -5719,7 +5597,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "nameorg.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            " Nameorg.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   Nameorg.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -5785,7 +5663,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            " org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -5854,7 +5732,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            "org.finos.waltz.service.report_grid.ReportGridUtilities "));
+            "org.finos.waltz.service.report_grid.ReportGridUtilities   "));
   }
 
   /**
@@ -5923,7 +5801,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            "; org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            ";   org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -5992,7 +5870,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            ";org.finos.waltz.service.report_grid.ReportGridUtilities "));
+            ";org.finos.waltz.service.report_grid.ReportGridUtilities   "));
   }
 
   /**
@@ -6038,7 +5916,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            " ;org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   ;org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -6061,7 +5939,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            "  org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "      org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -6084,7 +5962,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "[]org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            " [:;*?!/\\\\]org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   [:;*?!/\\\\]org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -6190,7 +6068,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS42_thenReturnS423() {
     // Arrange, Act and Assert
-    assertEquals("s+42", ReportGridUtilities.sanitizeString(" \\s+42"));
+    assertEquals("s+42", ReportGridUtilities.sanitizeString("   \\s+42"));
   }
 
   /**
@@ -6253,7 +6131,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSJavaUtilList_thenReturnSJavaUtilList3() {
     // Arrange, Act and Assert
-    assertEquals("s+java.util.list", ReportGridUtilities.sanitizeString(" \\s+java.util.List"));
+    assertEquals("s+java.util.list", ReportGridUtilities.sanitizeString("   \\s+java.util.List"));
   }
 
   /**
@@ -6319,7 +6197,7 @@ class ReportGridUtilitiesDiffblueTest {
   void testSanitizeString_whenSJavaUtilOptional_thenReturnSJavaUtilOptional3() {
     // Arrange, Act and Assert
     assertEquals(
-        "s+java.util.optional", ReportGridUtilities.sanitizeString(" \\s+java.util.Optional"));
+        "s+java.util.optional", ReportGridUtilities.sanitizeString("   \\s+java.util.Optional"));
   }
 
   /**
@@ -6379,7 +6257,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSName_thenReturnSName3() {
     // Arrange, Act and Assert
-    assertEquals("s+name", ReportGridUtilities.sanitizeString(" \\s+Name"));
+    assertEquals("s+name", ReportGridUtilities.sanitizeString("   \\s+Name"));
   }
 
   /**
@@ -6448,7 +6326,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "s+org.finos.waltz.service.report_grid.reportgridutilities",
         ReportGridUtilities.sanitizeString(
-            " \\s+org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   \\s+org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -6508,7 +6386,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSS_thenReturnSS3() {
     // Arrange, Act and Assert
-    assertEquals("s+s+", ReportGridUtilities.sanitizeString(" \\s+\\s+"));
+    assertEquals("s+s+", ReportGridUtilities.sanitizeString("   \\s+\\s+"));
   }
 
   /**
@@ -6568,7 +6446,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS3() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString(" \\s+"));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("   \\s+"));
   }
 
   /**
@@ -6628,7 +6506,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS6() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString("\\s+ "));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("\\s+   "));
   }
 
   /**
@@ -6768,7 +6646,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS13() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString("; \\s+"));
+    assertEquals("s+", ReportGridUtilities.sanitizeString(";   \\s+"));
   }
 
   /**
@@ -6828,7 +6706,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS16() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString(";\\s+ "));
+    assertEquals("s+", ReportGridUtilities.sanitizeString(";\\s+   "));
   }
 
   /**
@@ -6948,7 +6826,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS22() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString(" ;\\s+"));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("   ;\\s+"));
   }
 
   /**
@@ -6968,7 +6846,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS23() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString("  \\s+"));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("      \\s+"));
   }
 
   /**
@@ -6988,7 +6866,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS24() {
     // Arrange, Act and Assert
-    assertEquals("[]s+", ReportGridUtilities.sanitizeString(" [:;*?!/\\\\]\\s+"));
+    assertEquals("[]s+", ReportGridUtilities.sanitizeString("   [:;*?!/\\\\]\\s+"));
   }
 
   /**
@@ -7008,7 +6886,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS25() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString(" \\s+;"));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("   \\s+;"));
   }
 
   /**
@@ -7028,7 +6906,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS26() {
     // Arrange, Act and Assert
-    assertEquals("s+", ReportGridUtilities.sanitizeString(" \\s+ "));
+    assertEquals("s+", ReportGridUtilities.sanitizeString("   \\s+   "));
   }
 
   /**
@@ -7048,7 +6926,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS27() {
     // Arrange, Act and Assert
-    assertEquals("s+[]", ReportGridUtilities.sanitizeString(" \\s+[:;*?!/\\\\]"));
+    assertEquals("s+[]", ReportGridUtilities.sanitizeString("   \\s+[:;*?!/\\\\]"));
   }
 
   /**
@@ -7068,7 +6946,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS28() {
     // Arrange, Act and Assert
-    assertEquals("s+|", ReportGridUtilities.sanitizeString(" \\s+|"));
+    assertEquals("s+|", ReportGridUtilities.sanitizeString("   \\s+|"));
   }
 
   /**
@@ -7088,7 +6966,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenS_thenReturnS29() {
     // Arrange, Act and Assert
-    assertEquals("s+|--", ReportGridUtilities.sanitizeString(" \\s+|--"));
+    assertEquals("s+|--", ReportGridUtilities.sanitizeString("   \\s+|--"));
   }
 
   /**
@@ -7187,7 +7065,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonSemicolon_thenReturnEmptyString2() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(";; "));
+    assertEquals("", ReportGridUtilities.sanitizeString(";;   "));
   }
 
   /**
@@ -7207,7 +7085,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonSemicolon_thenReturnEmptyString3() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(" ;;"));
+    assertEquals("", ReportGridUtilities.sanitizeString("   ;;"));
   }
 
   /**
@@ -7227,7 +7105,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonSpaceSemicolon_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString("; ;"));
+    assertEquals("", ReportGridUtilities.sanitizeString(";   ;"));
   }
 
   /**
@@ -7246,7 +7124,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonSpaceVerticalLineDashDash() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString("; |--"));
+    assertEquals("|--", ReportGridUtilities.sanitizeString(";   |--"));
   }
 
   /**
@@ -7266,7 +7144,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonSpaceVerticalLine_thenReturnVerticalLine() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString("; |"));
+    assertEquals("|", ReportGridUtilities.sanitizeString(";   |"));
   }
 
   /**
@@ -7304,7 +7182,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonVerticalLineDashDash2() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString(";|-- "));
+    assertEquals("|--", ReportGridUtilities.sanitizeString(";|--   "));
   }
 
   /**
@@ -7323,7 +7201,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonVerticalLineDashDash3() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString(" ;|--"));
+    assertEquals("|--", ReportGridUtilities.sanitizeString("   ;|--"));
   }
 
   /**
@@ -7402,7 +7280,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonVerticalLine_thenReturnVerticalLine2() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString(";| "));
+    assertEquals("|", ReportGridUtilities.sanitizeString(";|   "));
   }
 
   /**
@@ -7422,7 +7300,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolonVerticalLine_thenReturnVerticalLine3() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString(" ;|"));
+    assertEquals("|", ReportGridUtilities.sanitizeString("   ;|"));
   }
 
   /**
@@ -7462,7 +7340,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolon_thenReturnEmptyString2() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString("; "));
+    assertEquals("", ReportGridUtilities.sanitizeString(";   "));
   }
 
   /**
@@ -7482,7 +7360,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolon_thenReturnEmptyString3() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(" ;"));
+    assertEquals("", ReportGridUtilities.sanitizeString("   ;"));
   }
 
   /**
@@ -7502,7 +7380,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolon_thenReturnEmptyString4() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(";  "));
+    assertEquals("", ReportGridUtilities.sanitizeString(";      "));
   }
 
   /**
@@ -7522,7 +7400,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolon_thenReturnEmptyString5() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(" ; "));
+    assertEquals("", ReportGridUtilities.sanitizeString("   ;   "));
   }
 
   /**
@@ -7542,7 +7420,48 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenSemicolon_thenReturnEmptyString6() {
     // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString("  ;"));
+    assertEquals("", ReportGridUtilities.sanitizeString("      ;"));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#sanitizeString(String)}.
+   *
+   * <ul>
+   *   <li>When space space space space space space space space space.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#sanitizeString(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test sanitizeString(String); when space space space space space space space space space")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
+  void testSanitizeString_whenSpaceSpaceSpaceSpaceSpaceSpaceSpaceSpaceSpace() {
+    // Arrange, Act and Assert
+    assertEquals("", ReportGridUtilities.sanitizeString("         "));
+  }
+
+  /**
+   * Test {@link ReportGridUtilities#sanitizeString(String)}.
+   *
+   * <ul>
+   *   <li>When space space space space space space.
+   *   <li>Then return empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReportGridUtilities#sanitizeString(String)}
+   */
+  @Test
+  @DisplayName(
+      "Test sanitizeString(String); when space space space space space space; then return empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
+  void testSanitizeString_whenSpaceSpaceSpaceSpaceSpaceSpace_thenReturnEmptyString() {
+    // Arrange, Act and Assert
+    assertEquals("", ReportGridUtilities.sanitizeString("      "));
   }
 
   /**
@@ -7563,46 +7482,6 @@ class ReportGridUtilitiesDiffblueTest {
   void testSanitizeString_whenSpaceSpaceSpace_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", ReportGridUtilities.sanitizeString("   "));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#sanitizeString(String)}.
-   *
-   * <ul>
-   *   <li>When space space.
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#sanitizeString(String)}
-   */
-  @Test
-  @DisplayName("Test sanitizeString(String); when space space; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
-  void testSanitizeString_whenSpaceSpace_thenReturnEmptyString() {
-    // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString("  "));
-  }
-
-  /**
-   * Test {@link ReportGridUtilities#sanitizeString(String)}.
-   *
-   * <ul>
-   *   <li>When space.
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReportGridUtilities#sanitizeString(String)}
-   */
-  @Test
-  @DisplayName("Test sanitizeString(String); when space; then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
-  void testSanitizeString_whenSpace_thenReturnEmptyString() {
-    // Arrange, Act and Assert
-    assertEquals("", ReportGridUtilities.sanitizeString(" "));
   }
 
   /**
@@ -7641,7 +7520,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLineDashDash_thenReturnVerticalLineDashDash() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString(" |--"));
+    assertEquals("|--", ReportGridUtilities.sanitizeString("   |--"));
   }
 
   /**
@@ -7661,7 +7540,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLineDashDash_thenReturnVerticalLineDashDash2() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString("|-- "));
+    assertEquals("|--", ReportGridUtilities.sanitizeString("|--   "));
   }
 
   /**
@@ -7681,7 +7560,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLineDashDash_thenReturnVerticalLineDashDash3() {
     // Arrange, Act and Assert
-    assertEquals("|--", ReportGridUtilities.sanitizeString("  |--"));
+    assertEquals("|--", ReportGridUtilities.sanitizeString("      |--"));
   }
 
   /**
@@ -7721,7 +7600,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLine_thenReturnVerticalLine() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString(" |"));
+    assertEquals("|", ReportGridUtilities.sanitizeString("   |"));
   }
 
   /**
@@ -7741,7 +7620,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLine_thenReturnVerticalLine2() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString("| "));
+    assertEquals("|", ReportGridUtilities.sanitizeString("|   "));
   }
 
   /**
@@ -7761,7 +7640,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.sanitizeString(String)"})
   void testSanitizeString_whenVerticalLine_thenReturnVerticalLine3() {
     // Arrange, Act and Assert
-    assertEquals("|", ReportGridUtilities.sanitizeString("  |"));
+    assertEquals("|", ReportGridUtilities.sanitizeString("      |"));
   }
 
   /**
@@ -7806,7 +7685,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode3() {
     // Arrange, Act and Assert
-    assertEquals("_[]", ReportGridUtilities.mkOptionCode(" [:;*?!/\\\\]"));
+    assertEquals("_[]", ReportGridUtilities.mkOptionCode("   [:;*?!/\\\\]"));
   }
 
   /**
@@ -7836,7 +7715,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode5() {
     // Arrange, Act and Assert
-    assertEquals("[]_", ReportGridUtilities.mkOptionCode("[:;*?!/\\\\] "));
+    assertEquals("[]_", ReportGridUtilities.mkOptionCode("[:;*?!/\\\\]   "));
   }
 
   /**
@@ -7971,7 +7850,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode14() {
     // Arrange, Act and Assert
-    assertEquals("_[]", ReportGridUtilities.mkOptionCode("; [:;*?!/\\\\]"));
+    assertEquals("_[]", ReportGridUtilities.mkOptionCode(";   [:;*?!/\\\\]"));
   }
 
   /**
@@ -8001,7 +7880,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode16() {
     // Arrange, Act and Assert
-    assertEquals("[]_", ReportGridUtilities.mkOptionCode(";[:;*?!/\\\\] "));
+    assertEquals("[]_", ReportGridUtilities.mkOptionCode(";[:;*?!/\\\\]   "));
   }
 
   /**
@@ -8193,7 +8072,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode28() {
     // Arrange, Act and Assert
-    assertEquals("_[]", ReportGridUtilities.mkOptionCode(" ;[:;*?!/\\\\]"));
+    assertEquals("_[]", ReportGridUtilities.mkOptionCode("   ;[:;*?!/\\\\]"));
   }
 
   /**
@@ -8325,7 +8204,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "ORG.FINOS.WALTZ.SERVICE.REPORT_GRID.REPORTGRIDUTILITIES_",
         ReportGridUtilities.mkOptionCode(
-            ";org.finos.waltz.service.report_grid.ReportGridUtilities "));
+            ";org.finos.waltz.service.report_grid.ReportGridUtilities   "));
   }
 
   /**
@@ -8482,7 +8361,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_thenReturnVerticalLineDashDashUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("|--_", ReportGridUtilities.mkOptionCode(";|-- "));
+    assertEquals("|--_", ReportGridUtilities.mkOptionCode(";|--   "));
   }
 
   /**
@@ -8658,7 +8537,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_when42_thenReturn422() {
     // Arrange, Act and Assert
-    assertEquals("_42", ReportGridUtilities.mkOptionCode(" 42"));
+    assertEquals("_42", ReportGridUtilities.mkOptionCode("   42"));
   }
 
   /**
@@ -8718,7 +8597,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_when42_thenReturn425() {
     // Arrange, Act and Assert
-    assertEquals("42_", ReportGridUtilities.mkOptionCode("42 "));
+    assertEquals("42_", ReportGridUtilities.mkOptionCode("42   "));
   }
 
   /**
@@ -8778,7 +8657,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_when42_thenReturn428() {
     // Arrange, Act and Assert
-    assertEquals("_42", ReportGridUtilities.mkOptionCode("; 42"));
+    assertEquals("_42", ReportGridUtilities.mkOptionCode(";   42"));
   }
 
   /**
@@ -8858,7 +8737,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_when42_thenReturn4212() {
     // Arrange, Act and Assert
-    assertEquals("42_", ReportGridUtilities.mkOptionCode(";42 "));
+    assertEquals("42_", ReportGridUtilities.mkOptionCode(";42   "));
   }
 
   /**
@@ -8998,7 +8877,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_when42_thenReturn4219() {
     // Arrange, Act and Assert
-    assertEquals("_42", ReportGridUtilities.mkOptionCode(" ;42"));
+    assertEquals("_42", ReportGridUtilities.mkOptionCode("   ;42"));
   }
 
   /**
@@ -9209,7 +9088,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilList_thenReturnJavaUtilList2() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode(" java.util.List"));
+    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode("   java.util.List"));
   }
 
   /**
@@ -9271,7 +9150,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilList_thenReturnJavaUtilList5() {
     // Arrange, Act and Assert
-    assertEquals("JAVA.UTIL.LIST_", ReportGridUtilities.mkOptionCode("java.util.List "));
+    assertEquals("JAVA.UTIL.LIST_", ReportGridUtilities.mkOptionCode("java.util.List   "));
   }
 
   /**
@@ -9333,7 +9212,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilList_thenReturnJavaUtilList8() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode("; java.util.List"));
+    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode(";   java.util.List"));
   }
 
   /**
@@ -9415,7 +9294,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilList_thenReturnJavaUtilList12() {
     // Arrange, Act and Assert
-    assertEquals("JAVA.UTIL.LIST_", ReportGridUtilities.mkOptionCode(";java.util.List "));
+    assertEquals("JAVA.UTIL.LIST_", ReportGridUtilities.mkOptionCode(";java.util.List   "));
   }
 
   /**
@@ -9559,7 +9438,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilList_thenReturnJavaUtilList19() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode(" ;java.util.List"));
+    assertEquals("_JAVA.UTIL.LIST", ReportGridUtilities.mkOptionCode("   ;java.util.List"));
   }
 
   /**
@@ -9711,7 +9590,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilOptional_thenReturnJavaUtilOptional2() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode(" java.util.Optional"));
+    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode("   java.util.Optional"));
   }
 
   /**
@@ -9775,7 +9654,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilOptional_thenReturnJavaUtilOptional5() {
     // Arrange, Act and Assert
-    assertEquals("JAVA.UTIL.OPTIONAL_", ReportGridUtilities.mkOptionCode("java.util.Optional "));
+    assertEquals("JAVA.UTIL.OPTIONAL_", ReportGridUtilities.mkOptionCode("java.util.Optional   "));
   }
 
   /**
@@ -9839,7 +9718,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilOptional_thenReturnJavaUtilOptional8() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode("; java.util.Optional"));
+    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode(";   java.util.Optional"));
   }
 
   /**
@@ -9925,7 +9804,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilOptional_thenReturnJavaUtilOptional12() {
     // Arrange, Act and Assert
-    assertEquals("JAVA.UTIL.OPTIONAL_", ReportGridUtilities.mkOptionCode(";java.util.Optional "));
+    assertEquals("JAVA.UTIL.OPTIONAL_", ReportGridUtilities.mkOptionCode(";java.util.Optional   "));
   }
 
   /**
@@ -10076,7 +9955,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenJavaUtilOptional_thenReturnJavaUtilOptional19() {
     // Arrange, Act and Assert
-    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode(" ;java.util.Optional"));
+    assertEquals("_JAVA.UTIL.OPTIONAL", ReportGridUtilities.mkOptionCode("   ;java.util.Optional"));
   }
 
   /**
@@ -10216,7 +10095,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenName_thenReturnName3() {
     // Arrange, Act and Assert
-    assertEquals("_NAME", ReportGridUtilities.mkOptionCode(" Name"));
+    assertEquals("_NAME", ReportGridUtilities.mkOptionCode("   Name"));
   }
 
   /**
@@ -10276,7 +10155,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenName_thenReturnName6() {
     // Arrange, Act and Assert
-    assertEquals("NAME_", ReportGridUtilities.mkOptionCode("Name "));
+    assertEquals("NAME_", ReportGridUtilities.mkOptionCode("Name   "));
   }
 
   /**
@@ -10336,7 +10215,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenName_thenReturnName9() {
     // Arrange, Act and Assert
-    assertEquals("_NAME", ReportGridUtilities.mkOptionCode("; Name"));
+    assertEquals("_NAME", ReportGridUtilities.mkOptionCode(";   Name"));
   }
 
   /**
@@ -10416,7 +10295,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenName_thenReturnName13() {
     // Arrange, Act and Assert
-    assertEquals("NAME_", ReportGridUtilities.mkOptionCode(";Name "));
+    assertEquals("NAME_", ReportGridUtilities.mkOptionCode(";Name   "));
   }
 
   /**
@@ -10556,7 +10435,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenName_thenReturnName20() {
     // Arrange, Act and Assert
-    assertEquals("_NAME", ReportGridUtilities.mkOptionCode(" ;Name"));
+    assertEquals("_NAME", ReportGridUtilities.mkOptionCode("   ;Name"));
   }
 
   /**
@@ -10665,7 +10544,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "_ORG.FINOS.WALTZ.SERVICE.REPORT_GRID.REPORTGRIDUTILITIES",
         ReportGridUtilities.mkOptionCode(
-            " org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -10734,7 +10613,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "ORG.FINOS.WALTZ.SERVICE.REPORT_GRID.REPORTGRIDUTILITIES_",
         ReportGridUtilities.mkOptionCode(
-            "org.finos.waltz.service.report_grid.ReportGridUtilities "));
+            "org.finos.waltz.service.report_grid.ReportGridUtilities   "));
   }
 
   /**
@@ -10803,7 +10682,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "_ORG.FINOS.WALTZ.SERVICE.REPORT_GRID.REPORTGRIDUTILITIES",
         ReportGridUtilities.mkOptionCode(
-            "; org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            ";   org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -10941,7 +10820,7 @@ class ReportGridUtilitiesDiffblueTest {
     assertEquals(
         "_ORG.FINOS.WALTZ.SERVICE.REPORT_GRID.REPORTGRIDUTILITIES",
         ReportGridUtilities.mkOptionCode(
-            " ;org.finos.waltz.service.report_grid.ReportGridUtilities"));
+            "   ;org.finos.waltz.service.report_grid.ReportGridUtilities"));
   }
 
   /**
@@ -11299,7 +11178,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenS_thenReturnS3() {
     // Arrange, Act and Assert
-    assertEquals("_S+", ReportGridUtilities.mkOptionCode(" \\s+"));
+    assertEquals("_S+", ReportGridUtilities.mkOptionCode("   \\s+"));
   }
 
   /**
@@ -11359,7 +11238,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenS_thenReturnS6() {
     // Arrange, Act and Assert
-    assertEquals("S+_", ReportGridUtilities.mkOptionCode("\\s+ "));
+    assertEquals("S+_", ReportGridUtilities.mkOptionCode("\\s+   "));
   }
 
   /**
@@ -11539,7 +11418,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenS_thenReturnS15() {
     // Arrange, Act and Assert
-    assertEquals("_S+", ReportGridUtilities.mkOptionCode("; \\s+"));
+    assertEquals("_S+", ReportGridUtilities.mkOptionCode(";   \\s+"));
   }
 
   /**
@@ -11599,7 +11478,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenS_thenReturnS18() {
     // Arrange, Act and Assert
-    assertEquals("S+_", ReportGridUtilities.mkOptionCode(";\\s+ "));
+    assertEquals("S+_", ReportGridUtilities.mkOptionCode(";\\s+   "));
   }
 
   /**
@@ -11759,7 +11638,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenS_thenReturnS26() {
     // Arrange, Act and Assert
-    assertEquals("_S+", ReportGridUtilities.mkOptionCode(" ;\\s+"));
+    assertEquals("_S+", ReportGridUtilities.mkOptionCode("   ;\\s+"));
   }
 
   /**
@@ -11878,7 +11757,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSemicolon_thenReturnUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(";; "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode(";;   "));
   }
 
   /**
@@ -11898,7 +11777,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSemicolon_thenReturnUnderscore2() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(" ;;"));
+    assertEquals("_", ReportGridUtilities.mkOptionCode("   ;;"));
   }
 
   /**
@@ -11918,7 +11797,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSpaceSemicolon_thenReturnUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode("; ;"));
+    assertEquals("_", ReportGridUtilities.mkOptionCode(";   ;"));
   }
 
   /**
@@ -11938,7 +11817,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSpaceUnderscore_thenReturnUnderscoreUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("__", ReportGridUtilities.mkOptionCode("; _"));
+    assertEquals("__", ReportGridUtilities.mkOptionCode(";   _"));
   }
 
   /**
@@ -11957,7 +11836,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSpaceVerticalLineDashDash() {
     // Arrange, Act and Assert
-    assertEquals("_|--", ReportGridUtilities.mkOptionCode("; |--"));
+    assertEquals("_|--", ReportGridUtilities.mkOptionCode(";   |--"));
   }
 
   /**
@@ -11977,7 +11856,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonSpaceVerticalLine_thenReturnUnderscoreVerticalLine() {
     // Arrange, Act and Assert
-    assertEquals("_|", ReportGridUtilities.mkOptionCode("; |"));
+    assertEquals("_|", ReportGridUtilities.mkOptionCode(";   |"));
   }
 
   /**
@@ -12094,7 +11973,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonUnderscore_thenReturnUnderscoreUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("__", ReportGridUtilities.mkOptionCode(";_ "));
+    assertEquals("__", ReportGridUtilities.mkOptionCode(";_   "));
   }
 
   /**
@@ -12114,7 +11993,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonUnderscore_thenReturnUnderscoreUnderscore2() {
     // Arrange, Act and Assert
-    assertEquals("__", ReportGridUtilities.mkOptionCode(" ;_"));
+    assertEquals("__", ReportGridUtilities.mkOptionCode("   ;_"));
   }
 
   /**
@@ -12152,7 +12031,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonVerticalLineDashDash2() {
     // Arrange, Act and Assert
-    assertEquals("_|--", ReportGridUtilities.mkOptionCode(" ;|--"));
+    assertEquals("_|--", ReportGridUtilities.mkOptionCode("   ;|--"));
   }
 
   /**
@@ -12249,7 +12128,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonVerticalLine_thenReturnUnderscoreVerticalLine() {
     // Arrange, Act and Assert
-    assertEquals("_|", ReportGridUtilities.mkOptionCode(" ;|"));
+    assertEquals("_|", ReportGridUtilities.mkOptionCode("   ;|"));
   }
 
   /**
@@ -12289,7 +12168,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolonVerticalLine_thenReturnVerticalLineUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("|_", ReportGridUtilities.mkOptionCode(";| "));
+    assertEquals("|_", ReportGridUtilities.mkOptionCode(";|   "));
   }
 
   /**
@@ -12329,7 +12208,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolon_thenReturnUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode("; "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode(";   "));
   }
 
   /**
@@ -12349,7 +12228,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolon_thenReturnUnderscore2() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(" ;"));
+    assertEquals("_", ReportGridUtilities.mkOptionCode("   ;"));
   }
 
   /**
@@ -12369,7 +12248,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolon_thenReturnUnderscore3() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(";  "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode(";      "));
   }
 
   /**
@@ -12389,47 +12268,48 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenSemicolon_thenReturnUnderscore4() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(" ; "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode("   ;   "));
   }
 
   /**
    * Test {@link ReportGridUtilities#mkOptionCode(String)}.
    *
    * <ul>
-   *   <li>When space space.
+   *   <li>When space space space space space space.
    *   <li>Then return {@code _}.
    * </ul>
    *
    * <p>Method under test: {@link ReportGridUtilities#mkOptionCode(String)}
    */
   @Test
-  @DisplayName("Test mkOptionCode(String); when space space; then return '_'")
+  @DisplayName(
+      "Test mkOptionCode(String); when space space space space space space; then return '_'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
-  void testMkOptionCode_whenSpaceSpace_thenReturnUnderscore() {
+  void testMkOptionCode_whenSpaceSpaceSpaceSpaceSpaceSpace_thenReturnUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode("  "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode("      "));
   }
 
   /**
    * Test {@link ReportGridUtilities#mkOptionCode(String)}.
    *
    * <ul>
-   *   <li>When space.
+   *   <li>When space space space.
    *   <li>Then return {@code _}.
    * </ul>
    *
    * <p>Method under test: {@link ReportGridUtilities#mkOptionCode(String)}
    */
   @Test
-  @DisplayName("Test mkOptionCode(String); when space; then return '_'")
+  @DisplayName("Test mkOptionCode(String); when space space space; then return '_'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
-  void testMkOptionCode_whenSpace_thenReturnUnderscore() {
+  void testMkOptionCode_whenSpaceSpaceSpace_thenReturnUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("_", ReportGridUtilities.mkOptionCode(" "));
+    assertEquals("_", ReportGridUtilities.mkOptionCode("   "));
   }
 
   /**
@@ -12469,7 +12349,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenUnderscore_thenReturnUnderscoreUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("__", ReportGridUtilities.mkOptionCode(" _"));
+    assertEquals("__", ReportGridUtilities.mkOptionCode("   _"));
   }
 
   /**
@@ -12489,7 +12369,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenUnderscore_thenReturnUnderscoreUnderscore2() {
     // Arrange, Act and Assert
-    assertEquals("__", ReportGridUtilities.mkOptionCode("_ "));
+    assertEquals("__", ReportGridUtilities.mkOptionCode("_   "));
   }
 
   /**
@@ -12508,7 +12388,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenVerticalLineDashDash() {
     // Arrange, Act and Assert
-    assertEquals("_|--", ReportGridUtilities.mkOptionCode(" |--"));
+    assertEquals("_|--", ReportGridUtilities.mkOptionCode("   |--"));
   }
 
   /**
@@ -12527,7 +12407,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenVerticalLineDashDash2() {
     // Arrange, Act and Assert
-    assertEquals("|--_", ReportGridUtilities.mkOptionCode("|-- "));
+    assertEquals("|--_", ReportGridUtilities.mkOptionCode("|--   "));
   }
 
   /**
@@ -12586,7 +12466,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenVerticalLine_thenReturnUnderscoreVerticalLine() {
     // Arrange, Act and Assert
-    assertEquals("_|", ReportGridUtilities.mkOptionCode(" |"));
+    assertEquals("_|", ReportGridUtilities.mkOptionCode("   |"));
   }
 
   /**
@@ -12606,7 +12486,7 @@ class ReportGridUtilitiesDiffblueTest {
   @MethodsUnderTest({"String ReportGridUtilities.mkOptionCode(String)"})
   void testMkOptionCode_whenVerticalLine_thenReturnVerticalLineUnderscore() {
     // Arrange, Act and Assert
-    assertEquals("|_", ReportGridUtilities.mkOptionCode("| "));
+    assertEquals("|_", ReportGridUtilities.mkOptionCode("|   "));
   }
 
   /**

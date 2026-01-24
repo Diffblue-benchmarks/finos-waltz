@@ -53,21 +53,21 @@ class HeaderBasedAuthenticationFilterDiffblueTest {
    * Test {@link HeaderBasedAuthenticationFilter#HeaderBasedAuthenticationFilter(SettingsService)}.
    *
    * <ul>
-   *   <li>Given of {@code 42}.
+   *   <li>Given of {@code foo}.
    * </ul>
    *
    * <p>Method under test: {@link
    * HeaderBasedAuthenticationFilter#HeaderBasedAuthenticationFilter(SettingsService)}
    */
   @Test
-  @DisplayName("Test new HeaderBasedAuthenticationFilter(SettingsService); given of '42'")
+  @DisplayName("Test new HeaderBasedAuthenticationFilter(SettingsService); given of 'foo'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void HeaderBasedAuthenticationFilter.<init>(SettingsService)"})
-  void testNewHeaderBasedAuthenticationFilter_givenOf42() {
+  void testNewHeaderBasedAuthenticationFilter_givenOfFoo() {
     // Arrange
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     // Act

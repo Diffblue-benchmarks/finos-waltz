@@ -20,46 +20,6 @@ import org.junit.jupiter.api.Test;
 
 class DatabaseInformationDiffblueTest {
   /**
-   * Test {@link DatabaseInformation#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DatabaseInformation#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind DatabaseInformation.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange
-    Builder dbmsVersionResult =
-        ImmutableDatabaseInformation.builder()
-            .databaseName("Database Name")
-            .dbmsName("Dbms Name")
-            .dbmsVendor("Dbms Vendor")
-            .dbmsVersion("1.0.2");
-
-    // Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        dbmsVersionResult
-            .endOfLifeDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .externalId("42")
-            .id(1L)
-            .instanceName("Instance Name")
-            .kind(EntityKind.ALL)
-            .lifecycleStatus(LifecycleStatus.ACTIVE)
-            .provenance("Provenance")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link DatabaseInformation#entityReference()}.
    *
    * <ul>

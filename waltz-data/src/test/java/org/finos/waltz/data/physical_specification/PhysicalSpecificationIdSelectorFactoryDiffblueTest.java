@@ -4,9 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import org.finos.waltz.model.EntityKind;
@@ -19,7 +24,7 @@ import org.finos.waltz.model.ImmutableIdSelectionOptions;
 import org.finos.waltz.model.ImmutableIdSelectionOptions.Builder;
 import org.finos.waltz.model.ImmutableSelectionFilters;
 import org.finos.waltz.model.SelectionFilters;
-import org.finos.waltz.model.application.ImmutableApplicationIdSelectionOptions;
+import org.finos.waltz.model.application.ApplicationKind;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -43,176 +48,14 @@ class PhysicalSpecificationIdSelectorFactoryDiffblueTest {
     PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
         new PhysicalSpecificationIdSelectorFactory();
 
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ACTOR)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    assertDoesNotThrow(
-        () ->
-            physicalSpecificationIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
-  })
-  void testApplyWithIdSelectionOptions2() {
-    // Arrange
-    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
-        new PhysicalSpecificationIdSelectorFactory();
-
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    IdSelectionOptions options = mock(IdSelectionOptions.class);
+    when(options.entityReference()).thenThrow(new UnsupportedOperationException());
 
     // Act and Assert
     assertThrows(
         UnsupportedOperationException.class,
-        () ->
-            physicalSpecificationIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
-  })
-  void testApplyWithIdSelectionOptions3() {
-    // Arrange
-    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
-        new PhysicalSpecificationIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ACTOR)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    assertDoesNotThrow(
-        () ->
-            physicalSpecificationIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
-  })
-  void testApplyWithIdSelectionOptions4() {
-    // Arrange
-    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
-        new PhysicalSpecificationIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            physicalSpecificationIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
+        () -> physicalSpecificationIdSelectorFactory.apply(options));
+    verify(options).entityReference();
   }
 
   /**
@@ -220,52 +63,207 @@ class PhysicalSpecificationIdSelectorFactoryDiffblueTest {
    * IdSelectionOptions}.
    *
    * <ul>
-   *   <li>Given {@code REMOVED}.
+   *   <li>Given builder addOmitApplicationKinds {@code IN_HOUSE}.
    * </ul>
    *
    * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
    */
   @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given 'REMOVED'")
+  @DisplayName(
+      "Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given builder addOmitApplicationKinds 'IN_HOUSE'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
   })
-  void testApplyWithIdSelectionOptions_givenRemoved() {
+  void testApplyWithIdSelectionOptions_givenBuilderAddOmitApplicationKindsInHouse() {
     // Arrange
     PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
         new PhysicalSpecificationIdSelectorFactory();
 
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-    builderResult.addEntityLifecycleStatuses(EntityLifecycleStatus.REMOVED);
+    ImmutableSelectionFilters.Builder builderResult = ImmutableSelectionFilters.builder();
+    builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
 
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ACTOR)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    IdSelectionOptions options = mock(IdSelectionOptions.class);
+    when(options.filters()).thenReturn(builderResult.build());
+    when(options.entityLifecycleStatuses()).thenReturn(new HashSet<>());
+    when(options.scope()).thenReturn(HierarchyQueryScope.EXACT);
+    when(options.entityReference())
+        .thenReturn(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.APP_GROUP)
+                .name("Name")
+                .build());
 
     // Act
-    assertDoesNotThrow(
-        () ->
-            physicalSpecificationIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
+    physicalSpecificationIdSelectorFactory.apply(options);
+
+    // Assert
+    verify(options, atLeast(1)).entityLifecycleStatuses();
+    verify(options, atLeast(1)).entityReference();
+    verify(options, atLeast(1)).filters();
+    verify(options).scope();
+  }
+
+  /**
+   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <ul>
+   *   <li>Given builder build.
+   *   <li>Then calls {@link IdSelectionOptions#filters()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given builder build; then calls filters()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
+  })
+  void testApplyWithIdSelectionOptions_givenBuilderBuild_thenCallsFilters() {
+    // Arrange
+    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
+        new PhysicalSpecificationIdSelectorFactory();
+
+    IdSelectionOptions options = mock(IdSelectionOptions.class);
+    when(options.filters()).thenReturn(ImmutableSelectionFilters.builder().build());
+    when(options.entityLifecycleStatuses()).thenReturn(new HashSet<>());
+    when(options.scope()).thenReturn(HierarchyQueryScope.EXACT);
+    when(options.entityReference())
+        .thenReturn(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.APP_GROUP)
+                .name("Name")
+                .build());
+
+    // Act
+    physicalSpecificationIdSelectorFactory.apply(options);
+
+    // Assert
+    verify(options, atLeast(1)).entityLifecycleStatuses();
+    verify(options, atLeast(1)).entityReference();
+    verify(options).filters();
+    verify(options).scope();
+  }
+
+  /**
+   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <ul>
+   *   <li>Given {@link HashSet#HashSet()} add {@code PENDING}.
+   *   <li>Then calls {@link IdSelectionOptions#filters()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given HashSet() add 'PENDING'; then calls filters()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
+  })
+  void testApplyWithIdSelectionOptions_givenHashSetAddPending_thenCallsFilters() {
+    // Arrange
+    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
+        new PhysicalSpecificationIdSelectorFactory();
+
+    HashSet<EntityLifecycleStatus> entityLifecycleStatusSet = new HashSet<>();
+    entityLifecycleStatusSet.add(EntityLifecycleStatus.PENDING);
+
+    IdSelectionOptions options = mock(IdSelectionOptions.class);
+    when(options.filters()).thenReturn(ImmutableSelectionFilters.builder().build());
+    when(options.entityLifecycleStatuses()).thenReturn(entityLifecycleStatusSet);
+    when(options.scope()).thenReturn(HierarchyQueryScope.EXACT);
+    when(options.entityReference())
+        .thenReturn(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.APP_GROUP)
+                .name("Name")
+                .build());
+
+    // Act
+    physicalSpecificationIdSelectorFactory.apply(options);
+
+    // Assert
+    verify(options, atLeast(1)).entityLifecycleStatuses();
+    verify(options, atLeast(1)).entityReference();
+    verify(options).filters();
+    verify(options).scope();
+  }
+
+  /**
+   * Test {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)} with {@code
+   * IdSelectionOptions}.
+   *
+   * <ul>
+   *   <li>Given {@link HashSet#HashSet()} add {@code REMOVED}.
+   *   <li>Then calls {@link IdSelectionOptions#filters()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link PhysicalSpecificationIdSelectorFactory#apply(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName(
+      "Test apply(IdSelectionOptions) with 'IdSelectionOptions'; given HashSet() add 'REMOVED'; then calls filters()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.jooq.Select PhysicalSpecificationIdSelectorFactory.apply(IdSelectionOptions)"
+  })
+  void testApplyWithIdSelectionOptions_givenHashSetAddRemoved_thenCallsFilters() {
+    // Arrange
+    PhysicalSpecificationIdSelectorFactory physicalSpecificationIdSelectorFactory =
+        new PhysicalSpecificationIdSelectorFactory();
+
+    HashSet<EntityLifecycleStatus> entityLifecycleStatusSet = new HashSet<>();
+    entityLifecycleStatusSet.add(EntityLifecycleStatus.REMOVED);
+    entityLifecycleStatusSet.addAll(new ArrayList<>());
+
+    ImmutableSelectionFilters.Builder builderResult = ImmutableSelectionFilters.builder();
+    builderResult.addOmitApplicationKinds(ApplicationKind.IN_HOUSE);
+
+    IdSelectionOptions options = mock(IdSelectionOptions.class);
+    when(options.filters()).thenReturn(builderResult.build());
+    when(options.entityLifecycleStatuses()).thenReturn(entityLifecycleStatusSet);
+    when(options.scope()).thenReturn(HierarchyQueryScope.EXACT);
+    when(options.entityReference())
+        .thenReturn(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.APP_GROUP)
+                .name("Name")
+                .build());
+
+    // Act
+    physicalSpecificationIdSelectorFactory.apply(options);
+
+    // Assert
+    verify(options, atLeast(1)).entityLifecycleStatuses();
+    verify(options, atLeast(1)).entityReference();
+    verify(options, atLeast(1)).filters();
+    verify(options).scope();
   }
 
   /**

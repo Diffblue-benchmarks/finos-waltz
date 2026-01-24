@@ -247,13 +247,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -266,14 +266,14 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
 
@@ -420,24 +420,24 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     Optional<EntityReference> emptyResult = Optional.empty();
     when(surveyQuestion.qualifierEntity()).thenReturn(emptyResult);
-    Optional<String> ofResult5 = Optional.of("42");
+    Optional<String> ofResult5 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult5);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult6);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
 
@@ -503,13 +503,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -522,14 +522,14 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
 
@@ -666,13 +666,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -685,17 +685,17 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
-    Optional<Long> ofResult8 = Optional.of(42L);
+    Optional<Long> ofResult8 = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult8);
 
     // Act
@@ -708,7 +708,7 @@ class SurveyQuestionDaoDiffblueTest {
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
     verify(preparedStatement).setInt(5, 1);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -762,13 +762,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -781,17 +781,17 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
-    Optional<Long> ofResult8 = Optional.of(42L);
+    Optional<Long> ofResult8 = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult8);
 
     // Act
@@ -800,11 +800,11 @@ class SurveyQuestionDaoDiffblueTest {
     // Assert
     verify(connection)
         .prepareStatement(
-            "update \"survey_question\" set \"survey_question\".\"survey_template_id\" = cast(? as bigint), \"survey_question\".\"question_text\" = cast(? as varchar(13)), \"survey_question\".\"field_type\" = cast(? as varchar(11)), \"survey_question\".\"section_name\" = cast(? as varchar(2)), \"survey_question\".\"position\" = cast(? as integer), \"survey_question\".\"is_mandatory\" = cast(? as boolean), \"survey_question\".\"allow_comment\" = cast(? as boolean), \"survey_question\".\"help_text\" = cast(? as varchar(2)), \"survey_question\".\"external_id\" = cast(? as varchar(2)), \"survey_question\".\"inclusion_predicate\" = cast(? as varchar(2)), \"survey_question\".\"entity_qualifier_id\" = cast(? as bigint), \"survey_question\".\"entity_qualifier_kind\" = cast(? as varchar(3)), \"survey_question\".\"parent_external_id\" = cast(? as varchar(2)), \"survey_question\".\"label\" = cast(? as varchar(2)) where \"survey_question\".\"id\" = cast(? as bigint)");
+            "update \"survey_question\" set \"survey_question\".\"survey_template_id\" = cast(? as bigint), \"survey_question\".\"question_text\" = cast(? as varchar(13)), \"survey_question\".\"field_type\" = cast(? as varchar(11)), \"survey_question\".\"section_name\" = cast(? as varchar(3)), \"survey_question\".\"position\" = cast(? as integer), \"survey_question\".\"is_mandatory\" = cast(? as boolean), \"survey_question\".\"allow_comment\" = cast(? as boolean), \"survey_question\".\"help_text\" = cast(? as varchar(3)), \"survey_question\".\"external_id\" = cast(? as varchar(3)), \"survey_question\".\"inclusion_predicate\" = cast(? as varchar(3)), \"survey_question\".\"entity_qualifier_id\" = cast(? as bigint), \"survey_question\".\"entity_qualifier_kind\" = cast(? as varchar(3)), \"survey_question\".\"parent_external_id\" = cast(? as varchar(3)), \"survey_question\".\"label\" = cast(? as varchar(3)) where \"survey_question\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
     verify(preparedStatement).setInt(5, 1);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -860,13 +860,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -879,17 +879,17 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
-    Optional<Long> ofResult8 = Optional.of(42L);
+    Optional<Long> ofResult8 = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult8);
 
     // Act
@@ -902,7 +902,7 @@ class SurveyQuestionDaoDiffblueTest {
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
     verify(preparedStatement).setInt(5, 1);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -1038,13 +1038,13 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     ImmutableEntityReference immutableEntityReference =
         ImmutableEntityReference.builder()
@@ -1057,17 +1057,17 @@ class SurveyQuestionDaoDiffblueTest {
             .build();
     Optional<EntityReference> ofResult5 = Optional.of(immutableEntityReference);
     when(surveyQuestion.qualifierEntity()).thenReturn(ofResult5);
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult6);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult7 = Optional.of("42");
+    Optional<String> ofResult7 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult7);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
-    Optional<Long> ofResult8 = Optional.of(42L);
+    Optional<Long> ofResult8 = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult8);
 
     // Act
@@ -1128,27 +1128,27 @@ class SurveyQuestionDaoDiffblueTest {
     SurveyQuestionDao surveyQuestionDao = new SurveyQuestionDao(dsl);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyQuestion.externalId()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(surveyQuestion.inclusionPredicate()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(surveyQuestion.label()).thenReturn(ofResult3);
-    Optional<String> ofResult4 = Optional.of("42");
+    Optional<String> ofResult4 = Optional.of("foo");
     when(surveyQuestion.parentExternalId()).thenReturn(ofResult4);
     Optional<EntityReference> emptyResult = Optional.empty();
     when(surveyQuestion.qualifierEntity()).thenReturn(emptyResult);
-    Optional<String> ofResult5 = Optional.of("42");
+    Optional<String> ofResult5 = Optional.of("foo");
     when(surveyQuestion.sectionName()).thenReturn(ofResult5);
     when(surveyQuestion.isMandatory()).thenReturn(true);
     when(surveyQuestion.allowComment()).thenReturn(true);
     when(surveyQuestion.position()).thenReturn(1);
     when(surveyQuestion.surveyTemplateId()).thenReturn(1L);
     when(surveyQuestion.questionText()).thenReturn("Question Text");
-    Optional<String> ofResult6 = Optional.of("42");
+    Optional<String> ofResult6 = Optional.of("foo");
     when(surveyQuestion.helpText()).thenReturn(ofResult6);
     when(surveyQuestion.fieldType()).thenReturn(SurveyQuestionFieldType.APPLICATION);
-    Optional<Long> ofResult7 = Optional.of(42L);
+    Optional<Long> ofResult7 = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult7);
 
     // Act

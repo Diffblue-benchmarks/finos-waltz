@@ -1,12 +1,12 @@
 package org.finos.waltz.service;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import org.finos.waltz.data.DBExecutorPool;
 import org.finos.waltz.data.DBExecutorPoolInterface;
@@ -25,13 +25,34 @@ class DIBaseConfigurationDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"DBExecutorPoolInterface DIBaseConfiguration.dbExecutorPool()"})
-  void testDbExecutorPool() throws InterruptedException, ExecutionException {
+  void testDbExecutorPool() {
+    // Arrange, Act and Assert
+    assertTrue(new DIBaseConfiguration().dbExecutorPool() instanceof DBExecutorPool);
+  }
+
+  /**
+   * Test {@link DIBaseConfiguration#dbExecutorPool()}.
+   *
+   * <ul>
+   *   <li>Then return submit {@link Callable} is {@code Call}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DIBaseConfiguration#dbExecutorPool()}
+   */
+  @Test
+  @DisplayName("Test dbExecutorPool(); then return submit Callable is 'Call'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DBExecutorPoolInterface DIBaseConfiguration.dbExecutorPool()"})
+  void testDbExecutorPool_thenReturnSubmitCallableIsCall() throws Exception {
     // Arrange and Act
     DBExecutorPoolInterface actualDbExecutorPoolResult = new DIBaseConfiguration().dbExecutorPool();
-    Future<Object> actualSubmitResult = actualDbExecutorPoolResult.submit(mock(Callable.class));
+    Callable<Object> callable = mock(Callable.class);
+    when(callable.call()).thenReturn("Call");
+    Future<Object> actualSubmitResult = actualDbExecutorPoolResult.submit(callable);
 
     // Assert
     assertTrue(actualDbExecutorPoolResult instanceof DBExecutorPool);
-    assertNull(actualSubmitResult.get());
+    assertEquals("Call", actualSubmitResult.get());
   }
 }

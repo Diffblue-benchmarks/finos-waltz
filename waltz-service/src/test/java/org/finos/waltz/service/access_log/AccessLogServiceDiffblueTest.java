@@ -85,7 +85,7 @@ class AccessLogServiceDiffblueTest {
     when(accessLogDao.findForUserId(Mockito.<String>any(), Mockito.<Optional<Integer>>any()))
         .thenReturn(new ArrayList<>());
     AccessLogService accessLogService = new AccessLogService(accessLogDao);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<AccessLog> actualFindForUserIdResult = accessLogService.findForUserId("42", limit);

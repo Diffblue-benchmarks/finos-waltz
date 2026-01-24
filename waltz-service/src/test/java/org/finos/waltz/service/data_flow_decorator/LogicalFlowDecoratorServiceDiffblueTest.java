@@ -3128,7 +3128,7 @@ class LogicalFlowDecoratorServiceDiffblueTest {
                     .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
                     .externalId("42")
                     .id(1L)
-                    .kind(EntityKind.ACTOR)
+                    .kind(EntityKind.ALL)
                     .name("Name")
                     .build())
             .filters(ImmutableSelectionFilters.builder().build());
@@ -3244,7 +3244,7 @@ class LogicalFlowDecoratorServiceDiffblueTest {
                     .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
                     .externalId("42")
                     .id(1L)
-                    .kind(EntityKind.APPLICATION)
+                    .kind(EntityKind.ACTOR)
                     .name("Name")
                     .build())
             .filters(ImmutableSelectionFilters.builder().build());
@@ -3360,7 +3360,7 @@ class LogicalFlowDecoratorServiceDiffblueTest {
                     .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
                     .externalId("42")
                     .id(1L)
-                    .kind(EntityKind.APP_GROUP)
+                    .kind(EntityKind.APPLICATION)
                     .name("Name")
                     .build())
             .filters(ImmutableSelectionFilters.builder().build());
@@ -3396,6 +3396,122 @@ class LogicalFlowDecoratorServiceDiffblueTest {
     "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
   })
   void testFindFlowsByDatatypeForEntity4() {
+    // Arrange
+    LogicalFlowDecoratorSummaryDao logicalFlowDecoratorSummaryDao =
+        mock(LogicalFlowDecoratorSummaryDao.class);
+    when(logicalFlowDecoratorSummaryDao.logicalFlowIdsByTypeAndDirection(
+            Mockito.<Select<Record1<Long>>>any()))
+        .thenReturn(new HashMap<>());
+
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
+    when(dataTypeDao.findAll()).thenReturn(new ArrayList<>());
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagService tagService = new TagService(mock(TagDao.class), null);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao, logicalFlowDao, dataTypeService);
+    DataTypeUsageDao dataTypeUsageDao = mock(DataTypeUsageDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    DataTypeUsageService dataTypeUsageService =
+        new DataTypeUsageService(dataTypeUsageDao, dataTypeDao2, changeLogService);
+    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
+    LogicalFlowService logicalFlowService = mock(LogicalFlowService.class);
+    LogicalFlowStatsDao logicalFlowStatsDao = mock(LogicalFlowStatsDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    LogicalFlowDecoratorService logicalFlowDecoratorService =
+        new LogicalFlowDecoratorService(
+            logicalFlowDecoratorSummaryDao,
+            logicalFlowDecoratorDao,
+            ratingsCalculator,
+            dataTypeUsageService,
+            dataTypeDao,
+            logicalFlowDao2,
+            logicalFlowService,
+            logicalFlowStatsDao,
+            changeLogService2);
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.APP_GROUP)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+
+    // Act
+    Set<LogicalFlowDecoratorStat> actualFindFlowsByDatatypeForEntityResult =
+        logicalFlowDecoratorService.findFlowsByDatatypeForEntity(
+            joiningEntityKindResult
+                .addAllEntityLifecycleStatuses(new ArrayList<>())
+                .scope(HierarchyQueryScope.EXACT)
+                .build());
+
+    // Assert
+    verify(logicalFlowDecoratorSummaryDao).logicalFlowIdsByTypeAndDirection(isA(Select.class));
+    verify(dataTypeDao).findAll();
+    assertTrue(actualFindFlowsByDatatypeForEntityResult.isEmpty());
+  }
+
+  /**
+   * Test {@link LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}.
+   *
+   * <p>Method under test: {@link
+   * LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}
+   */
+  @Test
+  @DisplayName("Test findFlowsByDatatypeForEntity(IdSelectionOptions)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
+  })
+  void testFindFlowsByDatatypeForEntity5() {
     // Arrange
     LogicalFlowDecoratorSummaryDao logicalFlowDecoratorSummaryDao =
         mock(LogicalFlowDecoratorSummaryDao.class);
@@ -3531,7 +3647,7 @@ class LogicalFlowDecoratorServiceDiffblueTest {
   @MethodsUnderTest({
     "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
   })
-  void testFindFlowsByDatatypeForEntity5() {
+  void testFindFlowsByDatatypeForEntity6() {
     // Arrange
     HashMap<DataTypeDirectionKey, List<Long>> dataTypeDirectionKeyListMap = new HashMap<>();
     ImmutableDataTypeDirectionKey immutableDataTypeDirectionKey =
@@ -3552,137 +3668,11 @@ class LogicalFlowDecoratorServiceDiffblueTest {
         ImmutableDataType.builder()
             .code("Code")
             .description("The characteristics of someone or something")
-            .id(2L)
+            .id(1L)
             .kind(EntityKind.ALL)
             .name("Name")
             .parentId(1L)
             .build());
-
-    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
-    when(dataTypeDao.findAll()).thenReturn(dataTypeList);
-    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
-    ApplicationDao appDao = mock(ApplicationDao.class);
-    TagService tagService = new TagService(mock(TagDao.class), null);
-
-    ApplicationService applicationService =
-        new ApplicationService(
-            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
-    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
-    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
-    DataTypeService dataTypeService =
-        new DataTypeService(
-            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
-
-    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
-        new LogicalFlowDecoratorRatingsCalculator(
-            applicationService, flowClassificationRuleDao, logicalFlowDao, dataTypeService);
-    DataTypeUsageDao dataTypeUsageDao = mock(DataTypeUsageDao.class);
-    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    DataTypeUsageService dataTypeUsageService =
-        new DataTypeUsageService(dataTypeUsageDao, dataTypeDao2, changeLogService);
-    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
-    LogicalFlowService logicalFlowService = mock(LogicalFlowService.class);
-    LogicalFlowStatsDao logicalFlowStatsDao = mock(LogicalFlowStatsDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    LogicalFlowDecoratorService logicalFlowDecoratorService =
-        new LogicalFlowDecoratorService(
-            logicalFlowDecoratorSummaryDao,
-            logicalFlowDecoratorDao,
-            ratingsCalculator,
-            dataTypeUsageService,
-            dataTypeDao,
-            logicalFlowDao2,
-            logicalFlowService,
-            logicalFlowStatsDao,
-            changeLogService2);
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    Set<LogicalFlowDecoratorStat> actualFindFlowsByDatatypeForEntityResult =
-        logicalFlowDecoratorService.findFlowsByDatatypeForEntity(
-            joiningEntityKindResult
-                .addAllEntityLifecycleStatuses(new ArrayList<>())
-                .scope(HierarchyQueryScope.EXACT)
-                .build());
-
-    // Assert
-    verify(logicalFlowDecoratorSummaryDao).logicalFlowIdsByTypeAndDirection(isA(Select.class));
-    verify(dataTypeDao).findAll();
-    assertTrue(actualFindFlowsByDatatypeForEntityResult.isEmpty());
-  }
-
-  /**
-   * Test {@link LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}.
-   *
-   * <p>Method under test: {@link
-   * LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test findFlowsByDatatypeForEntity(IdSelectionOptions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
-  })
-  void testFindFlowsByDatatypeForEntity6() {
-    // Arrange
-    HashMap<DataTypeDirectionKey, List<Long>> dataTypeDirectionKeyListMap = new HashMap<>();
-    ImmutableDataTypeDirectionKey immutableDataTypeDirectionKey =
-        ImmutableDataTypeDirectionKey.builder()
-            .DatatypeId(1L)
-            .flowDirection(FlowDirection.INBOUND)
-            .build();
-    dataTypeDirectionKeyListMap.put(immutableDataTypeDirectionKey, new ArrayList<>());
-
-    LogicalFlowDecoratorSummaryDao logicalFlowDecoratorSummaryDao =
-        mock(LogicalFlowDecoratorSummaryDao.class);
-    when(logicalFlowDecoratorSummaryDao.logicalFlowIdsByTypeAndDirection(
-            Mockito.<Select<Record1<Long>>>any()))
-        .thenReturn(dataTypeDirectionKeyListMap);
-
-    ArrayList<DataType> dataTypeList = new ArrayList<>();
     dataTypeList.add(
         ImmutableDataType.builder()
             .code("Code")
@@ -4076,85 +4066,9 @@ class LogicalFlowDecoratorServiceDiffblueTest {
             .flowDirection(FlowDirection.INBOUND)
             .build(),
         resultLongList);
-    when(logicalFlowDecoratorSummaryDao.logicalFlowIdsByTypeAndDirection(
-            Mockito.<Select<Record1<Long>>>any()))
-        .thenReturn(dataTypeDirectionKeyListMap);
 
-    ArrayList<DataType> dataTypeList = new ArrayList<>();
-    dataTypeList.add(
-        ImmutableDataType.builder()
-            .code("Code")
-            .description("The characteristics of someone or something")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .parentId(2L)
-            .build());
-    when(dataTypeDao.findAll()).thenReturn(dataTypeList);
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    Set<LogicalFlowDecoratorStat> actualFindFlowsByDatatypeForEntityResult =
-        logicalFlowDecoratorService.findFlowsByDatatypeForEntity(
-            joiningEntityKindResult
-                .addAllEntityLifecycleStatuses(new ArrayList<>())
-                .scope(HierarchyQueryScope.EXACT)
-                .build());
-
-    // Assert
-    verify(logicalFlowDecoratorSummaryDao).logicalFlowIdsByTypeAndDirection(isA(Select.class));
-    verify(dataTypeDao).findAll();
-    assertEquals(1, actualFindFlowsByDatatypeForEntityResult.size());
-  }
-
-  /**
-   * Test {@link LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add one.
-   *   <li>Then return size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName(
-      "Test findFlowsByDatatypeForEntity(IdSelectionOptions); given ArrayList() add one; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
-  })
-  void testFindFlowsByDatatypeForEntity_givenArrayListAddOne_thenReturnSizeIsOne2() {
-    // Arrange
-    ArrayList<Long> resultLongList = new ArrayList<>();
-    resultLongList.add(1L);
-
-    HashMap<DataTypeDirectionKey, List<Long>> dataTypeDirectionKeyListMap = new HashMap<>();
-    dataTypeDirectionKeyListMap.put(
-        ImmutableDataTypeDirectionKey.builder()
-            .DatatypeId(1L)
-            .flowDirection(FlowDirection.INBOUND)
-            .build(),
-        resultLongList);
+    LogicalFlowDecoratorSummaryDao logicalFlowDecoratorSummaryDao =
+        mock(LogicalFlowDecoratorSummaryDao.class);
     when(logicalFlowDecoratorSummaryDao.logicalFlowIdsByTypeAndDirection(
             Mockito.<Select<Record1<Long>>>any()))
         .thenReturn(dataTypeDirectionKeyListMap);
@@ -4178,7 +4092,69 @@ class LogicalFlowDecoratorServiceDiffblueTest {
             .name("Name")
             .parentId(2L)
             .build());
+
+    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
     when(dataTypeDao.findAll()).thenReturn(dataTypeList);
+    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
+    ApplicationDao appDao = mock(ApplicationDao.class);
+    TagService tagService = new TagService(mock(TagDao.class), null);
+
+    ApplicationService applicationService =
+        new ApplicationService(
+            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
+    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    DataTypeService dataTypeService =
+        new DataTypeService(
+            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
+
+    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
+        new LogicalFlowDecoratorRatingsCalculator(
+            applicationService, flowClassificationRuleDao, logicalFlowDao, dataTypeService);
+    DataTypeUsageDao dataTypeUsageDao = mock(DataTypeUsageDao.class);
+    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    DataTypeUsageService dataTypeUsageService =
+        new DataTypeUsageService(dataTypeUsageDao, dataTypeDao2, changeLogService);
+    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
+    LogicalFlowService logicalFlowService = mock(LogicalFlowService.class);
+    LogicalFlowStatsDao logicalFlowStatsDao = mock(LogicalFlowStatsDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    LogicalFlowDecoratorService logicalFlowDecoratorService =
+        new LogicalFlowDecoratorService(
+            logicalFlowDecoratorSummaryDao,
+            logicalFlowDecoratorDao,
+            ratingsCalculator,
+            dataTypeUsageService,
+            dataTypeDao,
+            logicalFlowDao2,
+            logicalFlowService,
+            logicalFlowStatsDao,
+            changeLogService2);
 
     Builder builderResult = ImmutableIdSelectionOptions.builder();
 
@@ -4427,126 +4403,6 @@ class LogicalFlowDecoratorServiceDiffblueTest {
     Builder builderResult = ImmutableIdSelectionOptions.builder();
     builderResult.addEntityLifecycleStatuses(EntityLifecycleStatus.PENDING);
     builderResult.addEntityLifecycleStatuses(EntityLifecycleStatus.ACTIVE);
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    Set<LogicalFlowDecoratorStat> actualFindFlowsByDatatypeForEntityResult =
-        logicalFlowDecoratorService.findFlowsByDatatypeForEntity(
-            joiningEntityKindResult
-                .addAllEntityLifecycleStatuses(new ArrayList<>())
-                .scope(HierarchyQueryScope.EXACT)
-                .build());
-
-    // Assert
-    verify(logicalFlowDecoratorSummaryDao).logicalFlowIdsByTypeAndDirection(isA(Select.class));
-    verify(dataTypeDao).findAll();
-    assertTrue(actualFindFlowsByDatatypeForEntityResult.isEmpty());
-  }
-
-  /**
-   * Test {@link LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}.
-   *
-   * <ul>
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * LogicalFlowDecoratorService#findFlowsByDatatypeForEntity(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test findFlowsByDatatypeForEntity(IdSelectionOptions); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Set LogicalFlowDecoratorService.findFlowsByDatatypeForEntity(IdSelectionOptions)"
-  })
-  void testFindFlowsByDatatypeForEntity_thenReturnEmpty() {
-    // Arrange
-    LogicalFlowDecoratorSummaryDao logicalFlowDecoratorSummaryDao =
-        mock(LogicalFlowDecoratorSummaryDao.class);
-    when(logicalFlowDecoratorSummaryDao.logicalFlowIdsByTypeAndDirection(
-            Mockito.<Select<Record1<Long>>>any()))
-        .thenReturn(new HashMap<>());
-
-    DataTypeDao dataTypeDao = mock(DataTypeDao.class);
-    when(dataTypeDao.findAll()).thenReturn(new ArrayList<>());
-    LogicalFlowDecoratorDao logicalFlowDecoratorDao = mock(LogicalFlowDecoratorDao.class);
-    ApplicationDao appDao = mock(ApplicationDao.class);
-    TagService tagService = new TagService(mock(TagDao.class), null);
-
-    ApplicationService applicationService =
-        new ApplicationService(
-            appDao, tagService, mock(EntityAliasDao.class), mock(ApplicationSearchDao.class));
-    FlowClassificationRuleDao flowClassificationRuleDao = mock(FlowClassificationRuleDao.class);
-    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
-    DataTypeService dataTypeService =
-        new DataTypeService(
-            mock(DataTypeDao.class), mock(DataTypeSearchDao.class), mock(LogicalFlowDao.class));
-
-    LogicalFlowDecoratorRatingsCalculator ratingsCalculator =
-        new LogicalFlowDecoratorRatingsCalculator(
-            applicationService, flowClassificationRuleDao, logicalFlowDao, dataTypeService);
-    DataTypeUsageDao dataTypeUsageDao = mock(DataTypeUsageDao.class);
-    DataTypeDao dataTypeDao2 = mock(DataTypeDao.class);
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    DataTypeUsageService dataTypeUsageService =
-        new DataTypeUsageService(dataTypeUsageDao, dataTypeDao2, changeLogService);
-    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
-    LogicalFlowService logicalFlowService = mock(LogicalFlowService.class);
-    LogicalFlowStatsDao logicalFlowStatsDao = mock(LogicalFlowStatsDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    LogicalFlowDecoratorService logicalFlowDecoratorService =
-        new LogicalFlowDecoratorService(
-            logicalFlowDecoratorSummaryDao,
-            logicalFlowDecoratorDao,
-            ratingsCalculator,
-            dataTypeUsageService,
-            dataTypeDao,
-            logicalFlowDao2,
-            logicalFlowService,
-            logicalFlowStatsDao,
-            changeLogService2);
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
 
     Builder filtersResult =
         builderResult

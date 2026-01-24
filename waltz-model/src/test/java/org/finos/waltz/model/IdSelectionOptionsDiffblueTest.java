@@ -5,111 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Set;
 import org.finos.waltz.model.ImmutableEntityReference.Json;
-import org.finos.waltz.model.ImmutableIdSelectionOptions.Builder;
 import org.finos.waltz.model.app_group.ImmutableAppGroupEntry;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class IdSelectionOptionsDiffblueTest {
-  /**
-   * Test {@link IdSelectionOptions#entityLifecycleStatuses()}.
-   *
-   * <ul>
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link IdSelectionOptions#entityLifecycleStatuses()}
-   */
-  @Test
-  @DisplayName("Test entityLifecycleStatuses(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set IdSelectionOptions.entityLifecycleStatuses()"})
-  void testEntityLifecycleStatuses_thenReturnEmpty() {
-    // Arrange
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(SelectionFilters.NO_FILTERS);
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertTrue(
-        joiningEntityKindResult
-            .addAllEntityLifecycleStatuses(new ArrayList<>())
-            .scope(HierarchyQueryScope.EXACT)
-            .build()
-            .entityLifecycleStatuses()
-            .isEmpty());
-  }
-
-  /**
-   * Test {@link IdSelectionOptions#filters()}.
-   *
-   * <ul>
-   *   <li>Then return {@link ImmutableSelectionFilters}.
-   * </ul>
-   *
-   * <p>Method under test: {@link IdSelectionOptions#filters()}
-   */
-  @Test
-  @DisplayName("Test filters(); then return ImmutableSelectionFilters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SelectionFilters IdSelectionOptions.filters()"})
-  void testFilters_thenReturnImmutableSelectionFilters() {
-    // Arrange
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .filters(SelectionFilters.NO_FILTERS);
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-    ImmutableIdSelectionOptions immutableIdSelectionOptions =
-        joiningEntityKindResult
-            .addAllEntityLifecycleStatuses(new ArrayList<>())
-            .scope(HierarchyQueryScope.EXACT)
-            .build();
-
-    // Act
-    SelectionFilters actualFiltersResult = immutableIdSelectionOptions.filters();
-
-    // Assert
-    assertTrue(actualFiltersResult instanceof ImmutableSelectionFilters);
-    assertTrue(actualFiltersResult.omitApplicationKinds().isEmpty());
-    SelectionFilters selectionFilters = SelectionFilters.NO_FILTERS;
-    assertSame(selectionFilters, actualFiltersResult);
-    assertSame(selectionFilters, immutableIdSelectionOptions.filters());
-  }
-
   /**
    * Test {@link IdSelectionOptions#mkOpts(EntityReference)} with {@code ref}.
    *

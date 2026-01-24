@@ -156,7 +156,7 @@ class AssessmentRatingRipplerDiffblueTest {
         .thenThrow(new UnsupportedOperationException());
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("Key", "42");
+    stringStringMap.put("foo", "foo");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -274,7 +274,7 @@ class AssessmentRatingRipplerDiffblueTest {
   void testRippleAssessmentsWithAssessmentDefinitionScope2() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("Assessment not related to kind: %s", "42");
+    stringStringMap.put("Assessment not related to kind: %s", "Assessment not related to kind: %s");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -524,17 +524,20 @@ class AssessmentRatingRipplerDiffblueTest {
    * Test {@link AssessmentRatingRippler#rippleAssessments()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code 42}.
+   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code
+   *       job.RIPPLE_ASSESSMENTS.}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingRippler#rippleAssessments()}
    */
   @Test
-  @DisplayName("Test rippleAssessments(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is '42'")
+  @DisplayName(
+      "Test rippleAssessments(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is 'job.RIPPLE_ASSESSMENTS.'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Long AssessmentRatingRippler.rippleAssessments()"})
-  void testRippleAssessments_givenHashMapJobRippleAssessmentsIs42() throws SQLException {
+  void testRippleAssessments_givenHashMapJobRippleAssessmentsIsJobRippleAssessments()
+      throws SQLException {
     // Arrange
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
@@ -543,7 +546,7 @@ class AssessmentRatingRipplerDiffblueTest {
     DefaultDSLContext dsl = new DefaultDSLContext(connection, SQLDialect.SQL99);
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "42");
+    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -620,7 +623,7 @@ class AssessmentRatingRipplerDiffblueTest {
         .thenThrow(new IllegalArgumentException());
 
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("42", "Value");
+    stringStringMap.put("42", "42");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -714,7 +717,81 @@ class AssessmentRatingRipplerDiffblueTest {
   @MethodsUnderTest({
     "void AssessmentRatingRippler.rippleAssessment(DSLContext, String, String, String, String, Optional)"
   })
-  void testRippleAssessmentWithDSLContextStringStringStringStringOptional2() {
+  void testRippleAssessmentWithDSLContextStringStringStringStringOptional2()
+      throws DataAccessException {
+    // Arrange
+    AssessmentDefinitionRecord assessmentDefinitionRecord = mock(AssessmentDefinitionRecord.class);
+    when(assessmentDefinitionRecord.getRatingSchemeId())
+        .thenThrow(new UnsupportedOperationException());
+
+    HashMap<Object, AssessmentDefinitionRecord> objectAssessmentDefinitionRecordMap =
+        new HashMap<>();
+    objectAssessmentDefinitionRecordMap.put("42", assessmentDefinitionRecord);
+
+    SelectConditionStep<AssessmentDefinitionRecord> selectConditionStep =
+        mock(SelectConditionStep.class);
+    when(selectConditionStep.fetchMap(
+            Mockito.<RecordMapper<AssessmentDefinitionRecord, Object>>any()))
+        .thenReturn(objectAssessmentDefinitionRecordMap);
+
+    SelectWhereStep<AssessmentDefinitionRecord> selectWhereStep = mock(SelectWhereStep.class);
+    when(selectWhereStep.where(Mockito.<Condition>any())).thenReturn(selectConditionStep);
+
+    DefaultDSLContext tx = mock(DefaultDSLContext.class);
+    when(tx.selectFrom(Mockito.<Table<AssessmentDefinitionRecord>>any()))
+        .thenReturn(selectWhereStep);
+
+    Builder builderResult = ImmutableIdSelectionOptions.builder();
+
+    Builder filtersResult =
+        builderResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .filters(ImmutableSelectionFilters.builder().build());
+    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
+    ImmutableIdSelectionOptions immutableIdSelectionOptions =
+        joiningEntityKindResult
+            .addAllEntityLifecycleStatuses(new ArrayList<>())
+            .scope(HierarchyQueryScope.EXACT)
+            .build();
+    Optional<IdSelectionOptions> scope = Optional.of(immutableIdSelectionOptions);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> AssessmentRatingRippler.rippleAssessment(tx, "42", "Provenance", "42", "42", scope));
+    verify(assessmentDefinitionRecord).getRatingSchemeId();
+    verify(selectConditionStep).fetchMap(isA(RecordMapper.class));
+    verify(selectWhereStep).where(isA(Condition.class));
+    verify(tx).selectFrom(isA(Table.class));
+  }
+
+  /**
+   * Test {@link AssessmentRatingRippler#rippleAssessment(DSLContext, String, String, String,
+   * String, Optional)} with {@code DSLContext}, {@code String}, {@code String}, {@code String},
+   * {@code String}, {@code Optional}.
+   *
+   * <p>Method under test: {@link AssessmentRatingRippler#rippleAssessment(DSLContext, String,
+   * String, String, String, Optional)}
+   */
+  @Test
+  @DisplayName(
+      "Test rippleAssessment(DSLContext, String, String, String, String, Optional) with 'DSLContext', 'String', 'String', 'String', 'String', 'Optional'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void AssessmentRatingRippler.rippleAssessment(DSLContext, String, String, String, String, Optional)"
+  })
+  void testRippleAssessmentWithDSLContextStringStringStringStringOptional3() {
     // Arrange
     when(dSLContext.selectFrom(Mockito.<Table<AssessmentDefinitionRecord>>any()))
         .thenThrow(new UnsupportedOperationException());
@@ -773,7 +850,7 @@ class AssessmentRatingRipplerDiffblueTest {
   @MethodsUnderTest({
     "void AssessmentRatingRippler.rippleAssessment(DSLContext, String, String, String, String, Optional)"
   })
-  void testRippleAssessmentWithDSLContextStringStringStringStringOptional3()
+  void testRippleAssessmentWithDSLContextStringStringStringStringOptional4()
       throws DataAccessException {
     // Arrange
     SelectConditionStep<AssessmentDefinitionRecord> selectConditionStep =
@@ -831,6 +908,42 @@ class AssessmentRatingRipplerDiffblueTest {
    * Test {@link AssessmentRatingRippler#findRippleConfig()}.
    *
    * <ul>
+   *   <li>Given {@link HashMap#HashMap()} empty string is {@code 42}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link AssessmentRatingRippler#findRippleConfig()}
+   */
+  @Test
+  @DisplayName("Test findRippleConfig(); given HashMap() empty string is '42'; then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set AssessmentRatingRippler.findRippleConfig()"})
+  void testFindRippleConfig_givenHashMapEmptyStringIs42_thenReturnEmpty() {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("jobxRIPPLE_ASSESSMENTSx", "jobxRIPPLE_ASSESSMENTSx");
+    stringStringMap.put("", "42");
+    stringStringMap.putAll(new HashMap<>());
+
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
+    AssessmentRatingRippler assessmentRatingRippler =
+        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
+
+    // Act
+    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
+        assessmentRatingRippler.findRippleConfig();
+
+    // Assert
+    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
+    assertTrue(actualFindRippleConfigResult.isEmpty());
+  }
+
+  /**
+   * Test {@link AssessmentRatingRippler#findRippleConfig()}.
+   *
+   * <ul>
    *   <li>Given {@link HashMap#HashMap()} empty string is empty string.
    *   <li>Then return Empty.
    * </ul>
@@ -867,60 +980,22 @@ class AssessmentRatingRipplerDiffblueTest {
    * Test {@link AssessmentRatingRippler#findRippleConfig()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code 42}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link AssessmentRatingRippler#findRippleConfig()}
-   */
-  @Test
-  @DisplayName(
-      "Test findRippleConfig(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is '42'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set AssessmentRatingRippler.findRippleConfig()"})
-  void testFindRippleConfig_givenHashMapJobRippleAssessmentsIs42_thenReturnEmpty() {
-    // Arrange
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "42");
-
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
-    AssessmentRatingRippler assessmentRatingRippler =
-        new AssessmentRatingRippler(new DefaultDSLContext(SQLDialect.SQL99), settingsDao);
-
-    // Act
-    Set<AssessmentRipplerJobConfiguration> actualFindRippleConfigResult =
-        assessmentRatingRippler.findRippleConfig();
-
-    // Assert
-    verify(settingsDao).indexByPrefix("job.RIPPLE_ASSESSMENTS.");
-    assertTrue(actualFindRippleConfigResult.isEmpty());
-  }
-
-  /**
-   * Test {@link AssessmentRatingRippler#findRippleConfig()}.
-   *
-   * <ul>
    *   <li>Given {@link HashMap#HashMap()} {@code job.RIPPLE_ASSESSMENTS.} is {@code
-   *       jobURIPPLE_ASSESSMENTSU}.
+   *       job.RIPPLE_ASSESSMENTS.}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingRippler#findRippleConfig()}
    */
   @Test
   @DisplayName(
-      "Test findRippleConfig(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is 'jobURIPPLE_ASSESSMENTSU'")
+      "Test findRippleConfig(); given HashMap() 'job.RIPPLE_ASSESSMENTS.' is 'job.RIPPLE_ASSESSMENTS.'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set AssessmentRatingRippler.findRippleConfig()"})
-  void testFindRippleConfig_givenHashMapJobRippleAssessmentsIsJobURIPPLEAssessmentsu() {
+  void testFindRippleConfig_givenHashMapJobRippleAssessmentsIsJobRippleAssessments() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "jobURIPPLE_ASSESSMENTSU");
-    stringStringMap.put("jobURIPPLE_ASSESSMENTSU", "42");
-    stringStringMap.put("", "");
-    stringStringMap.putAll(new HashMap<>());
+    stringStringMap.put("job.RIPPLE_ASSESSMENTS.", "job.RIPPLE_ASSESSMENTS.");
 
     SettingsDao settingsDao = mock(SettingsDao.class);
     when(settingsDao.indexByPrefix(Mockito.<String>any())).thenReturn(stringStringMap);
@@ -940,22 +1015,22 @@ class AssessmentRatingRipplerDiffblueTest {
    * Test {@link AssessmentRatingRippler#findRippleConfig()}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code jobURIPPLE_ASSESSMENTSU} is {@code 42}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link HashMap#HashMap()} {@code jobxRIPPLE_ASSESSMENTSx} is {@code
+   *       jobxRIPPLE_ASSESSMENTSx}.
    * </ul>
    *
    * <p>Method under test: {@link AssessmentRatingRippler#findRippleConfig()}
    */
   @Test
   @DisplayName(
-      "Test findRippleConfig(); given HashMap() 'jobURIPPLE_ASSESSMENTSU' is '42'; then return Empty")
+      "Test findRippleConfig(); given HashMap() 'jobxRIPPLE_ASSESSMENTSx' is 'jobxRIPPLE_ASSESSMENTSx'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set AssessmentRatingRippler.findRippleConfig()"})
-  void testFindRippleConfig_givenHashMapJobURIPPLEAssessmentsuIs42_thenReturnEmpty() {
+  void testFindRippleConfig_givenHashMapJobxRIPPLEASSESSMENTSxIsJobxRIPPLEASSESSMENTSx() {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("jobURIPPLE_ASSESSMENTSU", "42");
+    stringStringMap.put("jobxRIPPLE_ASSESSMENTSx", "jobxRIPPLE_ASSESSMENTSx");
     stringStringMap.put("", "");
     stringStringMap.putAll(new HashMap<>());
 

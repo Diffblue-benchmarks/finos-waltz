@@ -173,7 +173,7 @@ class ReferenceBuilderContextDiffblueTest {
     ImmutableContextVariableReference immutableContextVariableReference =
         ImmutableContextVariableReference.builder().externalId("42").kind(EntityKind.ALL).build();
     SimpleEntry<String, ContextVariableReference> simpleEntry =
-        new SimpleEntry<>("Key", immutableContextVariableReference);
+        new SimpleEntry<>("foo", immutableContextVariableReference);
     entrySet.add(simpleEntry);
     when(map.entrySet()).thenReturn(entrySet);
 
@@ -211,7 +211,7 @@ class ReferenceBuilderContextDiffblueTest {
     ImmutableContextVariableReference immutableContextVariableReference2 =
         ImmutableContextVariableReference.builder().externalId("42").kind(EntityKind.ALL).build();
     SimpleEntry<String, ContextVariableReference> simpleEntry2 =
-        new SimpleEntry<>("Key", immutableContextVariableReference2);
+        new SimpleEntry<>("foo", immutableContextVariableReference2);
     entrySet.add(simpleEntry2);
     when(map.entrySet()).thenReturn(entrySet);
 

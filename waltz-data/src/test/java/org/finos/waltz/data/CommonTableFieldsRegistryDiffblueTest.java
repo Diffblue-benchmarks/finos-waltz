@@ -527,7 +527,7 @@ class CommonTableFieldsRegistryDiffblueTest {
    * Test {@link CommonTableFieldsRegistry#determineCommonTableFields(EntityKind, String)}.
    *
    * <ul>
-   *   <li>When {@code (U)}.
+   *   <li>When {@code (UU)}.
    *   <li>Then table return {@link Actor}.
    * </ul>
    *
@@ -536,16 +536,16 @@ class CommonTableFieldsRegistryDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test determineCommonTableFields(EntityKind, String); when '(U)'; then table return Actor")
+      "Test determineCommonTableFields(EntityKind, String); when '(UU)'; then table return Actor")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "CommonTableFields CommonTableFieldsRegistry.determineCommonTableFields(EntityKind, String)"
   })
-  void testDetermineCommonTableFields_whenU_thenTableReturnActor() {
+  void testDetermineCommonTableFields_whenUu_thenTableReturnActor() {
     // Arrange and Act
     CommonTableFields<?> actualDetermineCommonTableFieldsResult =
-        CommonTableFieldsRegistry.determineCommonTableFields(EntityKind.ACTOR, "(U)");
+        CommonTableFieldsRegistry.determineCommonTableFields(EntityKind.ACTOR, "(UU)");
 
     // Assert
     assertTrue(actualDetermineCommonTableFieldsResult instanceof ImmutableCommonTableFields);

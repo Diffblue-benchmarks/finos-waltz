@@ -1,7 +1,6 @@
 package org.finos.waltz.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
@@ -542,26 +541,6 @@ class RandomUtilitiesDiffblueTest {
     assertEquals(1, ((List<String>) getResult).size());
     assertEquals("42", ((List<String>) getResult).get(0));
     assertSame(actualPickAndRemoveResult.v1, xs.get(1));
-  }
-
-  /**
-   * Test {@link RandomUtilities#randomTrue(double)}.
-   *
-   * <ul>
-   *   <li>When {@code -0.5}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RandomUtilities#randomTrue(double)}
-   */
-  @Test
-  @DisplayName("Test randomTrue(double); when '-0.5'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean RandomUtilities.randomTrue(double)"})
-  void testRandomTrue_when05_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(RandomUtilities.randomTrue(-0.5d));
   }
 
   /**

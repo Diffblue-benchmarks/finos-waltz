@@ -23,7 +23,7 @@ class IdUtilitiesDiffblueTest {
    * Test {@link IdUtilities#toIds(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -31,14 +31,14 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test toIds(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test toIds(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set IdUtilities.toIds(Collection)"})
-  void testToIds_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne() {
+  void testToIds_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     ArrayList<IdProvider> xs = new ArrayList<>();
@@ -50,14 +50,14 @@ class IdUtilitiesDiffblueTest {
     // Assert
     verify(idProvider).id();
     assertEquals(1, actualToIdsResult.size());
-    assertTrue(actualToIdsResult.contains(42L));
+    assertTrue(actualToIdsResult.contains(1L));
   }
 
   /**
    * Test {@link IdUtilities#toIds(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -65,18 +65,18 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test toIds(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test toIds(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Set IdUtilities.toIds(Collection)"})
-  void testToIds_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne2() {
+  void testToIds_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne2() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     IdProvider idProvider2 = mock(IdProvider.class);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(idProvider2.id()).thenReturn(ofResult2);
 
     ArrayList<IdProvider> xs = new ArrayList<>();
@@ -90,7 +90,7 @@ class IdUtilitiesDiffblueTest {
     verify(idProvider2).id();
     verify(idProvider).id();
     assertEquals(1, actualToIdsResult.size());
-    assertTrue(actualToIdsResult.contains(42L));
+    assertTrue(actualToIdsResult.contains(1L));
   }
 
   /**
@@ -202,22 +202,23 @@ class IdUtilitiesDiffblueTest {
    * Test {@link IdUtilities#ensureHasId(IdProvider, String)}.
    *
    * <ul>
-   *   <li>Given of forty-two.
-   *   <li>Then return longValue is forty-two.
+   *   <li>Given of one.
+   *   <li>When {@link IdProvider} {@link IdProvider#id()} return of one.
+   *   <li>Then return longValue is one.
    * </ul>
    *
    * <p>Method under test: {@link IdUtilities#ensureHasId(IdProvider, String)}
    */
   @Test
   @DisplayName(
-      "Test ensureHasId(IdProvider, String); given of forty-two; then return longValue is forty-two")
+      "Test ensureHasId(IdProvider, String); given of one; when IdProvider id() return of one; then return longValue is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Long IdUtilities.ensureHasId(IdProvider, String)"})
-  void testEnsureHasId_givenOfFortyTwo_thenReturnLongValueIsFortyTwo() {
+  void testEnsureHasId_givenOfOne_whenIdProviderIdReturnOfOne_thenReturnLongValueIsOne() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     // Act
@@ -225,14 +226,14 @@ class IdUtilitiesDiffblueTest {
 
     // Assert
     verify(idProvider).id();
-    assertEquals(42L, actualEnsureHasIdResult.longValue());
+    assertEquals(1L, actualEnsureHasIdResult.longValue());
   }
 
   /**
    * Test {@link IdUtilities#indexByOptionalId(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -240,14 +241,14 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test indexByOptionalId(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test indexByOptionalId(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map IdUtilities.indexByOptionalId(Collection)"})
-  void testIndexByOptionalId_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne() {
+  void testIndexByOptionalId_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     ArrayList<IdProvider> ts = new ArrayList<>();
@@ -259,14 +260,14 @@ class IdUtilitiesDiffblueTest {
     // Assert
     verify(idProvider).id();
     assertEquals(1, actualIndexByOptionalIdResult.size());
-    assertTrue(actualIndexByOptionalIdResult.containsKey(42L));
+    assertTrue(actualIndexByOptionalIdResult.containsKey(1L));
   }
 
   /**
    * Test {@link IdUtilities#indexByOptionalId(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -274,18 +275,18 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test indexByOptionalId(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test indexByOptionalId(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map IdUtilities.indexByOptionalId(Collection)"})
-  void testIndexByOptionalId_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne2() {
+  void testIndexByOptionalId_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne2() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     IdProvider idProvider2 = mock(IdProvider.class);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(idProvider2.id()).thenReturn(ofResult2);
 
     ArrayList<IdProvider> ts = new ArrayList<>();
@@ -299,7 +300,7 @@ class IdUtilitiesDiffblueTest {
     verify(idProvider2).id();
     verify(idProvider).id();
     assertEquals(1, actualIndexByOptionalIdResult.size());
-    assertTrue(actualIndexByOptionalIdResult.containsKey(42L));
+    assertTrue(actualIndexByOptionalIdResult.containsKey(1L));
   }
 
   /**
@@ -357,7 +358,7 @@ class IdUtilitiesDiffblueTest {
    * Test {@link IdUtilities#indexById(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -365,14 +366,14 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test indexById(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test indexById(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map IdUtilities.indexById(Collection)"})
-  void testIndexById_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne() {
+  void testIndexById_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     ArrayList<IdProvider> ts = new ArrayList<>();
@@ -384,14 +385,14 @@ class IdUtilitiesDiffblueTest {
     // Assert
     verify(idProvider).id();
     assertEquals(1, actualIndexByIdResult.size());
-    assertTrue(actualIndexByIdResult.containsKey(42L));
+    assertTrue(actualIndexByIdResult.containsKey(1L));
   }
 
   /**
    * Test {@link IdUtilities#indexById(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given {@link IdProvider} {@link IdProvider#id()} return of one.
    *   <li>Then return size is one.
    * </ul>
    *
@@ -399,18 +400,18 @@ class IdUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test indexById(Collection); given IdProvider id() return of forty-two; then return size is one")
+      "Test indexById(Collection); given IdProvider id() return of one; then return size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map IdUtilities.indexById(Collection)"})
-  void testIndexById_givenIdProviderIdReturnOfFortyTwo_thenReturnSizeIsOne2() {
+  void testIndexById_givenIdProviderIdReturnOfOne_thenReturnSizeIsOne2() {
     // Arrange
     IdProvider idProvider = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(idProvider.id()).thenReturn(ofResult);
 
     IdProvider idProvider2 = mock(IdProvider.class);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(idProvider2.id()).thenReturn(ofResult2);
 
     ArrayList<IdProvider> ts = new ArrayList<>();
@@ -424,7 +425,7 @@ class IdUtilitiesDiffblueTest {
     verify(idProvider2).id();
     verify(idProvider).id();
     assertEquals(1, actualIndexByIdResult.size());
-    assertTrue(actualIndexByIdResult.containsKey(42L));
+    assertTrue(actualIndexByIdResult.containsKey(1L));
   }
 
   /**
@@ -481,22 +482,21 @@ class IdUtilitiesDiffblueTest {
    * Test {@link IdUtilities#getIdOrDefault(IdProvider, Long)}.
    *
    * <ul>
-   *   <li>Given of forty-two.
-   *   <li>When {@link IdProvider} {@link IdProvider#id()} return of forty-two.
+   *   <li>Given of one.
+   *   <li>Then return longValue is one.
    * </ul>
    *
    * <p>Method under test: {@link IdUtilities#getIdOrDefault(IdProvider, Long)}
    */
   @Test
-  @DisplayName(
-      "Test getIdOrDefault(IdProvider, Long); given of forty-two; when IdProvider id() return of forty-two")
+  @DisplayName("Test getIdOrDefault(IdProvider, Long); given of one; then return longValue is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Long IdUtilities.getIdOrDefault(IdProvider, Long)"})
-  void testGetIdOrDefault_givenOfFortyTwo_whenIdProviderIdReturnOfFortyTwo() {
+  void testGetIdOrDefault_givenOfOne_thenReturnLongValueIsOne() {
     // Arrange
     IdProvider d = mock(IdProvider.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(d.id()).thenReturn(ofResult);
 
     // Act
@@ -504,7 +504,7 @@ class IdUtilitiesDiffblueTest {
 
     // Assert
     verify(d).id();
-    assertEquals(42L, actualIdOrDefault.longValue());
+    assertEquals(1L, actualIdOrDefault.longValue());
   }
 
   /**

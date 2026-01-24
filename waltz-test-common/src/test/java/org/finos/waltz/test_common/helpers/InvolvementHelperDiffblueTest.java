@@ -148,7 +148,7 @@ class InvolvementHelperDiffblueTest {
     verify(involvementKindDao)
         .create(
             isA(InvolvementKindCreateCommand.class),
-            eq("involvementHelper_9aeeca84-59ba-40f7-a4c4-1b492667a5df"));
+            eq("involvementHelper_c947b4db-f7ae-429b-8cc0-1fbc3f5a7ccf"));
     assertEquals(1L, actualMkInvolvementKindResult);
   }
 
@@ -239,7 +239,7 @@ class InvolvementHelperDiffblueTest {
     verify(involvementKindService)
         .create(
             isA(InvolvementKindCreateCommand.class),
-            eq("involvementHelper_4679dc12-3cb8-4710-a73a-9af6160b3c3f"));
+            eq("involvementHelper_bd2c4df2-b4db-4b5f-a652-3744dc53619d"));
     assertEquals(1L, actualMkInvolvementKindResult);
   }
 
@@ -330,7 +330,7 @@ class InvolvementHelperDiffblueTest {
     verify(involvementKindDao)
         .create(
             isA(InvolvementKindCreateCommand.class),
-            eq("involvementHelper_954016cf-7758-421a-87e7-8e4c3bbef2bd"));
+            eq("involvementHelper_b8d31910-2021-451d-a435-f16e873b0b93"));
     assertEquals(1L, actualMkInvolvementKindResult);
   }
 
@@ -420,7 +420,7 @@ class InvolvementHelperDiffblueTest {
     verify(involvementKindService)
         .create(
             isA(InvolvementKindCreateCommand.class),
-            eq("involvementHelper_4716d3aa-9f33-4fa8-b889-9fbe051bd551"));
+            eq("involvementHelper_12fa8749-a67b-4a98-b193-88ad379cff68"));
     assertEquals(1L, actualMkInvolvementKindResult);
   }
 
@@ -808,7 +808,7 @@ class InvolvementHelperDiffblueTest {
     // Assert
     verify(involvementService)
         .addEntityInvolvement(
-            eq("testuser_98def12b-1bc1-4d9d-bcc2-85996168c1f7"),
+            eq("testuser_70da8838-88eb-4b17-89e0-850e0e458108"),
             isNull(),
             isA(EntityInvolvementChangeCommand.class));
   }

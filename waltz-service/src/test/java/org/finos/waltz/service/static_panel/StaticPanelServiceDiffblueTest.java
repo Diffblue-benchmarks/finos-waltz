@@ -115,8 +115,8 @@ class StaticPanelServiceDiffblueTest {
    * Test {@link StaticPanelService#save(StaticPanel)}.
    *
    * <ul>
-   *   <li>Given of forty-two.
-   *   <li>When {@link StaticPanel} {@link StaticPanel#id()} return of forty-two.
+   *   <li>Given of one.
+   *   <li>When {@link StaticPanel} {@link StaticPanel#id()} return of one.
    *   <li>Then calls {@link StaticPanel#id()}.
    * </ul>
    *
@@ -124,18 +124,18 @@ class StaticPanelServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test save(StaticPanel); given of forty-two; when StaticPanel id() return of forty-two; then calls id()")
+      "Test save(StaticPanel); given of one; when StaticPanel id() return of one; then calls id()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean StaticPanelService.save(StaticPanel)"})
-  void testSave_givenOfFortyTwo_whenStaticPanelIdReturnOfFortyTwo_thenCallsId() {
+  void testSave_givenOfOne_whenStaticPanelIdReturnOfOne_thenCallsId() {
     // Arrange
     StaticPanelDao staticPanelDao = mock(StaticPanelDao.class);
     when(staticPanelDao.update(Mockito.<StaticPanel>any())).thenReturn(true);
     StaticPanelService staticPanelService = new StaticPanelService(staticPanelDao);
 
     StaticPanel panel = mock(StaticPanel.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(panel.id()).thenReturn(ofResult);
 
     // Act

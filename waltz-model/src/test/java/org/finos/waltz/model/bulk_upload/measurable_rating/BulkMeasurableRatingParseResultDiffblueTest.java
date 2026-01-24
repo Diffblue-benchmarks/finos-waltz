@@ -1,9 +1,7 @@
 package org.finos.waltz.model.bulk_upload.measurable_rating;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -21,24 +19,23 @@ class BulkMeasurableRatingParseResultDiffblueTest {
    * <ul>
    *   <li>Given {@link Json} (default constructor).
    *   <li>When {@link ArrayList#ArrayList()} add {@link Json} (default constructor).
-   *   <li>Then return parsedItems size is one.
+   *   <li>Then return parsedItems is {@link ArrayList#ArrayList()}.
    * </ul>
    *
    * <p>Method under test: {@link BulkMeasurableRatingParseResult#mkResult(List, String)}
    */
   @Test
   @DisplayName(
-      "Test mkResult(List, String); given Json (default constructor); when ArrayList() add Json (default constructor); then return parsedItems size is one")
+      "Test mkResult(List, String); given Json (default constructor); when ArrayList() add Json (default constructor); then return parsedItems is ArrayList()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "BulkMeasurableRatingParseResult BulkMeasurableRatingParseResult.mkResult(List, String)"
   })
-  void testMkResult_givenJson_whenArrayListAddJson_thenReturnParsedItemsSizeIsOne() {
+  void testMkResult_givenJson_whenArrayListAddJson_thenReturnParsedItemsIsArrayList() {
     // Arrange
     ArrayList<BulkMeasurableRatingItem> items = new ArrayList<>();
-    Json json = new Json();
-    items.add(json);
+    items.add(new Json());
 
     // Act
     BulkMeasurableRatingParseResult actualMkResultResult =
@@ -46,70 +43,7 @@ class BulkMeasurableRatingParseResultDiffblueTest {
 
     // Assert
     assertTrue(actualMkResultResult instanceof ImmutableBulkMeasurableRatingParseResult);
-    List<BulkMeasurableRatingItem> parsedItemsResult = actualMkResultResult.parsedItems();
-    assertEquals(1, parsedItemsResult.size());
-    assertSame(json, parsedItemsResult.get(0));
-  }
-
-  /**
-   * Test {@link BulkMeasurableRatingParseResult#mkResult(List, String)}.
-   *
-   * <ul>
-   *   <li>Then return parsedItems size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link BulkMeasurableRatingParseResult#mkResult(List, String)}
-   */
-  @Test
-  @DisplayName("Test mkResult(List, String); then return parsedItems size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BulkMeasurableRatingParseResult BulkMeasurableRatingParseResult.mkResult(List, String)"
-  })
-  void testMkResult_thenReturnParsedItemsSizeIsTwo() {
-    // Arrange
-    ArrayList<BulkMeasurableRatingItem> items = new ArrayList<>();
-    items.add(
-        ImmutableBulkMeasurableRatingItem.builder()
-            .allocation(1)
-            .assetCode("Asset Code")
-            .comment("Comment")
-            .ratingCode('A')
-            .scheme("Scheme")
-            .taxonomyExternalId("42")
-            .build());
-    items.add(
-        1,
-        ImmutableBulkMeasurableRatingItem.builder()
-            .allocation(1)
-            .assetCode("Asset Code")
-            .comment("Comment")
-            .ratingCode('A')
-            .scheme("Scheme")
-            .taxonomyExternalId("42")
-            .build());
-
-    // Act
-    BulkMeasurableRatingParseResult actualMkResultResult =
-        BulkMeasurableRatingParseResult.mkResult(items, "Input");
-
-    // Assert
-    List<BulkMeasurableRatingItem> parsedItemsResult = actualMkResultResult.parsedItems();
-    assertEquals(2, parsedItemsResult.size());
-    BulkMeasurableRatingItem getResult = parsedItemsResult.get(0);
-    assertTrue(getResult instanceof ImmutableBulkMeasurableRatingItem);
-    BulkMeasurableRatingItem getResult2 = parsedItemsResult.get(1);
-    assertTrue(getResult2 instanceof ImmutableBulkMeasurableRatingItem);
-    assertTrue(actualMkResultResult instanceof ImmutableBulkMeasurableRatingParseResult);
-    assertEquals("42", getResult.taxonomyExternalId());
-    assertEquals("Asset Code", getResult.assetCode());
-    assertEquals("Comment", getResult.comment());
-    assertEquals("Scheme", getResult.scheme());
-    assertEquals('A', getResult.ratingCode());
-    assertEquals(1, getResult.allocation().intValue());
-    assertFalse(getResult.isPrimary());
-    assertEquals(getResult, getResult2);
+    assertEquals(items, actualMkResultResult.parsedItems());
   }
 
   /**

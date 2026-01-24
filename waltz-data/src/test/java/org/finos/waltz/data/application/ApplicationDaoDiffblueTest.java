@@ -1220,9 +1220,9 @@ class ApplicationDaoDiffblueTest {
     AppRegistrationRequest request = mock(AppRegistrationRequest.class);
     when(request.lifecyclePhase()).thenThrow(new DataAccessException("An error occurred"));
     when(request.description()).thenReturn("The characteristics of someone or something");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(request.assetCode()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(request.parentAssetCode()).thenReturn(ofResult2);
     when(request.organisationalUnitId()).thenReturn(1L);
     when(request.applicationKind()).thenReturn(ApplicationKind.IN_HOUSE);
@@ -1259,9 +1259,9 @@ class ApplicationDaoDiffblueTest {
     when(request.overallRating()).thenThrow(new DataAccessException("An error occurred"));
     when(request.lifecyclePhase()).thenReturn(LifecyclePhase.PRODUCTION);
     when(request.description()).thenReturn("The characteristics of someone or something");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(request.assetCode()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(request.parentAssetCode()).thenReturn(ofResult2);
     when(request.organisationalUnitId()).thenReturn(1L);
     when(request.applicationKind()).thenReturn(ApplicationKind.IN_HOUSE);
@@ -1300,9 +1300,9 @@ class ApplicationDaoDiffblueTest {
     when(request.overallRating()).thenReturn(RagRating.R);
     when(request.lifecyclePhase()).thenReturn(LifecyclePhase.PRODUCTION);
     when(request.description()).thenReturn("The characteristics of someone or something");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(request.assetCode()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(request.parentAssetCode()).thenReturn(ofResult2);
     when(request.organisationalUnitId()).thenReturn(1L);
     when(request.applicationKind()).thenReturn(ApplicationKind.IN_HOUSE);
@@ -1687,7 +1687,7 @@ class ApplicationDaoDiffblueTest {
         .thenReturn(new ApplicationRecord());
 
     Application application = mock(Application.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(application.id()).thenReturn(ofResult);
     when(application.isRemoved()).thenReturn(true);
     when(application.provenance()).thenReturn("Provenance");
@@ -1870,7 +1870,7 @@ class ApplicationDaoDiffblueTest {
     ApplicationDao applicationDao = new ApplicationDao(dsl);
 
     Application application = mock(Application.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(application.id()).thenReturn(ofResult);
     when(application.isRemoved()).thenReturn(true);
     when(application.provenance()).thenReturn("Provenance");
@@ -1943,7 +1943,7 @@ class ApplicationDaoDiffblueTest {
     ApplicationDao applicationDao = new ApplicationDao(dsl);
 
     Application application = mock(Application.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(application.id()).thenReturn(ofResult);
     when(application.isRemoved()).thenReturn(true);
     when(application.provenance()).thenReturn("Provenance");
@@ -2091,7 +2091,7 @@ class ApplicationDaoDiffblueTest {
     ApplicationDao applicationDao = new ApplicationDao(dsl);
 
     Application application = mock(Application.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(application.id()).thenReturn(ofResult);
     when(application.isRemoved()).thenReturn(true);
     when(application.provenance()).thenReturn("Provenance");
@@ -2116,7 +2116,7 @@ class ApplicationDaoDiffblueTest {
             "update \"application\" set \"application\".\"name\" = ?, \"application\".\"description\" = ?, \"application\".\"asset_code\" = ?, \"application\".\"organisational_unit_id\" = ?, \"application\".\"kind\" = ?, \"application\".\"lifecycle_phase\" = ?, \"application\".\"parent_asset_code\" = ?, \"application\".\"overall_rating\" = ?, \"application\".\"provenance\" = ?, \"application\".\"business_criticality\" = ?, \"application\".\"is_removed\" = ? where \"application\".\"id\" = ?");
     verify(preparedStatement).execute();
     verify(preparedStatement).setBoolean(11, true);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();

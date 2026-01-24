@@ -13,35 +13,6 @@ import org.junit.jupiter.api.Test;
 
 class EntityReferenceDiffblueTest {
   /**
-   * Test {@link EntityReference#entityLifecycleStatus()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ACTIVE}.
-   * </ul>
-   *
-   * <p>Method under test: {@link EntityReference#entityLifecycleStatus()}
-   */
-  @Test
-  @DisplayName("Test entityLifecycleStatus(); then return 'ACTIVE'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityLifecycleStatus EntityReference.entityLifecycleStatus()"})
-  void testEntityLifecycleStatus_thenReturnActive() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityLifecycleStatus.ACTIVE,
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build()
-            .entityLifecycleStatus());
-  }
-
-  /**
    * Test {@link EntityReference#fromEntity(NameProvider, EntityKind)}.
    *
    * <ul>

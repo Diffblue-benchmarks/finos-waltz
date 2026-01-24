@@ -2,7 +2,6 @@ package org.finos.waltz.model.bulk_upload.entity_relationship;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -21,24 +20,23 @@ class BulkUploadRelationshipParsedResultDiffblueTest {
    * <ul>
    *   <li>Given {@link Json} (default constructor).
    *   <li>When {@link ArrayList#ArrayList()} add {@link Json} (default constructor).
-   *   <li>Then return parsedItems size is one.
+   *   <li>Then return error is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link BulkUploadRelationshipParsedResult#mkResult(List, String)}
    */
   @Test
   @DisplayName(
-      "Test mkResult(List, String); given Json (default constructor); when ArrayList() add Json (default constructor); then return parsedItems size is one")
+      "Test mkResult(List, String); given Json (default constructor); when ArrayList() add Json (default constructor); then return error is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "BulkUploadRelationshipParsedResult BulkUploadRelationshipParsedResult.mkResult(List, String)"
   })
-  void testMkResult_givenJson_whenArrayListAddJson_thenReturnParsedItemsSizeIsOne() {
+  void testMkResult_givenJson_whenArrayListAddJson_thenReturnErrorIsNull() {
     // Arrange
     ArrayList<BulkUploadRelationshipItem> items = new ArrayList<>();
-    Json json = new Json();
-    items.add(json);
+    items.add(new Json());
 
     // Act
     BulkUploadRelationshipParsedResult actualMkResultResult =
@@ -46,9 +44,8 @@ class BulkUploadRelationshipParsedResultDiffblueTest {
 
     // Assert
     assertTrue(actualMkResultResult instanceof ImmutableBulkUploadRelationshipParsedResult);
-    List<BulkUploadRelationshipItem> parsedItemsResult = actualMkResultResult.parsedItems();
-    assertEquals(1, parsedItemsResult.size());
-    assertSame(json, parsedItemsResult.get(0));
+    assertNull(actualMkResultResult.error());
+    assertEquals(items, actualMkResultResult.parsedItems());
   }
 
   /**
@@ -81,56 +78,5 @@ class BulkUploadRelationshipParsedResultDiffblueTest {
     assertNull(errorResult.column());
     assertNull(errorResult.line());
     assertTrue(actualMkResultResult.parsedItems().isEmpty());
-  }
-
-  /**
-   * Test {@link BulkUploadRelationshipParsedResult#mkResult(List, String)}.
-   *
-   * <ul>
-   *   <li>Then return parsedItems size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link BulkUploadRelationshipParsedResult#mkResult(List, String)}
-   */
-  @Test
-  @DisplayName("Test mkResult(List, String); then return parsedItems size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BulkUploadRelationshipParsedResult BulkUploadRelationshipParsedResult.mkResult(List, String)"
-  })
-  void testMkResult_thenReturnParsedItemsSizeIsTwo() {
-    // Arrange
-    ArrayList<BulkUploadRelationshipItem> items = new ArrayList<>();
-    items.add(
-        ImmutableBulkUploadRelationshipItem.builder()
-            .description("The characteristics of someone or something")
-            .sourceExternalId("42")
-            .targetExternalId("42")
-            .build());
-    items.add(
-        1,
-        ImmutableBulkUploadRelationshipItem.builder()
-            .description("The characteristics of someone or something")
-            .sourceExternalId("42")
-            .targetExternalId("42")
-            .build());
-
-    // Act
-    BulkUploadRelationshipParsedResult actualMkResultResult =
-        BulkUploadRelationshipParsedResult.mkResult(items, "Input");
-
-    // Assert
-    List<BulkUploadRelationshipItem> parsedItemsResult = actualMkResultResult.parsedItems();
-    assertEquals(2, parsedItemsResult.size());
-    BulkUploadRelationshipItem getResult = parsedItemsResult.get(0);
-    assertTrue(getResult instanceof ImmutableBulkUploadRelationshipItem);
-    BulkUploadRelationshipItem getResult2 = parsedItemsResult.get(1);
-    assertTrue(getResult2 instanceof ImmutableBulkUploadRelationshipItem);
-    assertTrue(actualMkResultResult instanceof ImmutableBulkUploadRelationshipParsedResult);
-    assertEquals("42", getResult.sourceExternalId());
-    assertEquals("42", getResult.targetExternalId());
-    assertEquals("The characteristics of someone or something", getResult.description());
-    assertEquals(getResult, getResult2);
   }
 }

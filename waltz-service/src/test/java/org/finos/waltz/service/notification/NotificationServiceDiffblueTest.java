@@ -45,7 +45,7 @@ class NotificationServiceDiffblueTest {
         .thenReturn(new ArrayList<>());
 
     SettingsService settingsService = mock(SettingsService.class);
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(settingsService.getValue(Mockito.<String>any())).thenReturn(ofResult);
 
     NotificationService notificationService =

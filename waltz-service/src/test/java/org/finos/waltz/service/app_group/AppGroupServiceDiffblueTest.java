@@ -9981,19 +9981,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -10156,19 +10156,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -10212,20 +10212,20 @@ class AppGroupServiceDiffblueTest {
     when(changeLogService.write(Mockito.<ChangeLog>any())).thenReturn(19088743);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act and Assert
     assertThrows(
         IllegalArgumentException.class, () -> appGroupService.updateOverview("42", appGroup));
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(appGroup, atLeast(1)).id();
-    verify(changeInitiativeService).findEntriesForAppGroup(42L);
+    verify(changeInitiativeService).findEntriesForAppGroup(1L);
     verify(changeLogService).write(isA(ChangeLog.class));
   }
 
@@ -10304,14 +10304,14 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act and Assert
     assertThrows(
         IllegalArgumentException.class, () -> appGroupService.updateOverview("42", appGroup));
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupMemberDao).canUpdate(42L, "42");
+    verify(appGroupMemberDao).canUpdate(1L, "42");
     verify(appGroup).id();
   }
 
@@ -10341,14 +10341,14 @@ class AppGroupServiceDiffblueTest {
         .thenThrow(new IllegalArgumentException());
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act and Assert
     assertThrows(
         IllegalArgumentException.class, () -> appGroupService.updateOverview("42", appGroup));
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupMemberDao).canUpdate(42L, "42");
+    verify(appGroupMemberDao).canUpdate(1L, "42");
     verify(appGroup, atLeast(1)).id();
     verify(changeLogService).write(isA(ChangeLog.class));
   }
@@ -10427,13 +10427,13 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act and Assert
     assertThrows(
         IllegalArgumentException.class, () -> appGroupService.updateOverview("42", appGroup));
-    verify(appGroupMemberDao).canUpdate(42L, "42");
+    verify(appGroupMemberDao).canUpdate(1L, "42");
     verify(appGroup).id();
   }
 
@@ -10573,21 +10573,21 @@ class AppGroupServiceDiffblueTest {
             changeLogService);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(appGroup, atLeast(1)).id();
-    verify(changeInitiativeService).findEntriesForAppGroup(42L);
+    verify(changeInitiativeService).findEntriesForAppGroup(1L);
     verify(changeLogService).write(isA(ChangeLog.class));
     assertTrue(actualUpdateOverviewResult instanceof ImmutableAppGroupDetail);
     List<AppGroupEntry> applicationsResult = actualUpdateOverviewResult.applications();
@@ -10688,19 +10688,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -10815,19 +10815,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -10953,19 +10953,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -11050,21 +11050,21 @@ class AppGroupServiceDiffblueTest {
             changeLogService);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(appGroup, atLeast(1)).id();
-    verify(changeInitiativeService).findEntriesForAppGroup(42L);
+    verify(changeInitiativeService).findEntriesForAppGroup(1L);
     verify(changeLogService).write(isA(ChangeLog.class));
     assertTrue(actualUpdateOverviewResult instanceof ImmutableAppGroupDetail);
     assertEquals(appGroupEntryList, actualUpdateOverviewResult.changeInitiatives());
@@ -11169,19 +11169,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -11300,19 +11300,19 @@ class AppGroupServiceDiffblueTest {
             changeLogService2);
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act
     AppGroupDetail actualUpdateOverviewResult = appGroupService.updateOverview("42", appGroup);
 
     // Assert
-    verify(appGroupDao).getGroup(42L);
+    verify(appGroupDao).getGroup(1L);
     verify(appGroupDao).update(isA(AppGroup.class));
-    verify(appGroupEntryDao).findEntriesForGroup(42L);
-    verify(appGroupMemberDao).canUpdate(42L, "42");
-    verify(appGroupMemberDao).getMembers(42L);
-    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(42L);
+    verify(appGroupEntryDao).findEntriesForGroup(1L);
+    verify(appGroupMemberDao).canUpdate(1L, "42");
+    verify(appGroupMemberDao).getMembers(1L);
+    verify(appGroupOrganisationalUnitDao).getEntriesForGroup(1L);
     verify(changeLogDao).write(isA(Optional.class), isA(ChangeLog.class));
     verify(relationshipDao).findRelationshipsInvolving(isA(EntityReference.class));
     verify(appGroup, atLeast(1)).id();
@@ -11352,13 +11352,13 @@ class AppGroupServiceDiffblueTest {
             mock(ChangeLogService.class));
 
     AppGroup appGroup = mock(AppGroup.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(appGroup.id()).thenReturn(ofResult);
 
     // Act and Assert
     assertThrows(
         InsufficientPrivelegeException.class, () -> appGroupService.updateOverview("42", appGroup));
-    verify(appGroupMemberDao).canUpdate(42L, "42");
+    verify(appGroupMemberDao).canUpdate(1L, "42");
     verify(appGroup).id();
   }
 
@@ -15519,500 +15519,6 @@ class AppGroupServiceDiffblueTest {
   /**
    * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
    *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName("Test synchGroupEntries(Set, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(new HashMap<>());
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
-    entityReferenceSet.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
-        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
-
-    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple3);
-
-    // Act
-    appGroupService.synchGroupEntries(entriesForGroups, "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName("Test synchGroupEntries(Set, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries2() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(new HashMap<>());
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
-    entityReferenceSet.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
-        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
-
-    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple32 =
-        new Tuple3<>(EntityKind.ALL, 1L, new HashSet<>());
-    entriesForGroups.add(tuple32);
-    entriesForGroups.add(tuple3);
-
-    // Act
-    appGroupService.synchGroupEntries(entriesForGroups, "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName("Test synchGroupEntries(Set, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries3() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    ArrayList<EntityReference> entityReferenceList = new ArrayList<>();
-    entityReferenceList.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-
-    HashMap<Long, List<EntityReference>> resultLongListMap = new HashMap<>();
-    resultLongListMap.put(1L, entityReferenceList);
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(resultLongListMap);
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
-    entityReferenceSet.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
-        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
-
-    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple3);
-
-    // Act
-    appGroupService.synchGroupEntries(entriesForGroups, "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName("Test synchGroupEntries(Set, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries4() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    ArrayList<EntityReference> entityReferenceList = new ArrayList<>();
-    entityReferenceList.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    entityReferenceList.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-
-    HashMap<Long, List<EntityReference>> resultLongListMap = new HashMap<>();
-    resultLongListMap.put(1L, entityReferenceList);
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(resultLongListMap);
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
-    entityReferenceSet.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
-        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
-
-    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple3);
-
-    // Act
-    appGroupService.synchGroupEntries(entriesForGroups, "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} one is {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName(
-      "Test synchGroupEntries(Set, String); given HashMap() one is ArrayList(); then calls write(Collection)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries_givenHashMapOneIsArrayList_thenCallsWrite() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    HashMap<Long, List<EntityReference>> resultLongListMap = new HashMap<>();
-    resultLongListMap.put(1L, new ArrayList<>());
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(resultLongListMap);
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
-    entityReferenceSet.add(
-        ImmutableEntityReference.builder()
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build());
-    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
-        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
-
-    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
-    entriesForGroups.add(tuple3);
-
-    // Act
-    appGroupService.synchGroupEntries(entriesForGroups, "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
    * <ul>
    *   <li>Then calls {@link ChangeLogDao#write(Collection)}.
    * </ul>
@@ -16197,6 +15703,368 @@ class AppGroupServiceDiffblueTest {
    * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
    *
    * <ul>
+   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
+   */
+  @Test
+  @DisplayName("Test synchGroupEntries(Set, String); then calls write(Collection)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
+  void testSynchGroupEntries_thenCallsWrite3() {
+    // Arrange
+    AppGroupDao appGroupDao = mock(AppGroupDao.class);
+    when(appGroupDao.processAdditionsAndRemovals(
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<String>any()))
+        .thenReturn(42);
+
+    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
+    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashMap<>());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
+        mock(AppGroupOrganisationalUnitDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
+    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
+    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
+    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    ChangeInitiativeService changeInitiativeService =
+        new ChangeInitiativeService(
+            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
+
+    AppGroupService appGroupService =
+        new AppGroupService(
+            appGroupDao,
+            appGroupMemberDao,
+            appGroupEntryDao,
+            applicationDao,
+            appGroupOrganisationalUnitDao,
+            organisationalUnitDao,
+            entityRelationshipDao,
+            changeInitiativeService,
+            changeLogService);
+
+    // Act
+    appGroupService.synchGroupEntries(new HashSet<>(), "42");
+
+    // Assert
+    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
+    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
+    verify(changeLogService).write(isA(Collection.class));
+  }
+
+  /**
+   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
+   */
+  @Test
+  @DisplayName("Test synchGroupEntries(Set, String); then calls write(Collection)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
+  void testSynchGroupEntries_thenCallsWrite4() {
+    // Arrange
+    AppGroupDao appGroupDao = mock(AppGroupDao.class);
+    when(appGroupDao.processAdditionsAndRemovals(
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<String>any()))
+        .thenReturn(42);
+
+    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
+    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashMap<>());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
+        mock(AppGroupOrganisationalUnitDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
+    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
+    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
+    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    ChangeInitiativeService changeInitiativeService =
+        new ChangeInitiativeService(
+            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
+
+    AppGroupService appGroupService =
+        new AppGroupService(
+            appGroupDao,
+            appGroupMemberDao,
+            appGroupEntryDao,
+            applicationDao,
+            appGroupOrganisationalUnitDao,
+            organisationalUnitDao,
+            entityRelationshipDao,
+            changeInitiativeService,
+            changeLogService);
+
+    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
+    entityReferenceSet.add(
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build());
+    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
+        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
+
+    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
+    entriesForGroups.add(tuple3);
+
+    // Act
+    appGroupService.synchGroupEntries(entriesForGroups, "42");
+
+    // Assert
+    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
+    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
+    verify(changeLogService).write(isA(Collection.class));
+  }
+
+  /**
+   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
+   */
+  @Test
+  @DisplayName("Test synchGroupEntries(Set, String); then calls write(Collection)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
+  void testSynchGroupEntries_thenCallsWrite5() {
+    // Arrange
+    AppGroupDao appGroupDao = mock(AppGroupDao.class);
+    when(appGroupDao.processAdditionsAndRemovals(
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<String>any()))
+        .thenReturn(42);
+
+    HashMap<Long, List<EntityReference>> resultLongListMap = new HashMap<>();
+    resultLongListMap.put(1L, new ArrayList<>());
+
+    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
+    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
+        .thenReturn(resultLongListMap);
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
+        mock(AppGroupOrganisationalUnitDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
+    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
+    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
+    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    ChangeInitiativeService changeInitiativeService =
+        new ChangeInitiativeService(
+            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
+
+    AppGroupService appGroupService =
+        new AppGroupService(
+            appGroupDao,
+            appGroupMemberDao,
+            appGroupEntryDao,
+            applicationDao,
+            appGroupOrganisationalUnitDao,
+            organisationalUnitDao,
+            entityRelationshipDao,
+            changeInitiativeService,
+            changeLogService);
+
+    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
+    entityReferenceSet.add(
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build());
+    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
+        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
+
+    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
+    entriesForGroups.add(tuple3);
+
+    // Act
+    appGroupService.synchGroupEntries(entriesForGroups, "42");
+
+    // Assert
+    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
+    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
+    verify(changeLogService).write(isA(Collection.class));
+  }
+
+  /**
+   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
+   */
+  @Test
+  @DisplayName("Test synchGroupEntries(Set, String); then calls write(Collection)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
+  void testSynchGroupEntries_thenCallsWrite6() {
+    // Arrange
+    AppGroupDao appGroupDao = mock(AppGroupDao.class);
+    when(appGroupDao.processAdditionsAndRemovals(
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
+            Mockito.<String>any()))
+        .thenReturn(42);
+
+    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
+    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
+        .thenReturn(new HashMap<>());
+
+    ChangeLogService changeLogService = mock(ChangeLogService.class);
+    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
+        .thenReturn(new int[] {19088743, 1, 19088743, 1});
+    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
+    ApplicationDao applicationDao = mock(ApplicationDao.class);
+    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
+        mock(AppGroupOrganisationalUnitDao.class);
+    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
+    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
+    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
+    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
+    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+
+    ChangeInitiativeService changeInitiativeService =
+        new ChangeInitiativeService(
+            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
+
+    AppGroupService appGroupService =
+        new AppGroupService(
+            appGroupDao,
+            appGroupMemberDao,
+            appGroupEntryDao,
+            applicationDao,
+            appGroupOrganisationalUnitDao,
+            organisationalUnitDao,
+            entityRelationshipDao,
+            changeInitiativeService,
+            changeLogService);
+
+    HashSet<EntityReference> entityReferenceSet = new HashSet<>();
+    entityReferenceSet.add(
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build());
+    Tuple3<EntityKind, Long, Set<EntityReference>> tuple3 =
+        new Tuple3<>(EntityKind.ALL, 1L, entityReferenceSet);
+
+    HashSet<Tuple3<EntityKind, Long, Set<EntityReference>>> entriesForGroups = new HashSet<>();
+    Tuple3<EntityKind, Long, Set<EntityReference>> tuple32 =
+        new Tuple3<>(EntityKind.ALL, 1L, new HashSet<>());
+    entriesForGroups.add(tuple32);
+    entriesForGroups.add(tuple3);
+
+    // Act
+    appGroupService.synchGroupEntries(entriesForGroups, "42");
+
+    // Assert
+    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
+    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
+    verify(changeLogService).write(isA(Collection.class));
+  }
+
+  /**
+   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
+   *
+   * <ul>
    *   <li>Then throw {@link IllegalArgumentException}.
    * </ul>
    *
@@ -16268,84 +16136,6 @@ class AppGroupServiceDiffblueTest {
         IllegalArgumentException.class,
         () -> appGroupService.synchGroupEntries(new HashSet<>(), "42"));
     verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-  }
-
-  /**
-   * Test {@link AppGroupService#synchGroupEntries(Set, String)}.
-   *
-   * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then calls {@link ChangeLogService#write(Collection)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AppGroupService#synchGroupEntries(Set, String)}
-   */
-  @Test
-  @DisplayName("Test synchGroupEntries(Set, String); when HashSet(); then calls write(Collection)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AppGroupService.synchGroupEntries(Set, String)"})
-  void testSynchGroupEntries_whenHashSet_thenCallsWrite() {
-    // Arrange
-    AppGroupDao appGroupDao = mock(AppGroupDao.class);
-    when(appGroupDao.processAdditionsAndRemovals(
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<Set<Tuple2<Long, EntityReference>>>any(),
-            Mockito.<String>any()))
-        .thenReturn(42);
-
-    AppGroupEntryDao appGroupEntryDao = mock(AppGroupEntryDao.class);
-    when(appGroupEntryDao.fetchEntitiesForGroups(Mockito.<Set<Long>>any()))
-        .thenReturn(new HashMap<>());
-
-    ChangeLogService changeLogService = mock(ChangeLogService.class);
-    when(changeLogService.write(Mockito.<Collection<ChangeLog>>any()))
-        .thenReturn(new int[] {19088743, 1, 19088743, 1});
-    AppGroupMemberDao appGroupMemberDao = mock(AppGroupMemberDao.class);
-    ApplicationDao applicationDao = mock(ApplicationDao.class);
-    AppGroupOrganisationalUnitDao appGroupOrganisationalUnitDao =
-        mock(AppGroupOrganisationalUnitDao.class);
-    OrganisationalUnitDao organisationalUnitDao = mock(OrganisationalUnitDao.class);
-    EntityRelationshipDao entityRelationshipDao = mock(EntityRelationshipDao.class);
-    ChangeInitiativeDao changeInitiativeDao = mock(ChangeInitiativeDao.class);
-    ChangeInitiativeSearchDao searchDao = mock(ChangeInitiativeSearchDao.class);
-    EntityRelationshipDao relationshipDao = mock(EntityRelationshipDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-
-    ChangeInitiativeService changeInitiativeService =
-        new ChangeInitiativeService(
-            changeInitiativeDao, searchDao, relationshipDao, changeLogService2);
-
-    AppGroupService appGroupService =
-        new AppGroupService(
-            appGroupDao,
-            appGroupMemberDao,
-            appGroupEntryDao,
-            applicationDao,
-            appGroupOrganisationalUnitDao,
-            organisationalUnitDao,
-            entityRelationshipDao,
-            changeInitiativeService,
-            changeLogService);
-
-    // Act
-    appGroupService.synchGroupEntries(new HashSet<>(), "42");
-
-    // Assert
-    verify(appGroupDao).processAdditionsAndRemovals(isA(Set.class), isA(Set.class), eq("42"));
-    verify(appGroupEntryDao).fetchEntitiesForGroups(isA(Set.class));
-    verify(changeLogService).write(isA(Collection.class));
   }
 
   /**

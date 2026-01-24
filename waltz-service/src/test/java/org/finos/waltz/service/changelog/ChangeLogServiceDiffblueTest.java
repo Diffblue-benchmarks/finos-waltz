@@ -130,7 +130,7 @@ class ChangeLogServiceDiffblueTest {
             .build();
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceForDateRangeResult =
@@ -194,7 +194,7 @@ class ChangeLogServiceDiffblueTest {
             .build();
     Date startDate = new Date(1L);
     Date endDate = new Date(1L);
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceForDateRangeResult =
@@ -257,7 +257,7 @@ class ChangeLogServiceDiffblueTest {
         Optional.of(
             java.util.Date.from(
                 LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByParentReferenceResult =
@@ -320,7 +320,7 @@ class ChangeLogServiceDiffblueTest {
         Optional.of(
             java.util.Date.from(
                 LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByPersonReferenceResult =
@@ -367,7 +367,7 @@ class ChangeLogServiceDiffblueTest {
             mock(MeasurableRatingDao.class),
             mock(MeasurableRatingPlannedDecommissionDao.class),
             mock(EntityReferenceNameResolver.class));
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<ChangeLog> actualFindByUserResult = changeLogService.findByUser("janedoe", limit);
@@ -2884,7 +2884,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -2954,7 +2954,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3024,7 +3024,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3099,7 +3099,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3177,7 +3177,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3253,7 +3253,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3328,7 +3328,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3403,7 +3403,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3478,7 +3478,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3553,7 +3553,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3628,7 +3628,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3703,7 +3703,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3778,7 +3778,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3853,7 +3853,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -3928,7 +3928,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =
@@ -4003,7 +4003,7 @@ class ChangeLogServiceDiffblueTest {
             .addAllEntityLifecycleStatuses(new ArrayList<>())
             .scope(HierarchyQueryScope.EXACT)
             .build();
-    Optional<Integer> limit = Optional.of(42);
+    Optional<Integer> limit = Optional.of(1);
 
     // Act
     List<DateTally> actualFindCountByDateForParentKindBySelectorResult =

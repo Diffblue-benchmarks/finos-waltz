@@ -15,43 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class MeasurableDiffblueTest {
   /**
-   * Test {@link Measurable#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Measurable#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind Measurable.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableMeasurable.builder()
-            .categoryId(1L)
-            .concrete(true)
-            .description("The characteristics of someone or something")
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .externalParentId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .name("Name")
-            .organisationalUnitId(1L)
-            .parentId(1L)
-            .provenance("Provenance")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link Measurable#entityReference()}.
    *
    * <ul>

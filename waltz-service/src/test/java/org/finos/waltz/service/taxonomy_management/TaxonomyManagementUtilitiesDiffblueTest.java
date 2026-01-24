@@ -1763,7 +1763,7 @@ class TaxonomyManagementUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>Given {@code concrete}.
-   *   <li>When {@link HashMap#HashMap()} {@code concrete} is {@code 42}.
+   *   <li>When {@link HashMap#HashMap()} {@code concrete} is {@code concrete}.
    *   <li>Then return {@code false}.
    * </ul>
    *
@@ -1772,16 +1772,16 @@ class TaxonomyManagementUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test getConcreteParam(TaxonomyChangeCommand, boolean); given 'concrete'; when HashMap() 'concrete' is '42'; then return 'false'")
+      "Test getConcreteParam(TaxonomyChangeCommand, boolean); given 'concrete'; when HashMap() 'concrete' is 'concrete'; then return 'false'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "boolean TaxonomyManagementUtilities.getConcreteParam(TaxonomyChangeCommand, boolean)"
   })
-  void testGetConcreteParam_givenConcrete_whenHashMapConcreteIs42_thenReturnFalse() {
+  void testGetConcreteParam_givenConcrete_whenHashMapConcreteIsConcrete_thenReturnFalse() {
     // Arrange
     HashMap<String, String> entries = new HashMap<>();
-    entries.put("concrete", "42");
+    entries.put("concrete", "concrete");
 
     Builder builderResult = ImmutableTaxonomyChangeCommand.builder();
 

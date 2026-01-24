@@ -2,6 +2,7 @@ package org.finos.waltz.data.flow_classification_rule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyLong;
@@ -579,7 +580,7 @@ class FlowClassificationRuleDaoDiffblueTest {
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.classificationId()).thenReturn(1L);
     when(command.severity()).thenReturn(MessageSeverity.NONE);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act
@@ -590,7 +591,7 @@ class FlowClassificationRuleDaoDiffblueTest {
         .prepareStatement(
             "update \"flow_classification_rule\" set \"flow_classification_rule\".\"flow_classification_id\" = cast(? as bigint), \"flow_classification_rule\".\"description\" = cast(? as varchar), \"flow_classification_rule\".\"direction\" = (select \"flow_classification\".\"direction\" from \"flow_classification\" where \"flow_classification\".\"id\" = cast(? as bigint)), \"flow_classification_rule\".\"message_severity\" = cast(? as varchar), \"flow_classification_rule\".\"message\" = cast(? as varchar) where \"flow_classification_rule\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -638,7 +639,7 @@ class FlowClassificationRuleDaoDiffblueTest {
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.classificationId()).thenReturn(1L);
     when(command.severity()).thenReturn(MessageSeverity.NONE);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act
@@ -649,7 +650,7 @@ class FlowClassificationRuleDaoDiffblueTest {
         .prepareStatement(
             "update \"flow_classification_rule\" set \"flow_classification_rule\".\"flow_classification_id\" = cast(? as bigint), \"flow_classification_rule\".\"description\" = cast(? as varchar(43)), \"flow_classification_rule\".\"direction\" = (select \"flow_classification\".\"direction\" from \"flow_classification\" where \"flow_classification\".\"id\" = cast(? as bigint)), \"flow_classification_rule\".\"message_severity\" = cast(? as varchar(4)), \"flow_classification_rule\".\"message\" = cast(? as varchar(27)) where \"flow_classification_rule\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -699,7 +700,7 @@ class FlowClassificationRuleDaoDiffblueTest {
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.classificationId()).thenReturn(1L);
     when(command.severity()).thenReturn(MessageSeverity.NONE);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act
@@ -710,7 +711,7 @@ class FlowClassificationRuleDaoDiffblueTest {
         .prepareStatement(
             "update \"flow_classification_rule\" set \"flow_classification_rule\".\"flow_classification_id\" = ?, \"flow_classification_rule\".\"description\" = ?, \"flow_classification_rule\".\"direction\" = (select \"flow_classification\".\"direction\" from \"flow_classification\" where \"flow_classification\".\"id\" = ?), \"flow_classification_rule\".\"message_severity\" = ?, \"flow_classification_rule\".\"message\" = ? where \"flow_classification_rule\".\"id\" = ?");
     verify(preparedStatement).execute();
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();

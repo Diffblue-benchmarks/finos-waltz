@@ -384,16 +384,16 @@ class BookmarkDaoDiffblueTest {
     Bookmark bookmark = mock(Bookmark.class);
     when(bookmark.isRestricted()).thenReturn(true);
     when(bookmark.provenance()).thenReturn("Provenance");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.description()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(bookmark.url()).thenReturn(ofResult3);
     when(bookmark.isPrimary()).thenReturn(true);
     when(bookmark.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(bookmark.bookmarkKind()).thenReturn(BookmarkKindValue.of("42"));
-    Optional<Long> ofResult4 = Optional.of(42L);
+    Optional<Long> ofResult4 = Optional.of(1L);
     when(bookmark.id()).thenReturn(ofResult4);
 
     // Act
@@ -461,16 +461,16 @@ class BookmarkDaoDiffblueTest {
     Bookmark bookmark = mock(Bookmark.class);
     when(bookmark.isRestricted()).thenReturn(true);
     when(bookmark.provenance()).thenReturn("Provenance");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.description()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(bookmark.url()).thenReturn(ofResult3);
     when(bookmark.isPrimary()).thenReturn(true);
     when(bookmark.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(bookmark.bookmarkKind()).thenReturn(BookmarkKindValue.of("42"));
-    Optional<Long> ofResult4 = Optional.of(42L);
+    Optional<Long> ofResult4 = Optional.of(1L);
     when(bookmark.id()).thenReturn(ofResult4);
 
     // Act
@@ -482,7 +482,7 @@ class BookmarkDaoDiffblueTest {
             "update \"bookmark\" set \"bookmark\".\"kind\" = cast(? as varchar), \"bookmark\".\"description\" = cast(? as varchar), \"bookmark\".\"url\" = cast(? as varchar), \"bookmark\".\"title\" = cast(? as varchar), \"bookmark\".\"is_primary\" = cast(? as bit(1)), \"bookmark\".\"updated_at\" = cast(? as datetime), \"bookmark\".\"last_updated_by\" = cast(? as varchar), \"bookmark\".\"provenance\" = cast(? as varchar), \"bookmark\".\"is_restricted\" = cast(? as bit(1)) where \"bookmark\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement).setLong(10, 42L);
+    verify(preparedStatement).setLong(10, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(6), isA(Timestamp.class));
     verify(preparedStatement).close();
@@ -534,16 +534,16 @@ class BookmarkDaoDiffblueTest {
     Bookmark bookmark = mock(Bookmark.class);
     when(bookmark.isRestricted()).thenReturn(true);
     when(bookmark.provenance()).thenReturn("Provenance");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.description()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(bookmark.url()).thenReturn(ofResult3);
     when(bookmark.isPrimary()).thenReturn(true);
     when(bookmark.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(bookmark.bookmarkKind()).thenReturn(BookmarkKindValue.of("42"));
-    Optional<Long> ofResult4 = Optional.of(42L);
+    Optional<Long> ofResult4 = Optional.of(1L);
     when(bookmark.id()).thenReturn(ofResult4);
 
     // Act
@@ -552,10 +552,10 @@ class BookmarkDaoDiffblueTest {
     // Assert
     verify(connection)
         .prepareStatement(
-            "update \"bookmark\" set \"bookmark\".\"kind\" = cast(? as varchar(2)), \"bookmark\".\"description\" = cast(? as varchar(2)), \"bookmark\".\"url\" = cast(? as varchar(2)), \"bookmark\".\"title\" = cast(? as varchar(2)), \"bookmark\".\"is_primary\" = cast(? as boolean), \"bookmark\".\"updated_at\" = cast(? as timestamp), \"bookmark\".\"last_updated_by\" = cast(? as varchar(7)), \"bookmark\".\"provenance\" = cast(? as varchar(10)), \"bookmark\".\"is_restricted\" = cast(? as boolean) where \"bookmark\".\"id\" = cast(? as bigint)");
+            "update \"bookmark\" set \"bookmark\".\"kind\" = cast(? as varchar(2)), \"bookmark\".\"description\" = cast(? as varchar(3)), \"bookmark\".\"url\" = cast(? as varchar(3)), \"bookmark\".\"title\" = cast(? as varchar(3)), \"bookmark\".\"is_primary\" = cast(? as boolean), \"bookmark\".\"updated_at\" = cast(? as timestamp), \"bookmark\".\"last_updated_by\" = cast(? as varchar(7)), \"bookmark\".\"provenance\" = cast(? as varchar(10)), \"bookmark\".\"is_restricted\" = cast(? as boolean) where \"bookmark\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement).setLong(10, 42L);
+    verify(preparedStatement).setLong(10, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(6), isA(Timestamp.class));
     verify(preparedStatement).close();
@@ -685,16 +685,16 @@ class BookmarkDaoDiffblueTest {
     Bookmark bookmark = mock(Bookmark.class);
     when(bookmark.isRestricted()).thenReturn(true);
     when(bookmark.provenance()).thenReturn("Provenance");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(bookmark.description()).thenReturn(ofResult);
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(bookmark.title()).thenReturn(ofResult2);
-    Optional<String> ofResult3 = Optional.of("42");
+    Optional<String> ofResult3 = Optional.of("foo");
     when(bookmark.url()).thenReturn(ofResult3);
     when(bookmark.isPrimary()).thenReturn(true);
     when(bookmark.lastUpdatedAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
     when(bookmark.bookmarkKind()).thenReturn(BookmarkKindValue.of("42"));
-    Optional<Long> ofResult4 = Optional.of(42L);
+    Optional<Long> ofResult4 = Optional.of(1L);
     when(bookmark.id()).thenReturn(ofResult4);
 
     // Act
@@ -706,7 +706,7 @@ class BookmarkDaoDiffblueTest {
             "update \"bookmark\" set \"bookmark\".\"kind\" = ?, \"bookmark\".\"description\" = ?, \"bookmark\".\"url\" = ?, \"bookmark\".\"title\" = ?, \"bookmark\".\"is_primary\" = ?, \"bookmark\".\"updated_at\" = ?, \"bookmark\".\"last_updated_by\" = ?, \"bookmark\".\"provenance\" = ?, \"bookmark\".\"is_restricted\" = ? where \"bookmark\".\"id\" = ?");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement).setLong(10, 42L);
+    verify(preparedStatement).setLong(10, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(6), isA(Timestamp.class));
     verify(preparedStatement).close();

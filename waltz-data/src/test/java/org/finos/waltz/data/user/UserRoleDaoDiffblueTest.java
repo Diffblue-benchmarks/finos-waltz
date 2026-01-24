@@ -40,6 +40,7 @@ import org.jooq.TableLike;
 import org.jooq.TransactionalCallable;
 import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DefaultDSLContext;
+import org.jooq.lambda.tuple.Range;
 import org.jooq.lambda.tuple.Tuple2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -253,19 +254,19 @@ class UserRoleDaoDiffblueTest {
    * Test {@link UserRoleDao#addRoles(Set)} with {@code usersAndRolesToUpdate}.
    *
    * <ul>
-   *   <li>Given {@link Tuple2} {@link Tuple2#v1()} return {@code V1}.
-   *   <li>Then calls {@link Tuple2#v1()}.
+   *   <li>Given {@link Range} {@link Range#v1()} return {@code V1}.
+   *   <li>Then calls {@link Range#v1()}.
    * </ul>
    *
    * <p>Method under test: {@link UserRoleDao#addRoles(Set)}
    */
   @Test
   @DisplayName(
-      "Test addRoles(Set) with 'usersAndRolesToUpdate'; given Tuple2 v1() return 'V1'; then calls v1()")
+      "Test addRoles(Set) with 'usersAndRolesToUpdate'; given Range v1() return 'V1'; then calls v1()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int UserRoleDao.addRoles(Set)"})
-  void testAddRolesWithUsersAndRolesToUpdate_givenTuple2V1ReturnV1_thenCallsV1()
+  void testAddRolesWithUsersAndRolesToUpdate_givenRangeV1ReturnV1_thenCallsV1()
       throws DataAccessException {
     // Arrange
     SelectConditionStep<Record2<Object, Object>> selectConditionStep =
@@ -294,12 +295,12 @@ class UserRoleDaoDiffblueTest {
     when(dSLContext.select(Mockito.<SelectField<Object>>any(), Mockito.<SelectField<Object>>any()))
         .thenReturn(selectSelectStep);
 
-    Tuple2<String, String> tuple2 = mock(Tuple2.class);
-    when(tuple2.v1()).thenReturn("V1");
-    when(tuple2.v2()).thenReturn("V2");
+    Range<String> range = mock(Range.class);
+    when(range.v1()).thenReturn("V1");
+    when(range.v2()).thenReturn("V2");
 
     HashSet<Tuple2<String, String>> usersAndRolesToUpdate = new HashSet<>();
-    usersAndRolesToUpdate.add(tuple2);
+    usersAndRolesToUpdate.add(range);
 
     // Act
     int actualAddRolesResult = userRoleDao.addRoles(usersAndRolesToUpdate);
@@ -313,8 +314,8 @@ class UserRoleDaoDiffblueTest {
     verify(selectConditionStep).fetchSet(isA(RecordMapper.class));
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
-    verify(tuple2).v1();
-    verify(tuple2).v2();
+    verify(range).v1();
+    verify(range).v2();
     assertEquals(0, actualAddRolesResult);
   }
 
@@ -322,19 +323,19 @@ class UserRoleDaoDiffblueTest {
    * Test {@link UserRoleDao#addRoles(Set)} with {@code usersAndRolesToUpdate}.
    *
    * <ul>
-   *   <li>Given {@link Tuple2} {@link Tuple2#v1()} return {@code V1}.
-   *   <li>Then calls {@link Tuple2#v1()}.
+   *   <li>Given {@link Range} {@link Range#v1()} return {@code V1}.
+   *   <li>Then calls {@link Range#v1()}.
    * </ul>
    *
    * <p>Method under test: {@link UserRoleDao#addRoles(Set)}
    */
   @Test
   @DisplayName(
-      "Test addRoles(Set) with 'usersAndRolesToUpdate'; given Tuple2 v1() return 'V1'; then calls v1()")
+      "Test addRoles(Set) with 'usersAndRolesToUpdate'; given Range v1() return 'V1'; then calls v1()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int UserRoleDao.addRoles(Set)"})
-  void testAddRolesWithUsersAndRolesToUpdate_givenTuple2V1ReturnV1_thenCallsV12()
+  void testAddRolesWithUsersAndRolesToUpdate_givenRangeV1ReturnV1_thenCallsV12()
       throws DataAccessException {
     // Arrange
     SelectConditionStep<Record2<Object, Object>> selectConditionStep =
@@ -363,13 +364,13 @@ class UserRoleDaoDiffblueTest {
     when(dSLContext.select(Mockito.<SelectField<Object>>any(), Mockito.<SelectField<Object>>any()))
         .thenReturn(selectSelectStep);
 
-    Tuple2<String, String> tuple2 = mock(Tuple2.class);
-    when(tuple2.v1()).thenReturn("V1");
-    when(tuple2.v2()).thenReturn("V2");
+    Range<String> range = mock(Range.class);
+    when(range.v1()).thenReturn("V1");
+    when(range.v2()).thenReturn("V2");
 
     HashSet<Tuple2<String, String>> usersAndRolesToUpdate = new HashSet<>();
     usersAndRolesToUpdate.add(new Tuple2<>("xs cannot be null", "xs cannot be null"));
-    usersAndRolesToUpdate.add(tuple2);
+    usersAndRolesToUpdate.add(range);
 
     // Act
     int actualAddRolesResult = userRoleDao.addRoles(usersAndRolesToUpdate);
@@ -383,8 +384,8 @@ class UserRoleDaoDiffblueTest {
     verify(selectConditionStep).fetchSet(isA(RecordMapper.class));
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
-    verify(tuple2).v1();
-    verify(tuple2).v2();
+    verify(range).v1();
+    verify(range).v2();
     assertEquals(0, actualAddRolesResult);
   }
 
@@ -440,62 +441,6 @@ class UserRoleDaoDiffblueTest {
    * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
    *
    * <ul>
-   *   <li>Given {@link Tuple2} {@link Tuple2#v1()} return {@code V1}.
-   *   <li>Then calls {@link Tuple2#v1()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserRoleDao#removeRoles(Set)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeRoles(Set) with 'usersAndRolesToUpdate'; given Tuple2 v1() return 'V1'; then calls v1()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int UserRoleDao.removeRoles(Set)"})
-  void testRemoveRolesWithUsersAndRolesToUpdate_givenTuple2V1ReturnV1_thenCallsV1()
-      throws DataAccessException {
-    // Arrange
-    DeleteConditionStep<UserRoleRecord> deleteConditionStep = mock(DeleteConditionStep.class);
-    when(deleteConditionStep.and(Mockito.<Condition>any()))
-        .thenReturn(mock(DeleteConditionStep.class));
-
-    DeleteUsingStep<UserRoleRecord> deleteUsingStep = mock(DeleteUsingStep.class);
-    when(deleteUsingStep.where(Mockito.<Condition>any())).thenReturn(deleteConditionStep);
-
-    Batch batch = mock(Batch.class);
-    when(batch.execute()).thenReturn(new int[] {1, -1, 1, -1});
-
-    DSLContext dsl = mock(DSLContext.class);
-    when(dsl.batch(Mockito.<Collection<Query>>any())).thenReturn(batch);
-    when(dsl.deleteFrom(Mockito.<Table<UserRoleRecord>>any())).thenReturn(deleteUsingStep);
-    UserRoleDao userRoleDao = new UserRoleDao(dsl);
-
-    Tuple2<String, String> tuple2 = mock(Tuple2.class);
-    when(tuple2.v1()).thenReturn("V1");
-    when(tuple2.v2()).thenReturn("V2");
-
-    HashSet<Tuple2<String, String>> usersAndRolesToUpdate = new HashSet<>();
-    usersAndRolesToUpdate.add(new Tuple2<>("V1", "V2"));
-    usersAndRolesToUpdate.add(tuple2);
-
-    // Act
-    int actualRemoveRolesResult = userRoleDao.removeRoles(usersAndRolesToUpdate);
-
-    // Assert
-    verify(batch).execute();
-    verify(dsl).batch(isA(Collection.class));
-    verify(dsl, atLeast(1)).deleteFrom(isA(Table.class));
-    verify(deleteConditionStep, atLeast(1)).and(isA(Condition.class));
-    verify(deleteUsingStep, atLeast(1)).where(isA(Condition.class));
-    verify(tuple2).v1();
-    verify(tuple2).v2();
-    assertEquals(0, actualRemoveRolesResult);
-  }
-
-  /**
-   * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
-   *
-   * <ul>
    *   <li>Given {@link Tuple2#Tuple2(Object, Object)} with v1 is empty string and {@code V2}.
    * </ul>
    *
@@ -535,38 +480,6 @@ class UserRoleDaoDiffblueTest {
     verify(statement).close();
     verify(statement).executeBatch();
     verify(statement).getWarnings();
-    assertEquals(0, actualRemoveRolesResult);
-  }
-
-  /**
-   * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
-   *
-   * <ul>
-   *   <li>Given {@link UserRoleDao}.
-   *   <li>When {@link HashSet#HashSet()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserRoleDao#removeRoles(Set)}
-   */
-  @Test
-  @DisplayName(
-      "Test removeRoles(Set) with 'usersAndRolesToUpdate'; given UserRoleDao; when HashSet()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int UserRoleDao.removeRoles(Set)"})
-  void testRemoveRolesWithUsersAndRolesToUpdate_givenUserRoleDao_whenHashSet()
-      throws DataAccessException {
-    // Arrange
-    Batch batch = mock(Batch.class);
-    when(batch.execute()).thenReturn(new int[] {1, -1, 1, -1});
-    when(dSLContext.batch(Mockito.<Collection<Query>>any())).thenReturn(batch);
-
-    // Act
-    int actualRemoveRolesResult = userRoleDao.removeRoles(new HashSet<>());
-
-    // Assert
-    verify(batch).execute();
-    verify(dSLContext).batch(isA(Collection.class));
     assertEquals(0, actualRemoveRolesResult);
   }
 
@@ -618,17 +531,17 @@ class UserRoleDaoDiffblueTest {
    * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
    *
    * <ul>
-   *   <li>Then calls {@link DSLContext#deleteFrom(Table)}.
+   *   <li>Then calls {@link DeleteConditionStep#and(Condition)}.
    * </ul>
    *
    * <p>Method under test: {@link UserRoleDao#removeRoles(Set)}
    */
   @Test
-  @DisplayName("Test removeRoles(Set) with 'usersAndRolesToUpdate'; then calls deleteFrom(Table)")
+  @DisplayName("Test removeRoles(Set) with 'usersAndRolesToUpdate'; then calls and(Condition)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int UserRoleDao.removeRoles(Set)"})
-  void testRemoveRolesWithUsersAndRolesToUpdate_thenCallsDeleteFrom() throws DataAccessException {
+  void testRemoveRolesWithUsersAndRolesToUpdate_thenCallsAnd() throws DataAccessException {
     // Arrange
     DeleteConditionStep<UserRoleRecord> deleteConditionStep = mock(DeleteConditionStep.class);
     when(deleteConditionStep.and(Mockito.<Condition>any()))
@@ -640,23 +553,111 @@ class UserRoleDaoDiffblueTest {
     Batch batch = mock(Batch.class);
     when(batch.execute()).thenReturn(new int[] {1, -1, 1, -1});
 
-    DSLContext dsl = mock(DSLContext.class);
+    DefaultDSLContext dsl = mock(DefaultDSLContext.class);
     when(dsl.batch(Mockito.<Collection<Query>>any())).thenReturn(batch);
     when(dsl.deleteFrom(Mockito.<Table<UserRoleRecord>>any())).thenReturn(deleteUsingStep);
     UserRoleDao userRoleDao = new UserRoleDao(dsl);
 
+    Range<String> range = mock(Range.class);
+    when(range.v1()).thenReturn("V1");
+    when(range.v2()).thenReturn("V2");
+
     HashSet<Tuple2<String, String>> usersAndRolesToUpdate = new HashSet<>();
-    usersAndRolesToUpdate.add(new Tuple2<>("V1", "V2"));
+    usersAndRolesToUpdate.add(range);
 
     // Act
     int actualRemoveRolesResult = userRoleDao.removeRoles(usersAndRolesToUpdate);
 
     // Assert
     verify(batch).execute();
-    verify(dsl).batch(isA(Collection.class));
-    verify(dsl).deleteFrom(isA(Table.class));
     verify(deleteConditionStep).and(isA(Condition.class));
     verify(deleteUsingStep).where(isA(Condition.class));
+    verify(dsl).batch(isA(Collection.class));
+    verify(dsl).deleteFrom(isA(Table.class));
+    verify(range).v1();
+    verify(range).v2();
+    assertEquals(0, actualRemoveRolesResult);
+  }
+
+  /**
+   * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
+   *
+   * <ul>
+   *   <li>Then calls {@link DeleteConditionStep#and(Condition)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link UserRoleDao#removeRoles(Set)}
+   */
+  @Test
+  @DisplayName("Test removeRoles(Set) with 'usersAndRolesToUpdate'; then calls and(Condition)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int UserRoleDao.removeRoles(Set)"})
+  void testRemoveRolesWithUsersAndRolesToUpdate_thenCallsAnd2() throws DataAccessException {
+    // Arrange
+    DeleteConditionStep<UserRoleRecord> deleteConditionStep = mock(DeleteConditionStep.class);
+    when(deleteConditionStep.and(Mockito.<Condition>any()))
+        .thenReturn(mock(DeleteConditionStep.class));
+
+    DeleteUsingStep<UserRoleRecord> deleteUsingStep = mock(DeleteUsingStep.class);
+    when(deleteUsingStep.where(Mockito.<Condition>any())).thenReturn(deleteConditionStep);
+
+    Batch batch = mock(Batch.class);
+    when(batch.execute()).thenReturn(new int[] {1, -1, 1, -1});
+
+    DefaultDSLContext dsl = mock(DefaultDSLContext.class);
+    when(dsl.batch(Mockito.<Collection<Query>>any())).thenReturn(batch);
+    when(dsl.deleteFrom(Mockito.<Table<UserRoleRecord>>any())).thenReturn(deleteUsingStep);
+    UserRoleDao userRoleDao = new UserRoleDao(dsl);
+
+    Range<String> range = mock(Range.class);
+    when(range.v1()).thenReturn("V1");
+    when(range.v2()).thenReturn("V2");
+
+    HashSet<Tuple2<String, String>> usersAndRolesToUpdate = new HashSet<>();
+    usersAndRolesToUpdate.add(new Tuple2<>("V1", "V2"));
+    usersAndRolesToUpdate.add(range);
+
+    // Act
+    int actualRemoveRolesResult = userRoleDao.removeRoles(usersAndRolesToUpdate);
+
+    // Assert
+    verify(batch).execute();
+    verify(deleteConditionStep, atLeast(1)).and(isA(Condition.class));
+    verify(deleteUsingStep, atLeast(1)).where(isA(Condition.class));
+    verify(dsl).batch(isA(Collection.class));
+    verify(dsl, atLeast(1)).deleteFrom(isA(Table.class));
+    verify(range).v1();
+    verify(range).v2();
+    assertEquals(0, actualRemoveRolesResult);
+  }
+
+  /**
+   * Test {@link UserRoleDao#removeRoles(Set)} with {@code usersAndRolesToUpdate}.
+   *
+   * <ul>
+   *   <li>Then calls {@link DSLContext#batch(Collection)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link UserRoleDao#removeRoles(Set)}
+   */
+  @Test
+  @DisplayName("Test removeRoles(Set) with 'usersAndRolesToUpdate'; then calls batch(Collection)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int UserRoleDao.removeRoles(Set)"})
+  void testRemoveRolesWithUsersAndRolesToUpdate_thenCallsBatch() throws DataAccessException {
+    // Arrange
+    Batch batch = mock(Batch.class);
+    when(batch.execute()).thenReturn(new int[] {1, -1, 1, -1});
+    when(dSLContext.batch(Mockito.<Collection<Query>>any())).thenReturn(batch);
+
+    // Act
+    int actualRemoveRolesResult = userRoleDao.removeRoles(new HashSet<>());
+
+    // Assert
+    verify(batch).execute();
+    verify(dSLContext).batch(isA(Collection.class));
     assertEquals(0, actualRemoveRolesResult);
   }
 

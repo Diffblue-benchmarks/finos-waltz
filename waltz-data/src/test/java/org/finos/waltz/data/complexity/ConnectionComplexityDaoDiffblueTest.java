@@ -2,6 +2,7 @@ package org.finos.waltz.data.complexity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyLong;
@@ -18,10 +19,12 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.sql.rowset.RowSetMetaDataImpl;
 import org.finos.waltz.model.tally.Tally;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.RecordMapper;
 import org.jooq.SQLDialect;
@@ -90,6 +93,46 @@ class ConnectionComplexityDaoDiffblueTest {
     verify(preparedStatement).getResultSet();
     verify(preparedStatement).getWarnings();
     assertEquals(-1, actualCalculateBaselineResult);
+  }
+
+  /**
+   * Test {@link ConnectionComplexityDao#calculateBaseline(Long)} with {@code appIds}.
+   *
+   * <ul>
+   *   <li>Then return one.
+   * </ul>
+   *
+   * <p>Method under test: {@link ConnectionComplexityDao#calculateBaseline(Long)}
+   */
+  @Test
+  @DisplayName("Test calculateBaseline(Long) with 'appIds'; then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int ConnectionComplexityDao.calculateBaseline(Long)"})
+  void testCalculateBaselineWithAppIds_thenReturnOne() throws DataAccessException {
+    // Arrange
+    SelectConditionStep<Record1<Object>> selectConditionStep = mock(SelectConditionStep.class);
+    Optional<Object> ofResult = Optional.of(1);
+    when(selectConditionStep.fetchOptional(anyInt(), Mockito.<Class<?>>any())).thenReturn(ofResult);
+
+    SelectJoinStep<Record1<Object>> selectJoinStep = mock(SelectJoinStep.class);
+    when(selectJoinStep.where(Mockito.<Condition>any())).thenReturn(selectConditionStep);
+
+    SelectSelectStep<Record1<Object>> selectSelectStep = mock(SelectSelectStep.class);
+    when(selectSelectStep.from(Mockito.<TableLike<?>>any())).thenReturn(selectJoinStep);
+
+    DefaultDSLContext dsl = mock(DefaultDSLContext.class);
+    when(dsl.select(Mockito.<SelectField<Object>>any())).thenReturn(selectSelectStep);
+
+    // Act
+    int actualCalculateBaselineResult = new ConnectionComplexityDao(dsl).calculateBaseline(1L);
+
+    // Assert
+    verify(selectConditionStep).fetchOptional(eq(0), isA(Class.class));
+    verify(selectSelectStep).from(isA(TableLike.class));
+    verify(selectJoinStep).where(isA(Condition.class));
+    verify(dsl).select(isA(SelectField.class));
+    assertEquals(1, actualCalculateBaselineResult);
   }
 
   /**
@@ -438,6 +481,46 @@ class ConnectionComplexityDaoDiffblueTest {
     verify(preparedStatement).getResultSet();
     verify(preparedStatement).getWarnings();
     assertEquals(-1, actualCalculateBaselineResult);
+  }
+
+  /**
+   * Test {@link ConnectionComplexityDao#calculateBaseline()}.
+   *
+   * <ul>
+   *   <li>Then return one.
+   * </ul>
+   *
+   * <p>Method under test: {@link ConnectionComplexityDao#calculateBaseline()}
+   */
+  @Test
+  @DisplayName("Test calculateBaseline(); then return one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"int ConnectionComplexityDao.calculateBaseline()"})
+  void testCalculateBaseline_thenReturnOne() throws DataAccessException {
+    // Arrange
+    SelectConditionStep<Record1<Object>> selectConditionStep = mock(SelectConditionStep.class);
+    Optional<Object> ofResult = Optional.of(1);
+    when(selectConditionStep.fetchOptional(anyInt(), Mockito.<Class<?>>any())).thenReturn(ofResult);
+
+    SelectJoinStep<Record1<Object>> selectJoinStep = mock(SelectJoinStep.class);
+    when(selectJoinStep.where(Mockito.<Condition>any())).thenReturn(selectConditionStep);
+
+    SelectSelectStep<Record1<Object>> selectSelectStep = mock(SelectSelectStep.class);
+    when(selectSelectStep.from(Mockito.<TableLike<?>>any())).thenReturn(selectJoinStep);
+
+    DefaultDSLContext dsl = mock(DefaultDSLContext.class);
+    when(dsl.select(Mockito.<SelectField<Object>>any())).thenReturn(selectSelectStep);
+
+    // Act
+    int actualCalculateBaselineResult = new ConnectionComplexityDao(dsl).calculateBaseline();
+
+    // Assert
+    verify(selectConditionStep).fetchOptional(eq(0), isA(Class.class));
+    verify(selectSelectStep).from(isA(TableLike.class));
+    verify(selectJoinStep).where(isA(Condition.class));
+    verify(dsl).select(isA(SelectField.class));
+    assertEquals(1, actualCalculateBaselineResult);
   }
 
   /**

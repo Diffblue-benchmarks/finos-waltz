@@ -23,11 +23,9 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.finos.waltz.model.EntityKind;
 import org.finos.waltz.model.ImmutableUserTimestamp;
 import org.finos.waltz.model.UserTimestamp;
 import org.finos.waltz.model.actor.Actor;
@@ -218,7 +216,7 @@ class ActorDaoDiffblueTest {
             1L,
             "Name",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -244,14 +242,9 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("Name", actualById.name());
-    assertEquals("Provenance", actualById.provenance());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -273,7 +266,7 @@ class ActorDaoDiffblueTest {
             1L,
             "“",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -299,14 +292,9 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
     assertEquals("\"", actualById.name());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -328,7 +316,7 @@ class ActorDaoDiffblueTest {
             1L,
             "‘",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -355,13 +343,8 @@ class ActorDaoDiffblueTest {
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
     assertEquals("'", actualById.name());
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -383,7 +366,7 @@ class ActorDaoDiffblueTest {
             1L,
             "â€œ",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -409,14 +392,9 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
     assertEquals("\"", actualById.name());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -438,7 +416,7 @@ class ActorDaoDiffblueTest {
             1L,
             "â€",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -464,14 +442,9 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
     assertEquals("\"", actualById.name());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -493,7 +466,7 @@ class ActorDaoDiffblueTest {
             1L,
             "â€™",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -520,13 +493,8 @@ class ActorDaoDiffblueTest {
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
     assertEquals("'", actualById.name());
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -554,68 +522,6 @@ class ActorDaoDiffblueTest {
     // Act and Assert
     assertThrows(NoDataFoundException.class, () -> actorDao.getById(1L));
     verify(dSLContext).select((SelectFieldOrAsterisk[]) Mockito.any());
-  }
-
-  /**
-   * Test {@link ActorDao#getById(long)}.
-   *
-   * <ul>
-   *   <li>Given {@link PGTimestamp#PGTimestamp(long)} with time is ten.
-   *   <li>Then return name is {@code "}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ActorDao#getById(long)}
-   */
-  @Test
-  @DisplayName(
-      "Test getById(long); given PGTimestamp(long) with time is ten; then return name is '\"'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Actor ActorDao.getById(long)"})
-  void testGetById_givenPGTimestampWithTimeIsTen_thenReturnNameIsQuotationMark()
-      throws DataAccessException {
-    // Arrange
-    SelectConditionStep<Record> selectConditionStep = mock(SelectConditionStep.class);
-    ActorRecord actorRecord =
-        new ActorRecord(
-            1L,
-            "“",
-            "The characteristics of someone or something",
-            new PGTimestamp(10L),
-            "2020-03-01",
-            true,
-            "Provenance",
-            "42");
-    when(selectConditionStep.fetchOneInto(Mockito.<Class<ActorRecord>>any()))
-        .thenReturn(actorRecord);
-
-    SelectJoinStep<Record> selectJoinStep = mock(SelectJoinStep.class);
-    when(selectJoinStep.where(Mockito.<Condition>any())).thenReturn(selectConditionStep);
-
-    SelectSelectStep<Record> selectSelectStep = mock(SelectSelectStep.class);
-    when(selectSelectStep.from(Mockito.<TableLike<?>>any())).thenReturn(selectJoinStep);
-
-    DSLContext dsl = mock(DSLContext.class);
-    when(dsl.select((SelectFieldOrAsterisk[]) Mockito.any())).thenReturn(selectSelectStep);
-
-    // Act
-    Actor actualById = new ActorDao(dsl).getById(1L);
-
-    // Assert
-    verify(dsl).select((SelectFieldOrAsterisk[]) Mockito.any());
-    verify(selectConditionStep).fetchOneInto(isA(Class.class));
-    verify(selectSelectStep).from(isA(TableLike.class));
-    verify(selectJoinStep).where(isA(Condition.class));
-    assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
-    assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals("\"", actualById.name());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
-    assertTrue(actualById.isExternal());
   }
 
   /**
@@ -776,7 +682,7 @@ class ActorDaoDiffblueTest {
     SelectConditionStep<Record> selectConditionStep = mock(SelectConditionStep.class);
     ActorRecord actorRecord =
         new ActorRecord(
-            1L, "Name", null, new Timestamp(10L), "2020-03-01", true, "Provenance", "42");
+            1L, "Name", null, new Timestamp(1L), "2020-03-01", true, "Provenance", "42");
     when(selectConditionStep.fetchOneInto(Mockito.<Class<ActorRecord>>any()))
         .thenReturn(actorRecord);
 
@@ -798,14 +704,65 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("Name", actualById.name());
-    assertEquals("Provenance", actualById.provenance());
     assertNull(actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
+    assertTrue(actualById.isExternal());
+  }
+
+  /**
+   * Test {@link ActorDao#getById(long)}.
+   *
+   * <ul>
+   *   <li>Then return lastUpdatedAt toLocalTime toString is {@code 00:00:00.010}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ActorDao#getById(long)}
+   */
+  @Test
+  @DisplayName(
+      "Test getById(long); then return lastUpdatedAt toLocalTime toString is '00:00:00.010'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Actor ActorDao.getById(long)"})
+  void testGetById_thenReturnLastUpdatedAtToLocalTimeToStringIs000000010()
+      throws DataAccessException {
+    // Arrange
+    SelectConditionStep<Record> selectConditionStep = mock(SelectConditionStep.class);
+    ActorRecord actorRecord =
+        new ActorRecord(
+            1L,
+            "“",
+            "The characteristics of someone or something",
+            new PGTimestamp(10L),
+            "2020-03-01",
+            true,
+            "Provenance",
+            "42");
+    when(selectConditionStep.fetchOneInto(Mockito.<Class<ActorRecord>>any()))
+        .thenReturn(actorRecord);
+
+    SelectJoinStep<Record> selectJoinStep = mock(SelectJoinStep.class);
+    when(selectJoinStep.where(Mockito.<Condition>any())).thenReturn(selectConditionStep);
+
+    SelectSelectStep<Record> selectSelectStep = mock(SelectSelectStep.class);
+    when(selectSelectStep.from(Mockito.<TableLike<?>>any())).thenReturn(selectJoinStep);
+
+    DSLContext dsl = mock(DSLContext.class);
+    when(dsl.select((SelectFieldOrAsterisk[]) Mockito.any())).thenReturn(selectSelectStep);
+
+    // Act
+    Actor actualById = new ActorDao(dsl).getById(1L);
+
+    // Assert
+    verify(dsl).select((SelectFieldOrAsterisk[]) Mockito.any());
+    verify(selectConditionStep).fetchOneInto(isA(Class.class));
+    verify(selectSelectStep).from(isA(TableLike.class));
+    verify(selectJoinStep).where(isA(Condition.class));
+    assertTrue(actualById instanceof ImmutableActor);
+    assertEquals("00:00:00.010", actualById.lastUpdatedAt().toLocalTime().toString());
+    assertEquals("The characteristics of someone or something", actualById.description());
+    assertEquals("\"", actualById.name());
     assertTrue(actualById.isExternal());
   }
 
@@ -831,7 +788,7 @@ class ActorDaoDiffblueTest {
             1L,
             "&amp;",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -858,13 +815,8 @@ class ActorDaoDiffblueTest {
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
     assertEquals("&", actualById.name());
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -890,7 +842,7 @@ class ActorDaoDiffblueTest {
             1L,
             "​",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -917,13 +869,8 @@ class ActorDaoDiffblueTest {
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
     assertEquals("", actualById.name());
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -949,7 +896,7 @@ class ActorDaoDiffblueTest {
             1L,
             " ",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             true,
             "Provenance",
@@ -976,13 +923,8 @@ class ActorDaoDiffblueTest {
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
     assertEquals(" ", actualById.name());
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
-    assertEquals("Provenance", actualById.provenance());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertTrue(actualById.isExternal());
   }
 
@@ -1008,7 +950,7 @@ class ActorDaoDiffblueTest {
             1L,
             "Name",
             "The characteristics of someone or something",
-            new Timestamp(10L),
+            new Timestamp(1L),
             "2020-03-01",
             false,
             "Provenance",
@@ -1034,14 +976,9 @@ class ActorDaoDiffblueTest {
     verify(selectSelectStep).from(isA(TableLike.class));
     verify(selectJoinStep).where(isA(Condition.class));
     assertTrue(actualById instanceof ImmutableActor);
-    LocalDateTime lastUpdatedAtResult = actualById.lastUpdatedAt();
-    assertEquals("00:00:00.010", lastUpdatedAtResult.toLocalTime().toString());
-    assertEquals("1970-01-01", lastUpdatedAtResult.toLocalDate().toString());
-    assertEquals("2020-03-01", actualById.lastUpdatedBy());
+    assertEquals("00:00:00.001", actualById.lastUpdatedAt().toLocalTime().toString());
     assertEquals("Name", actualById.name());
-    assertEquals("Provenance", actualById.provenance());
     assertEquals("The characteristics of someone or something", actualById.description());
-    assertEquals(EntityKind.ACTOR, actualById.kind());
     assertFalse(actualById.isExternal());
   }
 
@@ -1141,7 +1078,7 @@ class ActorDaoDiffblueTest {
     when(command.isExternal()).thenReturn(true);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
 
     // Act
@@ -1201,7 +1138,7 @@ class ActorDaoDiffblueTest {
     when(command.isExternal()).thenReturn(true);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
 
     // Act

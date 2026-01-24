@@ -15,35 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class AppGroupDiffblueTest {
   /**
-   * Test {@link AppGroup#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AppGroup#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind AppGroup.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange, Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        ImmutableAppGroup.builder()
-            .appGroupKind(AppGroupKind.PUBLIC)
-            .description("The characteristics of someone or something")
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .name("Name")
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link AppGroup#entityReference()}.
    *
    * <ul>

@@ -1029,7 +1029,7 @@ class SurveyTemplateServiceDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("Issuance Role");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
@@ -1142,7 +1142,7 @@ class SurveyTemplateServiceDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("Issuance Role");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
@@ -1810,7 +1810,7 @@ class SurveyTemplateServiceDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.name()).thenReturn("Name");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act
@@ -2042,7 +2042,7 @@ class SurveyTemplateServiceDiffblueTest {
             mock(SurveyQuestionDropdownEntryDao.class));
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act and Assert
@@ -2218,7 +2218,7 @@ class SurveyTemplateServiceDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.name()).thenThrow(new IllegalArgumentException());
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
 
     // Act and Assert

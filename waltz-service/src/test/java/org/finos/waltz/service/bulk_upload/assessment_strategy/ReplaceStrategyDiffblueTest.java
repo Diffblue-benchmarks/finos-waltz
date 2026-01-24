@@ -49,8 +49,8 @@ class ReplaceStrategyDiffblueTest {
    * Test {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set, String)}.
    *
    * <ul>
-   *   <li>Given {@link Tuple3#Tuple3(Object, Object, Object)} with v1 is zero and v2 is one and v3
-   *       is {@code xs cannot be null}.
+   *   <li>Given {@link PreparedStatement} {@link PreparedStatement#setNull(int, int)} does nothing.
+   *   <li>Then calls {@link PreparedStatement#setNull(int, int)}.
    * </ul>
    *
    * <p>Method under test: {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set,
@@ -58,23 +58,23 @@ class ReplaceStrategyDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test apply(DSLContext, AssessmentDefinition, Set, Set, String); given Tuple3(Object, Object, Object) with v1 is zero and v2 is one and v3 is 'xs cannot be null'")
+      "Test apply(DSLContext, AssessmentDefinition, Set, Set, String); given PreparedStatement setNull(int, int) does nothing; then calls setNull(int, int)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "BulkChangeStatistics ReplaceStrategy.apply(DSLContext, AssessmentDefinition, Set, Set, String)"
   })
-  void testApply_givenTuple3WithV1IsZeroAndV2IsOneAndV3IsXsCannotBeNull() throws SQLException {
+  void testApply_givenPreparedStatementSetNullDoesNothing_thenCallsSetNull() throws SQLException {
     // Arrange
     ReplaceStrategy replaceStrategy = new ReplaceStrategy();
 
     Statement statement = mock(Statement.class);
-    doNothing().when(statement).addBatch(Mockito.<String>any());
     when(statement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
     when(statement.getWarnings()).thenReturn(new SQLWarning());
     doNothing().when(statement).close();
 
     PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    doNothing().when(preparedStatement).setNull(anyInt(), anyInt());
     when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
     when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
     doNothing().when(preparedStatement).addBatch();
@@ -122,7 +122,221 @@ class ReplaceStrategyDiffblueTest {
             .build();
 
     HashSet<Tuple3<Long, Long, String>> requiredRatings = new HashSet<>();
-    requiredRatings.add(new Tuple3<>(0L, 1L, "xs cannot be null"));
+    requiredRatings.add(mock(Tuple3.class));
+
+    // Act
+    BulkChangeStatistics actualApplyResult =
+        replaceStrategy.apply(tx, definition, requiredRatings, new HashSet<>(), "janedoe");
+
+    // Assert
+    verify(connection, atLeast(1)).createStatement();
+    verify(connection)
+        .prepareStatement(
+            "insert into \"assessment_rating\" (\"entity_id\", \"entity_kind\", \"assessment_definition_id\", \"rating_id\", \"description\", \"last_updated_at\", \"last_updated_by\", \"provenance\", \"is_readonly\") values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    verify(preparedStatement).addBatch();
+    verify(preparedStatement).setBoolean(9, false);
+    verify(preparedStatement).setLong(3, 1L);
+    verify(preparedStatement, atLeast(1)).setNull(anyInt(), anyInt());
+    verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
+    verify(preparedStatement).setTimestamp(eq(6), isA(Timestamp.class));
+    verify(preparedStatement).close();
+    verify(statement, atLeast(1)).close();
+    verify(preparedStatement).executeBatch();
+    verify(statement, atLeast(1)).executeBatch();
+    verify(preparedStatement).getWarnings();
+    verify(statement, atLeast(1)).getWarnings();
+    assertTrue(actualApplyResult instanceof ImmutableBulkChangeStatistics);
+    assertEquals(0, actualApplyResult.addedCount());
+    assertEquals(0, actualApplyResult.removedCount());
+    assertEquals(0, actualApplyResult.updatedCount());
+  }
+
+  /**
+   * Test {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link PreparedStatement} {@link PreparedStatement#setNull(int, int)} does nothing.
+   *   <li>Then calls {@link PreparedStatement#setNull(int, int)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set,
+   * String)}
+   */
+  @Test
+  @DisplayName(
+      "Test apply(DSLContext, AssessmentDefinition, Set, Set, String); given PreparedStatement setNull(int, int) does nothing; then calls setNull(int, int)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "BulkChangeStatistics ReplaceStrategy.apply(DSLContext, AssessmentDefinition, Set, Set, String)"
+  })
+  void testApply_givenPreparedStatementSetNullDoesNothing_thenCallsSetNull2() throws SQLException {
+    // Arrange
+    ReplaceStrategy replaceStrategy = new ReplaceStrategy();
+
+    Statement statement = mock(Statement.class);
+    when(statement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
+    when(statement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(statement).close();
+
+    PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    doNothing().when(preparedStatement).setNull(anyInt(), anyInt());
+    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
+    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(preparedStatement).addBatch();
+    doNothing().when(preparedStatement).setBoolean(anyInt(), anyBoolean());
+    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
+    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
+    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
+    doNothing().when(preparedStatement).close();
+
+    Connection connection = mock(Connection.class);
+    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
+    when(connection.createStatement()).thenReturn(statement);
+    DefaultDSLContext tx = new DefaultDSLContext(connection, SQLDialect.SQL99);
+
+    Builder provenanceResult =
+        ImmutableAssessmentDefinition.builder()
+            .cardinality(Cardinality.ZERO_ONE)
+            .definitionGroup("Definition Group")
+            .description("The characteristics of someone or something")
+            .entityKind(EntityKind.ALL)
+            .externalId("42")
+            .id(1L)
+            .isReadOnly(true)
+            .kind(EntityKind.ALL)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .permittedRole("Permitted Role")
+            .provenance("Provenance");
+    ImmutableEntityReference immutableEntityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
+    ImmutableAssessmentDefinition definition =
+        provenanceResult
+            .qualifierReference(qualifierReference)
+            .ratingSchemeId(1L)
+            .visibility(AssessmentVisibility.PRIMARY)
+            .build();
+
+    HashSet<Tuple3<Long, Long, String>> requiredRatings = new HashSet<>();
+    requiredRatings.add(new Tuple3<>(1L, 1L, "xs cannot be null"));
+    requiredRatings.add(mock(Tuple3.class));
+
+    // Act
+    BulkChangeStatistics actualApplyResult =
+        replaceStrategy.apply(tx, definition, requiredRatings, new HashSet<>(), "janedoe");
+
+    // Assert
+    verify(connection, atLeast(1)).createStatement();
+    verify(connection)
+        .prepareStatement(
+            "insert into \"assessment_rating\" (\"entity_id\", \"entity_kind\", \"assessment_definition_id\", \"rating_id\", \"description\", \"last_updated_at\", \"last_updated_by\", \"provenance\", \"is_readonly\") values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    verify(preparedStatement, atLeast(1)).addBatch();
+    verify(preparedStatement, atLeast(1)).setBoolean(9, false);
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
+    verify(preparedStatement, atLeast(1)).setNull(anyInt(), anyInt());
+    verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
+    verify(preparedStatement, atLeast(1)).setTimestamp(eq(6), isA(Timestamp.class));
+    verify(preparedStatement).close();
+    verify(statement, atLeast(1)).close();
+    verify(preparedStatement).executeBatch();
+    verify(statement, atLeast(1)).executeBatch();
+    verify(preparedStatement).getWarnings();
+    verify(statement, atLeast(1)).getWarnings();
+    assertTrue(actualApplyResult instanceof ImmutableBulkChangeStatistics);
+    assertEquals(0, actualApplyResult.addedCount());
+    assertEquals(0, actualApplyResult.removedCount());
+    assertEquals(0, actualApplyResult.updatedCount());
+  }
+
+  /**
+   * Test {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Statement} {@link Statement#addBatch(String)} does nothing.
+   *   <li>Then calls {@link Statement#addBatch(String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ReplaceStrategy#apply(DSLContext, AssessmentDefinition, Set, Set,
+   * String)}
+   */
+  @Test
+  @DisplayName(
+      "Test apply(DSLContext, AssessmentDefinition, Set, Set, String); given Statement addBatch(String) does nothing; then calls addBatch(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "BulkChangeStatistics ReplaceStrategy.apply(DSLContext, AssessmentDefinition, Set, Set, String)"
+  })
+  void testApply_givenStatementAddBatchDoesNothing_thenCallsAddBatch() throws SQLException {
+    // Arrange
+    ReplaceStrategy replaceStrategy = new ReplaceStrategy();
+
+    Statement statement = mock(Statement.class);
+    doNothing().when(statement).addBatch(Mockito.<String>any());
+    when(statement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
+    when(statement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(statement).close();
+
+    PreparedStatement preparedStatement = mock(PreparedStatement.class);
+    doNothing().when(preparedStatement).setNull(anyInt(), anyInt());
+    when(preparedStatement.executeBatch()).thenReturn(new int[] {1, -1, 1, -1});
+    when(preparedStatement.getWarnings()).thenReturn(new SQLWarning());
+    doNothing().when(preparedStatement).addBatch();
+    doNothing().when(preparedStatement).setBoolean(anyInt(), anyBoolean());
+    doNothing().when(preparedStatement).setLong(anyInt(), anyLong());
+    doNothing().when(preparedStatement).setString(anyInt(), Mockito.<String>any());
+    doNothing().when(preparedStatement).setTimestamp(anyInt(), Mockito.<Timestamp>any());
+    doNothing().when(preparedStatement).close();
+
+    Connection connection = mock(Connection.class);
+    when(connection.prepareStatement(Mockito.<String>any())).thenReturn(preparedStatement);
+    when(connection.createStatement()).thenReturn(statement);
+    DefaultDSLContext tx = new DefaultDSLContext(connection, SQLDialect.SQL99);
+
+    Builder provenanceResult =
+        ImmutableAssessmentDefinition.builder()
+            .cardinality(Cardinality.ZERO_ONE)
+            .definitionGroup("Definition Group")
+            .description("The characteristics of someone or something")
+            .entityKind(EntityKind.ALL)
+            .externalId("42")
+            .id(1L)
+            .isReadOnly(true)
+            .kind(EntityKind.ALL)
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .name("Name")
+            .permittedRole("Permitted Role")
+            .provenance("Provenance");
+    ImmutableEntityReference immutableEntityReference =
+        ImmutableEntityReference.builder()
+            .description("The characteristics of someone or something")
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .name("Name")
+            .build();
+    Optional<? extends EntityReference> qualifierReference = Optional.of(immutableEntityReference);
+    ImmutableAssessmentDefinition definition =
+        provenanceResult
+            .qualifierReference(qualifierReference)
+            .ratingSchemeId(1L)
+            .visibility(AssessmentVisibility.PRIMARY)
+            .build();
+
+    HashSet<Tuple3<Long, Long, String>> requiredRatings = new HashSet<>();
+    requiredRatings.add(mock(Tuple3.class));
 
     HashSet<Tuple3<Long, Long, String>> existingRatings = new HashSet<>();
     existingRatings.add(new Tuple3<>(1L, 1L, "xs cannot be null"));
@@ -138,7 +352,8 @@ class ReplaceStrategyDiffblueTest {
             "insert into \"assessment_rating\" (\"entity_id\", \"entity_kind\", \"assessment_definition_id\", \"rating_id\", \"description\", \"last_updated_at\", \"last_updated_by\", \"provenance\", \"is_readonly\") values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     verify(preparedStatement).addBatch();
     verify(preparedStatement).setBoolean(9, false);
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), anyLong());
+    verify(preparedStatement).setLong(3, 1L);
+    verify(preparedStatement, atLeast(1)).setNull(anyInt(), anyInt());
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).setTimestamp(eq(6), isA(Timestamp.class));
     verify(statement)

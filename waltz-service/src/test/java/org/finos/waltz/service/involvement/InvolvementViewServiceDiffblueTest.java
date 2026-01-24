@@ -77,6 +77,117 @@ class InvolvementViewServiceDiffblueTest {
   @MethodsUnderTest({"Set InvolvementViewService.findAllByEmployeeId(String)"})
   void testFindAllByEmployeeId() {
     // Arrange
+    InvolvementDao dao = mock(InvolvementDao.class);
+    when(dao.findAllByEmployeeId(Mockito.<String>any())).thenReturn(new ArrayList<>());
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+    PersonDao personDao = mock(PersonDao.class);
+    UserRoleDao userRoleDao = mock(UserRoleDao.class);
+    RoleDao roleDao = mock(RoleDao.class);
+    PersonDao personDao2 = mock(PersonDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
+
+    UserRoleService userRoleService =
+        new UserRoleService(
+            userRoleDao, roleDao, personDao2, changeLogService2, personService, settingsService);
+
+    InvolvementService involvementService =
+        new InvolvementService(
+            changeLogService,
+            dao,
+            logicalFlowDao,
+            physicalFlowDao,
+            entityReferenceNameResolver,
+            involvementKindService,
+            personDao,
+            userRoleService);
+
+    HashSet<Person> personSet = new HashSet<>();
+    personSet.add(
+        ImmutablePerson.builder()
+            .departmentName("Department Name")
+            .displayName("Display Name")
+            .email("jane.doe@example.org")
+            .employeeId("42")
+            .id(1L)
+            .isRemoved(true)
+            .kind(EntityKind.ALL)
+            .managerEmployeeId("42")
+            .mobilePhone("6625550144")
+            .officePhone("6625550144")
+            .organisationalUnitId(1L)
+            .personKind(PersonKind.EMPLOYEE)
+            .title("Dr")
+            .userId("42")
+            .userPrincipalName("User Principal Name")
+            .build());
+
+    PersonDao personDao3 = mock(PersonDao.class);
+    when(personDao3.findByEmployeeIds(Mockito.<Set<String>>any())).thenReturn(personSet);
+    PersonService personService2 = new PersonService(personDao3, mock(PersonSearchDao.class));
+    InvolvementKindService involvementKindService2 =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+
+    InvolvementViewService involvementViewService =
+        new InvolvementViewService(
+            involvementService,
+            involvementKindService2,
+            personService2,
+            mock(InvolvementViewDao.class));
+
+    // Act
+    Set<InvolvementViewItem> actualFindAllByEmployeeIdResult =
+        involvementViewService.findAllByEmployeeId("42");
+
+    // Assert
+    verify(dao).findAllByEmployeeId("42");
+    verify(personDao3).findByEmployeeIds(isA(Set.class));
+    assertTrue(actualFindAllByEmployeeIdResult.isEmpty());
+  }
+
+  /**
+   * Test {@link InvolvementViewService#findAllByEmployeeId(String)}.
+   *
+   * <p>Method under test: {@link InvolvementViewService#findAllByEmployeeId(String)}
+   */
+  @Test
+  @DisplayName("Test findAllByEmployeeId(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Set InvolvementViewService.findAllByEmployeeId(String)"})
+  void testFindAllByEmployeeId2() {
+    // Arrange
     InvolvementService involvementService = mock(InvolvementService.class);
     when(involvementService.findAllByEmployeeId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
@@ -102,188 +213,6 @@ class InvolvementViewServiceDiffblueTest {
     verify(personDao).findByEmployeeIds(isA(Set.class));
     verify(involvementService).findAllByEmployeeId("42");
     assertTrue(actualFindAllByEmployeeIdResult.isEmpty());
-  }
-
-  /**
-   * Test {@link InvolvementViewService#findAllByEmployeeId(String)}.
-   *
-   * <p>Method under test: {@link InvolvementViewService#findAllByEmployeeId(String)}
-   */
-  @Test
-  @DisplayName("Test findAllByEmployeeId(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set InvolvementViewService.findAllByEmployeeId(String)"})
-  void testFindAllByEmployeeId2() {
-    // Arrange
-    ArrayList<Involvement> involvementList = new ArrayList<>();
-
-    Builder employeeIdResult = ImmutableInvolvement.builder().employeeId("42");
-    involvementList.add(
-        employeeIdResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .kindId(1L)
-            .provenance("Provenance")
-            .build());
-
-    Builder employeeIdResult2 = ImmutableInvolvement.builder().employeeId("42");
-    involvementList.add(
-        employeeIdResult2
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(-2L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .kindId(1L)
-            .provenance("Provenance")
-            .build());
-
-    InvolvementService involvementService = mock(InvolvementService.class);
-    when(involvementService.findAllByEmployeeId(Mockito.<String>any())).thenReturn(involvementList);
-
-    HashSet<Person> personSet = new HashSet<>();
-    personSet.add(
-        ImmutablePerson.builder()
-            .departmentName("Department Name")
-            .displayName("Display Name")
-            .email("jane.doe@example.org")
-            .employeeId("42")
-            .id(1L)
-            .isRemoved(true)
-            .kind(EntityKind.ALL)
-            .managerEmployeeId("42")
-            .mobilePhone("6625550144")
-            .officePhone("6625550144")
-            .organisationalUnitId(1L)
-            .personKind(PersonKind.EMPLOYEE)
-            .title("Dr")
-            .userId("42")
-            .userPrincipalName("User Principal Name")
-            .build());
-
-    PersonService personService = mock(PersonService.class);
-    when(personService.findByEmployeeIds(Mockito.<Set<String>>any())).thenReturn(personSet);
-    InvolvementKindService involvementKindService =
-        new InvolvementKindService(mock(InvolvementKindDao.class));
-
-    InvolvementViewService involvementViewService =
-        new InvolvementViewService(
-            involvementService,
-            involvementKindService,
-            personService,
-            mock(InvolvementViewDao.class));
-
-    // Act
-    Set<InvolvementViewItem> actualFindAllByEmployeeIdResult =
-        involvementViewService.findAllByEmployeeId("42");
-
-    // Assert
-    verify(involvementService).findAllByEmployeeId("42");
-    verify(personService).findByEmployeeIds(isA(Set.class));
-    assertEquals(2, actualFindAllByEmployeeIdResult.size());
-  }
-
-  /**
-   * Test {@link InvolvementViewService#findAllByEmployeeId(String)}.
-   *
-   * <p>Method under test: {@link InvolvementViewService#findAllByEmployeeId(String)}
-   */
-  @Test
-  @DisplayName("Test findAllByEmployeeId(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set InvolvementViewService.findAllByEmployeeId(String)"})
-  void testFindAllByEmployeeId3() {
-    // Arrange
-    ArrayList<Involvement> involvementList = new ArrayList<>();
-
-    Builder employeeIdResult = ImmutableInvolvement.builder().employeeId("42");
-    involvementList.add(
-        employeeIdResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .kindId(1L)
-            .provenance("Provenance")
-            .build());
-
-    Builder employeeIdResult2 = ImmutableInvolvement.builder().employeeId("42");
-    involvementList.add(
-        employeeIdResult2
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .kindId(-2L)
-            .provenance("Provenance")
-            .build());
-
-    InvolvementService involvementService = mock(InvolvementService.class);
-    when(involvementService.findAllByEmployeeId(Mockito.<String>any())).thenReturn(involvementList);
-
-    HashSet<Person> personSet = new HashSet<>();
-    personSet.add(
-        ImmutablePerson.builder()
-            .departmentName("Department Name")
-            .displayName("Display Name")
-            .email("jane.doe@example.org")
-            .employeeId("42")
-            .id(1L)
-            .isRemoved(true)
-            .kind(EntityKind.ALL)
-            .managerEmployeeId("42")
-            .mobilePhone("6625550144")
-            .officePhone("6625550144")
-            .organisationalUnitId(1L)
-            .personKind(PersonKind.EMPLOYEE)
-            .title("Dr")
-            .userId("42")
-            .userPrincipalName("User Principal Name")
-            .build());
-
-    PersonService personService = mock(PersonService.class);
-    when(personService.findByEmployeeIds(Mockito.<Set<String>>any())).thenReturn(personSet);
-    InvolvementKindService involvementKindService =
-        new InvolvementKindService(mock(InvolvementKindDao.class));
-
-    InvolvementViewService involvementViewService =
-        new InvolvementViewService(
-            involvementService,
-            involvementKindService,
-            personService,
-            mock(InvolvementViewDao.class));
-
-    // Act
-    Set<InvolvementViewItem> actualFindAllByEmployeeIdResult =
-        involvementViewService.findAllByEmployeeId("42");
-
-    // Assert
-    verify(involvementService).findAllByEmployeeId("42");
-    verify(personService).findByEmployeeIds(isA(Set.class));
-    assertEquals(2, actualFindAllByEmployeeIdResult.size());
   }
 
   /**
@@ -602,121 +531,6 @@ class InvolvementViewServiceDiffblueTest {
 
     PersonDao personDao3 = mock(PersonDao.class);
     when(personDao3.findByEmployeeIds(Mockito.<Set<String>>any())).thenReturn(new HashSet<>());
-    PersonService personService2 = new PersonService(personDao3, mock(PersonSearchDao.class));
-    InvolvementKindService involvementKindService2 =
-        new InvolvementKindService(mock(InvolvementKindDao.class));
-
-    InvolvementViewService involvementViewService =
-        new InvolvementViewService(
-            involvementService,
-            involvementKindService2,
-            personService2,
-            mock(InvolvementViewDao.class));
-
-    // Act
-    Set<InvolvementViewItem> actualFindAllByEmployeeIdResult =
-        involvementViewService.findAllByEmployeeId("42");
-
-    // Assert
-    verify(dao).findAllByEmployeeId("42");
-    verify(personDao3).findByEmployeeIds(isA(Set.class));
-    assertTrue(actualFindAllByEmployeeIdResult.isEmpty());
-  }
-
-  /**
-   * Test {@link InvolvementViewService#findAllByEmployeeId(String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link InvolvementDao#findAllByEmployeeId(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link InvolvementViewService#findAllByEmployeeId(String)}
-   */
-  @Test
-  @DisplayName("Test findAllByEmployeeId(String); then calls findAllByEmployeeId(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Set InvolvementViewService.findAllByEmployeeId(String)"})
-  void testFindAllByEmployeeId_thenCallsFindAllByEmployeeId4() {
-    // Arrange
-    InvolvementDao dao = mock(InvolvementDao.class);
-    when(dao.findAllByEmployeeId(Mockito.<String>any())).thenReturn(new ArrayList<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
-    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
-    EntityReferenceNameResolver entityReferenceNameResolver =
-        mock(EntityReferenceNameResolver.class);
-    InvolvementKindService involvementKindService =
-        new InvolvementKindService(mock(InvolvementKindDao.class));
-    PersonDao personDao = mock(PersonDao.class);
-    UserRoleDao userRoleDao = mock(UserRoleDao.class);
-    RoleDao roleDao = mock(RoleDao.class);
-    PersonDao personDao2 = mock(PersonDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    PersonService personService =
-        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
-
-    UserRoleService userRoleService =
-        new UserRoleService(
-            userRoleDao, roleDao, personDao2, changeLogService2, personService, settingsService);
-
-    InvolvementService involvementService =
-        new InvolvementService(
-            changeLogService,
-            dao,
-            logicalFlowDao,
-            physicalFlowDao,
-            entityReferenceNameResolver,
-            involvementKindService,
-            personDao,
-            userRoleService);
-
-    HashSet<Person> personSet = new HashSet<>();
-    personSet.add(
-        ImmutablePerson.builder()
-            .departmentName("Department Name")
-            .displayName("Display Name")
-            .email("jane.doe@example.org")
-            .employeeId("42")
-            .id(1L)
-            .isRemoved(true)
-            .kind(EntityKind.ALL)
-            .managerEmployeeId("42")
-            .mobilePhone("6625550144")
-            .officePhone("6625550144")
-            .organisationalUnitId(1L)
-            .personKind(PersonKind.EMPLOYEE)
-            .title("Dr")
-            .userId("42")
-            .userPrincipalName("User Principal Name")
-            .build());
-
-    PersonDao personDao3 = mock(PersonDao.class);
-    when(personDao3.findByEmployeeIds(Mockito.<Set<String>>any())).thenReturn(personSet);
     PersonService personService2 = new PersonService(personDao3, mock(PersonSearchDao.class));
     InvolvementKindService involvementKindService2 =
         new InvolvementKindService(mock(InvolvementKindDao.class));

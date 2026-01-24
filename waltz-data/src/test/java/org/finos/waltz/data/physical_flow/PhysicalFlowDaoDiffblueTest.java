@@ -1266,7 +1266,7 @@ class PhysicalFlowDaoDiffblueTest {
     when(flow.logicalFlowId()).thenReturn(1L);
     when(flow.specificationId()).thenReturn(1L);
     when(flow.frequency()).thenReturn(FrequencyKindValue.of("42"));
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(flow.id()).thenReturn(ofResult);
 
     // Act

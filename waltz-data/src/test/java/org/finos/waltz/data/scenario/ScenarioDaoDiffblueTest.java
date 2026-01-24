@@ -796,6 +796,9 @@ class ScenarioDaoDiffblueTest {
     Boolean actualRemoveScenarioResult = new ScenarioDao(dsl).removeScenario(1L, "42");
 
     // Assert
+    verify(connection)
+        .prepareStatement(
+            "update \"scenario\" set \"scenario\".\"lifecycle_status\" = ?, \"scenario\".\"release_status\" = ?, \"scenario\".\"last_updated_at\" = ?, \"scenario\".\"last_updated_by\" = ? where \"scenario\".\"id\" = ?");
     verify(preparedStatement).execute();
     verify(preparedStatement).setLong(5, 1L);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());

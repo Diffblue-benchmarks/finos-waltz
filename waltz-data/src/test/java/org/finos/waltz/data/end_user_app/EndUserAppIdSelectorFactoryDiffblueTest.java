@@ -1,7 +1,6 @@
 package org.finos.waltz.data.end_user_app;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
@@ -36,9 +35,9 @@ class EndUserAppIdSelectorFactoryDiffblueTest {
     // Arrange
     EndUserAppIdSelectorFactory endUserAppIdSelectorFactory = new EndUserAppIdSelectorFactory();
 
-    ImmutableIdSelectionOptions.Builder builderResult = ImmutableIdSelectionOptions.builder();
+    Builder builderResult = ImmutableApplicationIdSelectionOptions.builder();
 
-    ImmutableIdSelectionOptions.Builder filtersResult =
+    Builder filtersResult =
         builderResult
             .entityReference(
                 ImmutableEntityReference.builder()
@@ -46,22 +45,20 @@ class EndUserAppIdSelectorFactoryDiffblueTest {
                     .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
                     .externalId("42")
                     .id(1L)
-                    .kind(EntityKind.ALL)
+                    .kind(EntityKind.APP_GROUP)
                     .name("Name")
                     .build())
             .filters(ImmutableSelectionFilters.builder().build());
     Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
 
-    ImmutableIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
+    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
+    // Act
+    assertDoesNotThrow(
         () ->
             endUserAppIdSelectorFactory.apply(
                 joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
+                    .addAllApplicationKinds(new ArrayList<>())
                     .scope(HierarchyQueryScope.EXACT)
                     .build()));
   }
@@ -91,17 +88,16 @@ class EndUserAppIdSelectorFactoryDiffblueTest {
                     .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
                     .externalId("42")
                     .id(1L)
-                    .kind(EntityKind.ALL)
+                    .kind(EntityKind.APP_GROUP)
                     .name("Name")
                     .build())
             .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
+    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
 
     Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
 
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
+    // Act
+    assertDoesNotThrow(
         () ->
             endUserAppIdSelectorFactory.apply(
                 joiningEntityKindResult
@@ -149,92 +145,6 @@ class EndUserAppIdSelectorFactoryDiffblueTest {
             endUserAppIdSelectorFactory.apply(
                 joiningEntityKindResult
                     .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link EndUserAppIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link EndUserAppIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select EndUserAppIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions4() {
-    // Arrange
-    EndUserAppIdSelectorFactory endUserAppIdSelectorFactory = new EndUserAppIdSelectorFactory();
-
-    Builder builderResult = ImmutableApplicationIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.APP_GROUP)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    assertDoesNotThrow(
-        () ->
-            endUserAppIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link EndUserAppIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link EndUserAppIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select EndUserAppIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions5() {
-    // Arrange
-    EndUserAppIdSelectorFactory endUserAppIdSelectorFactory = new EndUserAppIdSelectorFactory();
-
-    Builder builderResult = ImmutableApplicationIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.APP_GROUP)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act
-    assertDoesNotThrow(
-        () ->
-            endUserAppIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
                     .scope(HierarchyQueryScope.CHILDREN)
                     .build()));
   }
@@ -250,7 +160,7 @@ class EndUserAppIdSelectorFactoryDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"org.jooq.Select EndUserAppIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions6() {
+  void testApplyWithIdSelectionOptions4() {
     // Arrange
     EndUserAppIdSelectorFactory endUserAppIdSelectorFactory = new EndUserAppIdSelectorFactory();
 

@@ -470,7 +470,7 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplate surveyTemplate = mock(SurveyTemplate.class);
     when(surveyTemplate.issuanceRole()).thenReturn("");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyTemplate.externalId()).thenReturn(ofResult);
     when(surveyTemplate.status()).thenReturn(ReleaseLifecycleStatus.DRAFT);
     when(surveyTemplate.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
@@ -538,7 +538,7 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplate surveyTemplate = mock(SurveyTemplate.class);
     when(surveyTemplate.issuanceRole()).thenReturn("Issuance Role");
-    Optional<String> ofResult = Optional.of("42");
+    Optional<String> ofResult = Optional.of("foo");
     when(surveyTemplate.externalId()).thenReturn(ofResult);
     when(surveyTemplate.status()).thenReturn(ReleaseLifecycleStatus.DRAFT);
     when(surveyTemplate.createdAt()).thenReturn(LocalDate.of(1970, 1, 1).atStartOfDay());
@@ -615,11 +615,11 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("command cannot be null");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult2);
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
 
@@ -753,11 +753,11 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult2);
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
 
@@ -769,7 +769,7 @@ class SurveyTemplateDaoDiffblueTest {
         .prepareStatement(
             "update \"survey_template\" set \"survey_template\".\"name\" = cast(? as varchar), \"survey_template\".\"description\" = cast(? as varchar), \"survey_template\".\"external_id\" = cast(? as varchar), \"survey_template\".\"target_entity_kind\" = cast(? as varchar), \"survey_template\".\"issuance_role\" = cast(? as varchar) where \"survey_template\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(6, 42L);
+    verify(preparedStatement).setLong(6, 1L);
     verify(preparedStatement).setNull(5, 12);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
@@ -816,11 +816,11 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult2);
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
 
@@ -830,9 +830,9 @@ class SurveyTemplateDaoDiffblueTest {
     // Assert
     verify(connection)
         .prepareStatement(
-            "update \"survey_template\" set \"survey_template\".\"name\" = cast(? as varchar(4)), \"survey_template\".\"description\" = cast(? as varchar(43)), \"survey_template\".\"external_id\" = cast(? as varchar(2)), \"survey_template\".\"target_entity_kind\" = cast(? as varchar(3)), \"survey_template\".\"issuance_role\" = cast(? as varchar(1)) where \"survey_template\".\"id\" = cast(? as bigint)");
+            "update \"survey_template\" set \"survey_template\".\"name\" = cast(? as varchar(4)), \"survey_template\".\"description\" = cast(? as varchar(43)), \"survey_template\".\"external_id\" = cast(? as varchar(3)), \"survey_template\".\"target_entity_kind\" = cast(? as varchar(3)), \"survey_template\".\"issuance_role\" = cast(? as varchar(1)) where \"survey_template\".\"id\" = cast(? as bigint)");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(6, 42L);
+    verify(preparedStatement).setLong(6, 1L);
     verify(preparedStatement).setNull(5, 12);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
@@ -881,11 +881,11 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult2);
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
 
@@ -897,7 +897,7 @@ class SurveyTemplateDaoDiffblueTest {
         .prepareStatement(
             "update \"survey_template\" set \"survey_template\".\"name\" = ?, \"survey_template\".\"description\" = ?, \"survey_template\".\"external_id\" = ?, \"survey_template\".\"target_entity_kind\" = ?, \"survey_template\".\"issuance_role\" = ? where \"survey_template\".\"id\" = ?");
     verify(preparedStatement).execute();
-    verify(preparedStatement).setLong(6, 42L);
+    verify(preparedStatement).setLong(6, 1L);
     verify(preparedStatement).setNull(5, 12);
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
@@ -963,11 +963,11 @@ class SurveyTemplateDaoDiffblueTest {
 
     SurveyTemplateChangeCommand command = mock(SurveyTemplateChangeCommand.class);
     when(command.issuanceRole()).thenReturn("");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(command.id()).thenReturn(ofResult);
     when(command.description()).thenReturn("The characteristics of someone or something");
     when(command.name()).thenReturn("Name");
-    Optional<String> ofResult2 = Optional.of("42");
+    Optional<String> ofResult2 = Optional.of("foo");
     when(command.externalId()).thenReturn(ofResult2);
     when(command.targetEntityKind()).thenReturn(EntityKind.ALL);
 

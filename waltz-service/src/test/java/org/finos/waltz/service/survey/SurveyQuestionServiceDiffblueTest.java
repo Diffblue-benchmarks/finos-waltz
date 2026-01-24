@@ -755,8 +755,8 @@ class SurveyQuestionServiceDiffblueTest {
    * Test {@link SurveyQuestionService#update(SurveyQuestion)}.
    *
    * <ul>
-   *   <li>Given of forty-two.
-   *   <li>When {@link SurveyQuestion} {@link SurveyQuestion#id()} return of forty-two.
+   *   <li>Given of one.
+   *   <li>When {@link SurveyQuestion} {@link SurveyQuestion#id()} return of one.
    *   <li>Then calls {@link SurveyQuestion#id()}.
    * </ul>
    *
@@ -764,11 +764,11 @@ class SurveyQuestionServiceDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test update(SurveyQuestion); given of forty-two; when SurveyQuestion id() return of forty-two; then calls id()")
+      "Test update(SurveyQuestion); given of one; when SurveyQuestion id() return of one; then calls id()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"int SurveyQuestionService.update(SurveyQuestion)"})
-  void testUpdate_givenOfFortyTwo_whenSurveyQuestionIdReturnOfFortyTwo_thenCallsId() {
+  void testUpdate_givenOfOne_whenSurveyQuestionIdReturnOfOne_thenCallsId() {
     // Arrange
     SurveyQuestionDao surveyQuestionDao = mock(SurveyQuestionDao.class);
     when(surveyQuestionDao.update(Mockito.<SurveyQuestion>any())).thenReturn(1);
@@ -783,7 +783,7 @@ class SurveyQuestionServiceDiffblueTest {
         new SurveyQuestionService(surveyQuestionDao, evaluator);
 
     SurveyQuestion surveyQuestion = mock(SurveyQuestion.class);
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(surveyQuestion.id()).thenReturn(ofResult);
 
     // Act

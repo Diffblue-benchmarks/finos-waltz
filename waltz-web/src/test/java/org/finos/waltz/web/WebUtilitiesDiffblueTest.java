@@ -14,8 +14,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.awt.Component;
-import java.awt.Component.BaselineResizeBehavior;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import org.finos.waltz.data.EntityReferenceNameResolver;
 import org.finos.waltz.data.application.ApplicationDao;
 import org.finos.waltz.data.changelog.ChangeLogDao;
@@ -83,7 +80,7 @@ class WebUtilitiesDiffblueTest {
         WebUtilities.mkPath(
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path",
-            "/");
+            "///");
 
     // Assert
     assertEquals(
@@ -105,7 +102,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Predicate must be provided", "Cannot convert empty or null segments to path", "/");
+            "Predicate must be provided", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -127,7 +124,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/",
+            "///",
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path");
 
@@ -151,7 +148,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "Predicate must be provided");
+            "///", "Cannot convert empty or null segments to path", "Predicate must be provided");
 
     // Assert
     assertEquals(
@@ -173,7 +170,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Predicate must be provided", "/");
+            "Cannot convert empty or null segments to path", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(
@@ -197,11 +194,11 @@ class WebUtilitiesDiffblueTest {
         WebUtilities.mkPath(
             "Cannot convert empty or null segments to path",
             "Cannot convert empty or null segments to path",
-            "/+");
+            "/");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path/+",
+        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -219,11 +216,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Predicate must be provided", "Cannot convert empty or null segments to path", "/+");
+            "Predicate must be provided", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        "Predicate must be provided/Cannot convert empty or null segments to path/+",
+        "Predicate must be provided/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -241,11 +238,13 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Predicate must be provided", "Cannot convert empty or null segments to path");
+            "/",
+            "Cannot convert empty or null segments to path",
+            "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
-        "/Predicate must be provided/Cannot convert empty or null segments to path",
+        "/Cannot convert empty or null segments to path/Cannot convert empty or null segments to path",
         actualMkPathResult);
   }
 
@@ -263,13 +262,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path",
-            "/",
-            "Cannot convert empty or null segments to path");
+            "/", "Cannot convert empty or null segments to path", "Predicate must be provided");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Cannot convert empty or null segments to path",
+        "/Cannot convert empty or null segments to path/Predicate must be provided",
         actualMkPathResult);
   }
 
@@ -287,33 +284,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", "Predicate must be provided");
+            "///", "Predicate must be provided", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Predicate must be provided",
-        actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath11() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Predicate must be provided", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/Predicate must be provided/+",
+        "/Predicate must be provided/Cannot convert empty or null segments to path",
         actualMkPathResult);
   }
 
@@ -335,6 +310,54 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
+        WebUtilities.mkPath("42", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("42/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /42/Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/42/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", "42", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/42/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code 42/Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '42/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange and Act
+    String actualMkPathResult =
         WebUtilities.mkPath("42", "Cannot convert empty or null segments to path", "/");
 
     // Assert
@@ -345,24 +368,85 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code 42/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code /Array must be provided}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '42/Cannot convert empty or null segments to path/+'")
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturn42CannotConvertEmptyOrNullSegmentsToPath2() {
+  void testMkPath_thenReturnArrayMustBeProvided() {
+    // Arrange, Act and Assert
+    assertEquals("/Array must be provided", WebUtilities.mkPath("///", "Array must be provided"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("42", "Cannot convert empty or null segments to path", "/+");
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "///");
 
     // Assert
-    assertEquals("42/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "/");
+
+    // Assert
+    assertEquals("/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvided42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "42");
+
+    // Assert
+    assertEquals("/Array must be provided/42", actualMkPathResult);
   }
 
   /**
@@ -383,7 +467,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Array must be provided", "Array must be provided", "/");
+        WebUtilities.mkPath("Array must be provided", "Array must be provided", "///");
 
     // Assert
     assertEquals("Array must be provided/Array must be provided/", actualMkPathResult);
@@ -407,7 +491,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Array must be provided", "Array must be provided");
+        WebUtilities.mkPath("///", "Array must be provided", "Array must be provided");
 
     // Assert
     assertEquals("/Array must be provided/Array must be provided", actualMkPathResult);
@@ -430,7 +514,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Array must be provided", ": Array was null", "/");
+        WebUtilities.mkPath("Array must be provided", ": Array was null", "///");
 
     // Assert
     assertEquals("Array must be provided/: Array was null/", actualMkPathResult);
@@ -453,7 +537,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedArrayWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Array must be provided", ": Array was null");
+        WebUtilities.mkPath("///", "Array must be provided", ": Array was null");
 
     // Assert
     assertEquals("/Array must be provided/: Array was null", actualMkPathResult);
@@ -479,7 +563,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Array must be provided", "Cannot convert empty or null segments to path", "/");
+            "Array must be provided", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -492,14 +576,14 @@ class WebUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>Then return {@code Array must be provided/Cannot convert empty or null segments to
-   *       path/+}.
+   *       path/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Array must be provided/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return 'Array must be provided/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -507,11 +591,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Array must be provided", "Cannot convert empty or null segments to path", "/+");
+            "Array must be provided", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        "Array must be provided/Cannot convert empty or null segments to path/+",
+        "Array must be provided/Cannot convert empty or null segments to path/",
         actualMkPathResult);
   }
 
@@ -535,7 +619,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Array must be provided", "Cannot convert empty or null segments to path");
+            "///", "Array must be provided", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -561,7 +645,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Array must be provided", "Predicate must be provided", "/");
+        WebUtilities.mkPath("Array must be provided", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Array must be provided/Predicate must be provided/", actualMkPathResult);
@@ -585,7 +669,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Array must be provided", "Predicate must be provided");
+        WebUtilities.mkPath("///", "Array must be provided", "Predicate must be provided");
 
     // Assert
     assertEquals("/Array must be provided/Predicate must be provided", actualMkPathResult);
@@ -608,7 +692,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Array must be provided", ": Predicate was null", "/");
+        WebUtilities.mkPath("Array must be provided", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Array must be provided/: Predicate was null/", actualMkPathResult);
@@ -631,10 +715,54 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayMustBeProvidedPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Array must be provided", ": Predicate was null");
+        WebUtilities.mkPath("///", "Array must be provided", ": Predicate was null");
 
     // Assert
     assertEquals("/Array must be provided/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvidedSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "Segs");
+
+    // Assert
+    assertEquals("/Array must be provided/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvidedTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "ttf");
+
+    // Assert
+    assertEquals("/Array must be provided/ttf", actualMkPathResult);
   }
 
   /**
@@ -653,10 +781,32 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnArrayMustBeProvidedYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("Array must be provided/yyyy-MM-dd/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Array must be provided/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Array must be provided/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayMustBeProvidedYyyyMmDd2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Array must be provided", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/Array must be provided/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -676,10 +826,33 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Array was null", "Array must be provided", "/");
+        WebUtilities.mkPath(": Array was null", "Array must be provided", "///");
 
     // Assert
     assertEquals(": Array was null/Array must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Array was null/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Array was null/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayWasNullArrayMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", ": Array was null", "Array must be provided");
+
+    // Assert
+    assertEquals("/: Array was null/Array must be provided", actualMkPathResult);
   }
 
   /**
@@ -701,7 +874,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            ": Array was null", "Cannot convert empty or null segments to path", "/");
+            ": Array was null", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -712,14 +885,14 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code : Array was null/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code : Array was null/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return ': Array was null/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return ': Array was null/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -727,11 +900,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            ": Array was null", "Cannot convert empty or null segments to path", "/+");
+            ": Array was null", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        ": Array was null/Cannot convert empty or null segments to path/+", actualMkPathResult);
+        ": Array was null/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -753,7 +926,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", ": Array was null", "Cannot convert empty or null segments to path");
+            "///", ": Array was null", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -777,7 +950,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Array was null", "Predicate must be provided", "/");
+        WebUtilities.mkPath(": Array was null", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(": Array was null/Predicate must be provided/", actualMkPathResult);
@@ -800,7 +973,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Array was null", "Predicate must be provided");
+        WebUtilities.mkPath("///", ": Array was null", "Predicate must be provided");
 
     // Assert
     assertEquals("/: Array was null/Predicate must be provided", actualMkPathResult);
@@ -823,10 +996,33 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnArrayWasNullPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Array was null", ": Predicate was null", "/");
+        WebUtilities.mkPath(": Array was null", ": Predicate was null", "///");
 
     // Assert
     assertEquals(": Array was null/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Array was null/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Array was null/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnArrayWasNullPredicateWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", ": Array was null", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Array was null/: Predicate was null", actualMkPathResult);
   }
 
   /**
@@ -848,7 +1044,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange, Act and Assert
     assertEquals(
         "/Cannot convert empty or null segments to path",
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path"));
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path"));
   }
 
   /**
@@ -869,7 +1065,77 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "/Cannot convert empty or null segments to path",
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath4() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "///");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath5() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -890,13 +1156,85 @@ class WebUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath3() {
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath6() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "/");
+        WebUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("/+/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath7() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath8() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", "///", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath9() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", "/", "Cannot convert empty or null segments to path");
+
+    // Assert
+    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
   }
 
   /**
@@ -914,153 +1252,13 @@ class WebUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "/+");
-
-    // Assert
-    assertEquals("/Cannot convert empty or null segments to path/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath5() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/",
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/"));
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath6() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/+",
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/+"));
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath7() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "/");
-
-    // Assert
-    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath8() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/+", "/");
-
-    // Assert
-    assertEquals("Cannot convert empty or null segments to path/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code /+/Cannot convert empty or null segments to path/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '/+/Cannot convert empty or null segments to path/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath9() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/+", "Cannot convert empty or null segments to path", "/+");
-
-    // Assert
-    assertEquals("/+/Cannot convert empty or null segments to path/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code /+/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return '/+/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath10() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "/+", "Cannot convert empty or null segments to path");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "/+");
 
     // Assert
-    assertEquals("/+/Cannot convert empty or null segments to path", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/+", actualMkPathResult);
   }
 
   /**
@@ -1079,12 +1277,10 @@ class WebUtilitiesDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath11() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "/+");
-
-    // Assert
-    assertEquals("Cannot convert empty or null segments to path/+", actualMkPathResult);
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/+",
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/+"));
   }
 
   /**
@@ -1105,7 +1301,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath42() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "42");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "42");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/42", actualMkPathResult);
@@ -1129,7 +1325,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath422() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "42", "/");
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "42", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/42/", actualMkPathResult);
@@ -1139,24 +1335,24 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/42}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/42}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/42'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPath423() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "42");
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "42");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/42", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/42", actualMkPathResult);
   }
 
   /**
@@ -1179,7 +1375,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", "Array must be provided");
+            "///", "Cannot convert empty or null segments to path", "Array must be provided");
 
     // Assert
     assertEquals(
@@ -1207,7 +1403,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Array must be provided", "/");
+            "Cannot convert empty or null segments to path", "Array must be provided", "///");
 
     // Assert
     assertEquals(
@@ -1219,14 +1415,15 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Array must be provided}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/Array must be
+   *       provided}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Array must be provided'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/Array must be provided'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -1234,38 +1431,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", "Array must be provided");
+            "/", "Cannot convert empty or null segments to path", "Array must be provided");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Array must be
-   *       provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Array must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathArrayMustBeProvided4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "Array must be provided", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/Array must be provided/+",
+        "/Cannot convert empty or null segments to path/Array must be provided",
         actualMkPathResult);
   }
 
@@ -1288,7 +1458,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", ": Array was null");
+            "///", "Cannot convert empty or null segments to path", ": Array was null");
 
     // Assert
     assertEquals(
@@ -1314,7 +1484,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Array was null", "/");
+            "Cannot convert empty or null segments to path", ": Array was null", "///");
 
     // Assert
     assertEquals(
@@ -1325,14 +1495,14 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Array was null}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/: Array was null}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Array was null'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/: Array was null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -1340,37 +1510,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", ": Array was null");
+            "/", "Cannot convert empty or null segments to path", ": Array was null");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Array was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Array was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathArrayWasNull4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Array was null", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/: Array was null/+", actualMkPathResult);
+        "/Cannot convert empty or null segments to path/: Array was null", actualMkPathResult);
   }
 
   /**
@@ -1392,7 +1536,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", "Cannot convert empty or null segments to path", ": Predicate was null");
+            "///", "Cannot convert empty or null segments to path", ": Predicate was null");
 
     // Assert
     assertEquals(
@@ -1418,7 +1562,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Predicate was null", "/");
+            "Cannot convert empty or null segments to path", ": Predicate was null", "///");
 
     // Assert
     assertEquals(
@@ -1429,14 +1573,14 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Predicate was null}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/: Predicate was null}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Predicate was null'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/: Predicate was null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -1444,37 +1588,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", "/", ": Predicate was null");
+            "/", "Cannot convert empty or null segments to path", ": Predicate was null");
 
     // Assert
     assertEquals(
-        "Cannot convert empty or null segments to path/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/: Predicate was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/: Predicate was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathPredicateWasNull4() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath(
-            "Cannot convert empty or null segments to path", ": Predicate was null", "/+");
-
-    // Assert
-    assertEquals(
-        "Cannot convert empty or null segments to path/: Predicate was null/+", actualMkPathResult);
+        "/Cannot convert empty or null segments to path/: Predicate was null", actualMkPathResult);
   }
 
   /**
@@ -1495,7 +1613,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "Segs");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "Segs");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/Segs", actualMkPathResult);
@@ -1519,7 +1637,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "Segs", "/");
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "Segs", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/Segs/", actualMkPathResult);
@@ -1529,24 +1647,24 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/Segs}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/Segs}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/Segs'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/Segs'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathSegs3() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "Segs");
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "Segs");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/Segs", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/Segs", actualMkPathResult);
   }
 
   /**
@@ -1567,7 +1685,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathTtf() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "ttf");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "ttf");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/ttf", actualMkPathResult);
@@ -1591,7 +1709,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathTtf2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "ttf", "/");
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "ttf", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/ttf/", actualMkPathResult);
@@ -1601,24 +1719,24 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/ttf}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/ttf}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/ttf'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/ttf'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathTtf3() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "ttf");
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "ttf");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/ttf", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/ttf", actualMkPathResult);
   }
 
   /**
@@ -1639,7 +1757,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathYyyyMmDd() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "yyyy-MM-dd");
+        WebUtilities.mkPath("///", "Cannot convert empty or null segments to path", "yyyy-MM-dd");
 
     // Assert
     assertEquals("/Cannot convert empty or null segments to path/yyyy-MM-dd", actualMkPathResult);
@@ -1663,7 +1781,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathYyyyMmDd2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "yyyy-MM-dd", "/");
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("Cannot convert empty or null segments to path/yyyy-MM-dd/", actualMkPathResult);
@@ -1673,24 +1791,110 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Cannot convert empty or null segments to path/yyyy-MM-dd}.
+   *   <li>Then return {@code /Cannot convert empty or null segments to path/yyyy-MM-dd}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Cannot convert empty or null segments to path/yyyy-MM-dd'")
+      "Test mkPath(String[]); then return '/Cannot convert empty or null segments to path/yyyy-MM-dd'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnCannotConvertEmptyOrNullSegmentsToPathYyyyMmDd3() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "yyyy-MM-dd");
+        WebUtilities.mkPath("/", "Cannot convert empty or null segments to path", "yyyy-MM-dd");
 
     // Assert
-    assertEquals("Cannot convert empty or null segments to path/yyyy-MM-dd", actualMkPathResult);
+    assertEquals("/Cannot convert empty or null segments to path/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "/Predicate must be provided", WebUtilities.mkPath("///", "Predicate must be provided"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Predicate must be provided", "///");
+
+    // Assert
+    assertEquals("/Predicate must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /Predicate must be provided/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/Predicate must be provided/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateMustBeProvided4() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Predicate must be provided", "/");
+
+    // Assert
+    assertEquals("/Predicate must be provided/", actualMkPathResult);
   }
 
   /**
@@ -1707,32 +1911,10 @@ class WebUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided() {
+  void testMkPath_thenReturnPredicateMustBeProvided5() {
     // Arrange, Act and Assert
     assertEquals(
         "Predicate must be provided/+", WebUtilities.mkPath("Predicate must be provided", "/+"));
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>Then return {@code Predicate must be provided/+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); then return 'Predicate must be provided/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided2() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "/+", "/");
-
-    // Assert
-    assertEquals("Predicate must be provided/+/", actualMkPathResult);
   }
 
   /**
@@ -1749,9 +1931,9 @@ class WebUtilitiesDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_thenReturnPredicateMustBeProvided3() {
+  void testMkPath_thenReturnPredicateMustBeProvided6() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "Predicate must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("/+/Predicate must be provided/", actualMkPathResult);
@@ -1773,7 +1955,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "42");
+    String actualMkPathResult = WebUtilities.mkPath("///", "Predicate must be provided", "42");
 
     // Assert
     assertEquals("/Predicate must be provided/42", actualMkPathResult);
@@ -1797,7 +1979,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Predicate must be provided", "Array must be provided", "/");
+        WebUtilities.mkPath("Predicate must be provided", "Array must be provided", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Array must be provided/", actualMkPathResult);
@@ -1821,7 +2003,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Predicate must be provided", "Array must be provided");
+        WebUtilities.mkPath("///", "Predicate must be provided", "Array must be provided");
 
     // Assert
     assertEquals("/Predicate must be provided/Array must be provided", actualMkPathResult);
@@ -1844,7 +2026,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Predicate must be provided", ": Array was null", "/");
+        WebUtilities.mkPath("Predicate must be provided", ": Array was null", "///");
 
     // Assert
     assertEquals("Predicate must be provided/: Array was null/", actualMkPathResult);
@@ -1867,7 +2049,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedArrayWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Predicate must be provided", ": Array was null");
+        WebUtilities.mkPath("///", "Predicate must be provided", ": Array was null");
 
     // Assert
     assertEquals("/Predicate must be provided/: Array was null", actualMkPathResult);
@@ -1891,7 +2073,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Predicate must be provided", "Predicate must be provided", "/");
+        WebUtilities.mkPath("Predicate must be provided", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Predicate must be provided/", actualMkPathResult);
@@ -1915,7 +2097,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Predicate must be provided", "Predicate must be provided");
+        WebUtilities.mkPath("///", "Predicate must be provided", "Predicate must be provided");
 
     // Assert
     assertEquals("/Predicate must be provided/Predicate must be provided", actualMkPathResult);
@@ -1939,7 +2121,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Predicate must be provided", ": Predicate was null", "/");
+        WebUtilities.mkPath("Predicate must be provided", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Predicate must be provided/: Predicate was null/", actualMkPathResult);
@@ -1963,7 +2145,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Predicate must be provided", ": Predicate was null");
+        WebUtilities.mkPath("///", "Predicate must be provided", ": Predicate was null");
 
     // Assert
     assertEquals("/Predicate must be provided/: Predicate was null", actualMkPathResult);
@@ -1985,7 +2167,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "Segs", "///");
 
     // Assert
     assertEquals("Predicate must be provided/Segs/", actualMkPathResult);
@@ -2007,7 +2189,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedSegs2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "Segs");
+    String actualMkPathResult = WebUtilities.mkPath("///", "Predicate must be provided", "Segs");
 
     // Assert
     assertEquals("/Predicate must be provided/Segs", actualMkPathResult);
@@ -2029,7 +2211,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "ttf", "///");
 
     // Assert
     assertEquals("Predicate must be provided/ttf/", actualMkPathResult);
@@ -2051,7 +2233,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnPredicateMustBeProvidedTtf2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "ttf");
+    String actualMkPathResult = WebUtilities.mkPath("///", "Predicate must be provided", "ttf");
 
     // Assert
     assertEquals("/Predicate must be provided/ttf", actualMkPathResult);
@@ -2074,7 +2256,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedYyyyMmDd() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Predicate must be provided", "yyyy-MM-dd", "/");
+        WebUtilities.mkPath("Predicate must be provided", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("Predicate must be provided/yyyy-MM-dd/", actualMkPathResult);
@@ -2097,7 +2279,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateMustBeProvidedYyyyMmDd2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "Predicate must be provided", "yyyy-MM-dd");
+        WebUtilities.mkPath("///", "Predicate must be provided", "yyyy-MM-dd");
 
     // Assert
     assertEquals("/Predicate must be provided/yyyy-MM-dd", actualMkPathResult);
@@ -2120,7 +2302,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Predicate was null", "Array must be provided", "/");
+        WebUtilities.mkPath(": Predicate was null", "Array must be provided", "///");
 
     // Assert
     assertEquals(": Predicate was null/Array must be provided/", actualMkPathResult);
@@ -2143,7 +2325,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Predicate was null", "Array must be provided");
+        WebUtilities.mkPath("///", ": Predicate was null", "Array must be provided");
 
     // Assert
     assertEquals("/: Predicate was null/Array must be provided", actualMkPathResult);
@@ -2166,10 +2348,33 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullArrayWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Predicate was null", ": Array was null", "/");
+        WebUtilities.mkPath(": Predicate was null", ": Array was null", "///");
 
     // Assert
     assertEquals(": Predicate was null/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Predicate was null/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Predicate was null/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateWasNullArrayWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", ": Predicate was null", ": Array was null");
+
+    // Assert
+    assertEquals("/: Predicate was null/: Array was null", actualMkPathResult);
   }
 
   /**
@@ -2191,7 +2396,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            ": Predicate was null", "Cannot convert empty or null segments to path", "/");
+            ": Predicate was null", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals(
@@ -2202,14 +2407,14 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code : Predicate was null/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code : Predicate was null/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return ': Predicate was null/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return ': Predicate was null/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
@@ -2217,11 +2422,11 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            ": Predicate was null", "Cannot convert empty or null segments to path", "/+");
+            ": Predicate was null", "Cannot convert empty or null segments to path", "/");
 
     // Assert
     assertEquals(
-        ": Predicate was null/Cannot convert empty or null segments to path/+", actualMkPathResult);
+        ": Predicate was null/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -2243,7 +2448,7 @@ class WebUtilitiesDiffblueTest {
     // Arrange and Act
     String actualMkPathResult =
         WebUtilities.mkPath(
-            "/", ": Predicate was null", "Cannot convert empty or null segments to path");
+            "///", ": Predicate was null", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals(
@@ -2268,7 +2473,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Predicate was null", "Predicate must be provided", "/");
+        WebUtilities.mkPath(": Predicate was null", "Predicate must be provided", "///");
 
     // Assert
     assertEquals(": Predicate was null/Predicate must be provided/", actualMkPathResult);
@@ -2292,7 +2497,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateMustBeProvided2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Predicate was null", "Predicate must be provided");
+        WebUtilities.mkPath("///", ": Predicate was null", "Predicate must be provided");
 
     // Assert
     assertEquals("/: Predicate was null/Predicate must be provided", actualMkPathResult);
@@ -2315,7 +2520,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateWasNull() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath(": Predicate was null", ": Predicate was null", "/");
+        WebUtilities.mkPath(": Predicate was null", ": Predicate was null", "///");
 
     // Assert
     assertEquals(": Predicate was null/: Predicate was null/", actualMkPathResult);
@@ -2338,10 +2543,32 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnPredicateWasNullPredicateWasNull2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Predicate was null", ": Predicate was null");
+        WebUtilities.mkPath("///", ": Predicate was null", ": Predicate was null");
 
     // Assert
     assertEquals("/: Predicate was null/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /: Predicate was null/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/: Predicate was null/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnPredicateWasNullYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/: Predicate was null/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -2362,7 +2589,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/");
+        WebUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("Segs/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -2372,24 +2599,48 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code Segs/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code /Segs/Cannot convert empty or null segments to path}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'Segs/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return '/Segs/Cannot convert empty or null segments to path'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/+");
+        WebUtilities.mkPath("///", "Segs", "Cannot convert empty or null segments to path");
 
     // Assert
-    assertEquals("Segs/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/Segs/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code Segs/Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return 'Segs/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("Segs", "Cannot convert empty or null segments to path", "/");
+
+    // Assert
+    assertEquals("Segs/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -2408,7 +2659,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSegsPredicateMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "Predicate must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("Segs/Predicate must be provided/", actualMkPathResult);
@@ -2449,7 +2700,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnSlashPlusSignSlashPlusSignSlash() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "/+", "///");
 
     // Assert
     assertEquals("/+/+/", actualMkPathResult);
@@ -2473,7 +2724,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnTtfCannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("ttf", "Cannot convert empty or null segments to path", "/");
+        WebUtilities.mkPath("ttf", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("ttf/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -2483,24 +2734,48 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code ttf/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code /ttf/Cannot convert empty or null segments to path}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'ttf/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return '/ttf/Cannot convert empty or null segments to path'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnTtfCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("ttf", "Cannot convert empty or null segments to path", "/+");
+        WebUtilities.mkPath("///", "ttf", "Cannot convert empty or null segments to path");
 
     // Assert
-    assertEquals("ttf/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("/ttf/Cannot convert empty or null segments to path", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code ttf/Cannot convert empty or null segments to path/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); then return 'ttf/Cannot convert empty or null segments to path/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnTtfCannotConvertEmptyOrNullSegmentsToPath3() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("ttf", "Cannot convert empty or null segments to path", "/");
+
+    // Assert
+    assertEquals("ttf/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -2519,7 +2794,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnTtfPredicateMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "Predicate must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("ttf/Predicate must be provided/", actualMkPathResult);
@@ -2541,7 +2816,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnYyyyMmDdArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "Array must be provided", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/Array must be provided/", actualMkPathResult);
@@ -2565,7 +2840,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnYyyyMmDdCannotConvertEmptyOrNullSegmentsToPath() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("yyyy-MM-dd", "Cannot convert empty or null segments to path", "/");
+        WebUtilities.mkPath("yyyy-MM-dd", "Cannot convert empty or null segments to path", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/Cannot convert empty or null segments to path/", actualMkPathResult);
@@ -2589,7 +2864,7 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnYyyyMmDdCannotConvertEmptyOrNullSegmentsToPath2() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("/", "yyyy-MM-dd", "Cannot convert empty or null segments to path");
+        WebUtilities.mkPath("///", "yyyy-MM-dd", "Cannot convert empty or null segments to path");
 
     // Assert
     assertEquals("/yyyy-MM-dd/Cannot convert empty or null segments to path", actualMkPathResult);
@@ -2599,24 +2874,24 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>Then return {@code yyyy-MM-dd/Cannot convert empty or null segments to path/+}.
+   *   <li>Then return {@code yyyy-MM-dd/Cannot convert empty or null segments to path/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); then return 'yyyy-MM-dd/Cannot convert empty or null segments to path/+'")
+      "Test mkPath(String[]); then return 'yyyy-MM-dd/Cannot convert empty or null segments to path/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_thenReturnYyyyMmDdCannotConvertEmptyOrNullSegmentsToPath3() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("yyyy-MM-dd", "Cannot convert empty or null segments to path", "/+");
+        WebUtilities.mkPath("yyyy-MM-dd", "Cannot convert empty or null segments to path", "/");
 
     // Assert
-    assertEquals("yyyy-MM-dd/Cannot convert empty or null segments to path/+", actualMkPathResult);
+    assertEquals("yyyy-MM-dd/Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -2636,10 +2911,33 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_thenReturnYyyyMmDdPredicateMustBeProvided() {
     // Arrange and Act
     String actualMkPathResult =
-        WebUtilities.mkPath("yyyy-MM-dd", "Predicate must be provided", "/");
+        WebUtilities.mkPath("yyyy-MM-dd", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/Predicate must be provided/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>Then return {@code /yyyy-MM-dd/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); then return '/yyyy-MM-dd/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_thenReturnYyyyMmDdPredicateMustBeProvided2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("///", "yyyy-MM-dd", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/Predicate must be provided", actualMkPathResult);
   }
 
   /**
@@ -2659,7 +2957,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42And42_thenReturn4242() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "42", "///");
 
     // Assert
     assertEquals("42/42/", actualMkPathResult);
@@ -2683,7 +2981,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndArrayMustBeProvided_thenReturn42ArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "Array must be provided", "///");
 
     // Assert
     assertEquals("42/Array must be provided/", actualMkPathResult);
@@ -2707,7 +3005,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndArrayWasNull_thenReturn42ArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", ": Array was null", "///");
 
     // Assert
     assertEquals("42/: Array was null/", actualMkPathResult);
@@ -2731,7 +3029,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndPredicateMustBeProvided_thenReturn42PredicateMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "Predicate must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("42/Predicate must be provided/", actualMkPathResult);
@@ -2755,7 +3053,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndPredicateWasNull_thenReturn42PredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", ": Predicate was null", "///");
 
     // Assert
     assertEquals("42/: Predicate was null/", actualMkPathResult);
@@ -2778,7 +3076,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndSegs_thenReturn42Segs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "Segs", "///");
 
     // Assert
     assertEquals("42/Segs/", actualMkPathResult);
@@ -2808,23 +3106,43 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code 42} and {@code /+}.
-   *   <li>Then return {@code 42/+/}.
+   *   <li>When {@code 42} and {@code ///}.
+   *   <li>Then return {@code 42/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when '42' and '/+'; then return '42/+/'")
+  @DisplayName("Test mkPath(String[]); when '42' and '///'; then return '42/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_when42AndSlashPlusSign_thenReturn422() {
+  void testMkPath_when42AndSlashSlashSlash_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals("42/", WebUtilities.mkPath("42", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code 42} and {@code ///}.
+   *   <li>Then return {@code 42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '42' and '///'; then return '42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_when42AndSlashSlashSlash_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "///", "///");
 
     // Assert
-    assertEquals("42/+/", actualMkPathResult);
+    assertEquals("42/", actualMkPathResult);
   }
 
   /**
@@ -2864,7 +3182,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndSlash_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "/", "///");
 
     // Assert
     assertEquals("42/", actualMkPathResult);
@@ -2887,7 +3205,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndTtf_thenReturn42Ttf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "ttf", "///");
 
     // Assert
     assertEquals("42/ttf/", actualMkPathResult);
@@ -2910,7 +3228,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_when42AndYyyyMmDd_thenReturn42YyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("42", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("42", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("42/yyyy-MM-dd/", actualMkPathResult);
@@ -2934,7 +3252,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAnd42_thenReturnArrayMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "42", "///");
 
     // Assert
     assertEquals("Array must be provided/42/", actualMkPathResult);
@@ -2958,7 +3276,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAndSegs_thenReturnArrayMustBeProvidedSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "Segs", "///");
 
     // Assert
     assertEquals("Array must be provided/Segs/", actualMkPathResult);
@@ -2989,24 +3307,41 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code Array must be provided} and {@code /+}.
-   *   <li>Then return {@code Array must be provided/+/}.
+   *   <li>When {@code Array must be provided} and {@code ///}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName(
-      "Test mkPath(String[]); when 'Array must be provided' and '/+'; then return 'Array must be provided/+/'")
+  @DisplayName("Test mkPath(String[]); when 'Array must be provided' and '///'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenArrayMustBeProvidedAndSlashPlusSign_thenReturnArrayMustBeProvided2() {
+  void testMkPath_whenArrayMustBeProvidedAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals("Array must be provided/", WebUtilities.mkPath("Array must be provided", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Array must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Array must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenArrayMustBeProvidedAndSlashSlashSlash2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "///", "///");
 
     // Assert
-    assertEquals("Array must be provided/+/", actualMkPathResult);
+    assertEquals("Array must be provided/", actualMkPathResult);
   }
 
   /**
@@ -3048,7 +3383,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAndSlash_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "/", "///");
 
     // Assert
     assertEquals("Array must be provided/", actualMkPathResult);
@@ -3072,7 +3407,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayMustBeProvidedAndTtf_thenReturnArrayMustBeProvidedTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Array must be provided", "ttf", "///");
 
     // Assert
     assertEquals("Array must be provided/ttf/", actualMkPathResult);
@@ -3096,7 +3431,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAnd42_thenReturnArrayWasNull42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "42", "///");
 
     // Assert
     assertEquals(": Array was null/42/", actualMkPathResult);
@@ -3120,7 +3455,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", ": Array was null", "///");
 
     // Assert
     assertEquals(": Array was null/: Array was null/", actualMkPathResult);
@@ -3144,7 +3479,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndSegs_thenReturnArrayWasNullSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "Segs", "///");
 
     // Assert
     assertEquals(": Array was null/Segs/", actualMkPathResult);
@@ -3175,24 +3510,45 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code : Array was null} and {@code /+}.
-   *   <li>Then return {@code : Array was null/+/}.
+   *   <li>When {@code : Array was null} and {@code ///}.
+   *   <li>Then return {@code : Array was null/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when ': Array was null' and '/+'; then return ': Array was null/+/'")
+      "Test mkPath(String[]); when ': Array was null' and '///'; then return ': Array was null/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenArrayWasNullAndSlashPlusSign_thenReturnArrayWasNull2() {
+  void testMkPath_whenArrayWasNullAndSlashSlashSlash_thenReturnArrayWasNull() {
+    // Arrange, Act and Assert
+    assertEquals(": Array was null/", WebUtilities.mkPath(": Array was null", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code : Array was null} and {@code ///}.
+   *   <li>Then return {@code : Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when ': Array was null' and '///'; then return ': Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenArrayWasNullAndSlashSlashSlash_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "///", "///");
 
     // Assert
-    assertEquals(": Array was null/+/", actualMkPathResult);
+    assertEquals(": Array was null/", actualMkPathResult);
   }
 
   /**
@@ -3234,7 +3590,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndSlash_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "/", "///");
 
     // Assert
     assertEquals(": Array was null/", actualMkPathResult);
@@ -3258,7 +3614,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndTtf_thenReturnArrayWasNullTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "ttf", "///");
 
     // Assert
     assertEquals(": Array was null/ttf/", actualMkPathResult);
@@ -3282,10 +3638,102 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenArrayWasNullAndYyyyMmDd_thenReturnArrayWasNullYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Array was null", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals(": Array was null/yyyy-MM-dd/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/",
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlash2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "/", "///");
+
+    // Assert
+    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Cannot convert empty or null segments to path/",
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Cannot convert empty or null segments to path} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when 'Cannot convert empty or null segments to path' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenCannotConvertEmptyOrNullSegmentsToPathAndSlashSlashSlash2() {
+    // Arrange and Act
+    String actualMkPathResult =
+        WebUtilities.mkPath("Cannot convert empty or null segments to path", "///", "///");
+
+    // Assert
+    assertEquals("Cannot convert empty or null segments to path/", actualMkPathResult);
   }
 
   /**
@@ -3306,10 +3754,52 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateMustBeProvidedAnd42_thenReturnPredicateMustBeProvided42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "42", "///");
 
     // Assert
     assertEquals("Predicate must be provided/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Predicate must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Predicate must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateMustBeProvidedAndSlashSlashSlash() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "Predicate must be provided/", WebUtilities.mkPath("Predicate must be provided", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Predicate must be provided} and {@code ///}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Predicate must be provided' and '///'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateMustBeProvidedAndSlashSlashSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "///", "///");
+
+    // Assert
+    assertEquals("Predicate must be provided/", actualMkPathResult);
   }
 
   /**
@@ -3352,7 +3842,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateMustBeProvidedAndSlash_thenReturnPredicateMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Predicate must be provided", "/", "///");
 
     // Assert
     assertEquals("Predicate must be provided/", actualMkPathResult);
@@ -3376,7 +3866,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAnd42_thenReturnPredicateWasNull42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "42", "///");
 
     // Assert
     assertEquals(": Predicate was null/42/", actualMkPathResult);
@@ -3400,7 +3890,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndSegs_thenReturnPredicateWasNullSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "Segs", "///");
 
     // Assert
     assertEquals(": Predicate was null/Segs/", actualMkPathResult);
@@ -3431,24 +3921,45 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code : Predicate was null} and {@code /+}.
-   *   <li>Then return {@code : Predicate was null/+/}.
+   *   <li>When {@code : Predicate was null} and {@code ///}.
+   *   <li>Then return {@code : Predicate was null/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
   @DisplayName(
-      "Test mkPath(String[]); when ': Predicate was null' and '/+'; then return ': Predicate was null/+/'")
+      "Test mkPath(String[]); when ': Predicate was null' and '///'; then return ': Predicate was null/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenPredicateWasNullAndSlashPlusSign_thenReturnPredicateWasNull2() {
+  void testMkPath_whenPredicateWasNullAndSlashSlashSlash_thenReturnPredicateWasNull() {
+    // Arrange, Act and Assert
+    assertEquals(": Predicate was null/", WebUtilities.mkPath(": Predicate was null", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code : Predicate was null} and {@code ///}.
+   *   <li>Then return {@code : Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when ': Predicate was null' and '///'; then return ': Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenPredicateWasNullAndSlashSlashSlash_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "///", "///");
 
     // Assert
-    assertEquals(": Predicate was null/+/", actualMkPathResult);
+    assertEquals(": Predicate was null/", actualMkPathResult);
   }
 
   /**
@@ -3490,7 +4001,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndSlash_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "/", "///");
 
     // Assert
     assertEquals(": Predicate was null/", actualMkPathResult);
@@ -3514,7 +4025,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndTtf_thenReturnPredicateWasNullTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "ttf", "///");
 
     // Assert
     assertEquals(": Predicate was null/ttf/", actualMkPathResult);
@@ -3538,7 +4049,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenPredicateWasNullAndYyyyMmDd_thenReturnPredicateWasNullYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath(": Predicate was null", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals(": Predicate was null/yyyy-MM-dd/", actualMkPathResult);
@@ -3561,7 +4072,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAnd42_thenReturnSegs42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "42", "///");
 
     // Assert
     assertEquals("Segs/42/", actualMkPathResult);
@@ -3585,7 +4096,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndArrayMustBeProvided_thenReturnSegsArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "Array must be provided", "///");
 
     // Assert
     assertEquals("Segs/Array must be provided/", actualMkPathResult);
@@ -3609,7 +4120,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndArrayWasNull_thenReturnSegsArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", ": Array was null", "///");
 
     // Assert
     assertEquals("Segs/: Array was null/", actualMkPathResult);
@@ -3633,7 +4144,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndPredicateWasNull_thenReturnSegsPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", ": Predicate was null", "///");
 
     // Assert
     assertEquals("Segs/: Predicate was null/", actualMkPathResult);
@@ -3656,7 +4167,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndSegs_thenReturnSegsSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "Segs", "///");
 
     // Assert
     assertEquals("Segs/Segs/", actualMkPathResult);
@@ -3686,23 +4197,43 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code Segs} and {@code /+}.
-   *   <li>Then return {@code Segs/+/}.
+   *   <li>When {@code Segs} and {@code ///}.
+   *   <li>Then return {@code Segs/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when 'Segs' and '/+'; then return 'Segs/+/'")
+  @DisplayName("Test mkPath(String[]); when 'Segs' and '///'; then return 'Segs/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSegsAndSlashPlusSign_thenReturnSegs2() {
+  void testMkPath_whenSegsAndSlashSlashSlash_thenReturnSegs() {
+    // Arrange, Act and Assert
+    assertEquals("Segs/", WebUtilities.mkPath("Segs", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code Segs} and {@code ///}.
+   *   <li>Then return {@code Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'Segs' and '///'; then return 'Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSegsAndSlashSlashSlash_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "///", "///");
 
     // Assert
-    assertEquals("Segs/+/", actualMkPathResult);
+    assertEquals("Segs/", actualMkPathResult);
   }
 
   /**
@@ -3742,7 +4273,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndSlash_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "/", "///");
 
     // Assert
     assertEquals("Segs/", actualMkPathResult);
@@ -3765,7 +4296,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndTtf_thenReturnSegsTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "ttf", "///");
 
     // Assert
     assertEquals("Segs/ttf/", actualMkPathResult);
@@ -3789,7 +4320,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSegsAndYyyyMmDd_thenReturnSegsYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("Segs", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("Segs", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("Segs/yyyy-MM-dd/", actualMkPathResult);
@@ -3840,193 +4371,6 @@ class WebUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42ArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "Array must be provided");
-
-    // Assert
-    assertEquals("/42/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42ArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", ": Array was null");
-
-    // Assert
-    assertEquals("/42/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '42'; then return '/42/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42CannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "42", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/42/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '42'; then return '/42/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42PredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/42/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42PredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", ": Predicate was null");
-
-    // Assert
-    assertEquals("/42/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42Segs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "Segs");
-
-    // Assert
-    assertEquals("/42/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42Ttf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "ttf");
-
-    // Assert
-    assertEquals("/42/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn42YyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/42/yyyy-MM-dd", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
    *   <li>Then return {@code /42/}.
    * </ul>
    *
@@ -4039,56 +4383,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAnd42_thenReturn422() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "42", "///");
 
     // Assert
     assertEquals("/42/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn423() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "/+");
-
-    // Assert
-    assertEquals("/42/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code 42}.
-   *   <li>Then return {@code /42/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '42'; then return '/42/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAnd42_thenReturn4242() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "42", "42");
-
-    // Assert
-    assertEquals("/42/42", actualMkPathResult);
   }
 
   /**
@@ -4130,130 +4428,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "///");
 
     // Assert
     assertEquals("/Array must be provided/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "/+");
-
-    // Assert
-    assertEquals("/Array must be provided/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvided42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "42");
-
-    // Assert
-    assertEquals("/Array must be provided/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvidedSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "Segs");
-
-    // Assert
-    assertEquals("/Array must be provided/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvidedTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "ttf");
-
-    // Assert
-    assertEquals("/Array must be provided/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Array must be provided}.
-   *   <li>Then return {@code /Array must be provided/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Array must be provided'; then return '/Array must be provided/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayMustBeProvided_thenReturnArrayMustBeProvidedYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Array must be provided", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/Array must be provided/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -4295,204 +4473,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "///");
 
     // Assert
     assertEquals("/: Array was null/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "/+");
-
-    // Assert
-    assertEquals("/: Array was null/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNull42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "42");
-
-    // Assert
-    assertEquals("/: Array was null/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Array was null", "Array must be provided");
-
-    // Assert
-    assertEquals("/: Array was null/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", ": Array was null");
-
-    // Assert
-    assertEquals("/: Array was null/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Array was null", ": Predicate was null");
-
-    // Assert
-    assertEquals("/: Array was null/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "Segs");
-
-    // Assert
-    assertEquals("/: Array was null/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "ttf");
-
-    // Assert
-    assertEquals("/: Array was null/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Array was null}.
-   *   <li>Then return {@code /: Array was null/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Array was null'; then return '/: Array was null/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndArrayWasNull_thenReturnArrayWasNullYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Array was null", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/: Array was null/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -4535,34 +4519,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndPredicateMustBeProvided_thenReturnPredicateMustBeProvided2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "///");
 
     // Assert
     assertEquals("/Predicate must be provided/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Predicate must be provided}.
-   *   <li>Then return {@code /Predicate must be provided/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Predicate must be provided'; then return '/Predicate must be provided/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateMustBeProvided_thenReturnPredicateMustBeProvided3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Predicate must be provided", "/+");
-
-    // Assert
-    assertEquals("/Predicate must be provided/+", actualMkPathResult);
   }
 
   /**
@@ -4604,155 +4564,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "///");
 
     // Assert
     assertEquals("/: Predicate was null/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "/+");
-
-    // Assert
-    assertEquals("/: Predicate was null/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNull42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "42");
-
-    // Assert
-    assertEquals("/: Predicate was null/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", ": Predicate was null", ": Array was null");
-
-    // Assert
-    assertEquals("/: Predicate was null/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "Segs");
-
-    // Assert
-    assertEquals("/: Predicate was null/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "ttf");
-
-    // Assert
-    assertEquals("/: Predicate was null/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code : Predicate was null}.
-   *   <li>Then return {@code /: Predicate was null/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and ': Predicate was null'; then return '/: Predicate was null/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndPredicateWasNull_thenReturnPredicateWasNullYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", ": Predicate was null", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/: Predicate was null/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -4792,384 +4607,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndSegs_thenReturnSegs2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "///");
 
     // Assert
     assertEquals("/Segs/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegs3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "/+");
-
-    // Assert
-    assertEquals("/Segs/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegs42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "42");
-
-    // Assert
-    assertEquals("/Segs/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "Array must be provided");
-
-    // Assert
-    assertEquals("/Segs/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", ": Array was null");
-
-    // Assert
-    assertEquals("/Segs/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsCannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "Segs", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/Segs/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/Segs/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", ": Predicate was null");
-
-    // Assert
-    assertEquals("/Segs/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "Segs");
-
-    // Assert
-    assertEquals("/Segs/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "ttf");
-
-    // Assert
-    assertEquals("/Segs/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code Segs}.
-   *   <li>Then return {@code /Segs/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'Segs'; then return '/Segs/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSegs_thenReturnSegsYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "Segs", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/Segs/yyyy-MM-dd", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturn42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "42");
-
-    // Assert
-    assertEquals("/+/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "Array must be provided");
-
-    // Assert
-    assertEquals("/+/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", ": Array was null");
-
-    // Assert
-    assertEquals("/+/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '/+'; then return '/+/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/+/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", ": Predicate was null");
-
-    // Assert
-    assertEquals("/+/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "Segs");
-
-    // Assert
-    assertEquals("/+/Segs", actualMkPathResult);
   }
 
   /**
@@ -5190,373 +4631,6 @@ class WebUtilitiesDiffblueTest {
   void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSign() {
     // Arrange, Act and Assert
     assertEquals("/+", WebUtilities.mkPath("/", "/+"));
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSignSlash() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "/");
-
-    // Assert
-    assertEquals("/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnSlashPlusSignSlashPlusSign() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "/+");
-
-    // Assert
-    assertEquals("/+/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "ttf");
-
-    // Assert
-    assertEquals("/+/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /+}.
-   *   <li>Then return {@code /+/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/+'; then return '/+/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlashPlusSign_thenReturnYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/+", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/+/yyyy-MM-dd", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturn42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "42");
-
-    // Assert
-    assertEquals("/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "Array must be provided");
-
-    // Assert
-    assertEquals("/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", ": Array was null");
-
-    // Assert
-    assertEquals("/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and '/'; then return '/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnCannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "/", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", ": Predicate was null");
-
-    // Assert
-    assertEquals("/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "Segs");
-
-    // Assert
-    assertEquals("/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlash() {
-    // Arrange, Act and Assert
-    assertEquals("/", WebUtilities.mkPath("/", "/"));
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlash2() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "/");
-
-    // Assert
-    assertEquals("/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnSlashPlusSign() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "/+");
-
-    // Assert
-    assertEquals("/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "ttf");
-
-    // Assert
-    assertEquals("/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code /}.
-   *   <li>Then return {@code /yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and '/'; then return '/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndSlash_thenReturnYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "/", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -5596,244 +4670,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndTtf_thenReturnTtf2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "///");
 
     // Assert
     assertEquals("/ttf/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtf3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "/+");
-
-    // Assert
-    assertEquals("/ttf/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtf42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "42");
-
-    // Assert
-    assertEquals("/ttf/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "Array must be provided");
-
-    // Assert
-    assertEquals("/ttf/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", ": Array was null");
-
-    // Assert
-    assertEquals("/ttf/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/Cannot convert empty or null segments to path}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/Cannot convert empty or null segments to path'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfCannotConvertEmptyOrNullSegmentsToPath() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "ttf", "Cannot convert empty or null segments to path");
-
-    // Assert
-    assertEquals("/ttf/Cannot convert empty or null segments to path", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/ttf/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", ": Predicate was null");
-
-    // Assert
-    assertEquals("/ttf/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "Segs");
-
-    // Assert
-    assertEquals("/ttf/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "ttf");
-
-    // Assert
-    assertEquals("/ttf/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code ttf}.
-   *   <li>Then return {@code /ttf/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'ttf'; then return '/ttf/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndTtf_thenReturnTtfYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "ttf", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/ttf/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -5873,223 +4713,10 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDd2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("/yyyy-MM-dd/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/+}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/+'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDd3() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "/+");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/+", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDd42() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "42");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/42", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/Array must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/Array must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdArrayMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "Array must be provided");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/Array must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/: Array was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/: Array was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdArrayWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", ": Array was null");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/: Array was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/Predicate must be provided}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/Predicate must be provided'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdPredicateMustBeProvided() {
-    // Arrange and Act
-    String actualMkPathResult =
-        WebUtilities.mkPath("/", "yyyy-MM-dd", "Predicate must be provided");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/Predicate must be provided", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/: Predicate was null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/: Predicate was null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdPredicateWasNull() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", ": Predicate was null");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/: Predicate was null", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/Segs}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/Segs'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdSegs() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "Segs");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/Segs", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/ttf}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/ttf'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdTtf() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "ttf");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/ttf", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
-   *   <li>When {@code /} and {@code yyyy-MM-dd}.
-   *   <li>Then return {@code /yyyy-MM-dd/yyyy-MM-dd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName(
-      "Test mkPath(String[]); when '/' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/yyyy-MM-dd'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashAndYyyyMmDd_thenReturnYyyyMmDdYyyyMmDd() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/", "yyyy-MM-dd", "yyyy-MM-dd");
-
-    // Assert
-    assertEquals("/yyyy-MM-dd/yyyy-MM-dd", actualMkPathResult);
   }
 
   /**
@@ -6109,7 +4736,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAnd42_thenReturn42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "42", "///");
 
     // Assert
     assertEquals("/+/42/", actualMkPathResult);
@@ -6133,7 +4760,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndArrayMustBeProvided_thenReturnArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "Array must be provided", "///");
 
     // Assert
     assertEquals("/+/Array must be provided/", actualMkPathResult);
@@ -6157,7 +4784,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndArrayWasNull_thenReturnArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", ": Array was null", "///");
 
     // Assert
     assertEquals("/+/: Array was null/", actualMkPathResult);
@@ -6181,7 +4808,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndPredicateWasNull_thenReturnPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", ": Predicate was null", "///");
 
     // Assert
     assertEquals("/+/: Predicate was null/", actualMkPathResult);
@@ -6204,10 +4831,53 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndSegs_thenReturnSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "Segs", "///");
 
     // Assert
     assertEquals("/+/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code /+} and {@code ///}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '/+' and '///'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashPlusSignAndSlashSlashSlash_thenReturnSlashPlusSignSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/+/", WebUtilities.mkPath("/+", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code /+} and {@code ///}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '/+' and '///'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashPlusSignAndSlashSlashSlash_thenReturnSlashPlusSignSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("/+", "///", "///");
+
+    // Assert
+    assertEquals("/+/", actualMkPathResult);
   }
 
   /**
@@ -6234,29 +4904,6 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code /+} and {@code /}.
-   *   <li>Then return {@code /+/}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
-   */
-  @Test
-  @DisplayName("Test mkPath(String[]); when '/+' and '/'; then return '/+/'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenSlashPlusSignAndSlash_thenReturnSlashPlusSignSlash2() {
-    // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "/", "/");
-
-    // Assert
-    assertEquals("/+/", actualMkPathResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#mkPath(String[])}.
-   *
-   * <ul>
    *   <li>When {@code /+} and {@code ttf}.
    *   <li>Then return {@code /+/ttf/}.
    * </ul>
@@ -6270,7 +4917,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndTtf_thenReturnTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "ttf", "///");
 
     // Assert
     assertEquals("/+/ttf/", actualMkPathResult);
@@ -6293,10 +4940,1824 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenSlashPlusSignAndYyyyMmDd_thenReturnYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("/+", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("/+", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("/+/yyyy-MM-dd/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42() {
+    // Arrange, Act and Assert
+    assertEquals("/42", WebUtilities.mkPath("///", "42"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '42'; then return '/42/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42ArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "Array must be provided");
+
+    // Assert
+    assertEquals("/42/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42ArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", ": Array was null");
+
+    // Assert
+    assertEquals("/42/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '42'; then return '/42/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42PredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/42/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42PredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", ": Predicate was null");
+
+    // Assert
+    assertEquals("/42/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42Segs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "Segs");
+
+    // Assert
+    assertEquals("/42/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42Ttf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "ttf");
+
+    // Assert
+    assertEquals("/42/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn42YyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/42/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn422() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "///");
+
+    // Assert
+    assertEquals("/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn423() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "/");
+
+    // Assert
+    assertEquals("/42/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code 42}.
+   *   <li>Then return {@code /42/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '42'; then return '/42/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAnd42_thenReturn4242() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "42", "42");
+
+    // Assert
+    assertEquals("/42/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull() {
+    // Arrange, Act and Assert
+    assertEquals("/: Array was null", WebUtilities.mkPath("///", ": Array was null"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "///");
+
+    // Assert
+    assertEquals("/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "/");
+
+    // Assert
+    assertEquals("/: Array was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNull42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "42");
+
+    // Assert
+    assertEquals("/: Array was null/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "Segs");
+
+    // Assert
+    assertEquals("/: Array was null/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "ttf");
+
+    // Assert
+    assertEquals("/: Array was null/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Array was null}.
+   *   <li>Then return {@code /: Array was null/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Array was null'; then return '/: Array was null/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndArrayWasNull_thenReturnArrayWasNullYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Array was null", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/: Array was null/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull() {
+    // Arrange, Act and Assert
+    assertEquals("/: Predicate was null", WebUtilities.mkPath("///", ": Predicate was null"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "///");
+
+    // Assert
+    assertEquals("/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "/");
+
+    // Assert
+    assertEquals("/: Predicate was null/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNull42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "42");
+
+    // Assert
+    assertEquals("/: Predicate was null/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNullSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "Segs");
+
+    // Assert
+    assertEquals("/: Predicate was null/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code : Predicate was null}.
+   *   <li>Then return {@code /: Predicate was null/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and ': Predicate was null'; then return '/: Predicate was null/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndPredicateWasNull_thenReturnPredicateWasNullTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", ": Predicate was null", "ttf");
+
+    // Assert
+    assertEquals("/: Predicate was null/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs() {
+    // Arrange, Act and Assert
+    assertEquals("/Segs", WebUtilities.mkPath("///", "Segs"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "///");
+
+    // Assert
+    assertEquals("/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "/");
+
+    // Assert
+    assertEquals("/Segs/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegs42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "42");
+
+    // Assert
+    assertEquals("/Segs/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "Array must be provided");
+
+    // Assert
+    assertEquals("/Segs/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", ": Array was null");
+
+    // Assert
+    assertEquals("/Segs/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsPredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Segs/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", ": Predicate was null");
+
+    // Assert
+    assertEquals("/Segs/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "Segs");
+
+    // Assert
+    assertEquals("/Segs/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "ttf");
+
+    // Assert
+    assertEquals("/Segs/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code Segs}.
+   *   <li>Then return {@code /Segs/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'Segs'; then return '/Segs/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSegs_thenReturnSegsYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "Segs", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/Segs/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /+}.
+   *   <li>Then return {@code /+}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/+'; then return '/+'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashPlusSign_thenReturnSlashPlusSign() {
+    // Arrange, Act and Assert
+    assertEquals("/+", WebUtilities.mkPath("///", "/+"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /+}.
+   *   <li>Then return {@code /+/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/+'; then return '/+/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashPlusSign_thenReturnSlashPlusSignSlash() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/+", "///");
+
+    // Assert
+    assertEquals("/+/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturn42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "42");
+
+    // Assert
+    assertEquals("/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "Array must be provided");
+
+    // Assert
+    assertEquals("/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "Segs");
+
+    // Assert
+    assertEquals("/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", WebUtilities.mkPath("///", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "///");
+
+    // Assert
+    assertEquals("/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "ttf");
+
+    // Assert
+    assertEquals("/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ///}.
+   *   <li>Then return {@code /yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '///'; then return '/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlashSlashSlash_thenReturnYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "///", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturn42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "42");
+
+    // Assert
+    assertEquals("/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "Array must be provided");
+
+    // Assert
+    assertEquals("/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", ": Array was null");
+
+    // Assert
+    assertEquals("/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and '/'; then return '/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnPredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", ": Predicate was null");
+
+    // Assert
+    assertEquals("/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "Segs");
+
+    // Assert
+    assertEquals("/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", WebUtilities.mkPath("///", "/"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnSlash2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "///");
+
+    // Assert
+    assertEquals("/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "ttf");
+
+    // Assert
+    assertEquals("/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code /}.
+   *   <li>Then return {@code /yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and '/'; then return '/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndSlash_thenReturnYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "/", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtf() {
+    // Arrange, Act and Assert
+    assertEquals("/ttf", WebUtilities.mkPath("///", "ttf"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtf2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "///");
+
+    // Assert
+    assertEquals("/ttf/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtf3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "/");
+
+    // Assert
+    assertEquals("/ttf/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtf42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "42");
+
+    // Assert
+    assertEquals("/ttf/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "Array must be provided");
+
+    // Assert
+    assertEquals("/ttf/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", ": Array was null");
+
+    // Assert
+    assertEquals("/ttf/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/Predicate must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/Predicate must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfPredicateMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "Predicate must be provided");
+
+    // Assert
+    assertEquals("/ttf/Predicate must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", ": Predicate was null");
+
+    // Assert
+    assertEquals("/ttf/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "Segs");
+
+    // Assert
+    assertEquals("/ttf/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "ttf");
+
+    // Assert
+    assertEquals("/ttf/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code ttf}.
+   *   <li>Then return {@code /ttf/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'ttf'; then return '/ttf/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndTtf_thenReturnTtfYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "ttf", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/ttf/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDd() {
+    // Arrange, Act and Assert
+    assertEquals("/yyyy-MM-dd", WebUtilities.mkPath("///", "yyyy-MM-dd"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDd2() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "///");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDd3() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "/");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDd42() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "42");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/42", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/Array must be provided}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/Array must be provided'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdArrayMustBeProvided() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "Array must be provided");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/Array must be provided", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/: Array was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/: Array was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdArrayWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", ": Array was null");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/: Array was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/: Predicate was null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/: Predicate was null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdPredicateWasNull() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", ": Predicate was null");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/: Predicate was null", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/Segs}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/Segs'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdSegs() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "Segs");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/Segs", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/ttf}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/ttf'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdTtf() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "ttf");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/ttf", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///} and {@code yyyy-MM-dd}.
+   *   <li>Then return {@code /yyyy-MM-dd/yyyy-MM-dd}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName(
+      "Test mkPath(String[]); when '///' and 'yyyy-MM-dd'; then return '/yyyy-MM-dd/yyyy-MM-dd'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlashAndYyyyMmDd_thenReturnYyyyMmDdYyyyMmDd() {
+    // Arrange and Act
+    String actualMkPathResult = WebUtilities.mkPath("///", "yyyy-MM-dd", "yyyy-MM-dd");
+
+    // Assert
+    assertEquals("/yyyy-MM-dd/yyyy-MM-dd", actualMkPathResult);
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ///}.
+   *   <li>Then return {@code /}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when '///'; then return '/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenSlashSlashSlash_thenReturnSlash() {
+    // Arrange, Act and Assert
+    assertEquals("/", WebUtilities.mkPath("///"));
   }
 
   /**
@@ -6316,7 +6777,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAnd42_thenReturnTtf42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "42", "///");
 
     // Assert
     assertEquals("ttf/42/", actualMkPathResult);
@@ -6340,7 +6801,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndArrayMustBeProvided_thenReturnTtfArrayMustBeProvided() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "Array must be provided", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "Array must be provided", "///");
 
     // Assert
     assertEquals("ttf/Array must be provided/", actualMkPathResult);
@@ -6364,7 +6825,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndArrayWasNull_thenReturnTtfArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", ": Array was null", "///");
 
     // Assert
     assertEquals("ttf/: Array was null/", actualMkPathResult);
@@ -6388,7 +6849,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndPredicateWasNull_thenReturnTtfPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", ": Predicate was null", "///");
 
     // Assert
     assertEquals("ttf/: Predicate was null/", actualMkPathResult);
@@ -6411,7 +6872,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndSegs_thenReturnTtfSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "Segs", "///");
 
     // Assert
     assertEquals("ttf/Segs/", actualMkPathResult);
@@ -6441,23 +6902,43 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code ttf} and {@code /+}.
-   *   <li>Then return {@code ttf/+/}.
+   *   <li>When {@code ttf} and {@code ///}.
+   *   <li>Then return {@code ttf/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when 'ttf' and '/+'; then return 'ttf/+/'")
+  @DisplayName("Test mkPath(String[]); when 'ttf' and '///'; then return 'ttf/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenTtfAndSlashPlusSign_thenReturnTtf2() {
+  void testMkPath_whenTtfAndSlashSlashSlash_thenReturnTtf() {
+    // Arrange, Act and Assert
+    assertEquals("ttf/", WebUtilities.mkPath("ttf", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code ttf} and {@code ///}.
+   *   <li>Then return {@code ttf/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'ttf' and '///'; then return 'ttf/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenTtfAndSlashSlashSlash_thenReturnTtf2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "///", "///");
 
     // Assert
-    assertEquals("ttf/+/", actualMkPathResult);
+    assertEquals("ttf/", actualMkPathResult);
   }
 
   /**
@@ -6497,7 +6978,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndSlash_thenReturnTtf2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "/", "///");
 
     // Assert
     assertEquals("ttf/", actualMkPathResult);
@@ -6520,7 +7001,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndTtf_thenReturnTtfTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "ttf", "///");
 
     // Assert
     assertEquals("ttf/ttf/", actualMkPathResult);
@@ -6543,7 +7024,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenTtfAndYyyyMmDd_thenReturnTtfYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("ttf", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("ttf", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("ttf/yyyy-MM-dd/", actualMkPathResult);
@@ -6566,7 +7047,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAnd42_thenReturnYyyyMmDd42() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "42", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "42", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/42/", actualMkPathResult);
@@ -6590,7 +7071,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndArrayWasNull_thenReturnYyyyMmDdArrayWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", ": Array was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", ": Array was null", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/: Array was null/", actualMkPathResult);
@@ -6614,7 +7095,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndPredicateWasNull_thenReturnYyyyMmDdPredicateWasNull() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", ": Predicate was null", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", ": Predicate was null", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/: Predicate was null/", actualMkPathResult);
@@ -6638,7 +7119,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndSegs_thenReturnYyyyMmDdSegs() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "Segs", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "Segs", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/Segs/", actualMkPathResult);
@@ -6668,23 +7149,43 @@ class WebUtilitiesDiffblueTest {
    * Test {@link WebUtilities#mkPath(String[])}.
    *
    * <ul>
-   *   <li>When {@code yyyy-MM-dd} and {@code /+}.
-   *   <li>Then return {@code yyyy-MM-dd/+/}.
+   *   <li>When {@code yyyy-MM-dd} and {@code ///}.
+   *   <li>Then return {@code yyyy-MM-dd/}.
    * </ul>
    *
    * <p>Method under test: {@link WebUtilities#mkPath(String[])}
    */
   @Test
-  @DisplayName("Test mkPath(String[]); when 'yyyy-MM-dd' and '/+'; then return 'yyyy-MM-dd/+/'")
+  @DisplayName("Test mkPath(String[]); when 'yyyy-MM-dd' and '///'; then return 'yyyy-MM-dd/'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
-  void testMkPath_whenYyyyMmDdAndSlashPlusSign_thenReturnYyyyMmDd2() {
+  void testMkPath_whenYyyyMmDdAndSlashSlashSlash_thenReturnYyyyMmDd() {
+    // Arrange, Act and Assert
+    assertEquals("yyyy-MM-dd/", WebUtilities.mkPath("yyyy-MM-dd", "///"));
+  }
+
+  /**
+   * Test {@link WebUtilities#mkPath(String[])}.
+   *
+   * <ul>
+   *   <li>When {@code yyyy-MM-dd} and {@code ///}.
+   *   <li>Then return {@code yyyy-MM-dd/}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#mkPath(String[])}
+   */
+  @Test
+  @DisplayName("Test mkPath(String[]); when 'yyyy-MM-dd' and '///'; then return 'yyyy-MM-dd/'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
+  void testMkPath_whenYyyyMmDdAndSlashSlashSlash_thenReturnYyyyMmDd2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "/+", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "///", "///");
 
     // Assert
-    assertEquals("yyyy-MM-dd/+/", actualMkPathResult);
+    assertEquals("yyyy-MM-dd/", actualMkPathResult);
   }
 
   /**
@@ -6724,7 +7225,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndSlash_thenReturnYyyyMmDd2() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "/", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "/", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/", actualMkPathResult);
@@ -6747,7 +7248,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndTtf_thenReturnYyyyMmDdTtf() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "ttf", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "ttf", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/ttf/", actualMkPathResult);
@@ -6771,7 +7272,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"String WebUtilities.mkPath(String[])"})
   void testMkPath_whenYyyyMmDdAndYyyyMmDd_thenReturnYyyyMmDdYyyyMmDd() {
     // Arrange and Act
-    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "yyyy-MM-dd", "/");
+    String actualMkPathResult = WebUtilities.mkPath("yyyy-MM-dd", "yyyy-MM-dd", "///");
 
     // Assert
     assertEquals("yyyy-MM-dd/yyyy-MM-dd/", actualMkPathResult);
@@ -7835,6 +8336,221 @@ class WebUtilitiesDiffblueTest {
   }
 
   /**
+   * Test {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])} with {@code
+   * UserRoleService}, {@code Request}, {@code SystemRole[]}.
+   *
+   * <ul>
+   *   <li>Given empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])}
+   */
+  @Test
+  @DisplayName(
+      "Test requireRole(UserRoleService, Request, SystemRole[]) with 'UserRoleService', 'Request', 'SystemRole[]'; given empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WebUtilities.requireRole(UserRoleService, Request, SystemRole[])"})
+  void testRequireRoleWithUserRoleServiceRequestSystemRole_givenEmptyString() {
+    // Arrange
+    ArrayList<Setting> overrides = new ArrayList<>();
+    overrides.add(
+        ImmutableSetting.builder()
+            .description("The characteristics of someone or something")
+            .name("Name")
+            .value("42")
+            .build());
+    SettingsService settingsService = new SettingsService(mock(SettingsDao.class), overrides);
+    UserRoleDao userRoleDao = mock(UserRoleDao.class);
+    RoleDao roleDao = mock(RoleDao.class);
+    PersonDao personDao = mock(PersonDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+
+    UserRoleService userRoleService =
+        new UserRoleService(
+            userRoleDao, roleDao, personDao, changeLogService, personService, settingsService);
+
+    Request request = mock(Request.class);
+    when(request.attribute(Mockito.<String>any())).thenReturn("");
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> WebUtilities.requireRole(userRoleService, request, SystemRole.ACTOR_ADMIN));
+    verify(request).attribute("waltz-user");
+  }
+
+  /**
+   * Test {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])} with {@code
+   * UserRoleService}, {@code Request}, {@code SystemRole[]}.
+   *
+   * <ul>
+   *   <li>Given {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])}
+   */
+  @Test
+  @DisplayName(
+      "Test requireRole(UserRoleService, Request, SystemRole[]) with 'UserRoleService', 'Request', 'SystemRole[]'; given 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WebUtilities.requireRole(UserRoleService, Request, SystemRole[])"})
+  void testRequireRoleWithUserRoleServiceRequestSystemRole_givenFalse() {
+    // Arrange
+    UserRoleService userRoleService = mock(UserRoleService.class);
+    when(userRoleService.hasRole(Mockito.<String>any(), Mockito.<Set<String>>any()))
+        .thenReturn(false);
+
+    Request request = mock(Request.class);
+    when(request.attribute(Mockito.<String>any())).thenReturn("Attribute");
+
+    // Act and Assert
+    assertThrows(
+        NotAuthorizedException.class,
+        () -> WebUtilities.requireRole(userRoleService, request, SystemRole.ACTOR_ADMIN));
+    verify(userRoleService).hasRole(eq("Attribute"), isA(Set.class));
+    verify(request).attribute("waltz-user");
+  }
+
+  /**
+   * Test {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])} with {@code
+   * UserRoleService}, {@code Request}, {@code SystemRole[]}.
+   *
+   * <ul>
+   *   <li>Given {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])}
+   */
+  @Test
+  @DisplayName(
+      "Test requireRole(UserRoleService, Request, SystemRole[]) with 'UserRoleService', 'Request', 'SystemRole[]'; given 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WebUtilities.requireRole(UserRoleService, Request, SystemRole[])"})
+  void testRequireRoleWithUserRoleServiceRequestSystemRole_givenNull() {
+    // Arrange
+    UserRoleService userRoleService = mock(UserRoleService.class);
+
+    Request request = mock(Request.class);
+    when(request.attribute(Mockito.<String>any())).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> WebUtilities.requireRole(userRoleService, request, SystemRole.ACTOR_ADMIN));
+    verify(request).attribute("waltz-user");
+  }
+
+  /**
+   * Test {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])} with {@code
+   * UserRoleService}, {@code Request}, {@code SystemRole[]}.
+   *
+   * <ul>
+   *   <li>Given {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])}
+   */
+  @Test
+  @DisplayName(
+      "Test requireRole(UserRoleService, Request, SystemRole[]) with 'UserRoleService', 'Request', 'SystemRole[]'; given 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WebUtilities.requireRole(UserRoleService, Request, SystemRole[])"})
+  void testRequireRoleWithUserRoleServiceRequestSystemRole_givenTrue() {
+    // Arrange
+    UserRoleService userRoleService = mock(UserRoleService.class);
+    when(userRoleService.hasRole(Mockito.<String>any(), Mockito.<Set<String>>any()))
+        .thenReturn(true);
+
+    Request request = mock(Request.class);
+    when(request.attribute(Mockito.<String>any())).thenReturn("Attribute");
+
+    // Act
+    WebUtilities.requireRole(userRoleService, request, SystemRole.ACTOR_ADMIN);
+
+    // Assert
+    verify(userRoleService).hasRole(eq("Attribute"), isA(Set.class));
+    verify(request).attribute("waltz-user");
+  }
+
+  /**
+   * Test {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])} with {@code
+   * UserRoleService}, {@code Request}, {@code SystemRole[]}.
+   *
+   * <ul>
+   *   <li>Then calls {@link UserRoleDao#getUserRoles(String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#requireRole(UserRoleService, Request, SystemRole[])}
+   */
+  @Test
+  @DisplayName(
+      "Test requireRole(UserRoleService, Request, SystemRole[]) with 'UserRoleService', 'Request', 'SystemRole[]'; then calls getUserRoles(String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void WebUtilities.requireRole(UserRoleService, Request, SystemRole[])"})
+  void testRequireRoleWithUserRoleServiceRequestSystemRole_thenCallsGetUserRoles() {
+    // Arrange
+    UserRoleDao userRoleDao = mock(UserRoleDao.class);
+    when(userRoleDao.getUserRoles(Mockito.<String>any())).thenReturn(new HashSet<>());
+
+    ArrayList<Setting> overrides = new ArrayList<>();
+    overrides.add(
+        ImmutableSetting.builder()
+            .description("The characteristics of someone or something")
+            .name("Name")
+            .value("42")
+            .build());
+    SettingsService settingsService = new SettingsService(mock(SettingsDao.class), overrides);
+    RoleDao roleDao = mock(RoleDao.class);
+    PersonDao personDao = mock(PersonDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+
+    UserRoleService userRoleService =
+        new UserRoleService(
+            userRoleDao, roleDao, personDao, changeLogService, personService, settingsService);
+
+    Request request = mock(Request.class);
+    when(request.attribute(Mockito.<String>any())).thenReturn("Attribute");
+
+    // Act and Assert
+    assertThrows(
+        NotAuthorizedException.class,
+        () -> WebUtilities.requireRole(userRoleService, request, SystemRole.ACTOR_ADMIN));
+    verify(userRoleDao).getUserRoles("Attribute");
+    verify(request).attribute("waltz-user");
+  }
+
+  /**
    * Test {@link WebUtilities#requireAnyRole(UserRoleService, Request, SystemRole[])}.
    *
    * <ul>
@@ -8206,102 +8922,6 @@ class WebUtilitiesDiffblueTest {
   }
 
   /**
-   * Test {@link WebUtilities#readEnum(Request, String, Class, Function)}.
-   *
-   * <ul>
-   *   <li>Given {@code Params}.
-   *   <li>When {@link Function} {@link Function#apply(Object)} return {@code CONSTANT_ASCENT}.
-   *   <li>Then calls {@link Function#apply(Object)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#readEnum(Request, String, Class, Function)}
-   */
-  @Test
-  @DisplayName(
-      "Test readEnum(Request, String, Class, Function); given 'Params'; when Function apply(Object) return 'CONSTANT_ASCENT'; then calls apply(Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Enum WebUtilities.readEnum(Request, String, Class, Function)"})
-  void testReadEnum_givenParams_whenFunctionApplyReturnConstantAscent_thenCallsApply() {
-    // Arrange
-    Request request = mock(Request.class);
-    when(request.params(Mockito.<String>any())).thenReturn("Params");
-    Class<BaselineResizeBehavior> enumClass = BaselineResizeBehavior.class;
-
-    Function<String, BaselineResizeBehavior> failedParseSupplier = mock(Function.class);
-    when(failedParseSupplier.apply(Mockito.<String>any()))
-        .thenReturn(BaselineResizeBehavior.CONSTANT_ASCENT);
-
-    // Act
-    BaselineResizeBehavior actualReadEnumResult =
-        WebUtilities.readEnum(request, "Param Name", enumClass, failedParseSupplier);
-
-    // Assert
-    verify(failedParseSupplier).apply("Params");
-    verify(request).params("Param Name");
-    assertEquals(BaselineResizeBehavior.CONSTANT_ASCENT, actualReadEnumResult);
-  }
-
-  /**
-   * Test {@link WebUtilities#readEnum(Request, String, Class, Function)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#readEnum(Request, String, Class, Function)}
-   */
-  @Test
-  @DisplayName(
-      "Test readEnum(Request, String, Class, Function); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Enum WebUtilities.readEnum(Request, String, Class, Function)"})
-  void testReadEnum_thenThrowIllegalArgumentException() {
-    // Arrange
-    Request request = mock(Request.class);
-    when(request.params(Mockito.<String>any())).thenThrow(new IllegalArgumentException());
-    Class<BaselineResizeBehavior> enumClass = BaselineResizeBehavior.class;
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> WebUtilities.readEnum(request, "Param Name", enumClass, mock(Function.class)));
-    verify(request).params("Param Name");
-  }
-
-  /**
-   * Test {@link WebUtilities#readEnum(Request, String, Class, Function)}.
-   *
-   * <ul>
-   *   <li>When {@link Request} {@link Request#params(String)} return {@code CONSTANT_ASCENT}.
-   *   <li>Then return {@code CONSTANT_ASCENT}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#readEnum(Request, String, Class, Function)}
-   */
-  @Test
-  @DisplayName(
-      "Test readEnum(Request, String, Class, Function); when Request params(String) return 'CONSTANT_ASCENT'; then return 'CONSTANT_ASCENT'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Enum WebUtilities.readEnum(Request, String, Class, Function)"})
-  void testReadEnum_whenRequestParamsReturnConstantAscent_thenReturnConstantAscent() {
-    // Arrange
-    Request request = mock(Request.class);
-    when(request.params(Mockito.<String>any())).thenReturn("CONSTANT_ASCENT");
-    Class<BaselineResizeBehavior> enumClass = BaselineResizeBehavior.class;
-
-    // Act
-    BaselineResizeBehavior actualReadEnumResult =
-        WebUtilities.readEnum(request, "Param Name", enumClass, mock(Function.class));
-
-    // Assert
-    verify(request).params("Param Name");
-    assertEquals(BaselineResizeBehavior.CONSTANT_ASCENT, actualReadEnumResult);
-  }
-
-  /**
    * Test {@link WebUtilities#reportException(int, String, String, Response, Logger)} with {@code
    * statusCode}, {@code errorCode}, {@code message}, {@code res}, {@code log}.
    *
@@ -8352,7 +8972,7 @@ class WebUtilitiesDiffblueTest {
   @MethodsUnderTest({"void WebUtilities.reportException(int, Optional, String, Response, Logger)"})
   void testReportExceptionWithStatusCodeMaybeErrorCodeMessageResLog_thenCallsBody() {
     // Arrange
-    Optional<String> maybeErrorCode = Optional.of("42");
+    Optional<String> maybeErrorCode = Optional.of("foo");
 
     Response res = mock(Response.class);
     doNothing().when(res).body(Mockito.<String>any());
@@ -8363,7 +8983,7 @@ class WebUtilitiesDiffblueTest {
     WebUtilities.reportException(1, maybeErrorCode, "An error occurred", res, log);
 
     // Assert
-    verify(res).body("{\"message\":\"An error occurred\",\"id\":\"42\"}");
+    verify(res).body("{\"message\":\"An error occurred\",\"id\":\"foo\"}");
     verify(res).status(1);
   }
 
@@ -8664,7 +9284,40 @@ class WebUtilitiesDiffblueTest {
    *
    * <ul>
    *   <li>Given {@code 42}.
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code Value}.
+   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.
+   *   <li>Then return size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link WebUtilities#simplifyMapToList(Map)}
+   */
+  @Test
+  @DisplayName(
+      "Test simplifyMapToList(Map); given '42'; when HashMap() '42' is '42'; then return size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List WebUtilities.simplifyMapToList(Map)"})
+  void testSimplifyMapToList_given42_whenHashMap42Is42_thenReturnSizeIsOne() {
+    // Arrange
+    HashMap<Object, Object> m = new HashMap<>();
+    m.put("42", "42");
+
+    // Act
+    List<Entry<Object, Object>> actualSimplifyMapToListResult = WebUtilities.simplifyMapToList(m);
+
+    // Assert
+    assertEquals(1, actualSimplifyMapToListResult.size());
+    Entry<Object, Object> getResult = actualSimplifyMapToListResult.get(0);
+    assertTrue(getResult instanceof ImmutableEntry);
+    assertEquals("42", getResult.key());
+    assertEquals("42", getResult.value());
+  }
+
+  /**
+   * Test {@link WebUtilities#simplifyMapToList(Map)}.
+   *
+   * <ul>
+   *   <li>Given forty-two.
+   *   <li>When {@link HashMap#HashMap()} forty-two is {@code 42}.
    *   <li>Then return size is two.
    * </ul>
    *
@@ -8672,15 +9325,15 @@ class WebUtilitiesDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test simplifyMapToList(Map); given '42'; when HashMap() '42' is 'Value'; then return size is two")
+      "Test simplifyMapToList(Map); given forty-two; when HashMap() forty-two is '42'; then return size is two")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"List WebUtilities.simplifyMapToList(Map)"})
-  void testSimplifyMapToList_given42_whenHashMap42IsValue_thenReturnSizeIsTwo() {
+  void testSimplifyMapToList_givenFortyTwo_whenHashMapFortyTwoIs42_thenReturnSizeIsTwo() {
     // Arrange
     HashMap<Object, Object> m = new HashMap<>();
-    m.put("42", "Value");
-    m.put("Key", "Value");
+    m.put(42, "42");
+    m.put("42", "42");
 
     // Act
     List<Entry<Object, Object>> actualSimplifyMapToListResult = WebUtilities.simplifyMapToList(m);
@@ -8691,42 +9344,9 @@ class WebUtilitiesDiffblueTest {
     assertTrue(getResult instanceof ImmutableEntry);
     Entry<Object, Object> getResult2 = actualSimplifyMapToListResult.get(1);
     assertTrue(getResult2 instanceof ImmutableEntry);
-    assertEquals("42", getResult.key());
-    assertEquals("Key", getResult2.key());
-    assertEquals("Value", getResult2.value());
-  }
-
-  /**
-   * Test {@link WebUtilities#simplifyMapToList(Map)}.
-   *
-   * <ul>
-   *   <li>Given {@code Key}.
-   *   <li>When {@link HashMap#HashMap()} {@code Key} is {@code Value}.
-   *   <li>Then return size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebUtilities#simplifyMapToList(Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test simplifyMapToList(Map); given 'Key'; when HashMap() 'Key' is 'Value'; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List WebUtilities.simplifyMapToList(Map)"})
-  void testSimplifyMapToList_givenKey_whenHashMapKeyIsValue_thenReturnSizeIsOne() {
-    // Arrange
-    HashMap<Object, Object> m = new HashMap<>();
-    m.put("Key", "Value");
-
-    // Act
-    List<Entry<Object, Object>> actualSimplifyMapToListResult = WebUtilities.simplifyMapToList(m);
-
-    // Assert
-    assertEquals(1, actualSimplifyMapToListResult.size());
-    Entry<Object, Object> getResult = actualSimplifyMapToListResult.get(0);
-    assertTrue(getResult instanceof ImmutableEntry);
-    assertEquals("Key", getResult.key());
-    assertEquals("Value", getResult.value());
+    assertEquals("42", getResult2.key());
+    assertEquals("42", getResult2.value());
+    assertEquals(42, ((Integer) getResult.key()).intValue());
   }
 
   /**

@@ -23,20 +23,22 @@ class HierarchyUtilitiesDiffblueTest {
    * Test {@link HierarchyUtilities#toForest(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Given {@link Optional} with {@code 42}.
+   *   <li>Then return AllNodes size is one.
    * </ul>
    *
    * <p>Method under test: {@link HierarchyUtilities#toForest(Collection)}
    */
   @Test
-  @DisplayName("Test toForest(Collection); given Optional with 'Value'")
+  @DisplayName(
+      "Test toForest(Collection); given Optional with '42'; then return AllNodes size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Forest HierarchyUtilities.toForest(Collection)"})
-  void testToForest_givenOptionalWithValue() {
+  void testToForest_givenOptionalWith42_thenReturnAllNodesSizeIsOne() {
     // Arrange
     ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
-    Optional<Object> parentId = Optional.of("Value");
+    Optional<Object> parentId = Optional.of("42");
     FlatNode<Object, Object> flatNode = new FlatNode<>("Id", parentId, "Data");
     flatNodes.add(flatNode);
 
@@ -58,23 +60,25 @@ class HierarchyUtilitiesDiffblueTest {
    * Test {@link HierarchyUtilities#toForest(Collection)}.
    *
    * <ul>
-   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Given {@link Optional} with {@code 42}.
+   *   <li>Then return AllNodes size is one.
    * </ul>
    *
    * <p>Method under test: {@link HierarchyUtilities#toForest(Collection)}
    */
   @Test
-  @DisplayName("Test toForest(Collection); given Optional with 'Value'")
+  @DisplayName(
+      "Test toForest(Collection); given Optional with '42'; then return AllNodes size is one")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Forest HierarchyUtilities.toForest(Collection)"})
-  void testToForest_givenOptionalWithValue2() {
+  void testToForest_givenOptionalWith42_thenReturnAllNodesSizeIsOne2() {
     // Arrange
     ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
-    Optional<Object> parentId = Optional.of("Value");
+    Optional<Object> parentId = Optional.of("42");
     FlatNode<Object, Object> flatNode = new FlatNode<>("Id", parentId, "Data");
     flatNodes.add(flatNode);
-    Optional<Object> parentId2 = Optional.of("Value");
+    Optional<Object> parentId2 = Optional.of("42");
     FlatNode<Object, Object> flatNode2 = new FlatNode<>("Id", parentId2, "Data");
     flatNodes.add(flatNode2);
 
@@ -90,6 +94,47 @@ class HierarchyUtilitiesDiffblueTest {
     assertNull(getResult.getParent());
     assertTrue(actualToForestResult.getRootNodes().isEmpty());
     assertTrue(getResult.getChildren().isEmpty());
+  }
+
+  /**
+   * Test {@link HierarchyUtilities#toForest(Collection)}.
+   *
+   * <ul>
+   *   <li>Then return AllNodes size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link HierarchyUtilities#toForest(Collection)}
+   */
+  @Test
+  @DisplayName("Test toForest(Collection); then return AllNodes size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Forest HierarchyUtilities.toForest(Collection)"})
+  void testToForest_thenReturnAllNodesSizeIsTwo() {
+    // Arrange
+    ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
+    Optional<Object> parentId = Optional.of("42");
+    FlatNode<Object, Object> flatNode = new FlatNode<>("42", parentId, "Data");
+    flatNodes.add(flatNode);
+    Optional<Object> parentId2 = Optional.of("42");
+    FlatNode<Object, Object> flatNode2 = new FlatNode<>("Id", parentId2, "Data");
+    flatNodes.add(flatNode2);
+    Optional<Object> parentId3 = Optional.of("42");
+    FlatNode<Object, Object> flatNode3 = new FlatNode<>("Id", parentId3, "Data");
+    flatNodes.add(flatNode3);
+
+    // Act
+    Forest<Object, Object> actualToForestResult = HierarchyUtilities.toForest(flatNodes);
+
+    // Assert
+    Map<Object, Node<Object, Object>> allNodes = actualToForestResult.getAllNodes();
+    assertEquals(2, allNodes.size());
+    Node<Object, Object> getResult = allNodes.get("42");
+    assertEquals("42", getResult.getId());
+    assertEquals("Data", getResult.getData());
+    assertNull(getResult.getParent());
+    assertEquals(1, getResult.getChildren().size());
+    assertSame(getResult, allNodes.get("Id").getParent());
   }
 
   /**
@@ -155,6 +200,37 @@ class HierarchyUtilitiesDiffblueTest {
    * Test {@link HierarchyUtilities#hasCycle(Forest)} with {@code forest}.
    *
    * <ul>
+   *   <li>Given {@link FlatNode#FlatNode(Object, Optional, Object)} with id is {@code 42} and
+   *       parentId is {@link Optional} and {@code Data}.
+   * </ul>
+   *
+   * <p>Method under test: {@link HierarchyUtilities#hasCycle(Forest)}
+   */
+  @Test
+  @DisplayName(
+      "Test hasCycle(Forest) with 'forest'; given FlatNode(Object, Optional, Object) with id is '42' and parentId is Optional and 'Data'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean HierarchyUtilities.hasCycle(Forest)"})
+  void testHasCycleWithForest_givenFlatNodeWithIdIs42AndParentIdIsOptionalAndData() {
+    // Arrange
+    ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
+    Optional<Object> parentId = Optional.of("42");
+    FlatNode<Object, Object> flatNode = new FlatNode<>("42", parentId, "Data");
+    flatNodes.add(flatNode);
+    Optional<Object> parentId2 = Optional.of("42");
+    FlatNode<Object, Object> flatNode2 = new FlatNode<>("Id", parentId2, "Data");
+    flatNodes.add(flatNode2);
+    Forest<Object, Object> forest = HierarchyUtilities.toForest(flatNodes);
+
+    // Act and Assert
+    assertFalse(HierarchyUtilities.hasCycle(forest));
+  }
+
+  /**
+   * Test {@link HierarchyUtilities#hasCycle(Forest)} with {@code forest}.
+   *
+   * <ul>
    *   <li>Given {@link FlatNode#FlatNode(Object, Optional, Object)} with id is one and parentId is
    *       {@link Optional} and {@code Data}.
    * </ul>
@@ -170,10 +246,10 @@ class HierarchyUtilitiesDiffblueTest {
   void testHasCycleWithForest_givenFlatNodeWithIdIsOneAndParentIdIsOptionalAndData() {
     // Arrange
     ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
-    Optional<Object> parentId = Optional.of("Value");
+    Optional<Object> parentId = Optional.of("42");
     FlatNode<Object, Object> flatNode = new FlatNode<>(1, parentId, "Data");
     flatNodes.add(flatNode);
-    Optional<Object> parentId2 = Optional.of("Value");
+    Optional<Object> parentId2 = Optional.of("42");
     FlatNode<Object, Object> flatNode2 = new FlatNode<>("Id", parentId2, "Data");
     flatNodes.add(flatNode2);
     Forest<Object, Object> forest = HierarchyUtilities.toForest(flatNodes);
@@ -186,20 +262,20 @@ class HierarchyUtilitiesDiffblueTest {
    * Test {@link HierarchyUtilities#hasCycle(Forest)} with {@code forest}.
    *
    * <ul>
-   *   <li>Given {@link Optional} with {@code Value}.
+   *   <li>Given {@link Optional} with {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link HierarchyUtilities#hasCycle(Forest)}
    */
   @Test
-  @DisplayName("Test hasCycle(Forest) with 'forest'; given Optional with 'Value'")
+  @DisplayName("Test hasCycle(Forest) with 'forest'; given Optional with '42'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"boolean HierarchyUtilities.hasCycle(Forest)"})
-  void testHasCycleWithForest_givenOptionalWithValue() {
+  void testHasCycleWithForest_givenOptionalWith42() {
     // Arrange
     ArrayList<FlatNode<Object, Object>> flatNodes = new ArrayList<>();
-    Optional<Object> parentId = Optional.of("Value");
+    Optional<Object> parentId = Optional.of("42");
     FlatNode<Object, Object> flatNode = new FlatNode<>("Id", parentId, "Data");
     flatNodes.add(flatNode);
     Forest<Object, Object> forest = HierarchyUtilities.toForest(flatNodes);

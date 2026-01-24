@@ -158,10 +158,10 @@ class EntityStatisticDefinitionDaoDiffblueTest {
     when(entityStatistic.category()).thenReturn(StatisticCategory.COMPLIANCE);
     when(entityStatistic.description()).thenReturn("The characteristics of someone or something");
     when(entityStatistic.name()).thenReturn("Name");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(entityStatistic.parentId()).thenReturn(ofResult);
     when(entityStatistic.type()).thenReturn(StatisticType.BOOLEAN);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(entityStatistic.id()).thenReturn(ofResult2);
 
     // Act
@@ -173,7 +173,7 @@ class EntityStatisticDefinitionDaoDiffblueTest {
             "insert into \"entity_statistic_definition\" (\"name\", \"description\", \"type\", \"category\", \"active\", \"renderer\", \"historic_renderer\", \"provenance\", \"parent_id\", \"id\", \"entity_visibility\", \"rollup_visibility\", \"rollup_kind\") values (cast(? as varchar), cast(? as varchar), cast(? as varchar), cast(? as varchar), cast(? as bit(1)), cast(? as varchar), cast(? as varchar), cast(? as varchar), cast(? as bigint), cast(? as bigint), cast(? as bit(1)), cast(? as bit(1)), cast(? as varchar))");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(42L));
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -236,10 +236,10 @@ class EntityStatisticDefinitionDaoDiffblueTest {
     when(entityStatistic.category()).thenReturn(StatisticCategory.COMPLIANCE);
     when(entityStatistic.description()).thenReturn("The characteristics of someone or something");
     when(entityStatistic.name()).thenReturn("Name");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(entityStatistic.parentId()).thenReturn(ofResult);
     when(entityStatistic.type()).thenReturn(StatisticType.BOOLEAN);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(entityStatistic.id()).thenReturn(ofResult2);
 
     // Act
@@ -251,7 +251,7 @@ class EntityStatisticDefinitionDaoDiffblueTest {
             "insert into \"entity_statistic_definition\" (\"name\", \"description\", \"type\", \"category\", \"active\", \"renderer\", \"historic_renderer\", \"provenance\", \"parent_id\", \"id\", \"entity_visibility\", \"rollup_visibility\", \"rollup_kind\") values (cast(? as varchar(4)), cast(? as varchar(43)), cast(? as varchar(7)), cast(? as varchar(10)), cast(? as boolean), cast(? as varchar(8)), cast(? as varchar(17)), cast(? as varchar(10)), cast(? as bigint), cast(? as bigint), cast(? as boolean), cast(? as boolean), cast(? as varchar(15)))");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(42L));
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -314,10 +314,10 @@ class EntityStatisticDefinitionDaoDiffblueTest {
     when(entityStatistic.category()).thenReturn(StatisticCategory.COMPLIANCE);
     when(entityStatistic.description()).thenReturn("The characteristics of someone or something");
     when(entityStatistic.name()).thenReturn("Name");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(entityStatistic.parentId()).thenReturn(ofResult);
     when(entityStatistic.type()).thenReturn(StatisticType.BOOLEAN);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(entityStatistic.id()).thenReturn(ofResult2);
 
     // Act
@@ -329,7 +329,7 @@ class EntityStatisticDefinitionDaoDiffblueTest {
             "insert into \"entity_statistic_definition\" (\"name\", \"description\", \"type\", \"category\", \"active\", \"renderer\", \"historic_renderer\", \"provenance\", \"parent_id\", \"id\", \"entity_visibility\", \"rollup_visibility\", \"rollup_kind\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     verify(preparedStatement).execute();
     verify(preparedStatement, atLeast(1)).setBoolean(anyInt(), eq(true));
-    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(42L));
+    verify(preparedStatement, atLeast(1)).setLong(anyInt(), eq(1L));
     verify(preparedStatement, atLeast(1)).setString(anyInt(), Mockito.<String>any());
     verify(preparedStatement).close();
     verify(preparedStatement).getWarnings();
@@ -385,10 +385,10 @@ class EntityStatisticDefinitionDaoDiffblueTest {
     when(entityStatistic.category()).thenReturn(StatisticCategory.COMPLIANCE);
     when(entityStatistic.description()).thenReturn("The characteristics of someone or something");
     when(entityStatistic.name()).thenReturn("Name");
-    Optional<Long> ofResult = Optional.of(42L);
+    Optional<Long> ofResult = Optional.of(1L);
     when(entityStatistic.parentId()).thenReturn(ofResult);
     when(entityStatistic.type()).thenReturn(StatisticType.BOOLEAN);
-    Optional<Long> ofResult2 = Optional.of(42L);
+    Optional<Long> ofResult2 = Optional.of(1L);
     when(entityStatistic.id()).thenReturn(ofResult2);
 
     // Act

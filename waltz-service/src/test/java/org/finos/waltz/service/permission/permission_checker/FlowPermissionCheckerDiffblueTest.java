@@ -567,6 +567,9 @@ class FlowPermissionCheckerDiffblueTest {
   void testFindPermissionsForDecorator4() {
     // Arrange
     LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    when(logicalFlowDao.calculateAmendedFlowOperations(
+            Mockito.<Set<Operation>>any(), Mockito.<String>any()))
+        .thenReturn(new HashSet<>());
 
     Builder builderResult = ImmutableLogicalFlow.builder();
     ImmutableUserTimestamp immutableUserTimestamp =
@@ -616,11 +619,33 @@ class FlowPermissionCheckerDiffblueTest {
     InvolvementService involvementService = mock(InvolvementService.class);
     when(involvementService.findExistingInvolvementKindIdsForUser(
             Mockito.<EntityReference>any(), Mockito.<String>any()))
-        .thenThrow(new UnsupportedOperationException());
-    PhysicalSpecificationDao physicalSpecificationDao = mock(PhysicalSpecificationDao.class);
-    PersonService personService =
-        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+        .thenReturn(new HashSet<>());
+
+    PersonDao personDao = mock(PersonDao.class);
+    when(personDao.getByUserEmail(Mockito.<String>any()))
+        .thenReturn(
+            ImmutablePerson.builder()
+                .departmentName("Department Name")
+                .displayName("Display Name")
+                .email("jane.doe@example.org")
+                .employeeId("42")
+                .id(1L)
+                .isRemoved(true)
+                .kind(EntityKind.ALL)
+                .managerEmployeeId("42")
+                .mobilePhone("6625550144")
+                .officePhone("6625550144")
+                .organisationalUnitId(1L)
+                .personKind(PersonKind.EMPLOYEE)
+                .title("Dr")
+                .userId("42")
+                .userPrincipalName("User Principal Name")
+                .build());
+    PersonService personService = new PersonService(personDao, mock(PersonSearchDao.class));
+
     PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
+    when(permissionGroupDao.findPermissionsForParentEntityReference(Mockito.<EntityReference>any()))
+        .thenReturn(new HashSet<>());
     ChangeLogService changeLogService =
         new ChangeLogService(
             mock(ChangeLogDao.class),
@@ -654,9 +679,10 @@ class FlowPermissionCheckerDiffblueTest {
 
     PermissionGroupService permissionGroupService =
         new PermissionGroupService(personService, permissionGroupDao, involvementService2);
+    PhysicalSpecificationDao physicalSpecificationDao = mock(PhysicalSpecificationDao.class);
     UserRoleDao userRoleDao = mock(UserRoleDao.class);
     RoleDao roleDao = mock(RoleDao.class);
-    PersonDao personDao = mock(PersonDao.class);
+    PersonDao personDao2 = mock(PersonDao.class);
     ChangeLogService changeLogService2 =
         new ChangeLogService(
             mock(ChangeLogDao.class),
@@ -676,7 +702,7 @@ class FlowPermissionCheckerDiffblueTest {
 
     UserRoleService userRoleService =
         new UserRoleService(
-            userRoleDao, roleDao, personDao, changeLogService2, personService2, settingsService);
+            userRoleDao, roleDao, personDao2, changeLogService2, personService2, settingsService);
 
     FlowPermissionChecker flowPermissionChecker =
         new FlowPermissionChecker(
@@ -690,15 +716,22 @@ class FlowPermissionCheckerDiffblueTest {
     when(entityReference.id()).thenReturn(1L);
     when(entityReference.kind()).thenReturn(EntityKind.LOGICAL_DATA_FLOW);
 
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> flowPermissionChecker.findPermissionsForDecorator(entityReference, "janedoe"));
+    // Act
+    Set<Operation> actualFindPermissionsForDecoratorResult =
+        flowPermissionChecker.findPermissionsForDecorator(entityReference, "janedoe");
+
+    // Assert
+    verify(logicalFlowDao, atLeast(1))
+        .calculateAmendedFlowOperations(isA(Set.class), eq("janedoe"));
     verify(logicalFlowDao).getByFlowId(1L);
+    verify(permissionGroupDao, atLeast(1))
+        .findPermissionsForParentEntityReference(isA(EntityReference.class));
+    verify(personDao, atLeast(1)).getByUserEmail("janedoe");
     verify(entityReference).id();
     verify(entityReference).kind();
-    verify(involvementService)
+    verify(involvementService, atLeast(1))
         .findExistingInvolvementKindIdsForUser(isA(EntityReference.class), eq("janedoe"));
+    assertTrue(actualFindPermissionsForDecoratorResult.isEmpty());
   }
 
   /**
@@ -1161,6 +1194,114 @@ class FlowPermissionCheckerDiffblueTest {
   })
   void testFindPermissionsForDecorator9() {
     // Arrange
+    when(logicalFlowDao.getByFlowId(anyLong())).thenThrow(new UnsupportedOperationException());
+
+    EntityReference entityReference = mock(EntityReference.class);
+    when(entityReference.id()).thenReturn(1L);
+    when(entityReference.kind()).thenReturn(EntityKind.LOGICAL_DATA_FLOW);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> flowPermissionChecker.findPermissionsForDecorator(entityReference, "janedoe"));
+    verify(logicalFlowDao).getByFlowId(1L);
+    verify(entityReference).id();
+    verify(entityReference).kind();
+  }
+
+  /**
+   * Test {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference, String)}.
+   *
+   * <p>Method under test: {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference,
+   * String)}
+   */
+  @Test
+  @DisplayName("Test findPermissionsForDecorator(EntityReference, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Set FlowPermissionChecker.findPermissionsForDecorator(EntityReference, String)"
+  })
+  void testFindPermissionsForDecorator10() {
+    // Arrange
+    Builder builderResult = ImmutableLogicalFlow.builder();
+    ImmutableUserTimestamp immutableUserTimestamp =
+        ImmutableUserTimestamp.builder()
+            .at(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .by("By")
+            .build();
+    Optional<? extends UserTimestamp> created = Optional.of(immutableUserTimestamp);
+
+    Builder provenanceResult =
+        builderResult
+            .created(created)
+            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+            .externalId("42")
+            .id(1L)
+            .kind(EntityKind.ALL)
+            .lastAttestedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastAttestedBy("Last Attested By")
+            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .lastUpdatedBy("2020-03-01")
+            .provenance("Provenance");
+
+    Builder sourceResult =
+        provenanceResult.source(
+            ImmutableEntityReference.builder()
+                .description("The characteristics of someone or something")
+                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                .externalId("42")
+                .id(1L)
+                .kind(EntityKind.ALL)
+                .name("Name")
+                .build());
+    when(logicalFlowDao.getByFlowId(anyLong()))
+        .thenReturn(
+            sourceResult
+                .target(
+                    ImmutableEntityReference.builder()
+                        .description("The characteristics of someone or something")
+                        .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                        .externalId("42")
+                        .id(1L)
+                        .kind(EntityKind.ALL)
+                        .name("Name")
+                        .build())
+                .build());
+    when(involvementService.findExistingInvolvementKindIdsForUser(
+            Mockito.<EntityReference>any(), Mockito.<String>any()))
+        .thenThrow(new UnsupportedOperationException());
+
+    EntityReference entityReference = mock(EntityReference.class);
+    when(entityReference.id()).thenReturn(1L);
+    when(entityReference.kind()).thenReturn(EntityKind.LOGICAL_DATA_FLOW);
+
+    // Act and Assert
+    assertThrows(
+        UnsupportedOperationException.class,
+        () -> flowPermissionChecker.findPermissionsForDecorator(entityReference, "janedoe"));
+    verify(logicalFlowDao).getByFlowId(1L);
+    verify(entityReference).id();
+    verify(entityReference).kind();
+    verify(involvementService)
+        .findExistingInvolvementKindIdsForUser(isA(EntityReference.class), eq("janedoe"));
+  }
+
+  /**
+   * Test {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference, String)}.
+   *
+   * <p>Method under test: {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference,
+   * String)}
+   */
+  @Test
+  @DisplayName("Test findPermissionsForDecorator(EntityReference, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Set FlowPermissionChecker.findPermissionsForDecorator(EntityReference, String)"
+  })
+  void testFindPermissionsForDecorator11() {
+    // Arrange
     when(logicalFlowDao.calculateAmendedFlowOperations(
             Mockito.<Set<Operation>>any(), Mockito.<String>any()))
         .thenThrow(new UnsupportedOperationException());
@@ -1255,6 +1396,135 @@ class FlowPermissionCheckerDiffblueTest {
   })
   void testFindPermissionsForDecorator_givenAll_whenEntityReferenceKindReturnAll() {
     // Arrange
+    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
+    PhysicalSpecificationDao physicalSpecificationDao = mock(PhysicalSpecificationDao.class);
+    ChangeLogService changeLogService =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    InvolvementDao dao = mock(InvolvementDao.class);
+    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+    PersonDao personDao = mock(PersonDao.class);
+    UserRoleDao userRoleDao = mock(UserRoleDao.class);
+    RoleDao roleDao = mock(RoleDao.class);
+    PersonDao personDao2 = mock(PersonDao.class);
+    ChangeLogService changeLogService2 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    PersonService personService =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    SettingsDao settingsDao = mock(SettingsDao.class);
+    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
+
+    UserRoleService userRoleService =
+        new UserRoleService(
+            userRoleDao, roleDao, personDao2, changeLogService2, personService, settingsService);
+
+    InvolvementService involvementService =
+        new InvolvementService(
+            changeLogService,
+            dao,
+            logicalFlowDao2,
+            physicalFlowDao,
+            entityReferenceNameResolver,
+            involvementKindService,
+            personDao,
+            userRoleService);
+    PersonService personService2 =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
+    ChangeLogService changeLogService3 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    InvolvementDao dao2 = mock(InvolvementDao.class);
+    LogicalFlowDao logicalFlowDao3 = mock(LogicalFlowDao.class);
+    PhysicalFlowDao physicalFlowDao2 = mock(PhysicalFlowDao.class);
+    EntityReferenceNameResolver entityReferenceNameResolver2 =
+        mock(EntityReferenceNameResolver.class);
+    InvolvementKindService involvementKindService2 =
+        new InvolvementKindService(mock(InvolvementKindDao.class));
+
+    InvolvementService involvementService2 =
+        new InvolvementService(
+            changeLogService3,
+            dao2,
+            logicalFlowDao3,
+            physicalFlowDao2,
+            entityReferenceNameResolver2,
+            involvementKindService2,
+            mock(PersonDao.class),
+            mock(UserRoleService.class));
+
+    PermissionGroupService permissionGroupService =
+        new PermissionGroupService(personService2, permissionGroupDao, involvementService2);
+    UserRoleDao userRoleDao2 = mock(UserRoleDao.class);
+    RoleDao roleDao2 = mock(RoleDao.class);
+    PersonDao personDao3 = mock(PersonDao.class);
+    ChangeLogService changeLogService4 =
+        new ChangeLogService(
+            mock(ChangeLogDao.class),
+            mock(ChangeLogSummariesDao.class),
+            mock(PhysicalFlowDao.class),
+            mock(PhysicalSpecificationDao.class),
+            mock(LogicalFlowDao.class),
+            mock(ApplicationDao.class),
+            mock(MeasurableRatingReplacementDao.class),
+            mock(MeasurableRatingDao.class),
+            mock(MeasurableRatingPlannedDecommissionDao.class),
+            mock(EntityReferenceNameResolver.class));
+    PersonService personService3 =
+        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
+    SettingsDao settingsDao2 = mock(SettingsDao.class);
+    SettingsService settingsService2 = new SettingsService(settingsDao2, new ArrayList<>());
+
+    UserRoleService userRoleService2 =
+        new UserRoleService(
+            userRoleDao2,
+            roleDao2,
+            personDao3,
+            changeLogService4,
+            personService3,
+            settingsService2);
+
+    FlowPermissionChecker flowPermissionChecker =
+        new FlowPermissionChecker(
+            logicalFlowDao,
+            physicalSpecificationDao,
+            involvementService,
+            permissionGroupService,
+            userRoleService2);
+
     EntityReference entityReference = mock(EntityReference.class);
     when(entityReference.kind()).thenReturn(EntityKind.ALL);
 
@@ -1914,194 +2184,6 @@ class FlowPermissionCheckerDiffblueTest {
         .findExistingInvolvementKindIdsForUser(isA(EntityReference.class), eq("janedoe"));
     verify(permissionGroupService, atLeast(1))
         .findPermissionsForParentReference(isA(EntityReference.class), eq("janedoe"));
-    assertTrue(actualFindPermissionsForDecoratorResult.isEmpty());
-  }
-
-  /**
-   * Test {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference, String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link PersonDao#getByUserEmail(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link FlowPermissionChecker#findPermissionsForDecorator(EntityReference,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test findPermissionsForDecorator(EntityReference, String); then calls getByUserEmail(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Set FlowPermissionChecker.findPermissionsForDecorator(EntityReference, String)"
-  })
-  void testFindPermissionsForDecorator_thenCallsGetByUserEmail() {
-    // Arrange
-    LogicalFlowDao logicalFlowDao = mock(LogicalFlowDao.class);
-    when(logicalFlowDao.calculateAmendedFlowOperations(
-            Mockito.<Set<Operation>>any(), Mockito.<String>any()))
-        .thenReturn(new HashSet<>());
-
-    Builder builderResult = ImmutableLogicalFlow.builder();
-    ImmutableUserTimestamp immutableUserTimestamp =
-        ImmutableUserTimestamp.builder()
-            .at(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .by("By")
-            .build();
-    Optional<? extends UserTimestamp> created = Optional.of(immutableUserTimestamp);
-
-    Builder provenanceResult =
-        builderResult
-            .created(created)
-            .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL)
-            .lastAttestedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastAttestedBy("Last Attested By")
-            .lastUpdatedAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .lastUpdatedBy("2020-03-01")
-            .provenance("Provenance");
-
-    Builder sourceResult =
-        provenanceResult.source(
-            ImmutableEntityReference.builder()
-                .description("The characteristics of someone or something")
-                .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                .externalId("42")
-                .id(1L)
-                .kind(EntityKind.ALL)
-                .name("Name")
-                .build());
-    when(logicalFlowDao.getByFlowId(anyLong()))
-        .thenReturn(
-            sourceResult
-                .target(
-                    ImmutableEntityReference.builder()
-                        .description("The characteristics of someone or something")
-                        .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                        .externalId("42")
-                        .id(1L)
-                        .kind(EntityKind.ALL)
-                        .name("Name")
-                        .build())
-                .build());
-
-    InvolvementService involvementService = mock(InvolvementService.class);
-    when(involvementService.findExistingInvolvementKindIdsForUser(
-            Mockito.<EntityReference>any(), Mockito.<String>any()))
-        .thenReturn(new HashSet<>());
-
-    PersonDao personDao = mock(PersonDao.class);
-    when(personDao.getByUserEmail(Mockito.<String>any()))
-        .thenReturn(
-            ImmutablePerson.builder()
-                .departmentName("Department Name")
-                .displayName("Display Name")
-                .email("jane.doe@example.org")
-                .employeeId("42")
-                .id(1L)
-                .isRemoved(true)
-                .kind(EntityKind.ALL)
-                .managerEmployeeId("42")
-                .mobilePhone("6625550144")
-                .officePhone("6625550144")
-                .organisationalUnitId(1L)
-                .personKind(PersonKind.EMPLOYEE)
-                .title("Dr")
-                .userId("42")
-                .userPrincipalName("User Principal Name")
-                .build());
-    PersonService personService = new PersonService(personDao, mock(PersonSearchDao.class));
-
-    PermissionGroupDao permissionGroupDao = mock(PermissionGroupDao.class);
-    when(permissionGroupDao.findPermissionsForParentEntityReference(Mockito.<EntityReference>any()))
-        .thenReturn(new HashSet<>());
-    ChangeLogService changeLogService =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    InvolvementDao dao = mock(InvolvementDao.class);
-    LogicalFlowDao logicalFlowDao2 = mock(LogicalFlowDao.class);
-    PhysicalFlowDao physicalFlowDao = mock(PhysicalFlowDao.class);
-    EntityReferenceNameResolver entityReferenceNameResolver =
-        mock(EntityReferenceNameResolver.class);
-    InvolvementKindService involvementKindService =
-        new InvolvementKindService(mock(InvolvementKindDao.class));
-
-    InvolvementService involvementService2 =
-        new InvolvementService(
-            changeLogService,
-            dao,
-            logicalFlowDao2,
-            physicalFlowDao,
-            entityReferenceNameResolver,
-            involvementKindService,
-            mock(PersonDao.class),
-            mock(UserRoleService.class));
-
-    PermissionGroupService permissionGroupService =
-        new PermissionGroupService(personService, permissionGroupDao, involvementService2);
-    PhysicalSpecificationDao physicalSpecificationDao = mock(PhysicalSpecificationDao.class);
-    UserRoleDao userRoleDao = mock(UserRoleDao.class);
-    RoleDao roleDao = mock(RoleDao.class);
-    PersonDao personDao2 = mock(PersonDao.class);
-    ChangeLogService changeLogService2 =
-        new ChangeLogService(
-            mock(ChangeLogDao.class),
-            mock(ChangeLogSummariesDao.class),
-            mock(PhysicalFlowDao.class),
-            mock(PhysicalSpecificationDao.class),
-            mock(LogicalFlowDao.class),
-            mock(ApplicationDao.class),
-            mock(MeasurableRatingReplacementDao.class),
-            mock(MeasurableRatingDao.class),
-            mock(MeasurableRatingPlannedDecommissionDao.class),
-            mock(EntityReferenceNameResolver.class));
-    PersonService personService2 =
-        new PersonService(mock(PersonDao.class), mock(PersonSearchDao.class));
-    SettingsDao settingsDao = mock(SettingsDao.class);
-    SettingsService settingsService = new SettingsService(settingsDao, new ArrayList<>());
-
-    UserRoleService userRoleService =
-        new UserRoleService(
-            userRoleDao, roleDao, personDao2, changeLogService2, personService2, settingsService);
-
-    FlowPermissionChecker flowPermissionChecker =
-        new FlowPermissionChecker(
-            logicalFlowDao,
-            physicalSpecificationDao,
-            involvementService,
-            permissionGroupService,
-            userRoleService);
-
-    EntityReference entityReference = mock(EntityReference.class);
-    when(entityReference.id()).thenReturn(1L);
-    when(entityReference.kind()).thenReturn(EntityKind.LOGICAL_DATA_FLOW);
-
-    // Act
-    Set<Operation> actualFindPermissionsForDecoratorResult =
-        flowPermissionChecker.findPermissionsForDecorator(entityReference, "janedoe");
-
-    // Assert
-    verify(logicalFlowDao, atLeast(1))
-        .calculateAmendedFlowOperations(isA(Set.class), eq("janedoe"));
-    verify(logicalFlowDao).getByFlowId(1L);
-    verify(permissionGroupDao, atLeast(1))
-        .findPermissionsForParentEntityReference(isA(EntityReference.class));
-    verify(personDao, atLeast(1)).getByUserEmail("janedoe");
-    verify(entityReference).id();
-    verify(entityReference).kind();
-    verify(involvementService, atLeast(1))
-        .findExistingInvolvementKindIdsForUser(isA(EntityReference.class), eq("janedoe"));
     assertTrue(actualFindPermissionsForDecoratorResult.isEmpty());
   }
 

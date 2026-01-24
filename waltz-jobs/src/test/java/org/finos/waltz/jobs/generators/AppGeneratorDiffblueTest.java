@@ -68,14 +68,19 @@ class AppGeneratorDiffblueTest {
   /**
    * Test {@link AppGenerator#create(ApplicationContext)}.
    *
+   * <ul>
+   *   <li>Then calls {@link TagDao#removeTagUsage(EntityReference, String)}.
+   * </ul>
+   *
    * <p>Method under test: {@link AppGenerator#create(ApplicationContext)}
    */
   @Test
-  @DisplayName("Test create(ApplicationContext)")
+  @DisplayName(
+      "Test create(ApplicationContext); then calls removeTagUsage(EntityReference, String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map AppGenerator.create(ApplicationContext)"})
-  void testCreate() throws BeansException {
+  void testCreate_thenCallsRemoveTagUsage() throws BeansException {
     // Arrange
     AppGenerator appGenerator = new AppGenerator();
 
@@ -101,31 +106,8 @@ class AppGeneratorDiffblueTest {
                         .build())
                 .build());
 
-    ImmutableTag.Builder builderResult = ImmutableTag.builder();
-
-    ImmutableTagUsage.Builder createdByResult =
-        ImmutableTagUsage.builder()
-            .createdAt(LocalDate.of(1970, 1, 1).atStartOfDay())
-            .createdBy("Jan 1, 2020 8:00am GMT+0100");
-    builderResult.addTagUsages(
-        createdByResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.ALL)
-                    .name("Name")
-                    .build())
-            .provenance("Provenance")
-            .tagId(1L)
-            .build());
-    ImmutableTag immutableTag =
-        builderResult.id(1L).name("Name").targetKind(EntityKind.ALL).build();
-
     ArrayList<org.finos.waltz.model.tag.Tag> tagList = new ArrayList<>();
-    tagList.add(immutableTag);
+    tagList.add(ImmutableTag.builder().id(1L).name("Name").targetKind(EntityKind.ALL).build());
 
     TagDao tagDao = mock(TagDao.class);
     doNothing().when(tagDao).removeTagUsage(Mockito.<EntityReference>any(), Mockito.<String>any());
@@ -204,7 +186,7 @@ class AppGeneratorDiffblueTest {
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"Map AppGenerator.create(ApplicationContext)"})
-  void testCreate_thenCallsRemoveTagUsage() throws BeansException {
+  void testCreate_thenCallsRemoveTagUsage2() throws BeansException {
     // Arrange
     AppGenerator appGenerator = new AppGenerator();
 
@@ -230,8 +212,31 @@ class AppGeneratorDiffblueTest {
                         .build())
                 .build());
 
+    ImmutableTag.Builder builderResult = ImmutableTag.builder();
+
+    ImmutableTagUsage.Builder createdByResult =
+        ImmutableTagUsage.builder()
+            .createdAt(LocalDate.of(1970, 1, 1).atStartOfDay())
+            .createdBy("Jan 1, 2020 8:00am GMT+0100");
+    builderResult.addTagUsages(
+        createdByResult
+            .entityReference(
+                ImmutableEntityReference.builder()
+                    .description("The characteristics of someone or something")
+                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
+                    .externalId("42")
+                    .id(1L)
+                    .kind(EntityKind.ALL)
+                    .name("Name")
+                    .build())
+            .provenance("Provenance")
+            .tagId(1L)
+            .build());
+    ImmutableTag immutableTag =
+        builderResult.id(1L).name("Name").targetKind(EntityKind.ALL).build();
+
     ArrayList<org.finos.waltz.model.tag.Tag> tagList = new ArrayList<>();
-    tagList.add(ImmutableTag.builder().id(1L).name("Name").targetKind(EntityKind.ALL).build());
+    tagList.add(immutableTag);
 
     TagDao tagDao = mock(TagDao.class);
     doNothing().when(tagDao).removeTagUsage(Mockito.<EntityReference>any(), Mockito.<String>any());

@@ -508,8 +508,12 @@ class CustomEnvironmentServiceDiffblueTest {
   @MethodsUnderTest({"Long CustomEnvironmentService.create(CustomEnvironment, String)"})
   void testCreate_thenThrowInsufficientPrivelegeException() throws InsufficientPrivelegeException {
     // Arrange
+    PermissionGroupService permissionGroupService = mock(PermissionGroupService.class);
     when(permissionGroupService.hasPermission(Mockito.<CheckPermissionCommand>any()))
         .thenReturn(false);
+    CustomEnvironmentService customEnvironmentService =
+        new CustomEnvironmentService(
+            mock(CustomEnvironmentDao.class), mock(ChangeLogService.class), permissionGroupService);
 
     Builder nameResult =
         ImmutableCustomEnvironment.builder()

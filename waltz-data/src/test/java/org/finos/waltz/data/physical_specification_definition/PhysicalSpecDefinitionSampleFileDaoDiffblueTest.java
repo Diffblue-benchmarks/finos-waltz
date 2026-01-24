@@ -63,7 +63,7 @@ class PhysicalSpecDefinitionSampleFileDaoDiffblueTest {
   void testFindForSpecDefinition() throws DataAccessException {
     // Arrange
     SelectConditionStep<Record> selectConditionStep = mock(SelectConditionStep.class);
-    Optional<Object> ofResult = Optional.of("Value");
+    Optional<Object> ofResult = Optional.of("42");
     when(selectConditionStep.fetchOptional(Mockito.<RecordMapper<Record, Object>>any()))
         .thenReturn(ofResult);
 

@@ -1,7 +1,6 @@
 package org.finos.waltz.data.logical_flow;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
@@ -169,52 +168,6 @@ class LogicalFlowIdSelectorFactoryDiffblueTest {
     // Arrange
     LogicalFlowIdSelectorFactory logicalFlowIdSelectorFactory = new LogicalFlowIdSelectorFactory();
 
-    ImmutableApplicationIdSelectionOptions.Builder builderResult =
-        ImmutableApplicationIdSelectionOptions.builder();
-
-    ImmutableApplicationIdSelectionOptions.Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    ImmutableApplicationIdSelectionOptions.Builder joiningEntityKindResult =
-        filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            logicalFlowIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllApplicationKinds(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select LogicalFlowIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions5() {
-    // Arrange
-    LogicalFlowIdSelectorFactory logicalFlowIdSelectorFactory = new LogicalFlowIdSelectorFactory();
-
     Builder builderResult = ImmutableIdSelectionOptions.builder();
 
     Builder filtersResult =
@@ -235,94 +188,6 @@ class LogicalFlowIdSelectorFactoryDiffblueTest {
 
     // Act
     assertDoesNotThrow(
-        () ->
-            logicalFlowIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select LogicalFlowIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions6() {
-    // Arrange
-    LogicalFlowIdSelectorFactory logicalFlowIdSelectorFactory = new LogicalFlowIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.of(EntityKind.ALL);
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            logicalFlowIdSelectorFactory.apply(
-                joiningEntityKindResult
-                    .addAllEntityLifecycleStatuses(new ArrayList<>())
-                    .scope(HierarchyQueryScope.EXACT)
-                    .build()));
-  }
-
-  /**
-   * Test {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)} with {@code
-   * IdSelectionOptions}.
-   *
-   * <p>Method under test: {@link LogicalFlowIdSelectorFactory#apply(IdSelectionOptions)}
-   */
-  @Test
-  @DisplayName("Test apply(IdSelectionOptions) with 'IdSelectionOptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.jooq.Select LogicalFlowIdSelectorFactory.apply(IdSelectionOptions)"})
-  void testApplyWithIdSelectionOptions7() {
-    // Arrange
-    LogicalFlowIdSelectorFactory logicalFlowIdSelectorFactory = new LogicalFlowIdSelectorFactory();
-
-    Builder builderResult = ImmutableIdSelectionOptions.builder();
-
-    Builder filtersResult =
-        builderResult
-            .entityReference(
-                ImmutableEntityReference.builder()
-                    .description("The characteristics of someone or something")
-                    .entityLifecycleStatus(EntityLifecycleStatus.ACTIVE)
-                    .externalId("42")
-                    .id(1L)
-                    .kind(EntityKind.AGGREGATE_OVERLAY_DIAGRAM)
-                    .name("Name")
-                    .build())
-            .filters(ImmutableSelectionFilters.builder().build());
-    Optional<? extends EntityKind> joiningEntityKind = Optional.empty();
-
-    Builder joiningEntityKindResult = filtersResult.joiningEntityKind(joiningEntityKind);
-
-    // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
         () ->
             logicalFlowIdSelectorFactory.apply(
                 joiningEntityKindResult

@@ -19,58 +19,6 @@ import org.junit.jupiter.api.Test;
 
 class ChangeInitiativeDiffblueTest {
   /**
-   * Test {@link ChangeInitiative#kind()}.
-   *
-   * <ul>
-   *   <li>Then return {@code ALL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ChangeInitiative#kind()}
-   */
-  @Test
-  @DisplayName("Test kind(); then return 'ALL'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"EntityKind ChangeInitiative.kind()"})
-  void testKind_thenReturnAll() {
-    // Arrange
-    Builder descriptionResult =
-        ImmutableChangeInitiative.builder()
-            .changeInitiativeKind(ChangeInitiativeKind.INITIATIVE)
-            .description("The characteristics of someone or something");
-
-    Builder kindResult =
-        descriptionResult
-            .endDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .externalId("42")
-            .id(1L)
-            .kind(EntityKind.ALL);
-
-    Builder provenanceResult =
-        kindResult
-            .lastUpdate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .lifecyclePhase(LifecyclePhase.PRODUCTION)
-            .name("Name")
-            .organisationalUnitId(1L)
-            .parentId(1L)
-            .provenance("Provenance");
-
-    // Act and Assert
-    assertEquals(
-        EntityKind.ALL,
-        provenanceResult
-            .startDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .build()
-            .kind());
-  }
-
-  /**
    * Test {@link ChangeInitiative#entityReference()}.
    *
    * <ul>
